@@ -12,9 +12,9 @@ void Redirected_Chat_Print_Formatted(void* Unknown_Parameter_1, void* Unknown_Pa
 
 	va_end(Variadic_Parameters);
 
-	auto Handle_Chat_Message = [&]() -> void
+	auto Handle_Chat_Message = [&]() -> __int8
 	{
-		if (strncmp(Formatted_Message, "[ Magic ] A", strlen(Formatted_Message)) > 0)
+		if (strncmp(Formatted_Message, "[ Magic ] A", 11) == 0)
 		{
 			Freeze_Controlled_Creature = 2;
 
@@ -23,10 +23,12 @@ void Redirected_Chat_Print_Formatted(void* Unknown_Parameter_1, void* Unknown_Pa
 			Recorder_User_Comamand_Number_History_Number = Recorder_User_Comamand_Number_History_Highest_Number;
 
 			Recorder_User_Comamand_Number_History_Highest_Number += 1;
+
+			return 1;
 		}
 		else
 		{
-			if (strncmp(Formatted_Message, "[ Magic ] B", strlen(Formatted_Message)) > 0)
+			if (strncmp(Formatted_Message, "[ Magic ] B", 11) == 0)
 			{
 				Freeze_Controlled_Creature = 2;
 
@@ -38,48 +40,71 @@ void Redirected_Chat_Print_Formatted(void* Unknown_Parameter_1, void* Unknown_Pa
 				}
 
 				Current_Recorder_User_Comamand_Number = Future_Recorder_User_Comamand_Number_History;
+
+				return 1;
 			}
 			else
 			{
-				if (strncmp(Formatted_Message, "[ Magic ] C", strlen(Formatted_Message)) > 0)
+				if (strncmp(Formatted_Message, "[ Magic ] C", 11) == 0)
 				{
 					Recorder_User_Comamand_Number_History_Number -= 1;
+
+					return 1;
 				}
 				else
 				{
-					if (strncmp(Formatted_Message, "[ Magic ] D", strlen(Formatted_Message)) > 0)
+					if (strncmp(Formatted_Message, "[ Magic ] D", 11) == 0)
 					{
 						Recorder_User_Comamand_Number_History_Number += 1;
+
+						return 1;
 					}
 					else
 					{
-						if (strncmp(Formatted_Message, "[ Magic ] E", strlen(Formatted_Message)) > 0)
-						{
-							Recorded_User_Commands.clear();
-
-							Current_Recorder_User_Comamand_Number = 0;
-
-							Recorder_User_Comamand_Number_History.clear();
-
-							Recorder_User_Comamand_Number_History_Number = 0;
-
-							Recorder_User_Comamand_Number_History_Highest_Number = 0;
-						}
+						return 0;
 					}
 				}
 			}
 		}
 	};
 
-	if (User_Commands_Recorder_Record == 1)
+	if (strlen(Formatted_Message) == 12)
 	{
-		Handle_Chat_Message();
-	}
-	else
-	{
-		if (User_Commands_Recorder_Playback == 1)
+		__int8 Handle_Chat_Message_Return_Value;
+
+		if (User_Commands_Recorder_Record == 1)
 		{
-			Handle_Chat_Message();
+			Handle_Chat_Message_Return_Value = Handle_Chat_Message();
+		}
+		else
+		{
+			if (User_Commands_Recorder_Playback == 1)
+			{
+				Handle_Chat_Message_Return_Value = Handle_Chat_Message();
+			}
+			else
+			{
+				Handle_Chat_Message_Return_Value = 0;
+			}
+		}
+
+		if (Handle_Chat_Message_Return_Value == 0)
+		{
+			if (strncmp(Formatted_Message, "[ Magic ] E", 11) == 0)
+			{
+				if (User_Commands_Recorder_Record == 1)
+				{
+					Recorded_User_Commands.clear();
+
+					Current_Recorder_User_Comamand_Number = 0;
+				}
+
+				Recorder_User_Comamand_Number_History.clear();
+
+				Recorder_User_Comamand_Number_History_Number = 0;
+
+				Recorder_User_Comamand_Number_History_Highest_Number = 0;
+			}
 		}
 	}
 

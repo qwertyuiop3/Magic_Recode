@@ -24,6 +24,8 @@ void* __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* U
 				else
 				{
 					User_Commands_Recorder_Record = 0;
+
+					Current_Recorder_User_Comamand_Number = 0;
 				}
 			};
 
