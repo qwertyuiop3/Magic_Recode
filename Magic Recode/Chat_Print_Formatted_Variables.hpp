@@ -1,0 +1,9 @@
+#pragma once
+
+std::vector<unsigned __int32> Recorder_User_Comamand_Number_History;
+
+unsigned __int32 Recorder_User_Comamand_Number_History_Number;
+
+unsigned __int32 Recorder_User_Comamand_Number_History_Highest_Number;
+
+void* Original_Chat_Print_Formatted_Caller_Location;

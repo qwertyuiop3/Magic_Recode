@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29025.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Magic Recode", "Magic Recode\Magic Recode.vcxproj", "{D92442E2-2B0F-4A56-921D-A1C1D5451B63}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Magic|32 Bits = Magic|32 Bits
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D92442E2-2B0F-4A56-921D-A1C1D5451B63}.Magic|32 Bits.ActiveCfg = Magic|Win32
+		{D92442E2-2B0F-4A56-921D-A1C1D5451B63}.Magic|32 Bits.Build.0 = Magic|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B7429765-5BED-41B3-8497-D281059ED5EE}
+	EndGlobalSection
+EndGlobal
