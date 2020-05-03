@@ -14,7 +14,7 @@ void Redirected_Chat_Print_Formatted(void* Unknown_Parameter_1, void* Unknown_Pa
 
 	auto Handle_Chat_Message = [&]() -> void
 	{
-		if (strncmp(Formatted_Message, "[ Magic ] A", strlen(Formatted_Message)) == 0)
+		if (strncmp(Formatted_Message, "[ Magic ] A", strlen(Formatted_Message)) > 0)
 		{
 			Freeze_Controlled_Creature = 2;
 
@@ -26,7 +26,7 @@ void Redirected_Chat_Print_Formatted(void* Unknown_Parameter_1, void* Unknown_Pa
 		}
 		else
 		{
-			if (strncmp(Formatted_Message, "[ Magic ] B", strlen(Formatted_Message)) == 0)
+			if (strncmp(Formatted_Message, "[ Magic ] B", strlen(Formatted_Message)) > 0)
 			{
 				Freeze_Controlled_Creature = 2;
 
@@ -41,19 +41,19 @@ void Redirected_Chat_Print_Formatted(void* Unknown_Parameter_1, void* Unknown_Pa
 			}
 			else
 			{
-				if (strncmp(Formatted_Message, "[ Magic ] C", strlen(Formatted_Message)) == 0)
+				if (strncmp(Formatted_Message, "[ Magic ] C", strlen(Formatted_Message)) > 0)
 				{
 					Recorder_User_Comamand_Number_History_Number -= 1;
 				}
 				else
 				{
-					if (strncmp(Formatted_Message, "[ Magic ] D", strlen(Formatted_Message)) == 0)
+					if (strncmp(Formatted_Message, "[ Magic ] D", strlen(Formatted_Message)) > 0)
 					{
 						Recorder_User_Comamand_Number_History_Number += 1;
 					}
 					else
 					{
-						if (strncmp(Formatted_Message, "[ Magic ] E", strlen(Formatted_Message)) == 0)
+						if (strncmp(Formatted_Message, "[ Magic ] E", strlen(Formatted_Message)) > 0)
 						{
 							Recorded_User_Commands.clear();
 
