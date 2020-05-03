@@ -189,7 +189,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 				if (Visuals_Physics_Continue_Jumping_If_Jump_Button_Held == 1)
 				{
-					static unsigned __int8 Previous_Buttons_In_Jump_Check_Modified[4] =
+					static unsigned __int8 Modified_Previous_Buttons_In_Jump_Check[4] =
 					{
 						50,
 
@@ -200,11 +200,11 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 						144
 					};
 
-					Byte_Manager::Copy_Bytes(1, Previous_Buttons_In_Jump_Check_Location, sizeof Previous_Buttons_In_Jump_Check_Modified, 0, Previous_Buttons_In_Jump_Check_Modified);
+					Byte_Manager::Copy_Bytes(1, Previous_Buttons_In_Jump_Check_Location, sizeof Modified_Previous_Buttons_In_Jump_Check, 0, Modified_Previous_Buttons_In_Jump_Check);
 				}
 				else
 				{
-					static unsigned __int8 Previous_Buttons_In_Jump_Check_Original[4] =
+					static unsigned __int8 Original_Previous_Buttons_In_Jump_Check[4] =
 					{
 						246,
 
@@ -215,7 +215,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 						2
 					};
 
-					Byte_Manager::Copy_Bytes(1, Previous_Buttons_In_Jump_Check_Location, sizeof Previous_Buttons_In_Jump_Check_Original, 0, Previous_Buttons_In_Jump_Check_Original);
+					Byte_Manager::Copy_Bytes(1, Previous_Buttons_In_Jump_Check_Location, sizeof Original_Previous_Buttons_In_Jump_Check, 0, Original_Previous_Buttons_In_Jump_Check);
 				}
 			}
 
