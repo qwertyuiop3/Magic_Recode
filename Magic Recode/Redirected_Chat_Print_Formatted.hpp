@@ -53,7 +53,7 @@ void Redirected_Chat_Print_Formatted(void* Unknown_Parameter_1, void* Unknown_Pa
 					}
 					else
 					{
-						if (strncmp(Formatted_Message, "[ Magic ] E", strlen(Formatted_Message)) == 0)
+						if (strncmp(Formatted_Message, "[ Magic ] E", strlen(Formatted_Message)) == 0)
 						{
 							Recorded_User_Commands.clear();
 
