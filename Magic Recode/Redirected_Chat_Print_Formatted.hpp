@@ -12,7 +12,7 @@ void Redirected_Chat_Print_Formatted(void* Unknown_Parameter_1, void* Unknown_Pa
 
 	va_end(Variadic_Parameters);
 
-	auto Handle_Chat_Message = [&]() -> __int8
+	auto Handle_Message = [&]() -> __int8
 	{
 		if (strncmp(Formatted_Message, "[ Magic ] A", 11) == 0)
 		{
@@ -70,25 +70,25 @@ void Redirected_Chat_Print_Formatted(void* Unknown_Parameter_1, void* Unknown_Pa
 
 	if (strlen(Formatted_Message) == 12)
 	{
-		__int8 Handle_Chat_Message_Return_Value;
+		__int8 Handle_Message_Return_Value;
 
 		if (User_Commands_Recorder_Record == 1)
 		{
-			Handle_Chat_Message_Return_Value = Handle_Chat_Message();
+			Handle_Message_Return_Value = Handle_Message();
 		}
 		else
 		{
 			if (User_Commands_Recorder_Playback == 1)
 			{
-				Handle_Chat_Message_Return_Value = Handle_Chat_Message();
+				Handle_Message_Return_Value = Handle_Message();
 			}
 			else
 			{
-				Handle_Chat_Message_Return_Value = 0;
+				Handle_Message_Return_Value = 0;
 			}
 		}
 
-		if (Handle_Chat_Message_Return_Value == 0)
+		if (Handle_Message_Return_Value == 0)
 		{
 			if (strncmp(Formatted_Message, "[ Magic ] E", 11) == 0)
 			{
