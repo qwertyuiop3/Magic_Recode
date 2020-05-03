@@ -4,7 +4,7 @@ void __fastcall Redirected_Controller_Move(void* Unknown_Parameter_1, void* Unkn
 {
 	if (Draw_Graphical_User_Interface == 0)
 	{
-		auto Controller_Move_Type = [&]() -> void
+		auto Controller_Move = [&]() -> void
 		{
 			using Controller_Move_Type = void(__thiscall*)(void* Unknown_Parameter_1, void* Unknown_Parameter_2, void* Unknown_Parameter_3);
 
@@ -17,13 +17,13 @@ void __fastcall Redirected_Controller_Move(void* Unknown_Parameter_1, void* Unkn
 
 			*(__int8*)((unsigned __int32)Unknown_Parameter_1 + 5) = 0;
 
-			Controller_Move_Type();
+			Controller_Move();
 		}
 		else
 		{
 			if (Freeze_Controlled_Creature == 0)
 			{
-				Controller_Move_Type();
+				Controller_Move();
 			}
 		}
 	}
