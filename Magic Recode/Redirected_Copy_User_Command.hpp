@@ -2,11 +2,6 @@
 
 void* __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Unknown_Parameter_2, User_Command_Structure* User_Command)
 {
-	if (Freeze_Controlled_Creature == 2)
-	{
-		Freeze_Controlled_Creature = 0;
-	}
-
 	if (Freeze_Controlled_Creature == 0)
 	{
 		static void* Copy_User_Command_Create_Move_Return_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 1338695);
