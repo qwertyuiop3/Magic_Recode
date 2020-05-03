@@ -72,8 +72,6 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 					void* Recorded_User_Commands_Recorder_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_WRITE_DATA, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
 
-					free(Adjusted_Map_Name);
-
 					WriteFile(Recorded_User_Commands_Recorder_File_Handle, Recorded_User_Commands.data(), Recorded_User_Commands.size() * sizeof User_Command_Structure, nullptr, nullptr);
 
 					CloseHandle(Recorded_User_Commands_Recorder_File_Handle);
@@ -98,13 +96,13 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 					void* Recorded_User_Commands_Recorder_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_READ_DATA | FILE_WRITE_DATA, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
 
-					free(Adjusted_Map_Name);
-
 					ReadFile(Recorded_User_Commands_Recorder_File_Handle, Recorded_User_Commands.data(), Recorded_User_Commands_Recorder_Amount * sizeof User_Command_Structure, nullptr, nullptr);
 
 					CloseHandle(Recorded_User_Commands_Recorder_File_Handle);
 				}
 			}
+
+			free(Adjusted_Map_Name);
 
 			if (ImGui::TreeNodeEx("Keybinds", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 			{
