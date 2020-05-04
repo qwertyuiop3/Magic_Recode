@@ -8,7 +8,7 @@ void* Find_Bytes(unsigned __int32 Bytes_Amount, void* Starting_Location, unsigne
 	{
 		unsigned __int32 Byte_Number = 0;
 			
-		Compare_Next_Bytes_Label:
+		Compare_Next_Byte_Label:
 		{
 			if (*(unsigned __int8*)Starting_Location == Bytes[Byte_Number])
 			{
@@ -21,7 +21,7 @@ void* Find_Bytes(unsigned __int32 Bytes_Amount, void* Starting_Location, unsigne
 
 				Byte_Number += 1;
 
-				goto Compare_Next_Bytes_Label;
+				goto Compare_Next_Byte_Label;
 			}
 		}
 
