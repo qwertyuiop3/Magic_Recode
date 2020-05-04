@@ -1,6 +1,6 @@
 #pragma once
 
-void Redirected_Chat_Print_Formatted(void* Unknown_Parameter_1, void* Unknown_Parameter_2, void* Unknown_Parameter_3, char* Message, ...)
+void Redirected_Chat_Print_Formatted(void* Chat, void* Unknown_Parameter_1, void* Unknown_Parameter_2, char* Message, ...)
 {
 	va_list Variadic_Parameters;
 
@@ -108,7 +108,7 @@ void Redirected_Chat_Print_Formatted(void* Unknown_Parameter_1, void* Unknown_Pa
 		}
 	}
 
-	using Chat_Print_Formatted_Type = void(__cdecl*)(void* Unknown_Parameter_1, void* Unknown_Parameter_2, void* Unknown_Parameter_3, char* Message);
+	using Chat_Print_Formatted_Type = void(__cdecl*)(void* Chat, void* Unknown_Parameter_1, void* Unknown_Parameter_2, char* Message);
 
-	Chat_Print_Formatted_Type((unsigned __int32)Original_Chat_Print_Formatted_Caller_Location)(Unknown_Parameter_1, Unknown_Parameter_2, Unknown_Parameter_3, Formatted_Message);
+	Chat_Print_Formatted_Type((unsigned __int32)Original_Chat_Print_Formatted_Caller_Location)(Chat, Unknown_Parameter_1, Unknown_Parameter_2, Formatted_Message);
 }

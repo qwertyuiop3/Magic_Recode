@@ -10,11 +10,7 @@ void __fastcall Redirected_Controller_Move(void* Input, void* Unknown_Parameter_
 		{
 			Previous_Draw_Graphical_User_Interface = 0;
 
-			using Reset_Mouse_Type = void(__thiscall*)(void* Input);
-
-			static void* Reset_Mouse_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 1349472);
-
-			Reset_Mouse_Type((unsigned __int32)Reset_Mouse_Location)(Input);
+			*(float*)((unsigned __int32)Input + 5) = 0;
 		}
 
 		auto Controller_Move = [&]() -> void
