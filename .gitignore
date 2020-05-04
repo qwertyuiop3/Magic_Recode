@@ -350,4 +350,5 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 
+# ImGUI Bloat-free Immediate Mode Graphical User interface for C++ with minimal dependencies
 imgui/
