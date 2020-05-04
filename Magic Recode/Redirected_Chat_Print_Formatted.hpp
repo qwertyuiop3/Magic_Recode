@@ -12,7 +12,7 @@ void Redirected_Chat_Print_Formatted(void* Unknown_Parameter_1, void* Unknown_Pa
 
 	va_end(Variadic_Parameters);
 
-	auto Handle_Message = [&]() -> __int8
+	auto Handle_Formatted_Message = [&]() -> __int8
 	{
 		if (strncmp(Formatted_Message, "[ Magic ] A", 11) == 0)
 		{
@@ -74,13 +74,13 @@ void Redirected_Chat_Print_Formatted(void* Unknown_Parameter_1, void* Unknown_Pa
 
 		if (User_Commands_Recorder_Record == 1)
 		{
-			Handle_Message_Return_Value = Handle_Message();
+			Handle_Message_Return_Value = Handle_Formatted_Message();
 		}
 		else
 		{
 			if (User_Commands_Recorder_Playback == 1)
 			{
-				Handle_Message_Return_Value = Handle_Message();
+				Handle_Message_Return_Value = Handle_Formatted_Message();
 			}
 			else
 			{
