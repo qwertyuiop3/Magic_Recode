@@ -41,7 +41,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>H:\Storage\Files\Codes\Sorted\Includes\Graphical User Interfaces\imgui\examples;H:\Storage\Files\Codes\Sorted\Includes\Graphical User Interfaces\imgui;H:\Storage\Files\Codes\Sorted\Includes\Memory Workers\Byte_Manager;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>H:\Storage\Files\Codes\Sorted\Includes\Graphical User Interfaces\imgui\examples;H:\Storage\Files\Codes\Sorted\Includes\Graphical User Interfaces\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <PreprocessorDefinitions>Bits_32;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -61,6 +61,10 @@
     <ClCompile Include="H:\Storage\Files\Codes\Sorted\Includes\Graphical User Interfaces\imgui\imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Byte_Manager.hpp" />
+    <ClInclude Include="Byte_Manager_Copy_Bytes.hpp" />
+    <ClInclude Include="Byte_Manager_Find_Bytes.hpp" />
+    <ClInclude Include="Byte_Manager_Functions.hpp" />
     <ClInclude Include="Chat_Print_Formatted.hpp" />
     <ClInclude Include="Chat_Print_Formatted_Functions.hpp" />
     <ClInclude Include="Chat_Print_Formatted_Variables.hpp" />

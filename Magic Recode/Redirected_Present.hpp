@@ -43,7 +43,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 			wchar_t* Adjusted_Map_Name = (wchar_t*)malloc(Map_Name_Length + 6);
 
-			Byte_Manager::Copy_Bytes(0, Adjusted_Map_Name, Map_Name_Length, 0, (unsigned __int8*)Map_Name_Location);
+			Byte_Manager::Copy_Bytes(0, Adjusted_Map_Name, Map_Name_Length, (unsigned __int8*)Map_Name_Location);
 
 			*(wchar_t*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length) = L'.';
 
@@ -200,7 +200,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 						144
 					};
 
-					Byte_Manager::Copy_Bytes(1, Previous_Buttons_In_Jump_Check_Location, sizeof Modified_Previous_Buttons_In_Jump_Check, 0, Modified_Previous_Buttons_In_Jump_Check);
+					Byte_Manager::Copy_Bytes(1, Previous_Buttons_In_Jump_Check_Location, sizeof Modified_Previous_Buttons_In_Jump_Check, Modified_Previous_Buttons_In_Jump_Check);
 				}
 				else
 				{
@@ -215,7 +215,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 						2
 					};
 
-					Byte_Manager::Copy_Bytes(1, Previous_Buttons_In_Jump_Check_Location, sizeof Original_Previous_Buttons_In_Jump_Check, 0, Original_Previous_Buttons_In_Jump_Check);
+					Byte_Manager::Copy_Bytes(1, Previous_Buttons_In_Jump_Check_Location, sizeof Original_Previous_Buttons_In_Jump_Check, Original_Previous_Buttons_In_Jump_Check);
 				}
 			}
 
