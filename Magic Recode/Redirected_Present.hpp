@@ -41,7 +41,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 			unsigned __int32 Map_Name_Length = wcslen((wchar_t*)Map_Name_Location) * 2;
 
-			wchar_t* Adjusted_Map_Name = (wchar_t*)malloc(Map_Name_Length + 6);
+			wchar_t* Adjusted_Map_Name = (wchar_t*)malloc(Map_Name_Length + 10);
 
 			Byte_Manager::Copy_Bytes(0, Adjusted_Map_Name, Map_Name_Length, (unsigned __int8*)Map_Name_Location);
 
@@ -49,7 +49,27 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 			*(wchar_t*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length + 2) = L'1';
 
-			*(unsigned __int16*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length + 4) = 0;
+			*(wchar_t*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length + 4) = L'.';
+
+			static __int32 Save_Number = 0;
+
+			ImGui::DragInt("Save Number", &Save_Number, 0, 0, 9);
+
+			if (Save_Number < 0)
+			{
+				Save_Number = 0;
+			}
+			else
+			{
+				if (Save_Number > 9)
+				{
+					Save_Number = 9;
+				}
+			}
+
+			*(wchar_t*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length + 6) = 48 + Save_Number;
+
+			*(unsigned __int16*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length + 8) = 0;
 
 			if (Recorded_User_Commands.empty() == 0)
 			{
@@ -58,47 +78,56 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 					User_Commands_Recorder_Record = 0;
 				}
 
-				if (ImGui::Button("Save") == 1)
+				if (User_Commands_Recorder_Record == 0)
 				{
-					void* Recorded_User_Commands_Recorder_Amount_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_WRITE_DATA, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+					if (ImGui::Button("Save") == 1)
+					{
+						void* Recorded_User_Commands_Recorder_Amount_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_WRITE_DATA, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
 
-					unsigned __int32 Recorded_User_Commands_Recorder_Amount = Recorded_User_Commands.size();
+						unsigned __int32 Recorded_User_Commands_Recorder_Amount = Recorded_User_Commands.size();
 
-					WriteFile(Recorded_User_Commands_Recorder_Amount_File_Handle, &Recorded_User_Commands_Recorder_Amount, sizeof(unsigned __int32), nullptr, nullptr);
+						WriteFile(Recorded_User_Commands_Recorder_Amount_File_Handle, &Recorded_User_Commands_Recorder_Amount, sizeof(unsigned __int32), nullptr, nullptr);
 
-					CloseHandle(Recorded_User_Commands_Recorder_Amount_File_Handle);
+						CloseHandle(Recorded_User_Commands_Recorder_Amount_File_Handle);
 
-					*(wchar_t*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length + 2) = L'2';
+						*(wchar_t*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length + 2) = L'2';
 
-					void* Recorded_User_Commands_Recorder_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_WRITE_DATA, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+						void* Recorded_User_Commands_Recorder_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_WRITE_DATA, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
 
-					WriteFile(Recorded_User_Commands_Recorder_File_Handle, Recorded_User_Commands.data(), Recorded_User_Commands.size() * sizeof User_Command_Structure, nullptr, nullptr);
+						WriteFile(Recorded_User_Commands_Recorder_File_Handle, Recorded_User_Commands.data(), Recorded_User_Commands.size() * sizeof User_Command_Structure, nullptr, nullptr);
 
-					CloseHandle(Recorded_User_Commands_Recorder_File_Handle);
+						CloseHandle(Recorded_User_Commands_Recorder_File_Handle);
+					}
 				}
 			}
 			
-			if (GetFileAttributesW(Adjusted_Map_Name) != -1)
+			if (User_Commands_Recorder_Record == 0)
 			{
-				if (ImGui::Button("Load Saved") == 1)
+				if (User_Commands_Recorder_Playback == 0)
 				{
-					void* Recorded_User_Commands_Recorder_Amount_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_READ_DATA, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+					if (GetFileAttributesW(Adjusted_Map_Name) != -1)
+					{
+						if (ImGui::Button("Load") == 1)
+						{
+							void* Recorded_User_Commands_Recorder_Amount_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_READ_DATA, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
 
-					unsigned __int32 Recorded_User_Commands_Recorder_Amount;
+							unsigned __int32 Recorded_User_Commands_Recorder_Amount;
 
-					ReadFile(Recorded_User_Commands_Recorder_Amount_File_Handle, &Recorded_User_Commands_Recorder_Amount, sizeof(unsigned __int32), nullptr, nullptr);
+							ReadFile(Recorded_User_Commands_Recorder_Amount_File_Handle, &Recorded_User_Commands_Recorder_Amount, sizeof(unsigned __int32), nullptr, nullptr);
 
-					CloseHandle(Recorded_User_Commands_Recorder_Amount_File_Handle);
+							CloseHandle(Recorded_User_Commands_Recorder_Amount_File_Handle);
 
-					Recorded_User_Commands.resize(Recorded_User_Commands_Recorder_Amount);
+							Recorded_User_Commands.resize(Recorded_User_Commands_Recorder_Amount);
 
-					*(wchar_t*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length + 2) = L'2';
+							*(wchar_t*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length + 2) = L'2';
 
-					void* Recorded_User_Commands_Recorder_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_READ_DATA | FILE_WRITE_DATA, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+							void* Recorded_User_Commands_Recorder_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_READ_DATA | FILE_WRITE_DATA, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
 
-					ReadFile(Recorded_User_Commands_Recorder_File_Handle, Recorded_User_Commands.data(), Recorded_User_Commands_Recorder_Amount * sizeof User_Command_Structure, nullptr, nullptr);
+							ReadFile(Recorded_User_Commands_Recorder_File_Handle, Recorded_User_Commands.data(), Recorded_User_Commands_Recorder_Amount * sizeof User_Command_Structure, nullptr, nullptr);
 
-					CloseHandle(Recorded_User_Commands_Recorder_File_Handle);
+							CloseHandle(Recorded_User_Commands_Recorder_File_Handle);
+						}
+					}
 				}
 			}
 

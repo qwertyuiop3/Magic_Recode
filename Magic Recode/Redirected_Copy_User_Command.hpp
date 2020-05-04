@@ -40,7 +40,7 @@ void* __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* U
 
 					User_Command->View_Angles[2] = Recorded_User_Command->View_Angles[2];
 
-					using Set_View_Angles_Type = void(__thiscall*)(void* Engine, float& View_Angles);
+					using Set_View_Angles_Type = void(__thiscall*)(void* Engine, float* View_Angles);
 
 					static void* Engine_Module_Location = GetModuleHandleW(L"engine.dll");
 
@@ -48,7 +48,7 @@ void* __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* U
 
 					static void* Engine = (void*)((unsigned __int32)Engine_Module_Location + 3916044);
 
-					Set_View_Angles_Type((unsigned __int32)Set_View_Angles_Location)(Engine, User_Command->View_Angles[0]);
+					Set_View_Angles_Type((unsigned __int32)Set_View_Angles_Location)(Engine, User_Command->View_Angles);
 
 					User_Command->Forward_Move = Recorded_User_Command->Forward_Move;
 
