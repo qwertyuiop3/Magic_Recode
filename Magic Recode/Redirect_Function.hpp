@@ -1,6 +1,6 @@
 #pragma once
 
-void Redirect_Function(void*& Original_Function_Caller_Location, unsigned __int32 Original_Function_Caller_Offset, void* Original_Function_Location, __int8 Modify_Access_Rights, void* Redirected_Function_Location)
+void Redirect_Function(void*& Original_Function_Caller_Location, unsigned __int32 Original_Function_Caller_Offset, void* Original_Function_Location, void* Redirected_Function_Location)
 {
 	unsigned long __int32 Previous_Access_Rights;
 
@@ -34,10 +34,7 @@ void Redirect_Function(void*& Original_Function_Caller_Location, unsigned __int3
 
 	VirtualProtect(Original_Function_Caller_Location, 12 + Original_Function_Caller_Offset, PAGE_EXECUTE_READWRITE, &Previous_Access_Rights);
 
-	if (Modify_Access_Rights == 1)
-	{
-		VirtualProtect(Original_Function_Location, 6, PAGE_EXECUTE_READWRITE, &Previous_Access_Rights);
-	}
+	VirtualProtect(Original_Function_Location, 6, PAGE_EXECUTE_READWRITE, &Previous_Access_Rights);
 
 	*(unsigned __int8*)Original_Function_Location = 104;
 
@@ -45,8 +42,5 @@ void Redirect_Function(void*& Original_Function_Caller_Location, unsigned __int3
 
 	*(unsigned __int8*)((unsigned __int32)Original_Function_Location + 5) = 195;
 
-	if (Modify_Access_Rights == 1)
-	{
-		VirtualProtect(Original_Function_Location, 6, Previous_Access_Rights, &Previous_Access_Rights);
-	}
+	VirtualProtect(Original_Function_Location, 6, Previous_Access_Rights, &Previous_Access_Rights);
 }
