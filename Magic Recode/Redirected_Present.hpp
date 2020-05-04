@@ -80,7 +80,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 				if (User_Commands_Recorder_Record == 0)
 				{
-					if (ImGui::Button("Save Recorded User Commands") == 1)
+					if (ImGui::Button("Save") == 1)
 					{
 						void* Recorded_User_Commands_Recorder_Amount_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_WRITE_DATA, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
 
@@ -107,7 +107,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 				{
 					if (GetFileAttributesW(Adjusted_Map_Name) != -1)
 					{
-						if (ImGui::Button("Load Recorded User Commands From Save") == 1)
+						if (ImGui::Button("Load From Save") == 1)
 						{
 							void* Recorded_User_Commands_Recorder_Amount_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_READ_DATA, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
 
