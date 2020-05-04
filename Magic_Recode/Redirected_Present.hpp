@@ -134,7 +134,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 				{
 					if (Setting_Up_Keybind[Button_Number] == 0)
 					{
-						Draw_Bound_To_Function_X_Label:
+						Draw_X_Bound_To_Function_X_Label:
 						{
 							char Formatted_Button_Name[32];
 
@@ -153,26 +153,26 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 					}
 					else
 					{
-						unsigned __int8 Function_Key = VK_F1;
+						unsigned __int8 Function_Key_Number = VK_F1;
 
-						Check_Is_Function_Key_Released_Label:
+						Is_Function_Key_Released_ChecK_Label:
 						{
-							if (Function_Key != VK_NAVIGATION_VIEW)
+							if (Function_Key_Number != VK_NAVIGATION_VIEW)
 							{
-								if (ImGui::IsKeyReleased(Function_Key) == 1)
+								if (ImGui::IsKeyReleased(Function_Key_Number) == 1)
 								{
 									Setting_Up_Keybinds = 0;
 
 									Setting_Up_Keybind[Button_Number] = 0;
 
-									Key_Number = Function_Key;
+									Key_Number = Function_Key_Number;
 
-									goto Draw_Bound_To_Function_X_Label;
+									goto Draw_X_Bound_To_Function_X_Label;
 								}
 
-								Function_Key += 1;
+								Function_Key_Number += 1;
 
-								goto Check_Is_Function_Key_Released_Label;
+								goto Is_Function_Key_Released_ChecK_Label;
 							}
 						}
 
