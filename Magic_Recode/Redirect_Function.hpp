@@ -24,7 +24,7 @@ void Redirect_Function(void*& Original_Function_Caller_Location, unsigned __int3
 		}
 	}
 
-	*(unsigned __int8*)((unsigned __int32)Original_Function_Caller_Location + 6 + Original_Function_Caller_Offset) = 104;
+	*(__int8*)((unsigned __int32)Original_Function_Caller_Location + 6 + Original_Function_Caller_Offset) = 104;
 
 	*(void**)((unsigned __int32)Original_Function_Caller_Location + 7 + Original_Function_Caller_Offset) = (void*)((unsigned __int32)Original_Function_Location + 6 + Original_Function_Caller_Offset);
 
@@ -36,7 +36,7 @@ void Redirect_Function(void*& Original_Function_Caller_Location, unsigned __int3
 
 	VirtualProtect(Original_Function_Location, 6, PAGE_EXECUTE_READWRITE, &Previous_Access_Rights);
 
-	*(unsigned __int8*)Original_Function_Location = 104;
+	*(__int8*)Original_Function_Location = 104;
 
 	*(void**)((unsigned __int32)Original_Function_Location + 1) = Redirected_Function_Location;
 
