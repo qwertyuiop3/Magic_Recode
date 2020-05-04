@@ -153,8 +153,6 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 					}
 					else
 					{
-						ImGui::Button("Press Any Function Key");
-
 						unsigned __int8 Function_Key = VK_F1;
 
 						Check_Is_Function_Key_Released_Label:
@@ -177,6 +175,8 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 								goto Check_Is_Function_Key_Released_Label;
 							}
 						}
+
+						ImGui::Button("Press Any Function Key");
 					}
 
 					Button_Number += 1;
