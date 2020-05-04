@@ -155,7 +155,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 					{
 						unsigned __int8 Function_Key_Number = VK_F1;
 
-						Is_Function_Key_Released_ChecK_Label:
+						Is_Function_Key_Released_Check_Label:
 						{
 							if (Function_Key_Number != VK_NAVIGATION_VIEW)
 							{
@@ -172,7 +172,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 								Function_Key_Number += 1;
 
-								goto Is_Function_Key_Released_ChecK_Label;
+								goto Is_Function_Key_Released_Check_Label;
 							}
 						}
 
