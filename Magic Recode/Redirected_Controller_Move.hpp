@@ -15,7 +15,7 @@ void __fastcall Redirected_Controller_Move(void* Unknown_Parameter_1, void* Unkn
 		{
 			Freeze_Controlled_Creature = 0;
 
-			*(__int8*)((unsigned __int32)Unknown_Parameter_1 + 5) = 0;
+			*(float*)((unsigned __int32)Unknown_Parameter_1 + 5) = 0;
 
 			Controller_Move();
 		}

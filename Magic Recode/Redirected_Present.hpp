@@ -67,9 +67,9 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 				}
 			}
 
-			*(unsigned __int16*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length + 6) = 48 + Save_Number;
+			*(__int16*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length + 6) = 48 + Save_Number;
 
-			*(unsigned __int16*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length + 8) = 0;
+			*(__int16*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length + 8) = 0;
 
 			if (Recorded_User_Commands.empty() == 0)
 			{
