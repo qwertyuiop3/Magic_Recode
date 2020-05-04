@@ -96,6 +96,12 @@
     <Filter Include="Header++\Controller_Move\Variables">
       <UniqueIdentifier>{0da09d25-aea7-4105-8123-678c4bd14d1b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header++\Redirection_Manager">
+      <UniqueIdentifier>{b1688387-63a6-4d30-b7bd-4f8dccf973e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header++\Redirection_Manager\Functions">
+      <UniqueIdentifier>{86f38c33-8195-4358-9fec-2122f32e9a43}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entry_Point.cpp">
@@ -270,6 +276,15 @@
     </ClInclude>
     <ClInclude Include="Initialize_Controller_Move.hpp">
       <Filter>Header++\Controller_Move\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Redirection_Manager_Functions.hpp">
+      <Filter>Header++\Redirection_Manager\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Redirect_Function.hpp">
+      <Filter>Header++\Redirection_Manager\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Redirection_Manager.hpp">
+      <Filter>Header++\Redirection_Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

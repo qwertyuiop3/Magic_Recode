@@ -41,7 +41,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>H:\Storage\Files\Codes\Sorted\Includes\Graphical User Interfaces\imgui\examples;H:\Storage\Files\Codes\Sorted\Includes\Graphical User Interfaces\imgui;H:\Storage\Files\Codes\Sorted\Includes\Memory Workers\Redirection_Manager;H:\Storage\Files\Codes\Sorted\Includes\Memory Workers\Byte_Manager;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>H:\Storage\Files\Codes\Sorted\Includes\Graphical User Interfaces\imgui\examples;H:\Storage\Files\Codes\Sorted\Includes\Graphical User Interfaces\imgui;H:\Storage\Files\Codes\Sorted\Includes\Memory Workers\Byte_Manager;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <PreprocessorDefinitions>Bits_32;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -100,10 +100,13 @@
     <ClInclude Include="Redirected_Physics_Simulate.hpp" />
     <ClInclude Include="Redirected_Present.hpp" />
     <ClInclude Include="Redirected_Window_Procedure.hpp" />
+    <ClInclude Include="Redirection_Manager.hpp" />
+    <ClInclude Include="Redirection_Manager_Functions.hpp" />
     <ClInclude Include="Redirect_Chat_Print_Formatted.hpp" />
     <ClInclude Include="Redirect_Client_Send_Move.hpp" />
     <ClInclude Include="Redirect_Controller_Move.hpp" />
     <ClInclude Include="Redirect_Copy_User_Command.hpp" />
+    <ClInclude Include="Redirect_Function.hpp" />
     <ClInclude Include="Redirect_Menu_Select.hpp" />
     <ClInclude Include="Redirect_Physics_Simulate.hpp" />
     <ClInclude Include="Redirect_Present.h" />
