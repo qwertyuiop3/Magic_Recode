@@ -18,11 +18,11 @@ void Redirected_Chat_Print_Formatted(void* Chat, void* Unknown_Parameter_1, void
 		{
 			Freeze_Controlled_Creature = 2;
 
-			Recorder_User_Comamand_Number_History.push_back(Current_Recorder_User_Comamand_Number);
+			Recorder_User_Comamand_Number_History.push_back(Recorder_User_Comamand_Number);
 
-			Recorder_User_Comamand_Number_History_Number = Recorder_User_Comamand_Number_History_Highest_Number;
+			Recorder_User_Comamand_Number_History_Number = Recorder_User_Comamand_Number_History_Greatest_Number;
 
-			Recorder_User_Comamand_Number_History_Highest_Number += 1;
+			Recorder_User_Comamand_Number_History_Greatest_Number += 1;
 
 			return 1;
 		}
@@ -39,7 +39,7 @@ void Redirected_Chat_Print_Formatted(void* Chat, void* Unknown_Parameter_1, void
 					Recorded_User_Commands.resize(Future_Recorder_User_Comamand_Number_History);
 				}
 
-				Current_Recorder_User_Comamand_Number = Future_Recorder_User_Comamand_Number_History;
+				Recorder_User_Comamand_Number = Future_Recorder_User_Comamand_Number_History;
 
 				return 1;
 			}
@@ -96,14 +96,14 @@ void Redirected_Chat_Print_Formatted(void* Chat, void* Unknown_Parameter_1, void
 				{
 					Recorded_User_Commands.clear();
 
-					Current_Recorder_User_Comamand_Number = 0;
+					Recorder_User_Comamand_Number = 0;
 				}
 
 				Recorder_User_Comamand_Number_History.clear();
 
 				Recorder_User_Comamand_Number_History_Number = 0;
 
-				Recorder_User_Comamand_Number_History_Highest_Number = 0;
+				Recorder_User_Comamand_Number_History_Greatest_Number = 0;
 			}
 		}
 	}

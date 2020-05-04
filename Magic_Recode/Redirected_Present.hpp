@@ -22,7 +22,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 			{
 				if (User_Commands_Recorder_Playback == 1)
 				{
-					Recorded_User_Commands.resize(Current_Recorder_User_Comamand_Number);
+					Recorded_User_Commands.resize(Recorder_User_Comamand_Number);
 
 					User_Commands_Recorder_Playback = 0;
 				}

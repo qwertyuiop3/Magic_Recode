@@ -27,7 +27,7 @@ unsigned __int32 __stdcall Redirected_Window_Procedure(HWND Window, unsigned __i
 
 				if (User_Commands_Recorder_Playback == 1)
 				{
-					Recorded_User_Commands.resize(Current_Recorder_User_Comamand_Number);
+					Recorded_User_Commands.resize(Recorder_User_Comamand_Number);
 
 					User_Commands_Recorder_Record = 1;
 

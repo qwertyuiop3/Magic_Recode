@@ -14,13 +14,13 @@ void* __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* U
 				{
 					Recorded_User_Commands.push_back(*(User_Command_Structure*)User_Command);
 
-					Current_Recorder_User_Comamand_Number += 1;
+					Recorder_User_Comamand_Number += 1;
 				}
 				else
 				{
 					User_Commands_Recorder_Record = 0;
 
-					Current_Recorder_User_Comamand_Number = 0;
+					Recorder_User_Comamand_Number = 0;
 				}
 			};
 
@@ -32,7 +32,7 @@ void* __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* U
 			{
 				auto Playback_Recorded_User_Commands = [&]() -> void
 				{
-					User_Command_Structure* Recorded_User_Command = &Recorded_User_Commands.at(Current_Recorder_User_Comamand_Number);
+					User_Command_Structure* Recorded_User_Command = &Recorded_User_Commands.at(Recorder_User_Comamand_Number);
 
 					User_Command->View_Angles[0] = Recorded_User_Command->View_Angles[0];
 
@@ -64,12 +64,12 @@ void* __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* U
 
 					User_Command->Mouse_Difference_Y = Recorded_User_Command->Mouse_Difference_Y;
 
-					Current_Recorder_User_Comamand_Number += 1;
+					Recorder_User_Comamand_Number += 1;
 				};
 
 				if (User_Commands_Recorder_Playback == 1)
 				{
-					if (Current_Recorder_User_Comamand_Number != Recorded_User_Commands.size())
+					if (Recorder_User_Comamand_Number != Recorded_User_Commands.size())
 					{
 						Playback_Recorded_User_Commands();
 					}
@@ -77,12 +77,12 @@ void* __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* U
 					{
 						User_Commands_Recorder_Playback = 0;
 
-						Current_Recorder_User_Comamand_Number = 0;
+						Recorder_User_Comamand_Number = 0;
 					}
 				}
 				else
 				{
-					Current_Recorder_User_Comamand_Number = 0;
+					Recorder_User_Comamand_Number = 0;
 				}
 			}
 		}
