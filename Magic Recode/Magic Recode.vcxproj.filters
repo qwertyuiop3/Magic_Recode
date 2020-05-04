@@ -113,19 +113,19 @@
     <ClCompile Include="Entry_Point.cpp">
       <Filter>С++</Filter>
     </ClCompile>
-    <ClCompile Include="H:\Storage\Files\Codes\Sorted\Includes\Graphical User Interfaces\imgui\imgui_widgets.cpp">
+    <ClCompile Include="imgui\imgui.cpp">
       <Filter>References\C++</Filter>
     </ClCompile>
-    <ClCompile Include="H:\Storage\Files\Codes\Sorted\Includes\Graphical User Interfaces\imgui\imgui.cpp">
+    <ClCompile Include="imgui\imgui_draw.cpp">
       <Filter>References\C++</Filter>
     </ClCompile>
-    <ClCompile Include="H:\Storage\Files\Codes\Sorted\Includes\Graphical User Interfaces\imgui\imgui_draw.cpp">
+    <ClCompile Include="imgui\examples\imgui_impl_dx9.cpp">
       <Filter>References\C++</Filter>
     </ClCompile>
-    <ClCompile Include="H:\Storage\Files\Codes\Sorted\Includes\Graphical User Interfaces\imgui\examples\imgui_impl_dx9.cpp">
+    <ClCompile Include="imgui\examples\imgui_impl_win32.cpp">
       <Filter>References\C++</Filter>
     </ClCompile>
-    <ClCompile Include="H:\Storage\Files\Codes\Sorted\Includes\Graphical User Interfaces\imgui\examples\imgui_impl_win32.cpp">
+    <ClCompile Include="imgui\imgui_widgets.cpp">
       <Filter>References\C++</Filter>
     </ClCompile>
   </ItemGroup>
