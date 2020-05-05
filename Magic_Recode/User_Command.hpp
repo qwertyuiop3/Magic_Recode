@@ -12,7 +12,7 @@ struct User_Command_Structure
 
 	float Up_Move;
 
-	__int32 Pressed_Buttons;
+	__int32 Buttons_State;
 
 	unsigned __int8 Impulse;
 

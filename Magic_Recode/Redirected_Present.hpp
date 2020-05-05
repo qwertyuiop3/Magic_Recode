@@ -1,11 +1,240 @@
 #pragma once
+//Work In Progress
+void Draw_Line(float From_X, float From_Y, unsigned long int Color, float To_X, float To_Y, IDirect3DDevice9* Direct_3_Dimensional_Device_9)
+{
+	struct Vertex_Structure
+	{
+		float X;
+
+		float Y;
+
+		float Z;
+
+		float Reciprocal_Homogeneous_W;
+
+		unsigned long int Color;
+
+		float Texture_X;
+
+		float Texture_Y;
+	};
+
+	Vertex_Structure Vertices[2]
+	{
+		{
+			From_X,
+
+			From_Y,
+
+			0,
+
+			0,
+
+			Color,
+
+			0,
+
+			0
+		},
+
+		{
+			To_X,
+
+			To_Y,
+
+			0,
+
+			0,
+
+			Color,
+
+			0,
+
+			0
+		}
+	};
+
+	Direct_3_Dimensional_Device_9->DrawPrimitiveUP(D3DPT_LINELIST, 1, Vertices, sizeof Vertex_Structure);
+}
+
+unsigned __int32 Hue_Saturation_Value_To_Alpha_Red_Green_Blue(float H, float S, float V)
+{
+	/*https://www.rapidtables.com/convert/color/hsv-to-rgb.html*/
+
+	float C = V * S;
+
+	float X = C * (1 - fabsf(fmodf(H / 60, 2) - 1));
+
+	float m = V - C;
+
+	float R;
+
+	float G;
+
+	float B;
+
+	if (H >= 0)
+	{
+		if (H < 60)
+		{
+			R = C;
+
+			G = X;
+
+			B = 0;
+		}
+		else
+		{
+			if (H < 120)
+			{
+				R = X;
+
+				G = C;
+
+				B = 0;
+			}
+			else
+			{
+				if (H < 180)
+				{
+					R = 0;
+
+					G = C;
+
+					B = X;
+				}
+				else
+				{
+					if (H < 240)
+					{
+						R = 0;
+
+						G = X;
+
+						B = C;
+					}
+					else
+					{
+						if (H < 300)
+						{
+							R = X;
+
+							G = 0;
+
+							B = C;
+						}
+						else
+						{
+							R = C;
+
+							G = 0;
+
+							B = X;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return D3DCOLOR_ARGB(255, (unsigned __int8)((R + m) * 255), (unsigned __int8)((G + m) * 255), (unsigned __int8)((B + m) * 255));
+}
 
 __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Device_9, void* Unknown_Parameter_1, void* Unknown_Parameter_2, void* Unknown_Parameter_3, void* Unknown_Parameter_4)
 {
+	unsigned long __int32 Previous_Direct_3_Dimensional_Render_State_Destination_Blend;
+
+	Direct_3_Dimensional_Device_9->GetRenderState(D3DRS_DESTBLEND, &Previous_Direct_3_Dimensional_Render_State_Destination_Blend);
+
+	Direct_3_Dimensional_Device_9->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+
+	Direct_3_Dimensional_Device_9->SetRenderState(D3DRS_SRGBWRITEENABLE, 0);
+
+	Direct_3_Dimensional_Device_9->SetTexture(0, nullptr);
+
+	Direct_3_Dimensional_Device_9->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
+
+	Direct_3_Dimensional_Device_9->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_DIFFUSE);
+
+	Direct_3_Dimensional_Device_9->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_TEXTURE);
+
+	IDirect3DVertexDeclaration9* Previous_Direct_3_Dimensional_Vertex_Declaration_9;
+
+	Direct_3_Dimensional_Device_9->GetVertexDeclaration(&Previous_Direct_3_Dimensional_Vertex_Declaration_9);
+
+	Direct_3_Dimensional_Device_9->SetFVF(D3DFVF_XYZRHW | D3DFVF_DIFFUSE);
+
+	IDirect3DPixelShader9* Previous_Direct_3_Dimensional_Pixel_Shader_9;
+
+	Direct_3_Dimensional_Device_9->GetPixelShader(&Previous_Direct_3_Dimensional_Pixel_Shader_9);
+
+	Direct_3_Dimensional_Device_9->SetPixelShader(nullptr);
+
+	if (Recorded_Route.size() > 1)
+	{
+		unsigned __int32 Recorded_Route_Number = 1;
+
+		D3DVIEWPORT9 Direct_3_Dimensional_Viewport_9;
+
+		Direct_3_Dimensional_Device_9->GetViewport(&Direct_3_Dimensional_Viewport_9);
+		
+		Draw_Recorded_Route_Label:
+		{
+			if (Recorded_Route_Number != Recorded_Route.size())
+			{
+				float Screen_Width = (float)Direct_3_Dimensional_Viewport_9.Width;
+
+				float Screen_Height = (float)Direct_3_Dimensional_Viewport_9.Height;
+
+				auto Convert_In_World_Location_To_On_Screen_Location = [&](float* In_World_Location, float* On_Screen_Location)
+				{
+					static float* View_Matrix_Location = (float*)((unsigned long int)GetModuleHandleW(L"engine.dll") + 5954552);
+
+					float W = In_World_Location[0] * View_Matrix_Location[12] + View_Matrix_Location[13] * In_World_Location[1] + View_Matrix_Location[14] * In_World_Location[2] + View_Matrix_Location[15];
+
+					if (W >= 0.001f)
+					{
+						float X = On_Screen_Location[0] = View_Matrix_Location[0] * In_World_Location[0] + View_Matrix_Location[1] * In_World_Location[1] + View_Matrix_Location[2] * In_World_Location[2] + View_Matrix_Location[3];
+
+						On_Screen_Location[0] = 0.5f * (X / W) * Screen_Width + 0.5f * Screen_Width;
+
+						float Y = On_Screen_Location[1] = View_Matrix_Location[4] * In_World_Location[0] + View_Matrix_Location[5] * In_World_Location[1] + View_Matrix_Location[6] * In_World_Location[2] + View_Matrix_Location[7];
+
+						On_Screen_Location[1] = -0.5f * (Y / W) * Screen_Height + 0.5f * Screen_Height;
+
+						return 1;
+					}
+
+					return 0;
+				};
+
+				float On_Screen_Location_1[3];
+
+				if (Convert_In_World_Location_To_On_Screen_Location((float*)&Recorded_Route.at(Recorded_Route_Number), On_Screen_Location_1) == 1)
+				{
+					float On_Screen_Location_2[3];
+
+					if (Convert_In_World_Location_To_On_Screen_Location((float*)&Recorded_Route.at(Recorded_Route_Number - 1), On_Screen_Location_2) == 1)
+					{
+						Draw_Line(On_Screen_Location_1[0], On_Screen_Location_1[1], Hue_Saturation_Value_To_Alpha_Red_Green_Blue((float)(Recorded_Route_Number % 361), 1, 1), On_Screen_Location_2[0], On_Screen_Location_2[1], Direct_3_Dimensional_Device_9);
+					}
+				}
+
+				Recorded_Route_Number += 1;
+
+				goto Draw_Recorded_Route_Label;
+			}
+		}
+	}
+
+	Direct_3_Dimensional_Device_9->SetRenderState(D3DRS_DESTBLEND, Previous_Direct_3_Dimensional_Render_State_Destination_Blend);
+
+	Direct_3_Dimensional_Device_9->SetVertexDeclaration(Previous_Direct_3_Dimensional_Vertex_Declaration_9);
+
+	Direct_3_Dimensional_Device_9->SetPixelShader(Previous_Direct_3_Dimensional_Pixel_Shader_9);
+
 	if (Draw_Graphical_User_Interface == 1)
 	{
-		Direct_3_Dimensional_Device_9->SetRenderState(D3DRS_SRGBWRITEENABLE, 0);
-
 		ImGui_ImplDX9_NewFrame();
 
 		ImGui_ImplWin32_NewFrame();
@@ -92,7 +321,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 					}
 				}
 			}
-			
+
 			if (User_Commands_Recorder_Record == 0)
 			{
 				if (User_Commands_Recorder_Playback == 0)
@@ -134,7 +363,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 				{
 					if (Setting_Up_Keybind[Button_Number] == 0)
 					{
-						Draw_X_Bound_To_Function_X_Label:
+						Draw_Keybind:
 						{
 							char Formatted_Button_Name[32];
 
@@ -167,7 +396,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 									Key_Number = Function_Key_Number;
 
-									goto Draw_X_Bound_To_Function_X_Label;
+									goto Draw_Keybind;
 								}
 
 								Function_Key_Number += 1;
@@ -200,6 +429,26 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 		ImGui::End();
 
 		ImGui::Begin("Visuals", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize);
+
+		if (ImGui::TreeNodeEx("Recorder", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
+		{
+			if (ImGui::TreeNodeEx("Route", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
+			{
+				if (ImGui::Checkbox("Record", (bool*)&Visuals_Recorder_Route_Record) == 1)
+				{
+					if (Visuals_Recorder_Route_Record == 1)
+					{
+						Recorded_Route.clear();
+					}
+
+					//Add Saturation Picker
+				}
+
+				ImGui::TreePop();
+			}
+
+			ImGui::TreePop();
+		}
 
 		if (ImGui::TreeNodeEx("Physics", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 		{
@@ -251,9 +500,9 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 		ImGui::Render();
 
 		ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
-
-		Direct_3_Dimensional_Device_9->SetRenderState(D3DRS_SRGBWRITEENABLE, 1);
 	}
+
+	Direct_3_Dimensional_Device_9->SetRenderState(D3DRS_SRGBWRITEENABLE, 1);
 
 	using Present_Type = __int32(__stdcall*)(IDirect3DDevice9* Direct_3_Dimensional_Device_9, void* Unknown_Parameter_1, void* Unknown_Parameter_2, void* Unknown_Parameter_3, void* Unknown_Parameter_4);
 
