@@ -66,15 +66,6 @@
     <Filter Include="Header++\Physics_Simulate\Functions">
       <UniqueIdentifier>{2fe2ede2-3250-4a60-a48d-2c5720eae876}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header++\Chat_Print_Formatted">
-      <UniqueIdentifier>{89c62fc1-31e2-4310-90c9-0cce1a47b5f6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header++\Chat_Print_Formatted\Variables">
-      <UniqueIdentifier>{8713eb2e-1fb3-4bf0-87a8-d6bcb9b29dde}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header++\Chat_Print_Formatted\Functions">
-      <UniqueIdentifier>{e4d9fcaf-75ba-41c3-a32e-d744d19465a0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header++\Client_Send_Move">
       <UniqueIdentifier>{f310699c-ea5a-4bcc-ac55-57b47bc7dd1b}</UniqueIdentifier>
     </Filter>
@@ -107,6 +98,15 @@
     </Filter>
     <Filter Include="Header++\Byte_Manager\Byte_Manager_Functions">
       <UniqueIdentifier>{0fbb85cb-3b05-4710-95d0-6347a597bf6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header++\Chat_Print_Formatted">
+      <UniqueIdentifier>{89c62fc1-31e2-4310-90c9-0cce1a47b5f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header++\Chat_Print_Formatted\Variables">
+      <UniqueIdentifier>{8713eb2e-1fb3-4bf0-87a8-d6bcb9b29dde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header++\Chat_Print_Formatted\Functions">
+      <UniqueIdentifier>{e4d9fcaf-75ba-41c3-a32e-d744d19465a0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

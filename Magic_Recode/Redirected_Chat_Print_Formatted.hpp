@@ -12,83 +12,83 @@ void Redirected_Chat_Print_Formatted(void* Chat, void* Unknown_Parameter_1, void
 
 	va_end(Variadic_Parameters);
 
-	auto Handle_Formatted_Message = [&]() -> __int8
+	if (strlen(Formatted_Message) == 12)
 	{
-		if (strncmp(Formatted_Message, "[ Magic ] A", 11) == 0)
+		__int8 Handle_Formatted_Message_Return_Value;
+
+		auto Handle_Formatted_Message = [&]() -> __int8
 		{
-			Freeze_Controlled_Creature = 2;
-
-			Recorder_User_Comamand_Number_History.push_back(Recorder_User_Comamand_Number);
-
-			Recorder_User_Comamand_Number_History_Number = Recorder_User_Comamand_Number_History_Greatest_Number;
-
-			Recorder_User_Comamand_Number_History_Greatest_Number += 1;
-
-			return 1;
-		}
-		else
-		{
-			if (strncmp(Formatted_Message, "[ Magic ] B", 11) == 0)
+			if (strncmp(Formatted_Message, "[ Magic ] A", 11) == 0)
 			{
 				Freeze_Controlled_Creature = 2;
 
-				unsigned __int32 Future_Recorder_User_Comamand_Number_History = Recorder_User_Comamand_Number_History.at(Recorder_User_Comamand_Number_History_Number);
+				Recorder_User_Comamand_Number_History.push_back(Recorder_User_Comamand_Number);
 
-				if (User_Commands_Recorder_Record == 1)
-				{
-					Recorded_User_Commands.resize(Future_Recorder_User_Comamand_Number_History);
-				}
+				Recorder_User_Comamand_Number_History_Number = Recorder_User_Comamand_Number_Greatest_History_Number;
 
-				Recorder_User_Comamand_Number = Future_Recorder_User_Comamand_Number_History;
+				Recorder_User_Comamand_Number_Greatest_History_Number += 1;
 
 				return 1;
 			}
 			else
 			{
-				if (strncmp(Formatted_Message, "[ Magic ] C", 11) == 0)
+				if (strncmp(Formatted_Message, "[ Magic ] B", 11) == 0)
 				{
-					Recorder_User_Comamand_Number_History_Number -= 1;
+					Freeze_Controlled_Creature = 2;
+
+					unsigned __int32 Future_Recorder_User_Comamand_Number_History = Recorder_User_Comamand_Number_History.at(Recorder_User_Comamand_Number_History_Number);
+
+					if (User_Commands_Recorder_Record == 1)
+					{
+						Recorded_User_Commands.resize(Future_Recorder_User_Comamand_Number_History);
+					}
+
+					Recorder_User_Comamand_Number = Future_Recorder_User_Comamand_Number_History;
 
 					return 1;
 				}
 				else
 				{
-					if (strncmp(Formatted_Message, "[ Magic ] D", 11) == 0)
+					if (strncmp(Formatted_Message, "[ Magic ] C", 11) == 0)
 					{
-						Recorder_User_Comamand_Number_History_Number += 1;
+						Recorder_User_Comamand_Number_History_Number -= 1;
 
 						return 1;
 					}
 					else
 					{
-						return 0;
+						if (strncmp(Formatted_Message, "[ Magic ] D", 11) == 0)
+						{
+							Recorder_User_Comamand_Number_History_Number += 1;
+
+							return 1;
+						}
+						else
+						{
+							return 0;
+						}
 					}
 				}
 			}
-		}
-	};
-
-	if (strlen(Formatted_Message) == 12)
-	{
-		__int8 Handle_Message_Return_Value;
+		};
 
 		if (User_Commands_Recorder_Record == 1)
 		{
-			Handle_Message_Return_Value = Handle_Formatted_Message();
+			Handle_Formatted_Message_Return_Value = Handle_Formatted_Message();
 		}
 		else
 		{
 			if (User_Commands_Recorder_Playback == 1)
 			{
-				Handle_Message_Return_Value = Handle_Formatted_Message();
+				Handle_Formatted_Message_Return_Value = Handle_Formatted_Message();
 			}
 			else
 			{
-				Handle_Message_Return_Value = 0;
+				Handle_Formatted_Message_Return_Value = 0;
 			}
 		}
 
-		if (Handle_Message_Return_Value == 0)
+		if (Handle_Formatted_Message_Return_Value == 0)
 		{
 			if (strncmp(Formatted_Message, "[ Magic ] E", 11) == 0)
 			{
@@ -103,7 +103,7 @@ void Redirected_Chat_Print_Formatted(void* Chat, void* Unknown_Parameter_1, void
 
 				Recorder_User_Comamand_Number_History_Number = 0;
 
-				Recorder_User_Comamand_Number_History_Greatest_Number = 0;
+				Recorder_User_Comamand_Number_Greatest_History_Number = 0;
 			}
 		}
 	}

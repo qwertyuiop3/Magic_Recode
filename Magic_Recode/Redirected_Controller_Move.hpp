@@ -6,13 +6,13 @@ void __fastcall Redirected_Controller_Move(void* Input, void* Unknown_Parameter_
 
 	if (Draw_Graphical_User_Interface == 0)
 	{
-		static void* Mouse_Enable_Location = (void*)((unsigned __int32)Input + 5);
+		static void* Mouse_Active_Location = (void*)((unsigned __int32)Input + 5);
 
 		if (Previous_Draw_Graphical_User_Interface == 1)
 		{
 			Previous_Draw_Graphical_User_Interface = 0;
 
-			*(float*)Mouse_Enable_Location = 0;
+			*(float*)Mouse_Active_Location = 0;
 		}
 		else
 		{
@@ -29,7 +29,7 @@ void __fastcall Redirected_Controller_Move(void* Input, void* Unknown_Parameter_
 					Freeze_Controlled_Creature = 0;
 				}
 
-				*(float*)Mouse_Enable_Location = 0;
+				*(float*)Mouse_Active_Location = 0;
 			}
 		}
 	}
