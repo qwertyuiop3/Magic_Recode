@@ -75,30 +75,54 @@ void* __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* U
 				else
 				{
 					Recorder_User_Comamand_Number = 0;
+				}
+			}
 
-					if (Visuals_Recorder_Route_Record == 1)
+			if (Visuals_Recorder_Route_Record == 1)
+			{
+				unsigned __int32 Recorded_Route_Elements_Amount = Recorded_Route.size();
+
+				using Get_Creature_Location_Type = float*(__thiscall*)(void* Creature);
+
+				static void* Get_Creature_Location_Location = (void*)((unsigned __int32)Client_Module_Location + 601456);
+
+				static void* Controlled_Creature_Container = (void*)((unsigned __int32)Client_Module_Location + 5007112);
+
+				if (Recorded_Route_Elements_Amount == 0)
+				{
+					Recorded_Route.push_back(*(Route_Structure*)Get_Creature_Location_Type(Get_Creature_Location_Location)(*(void**)Controlled_Creature_Container));
+				}
+				else
+				{
+					if (Recorded_Route_Elements_Amount != Recorded_Route.max_size())
 					{
-						using Get_Creature_Location_Type = float*(__thiscall*)(void* Creature);
+						float* Creature_Location = Get_Creature_Location_Type(Get_Creature_Location_Location)(*(void**)Controlled_Creature_Container);
 
-						static void* Get_Creature_Location_Location = (void*)((unsigned long int)Client_Module_Location + 601456);
+						float* Previous_Creature_Location = Recorded_Route.at(Recorded_Route.size() - 1).Location;
 
-						static void* Controlled_Creature_Container = (void*)((unsigned long int)Client_Module_Location + 5007112);
-
-						if (Recorded_Route.empty() == 0)
+						if (Creature_Location[0] != Previous_Creature_Location[0])
 						{
-							float* Creature_Location = Get_Creature_Location_Type(Get_Creature_Location_Location)(*(void**)Controlled_Creature_Container);
-
-							float* Previous_Creature_Location = Recorded_Route.at(Recorded_Route.size() - 1).Floating_Point_3;
-
-							if (Creature_Location[0] + Creature_Location[1] + Creature_Location[2] != Previous_Creature_Location[0] + Previous_Creature_Location[1] + Previous_Creature_Location[2])
+							Record_Route_Label:
 							{
-								Recorded_Route.push_back(*(Floating_Point_3*)Creature_Location);
+								Recorded_Route.push_back(*(Route_Structure*)Creature_Location);
 							}
 						}
 						else
 						{
-							Recorded_Route.push_back(*(Floating_Point_3*)Get_Creature_Location_Type(Get_Creature_Location_Location)(*(void**)Controlled_Creature_Container));
+							if (Creature_Location[1] != Previous_Creature_Location[1])
+							{
+								goto Record_Route_Label;
+							}
+
+							if (Creature_Location[2] != Previous_Creature_Location[2])
+							{
+								goto Record_Route_Label;
+							}
 						}
+					}
+					else
+					{
+						Visuals_Recorder_Route_Record = 0;
 					}
 				}
 			}

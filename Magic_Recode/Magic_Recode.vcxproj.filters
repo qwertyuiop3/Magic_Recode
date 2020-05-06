@@ -304,5 +304,8 @@
     <ClInclude Include="Byte_Manager.hpp">
       <Filter>Header++\Byte_Manager</Filter>
     </ClInclude>
+    <ClInclude Include="Route.hpp">
+      <Filter>Header++\Copy_User_Command\Structures</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

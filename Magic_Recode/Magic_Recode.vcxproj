@@ -114,6 +114,7 @@
     <ClInclude Include="Redirect_Physics_Simulate.hpp" />
     <ClInclude Include="Redirect_Present.h" />
     <ClInclude Include="Redirect_Window_Procedure.hpp" />
+    <ClInclude Include="Route.hpp" />
     <ClInclude Include="User_Command.hpp" />
     <ClInclude Include="Window_Procedure.hpp" />
     <ClInclude Include="Window_Procedure_Functions.hpp" />

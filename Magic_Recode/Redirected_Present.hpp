@@ -1,144 +1,4 @@
 #pragma once
-//Work In Progress
-void Draw_Line(float From_X, float From_Y, unsigned long int Color, float To_X, float To_Y, IDirect3DDevice9* Direct_3_Dimensional_Device_9)
-{
-	struct Vertex_Structure
-	{
-		float X;
-
-		float Y;
-
-		float Z;
-
-		float Reciprocal_Homogeneous_W;
-
-		unsigned long int Color;
-
-		float Texture_X;
-
-		float Texture_Y;
-	};
-
-	Vertex_Structure Vertices[2]
-	{
-		{
-			From_X,
-
-			From_Y,
-
-			0,
-
-			0,
-
-			Color,
-
-			0,
-
-			0
-		},
-
-		{
-			To_X,
-
-			To_Y,
-
-			0,
-
-			0,
-
-			Color,
-
-			0,
-
-			0
-		}
-	};
-
-	Direct_3_Dimensional_Device_9->DrawPrimitiveUP(D3DPT_LINELIST, 1, Vertices, sizeof Vertex_Structure);
-}
-
-unsigned __int32 Hue_Saturation_Value_To_Alpha_Red_Green_Blue(float H, float S, float V)
-{
-	/*https://www.rapidtables.com/convert/color/hsv-to-rgb.html*/
-
-	float C = V * S;
-
-	float X = C * (1 - fabsf(fmodf(H / 60, 2) - 1));
-
-	float m = V - C;
-
-	float R;
-
-	float G;
-
-	float B;
-
-	if (H >= 0)
-	{
-		if (H < 60)
-		{
-			R = C;
-
-			G = X;
-
-			B = 0;
-		}
-		else
-		{
-			if (H < 120)
-			{
-				R = X;
-
-				G = C;
-
-				B = 0;
-			}
-			else
-			{
-				if (H < 180)
-				{
-					R = 0;
-
-					G = C;
-
-					B = X;
-				}
-				else
-				{
-					if (H < 240)
-					{
-						R = 0;
-
-						G = X;
-
-						B = C;
-					}
-					else
-					{
-						if (H < 300)
-						{
-							R = X;
-
-							G = 0;
-
-							B = C;
-						}
-						else
-						{
-							R = C;
-
-							G = 0;
-
-							B = X;
-						}
-					}
-				}
-			}
-		}
-	}
-
-	return D3DCOLOR_ARGB(255, (unsigned __int8)((R + m) * 255), (unsigned __int8)((G + m) * 255), (unsigned __int8)((B + m) * 255));
-}
 
 __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Device_9, void* Unknown_Parameter_1, void* Unknown_Parameter_2, void* Unknown_Parameter_3, void* Unknown_Parameter_4)
 {
@@ -169,26 +29,28 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 	Direct_3_Dimensional_Device_9->GetPixelShader(&Previous_Direct_3_Dimensional_Pixel_Shader_9);
 
 	Direct_3_Dimensional_Device_9->SetPixelShader(nullptr);
+	
+	unsigned __int32 Recorded_Route_Elements_Amount = Recorded_Route.size();
 
-	if (Recorded_Route.size() > 1)
+	if (Recorded_Route_Elements_Amount > 1)
 	{
 		unsigned __int32 Recorded_Route_Number = 1;
 
 		D3DVIEWPORT9 Direct_3_Dimensional_Viewport_9;
 
 		Direct_3_Dimensional_Device_9->GetViewport(&Direct_3_Dimensional_Viewport_9);
+
+		float Screen_Width = (float)Direct_3_Dimensional_Viewport_9.Width;
+
+		float Screen_Height = (float)Direct_3_Dimensional_Viewport_9.Height;
 		
 		Draw_Recorded_Route_Label:
 		{
-			if (Recorded_Route_Number != Recorded_Route.size())
+			if (Recorded_Route_Number != Recorded_Route_Elements_Amount)
 			{
-				float Screen_Width = (float)Direct_3_Dimensional_Viewport_9.Width;
-
-				float Screen_Height = (float)Direct_3_Dimensional_Viewport_9.Height;
-
-				auto Convert_In_World_Location_To_On_Screen_Location = [&](float* In_World_Location, float* On_Screen_Location)
+				auto In_World_Location_To_On_Screen_Location = [&](float* In_World_Location, float* On_Screen_Location) -> __int8
 				{
-					static float* View_Matrix_Location = (float*)((unsigned long int)GetModuleHandleW(L"engine.dll") + 5954552);
+					static float* View_Matrix_Location = (float*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 5954552);
 
 					float W = In_World_Location[0] * View_Matrix_Location[12] + View_Matrix_Location[13] * In_World_Location[1] + View_Matrix_Location[14] * In_World_Location[2] + View_Matrix_Location[15];
 
@@ -210,13 +72,95 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 				float On_Screen_Location_1[3];
 
-				if (Convert_In_World_Location_To_On_Screen_Location((float*)&Recorded_Route.at(Recorded_Route_Number), On_Screen_Location_1) == 1)
+				if (In_World_Location_To_On_Screen_Location((float*)&Recorded_Route.at(Recorded_Route_Number - 1), On_Screen_Location_1) == 1)
 				{
 					float On_Screen_Location_2[3];
 
-					if (Convert_In_World_Location_To_On_Screen_Location((float*)&Recorded_Route.at(Recorded_Route_Number - 1), On_Screen_Location_2) == 1)
+					if (In_World_Location_To_On_Screen_Location((float*)&Recorded_Route.at(Recorded_Route_Number), On_Screen_Location_2) == 1)
 					{
-						Draw_Line(On_Screen_Location_1[0], On_Screen_Location_1[1], Hue_Saturation_Value_To_Alpha_Red_Green_Blue((float)(Recorded_Route_Number % 361), 1, 1), On_Screen_Location_2[0], On_Screen_Location_2[1], Direct_3_Dimensional_Device_9);
+						struct Vertex_Structure
+						{
+							float X;
+
+							float Y;
+
+							float Z;
+
+							float Reciprocal_Homogeneous_W;
+
+							unsigned __int32 Color;
+
+							float Texture_X;
+
+							float Texture_Y;
+						};
+
+						auto Hue_To_Alpha_Red_Green_Blue = [](float Hue) -> unsigned __int32
+						{
+							if (Hue < 60)
+							{
+								return D3DCOLOR_ARGB(255, 255, (unsigned __int8)(1 - fabsf(fmodf(Hue / 60, 2) - 1) * 255), 0);
+							}
+
+							if (Hue < 120)
+							{
+								return D3DCOLOR_ARGB(255, (unsigned __int8)(1 - fabsf(fmodf(Hue / 60, 2) - 1) * 255), 255, 0);
+							}
+
+							if (Hue < 180)
+							{
+								return D3DCOLOR_ARGB(255, 0, 255, (unsigned __int8)(1 - fabsf(fmodf(Hue / 60, 2) - 1) * 255));
+							}
+
+							if (Hue < 240)
+							{
+								return D3DCOLOR_ARGB(255, 0, (unsigned __int8)(1 - fabsf(fmodf(Hue / 60, 2) - 1) * 255), 255);
+							}
+
+							if (Hue < 300)
+							{
+								return D3DCOLOR_ARGB(255, (unsigned __int8)(1 - fabsf(fmodf(Hue / 60, 2) - 1) * 255), 0, 255);
+							}
+
+							return D3DCOLOR_ARGB(255, 255, 0, (unsigned __int8)(1 - fabsf(fmodf(Hue / 60, 2) - 1) * 255));
+						};
+
+						Vertex_Structure Vertices[2]
+						{
+							{
+								On_Screen_Location_1[0],
+
+								On_Screen_Location_1[1],
+
+								0,
+
+								0,
+
+								Hue_To_Alpha_Red_Green_Blue((float)((Recorded_Route_Number - 1) % 361)),
+
+								0,
+
+								0
+							},
+
+							{
+								On_Screen_Location_2[0],
+
+								On_Screen_Location_2[1],
+
+								0,
+
+								0,
+
+								Hue_To_Alpha_Red_Green_Blue((float)(Recorded_Route_Number % 361)),
+
+								0,
+
+								0
+							}
+						};
+
+						Direct_3_Dimensional_Device_9->DrawPrimitiveUP(D3DPT_LINELIST, 1, Vertices, sizeof Vertex_Structure);
 					}
 				}
 
@@ -313,7 +257,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 						WriteFile(Recorded_User_Commands_File_Handle, &Recorded_User_Commands_Amount, sizeof(unsigned __int32), nullptr, nullptr);
 
-						SetFilePointer(Recorded_User_Commands_File_Handle, sizeof(unsigned __int32), 0, FILE_BEGIN);
+						SetFilePointer(Recorded_User_Commands_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
 
 						WriteFile(Recorded_User_Commands_File_Handle, Recorded_User_Commands.data(), Recorded_User_Commands.size() * sizeof User_Command_Structure, nullptr, nullptr);
 
@@ -338,7 +282,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 							Recorded_User_Commands.resize(Recorded_User_Commands_Amount);
 
-							SetFilePointer(Recorded_User_Commands_File_Handle, sizeof(unsigned __int32), 0, FILE_BEGIN);
+							SetFilePointer(Recorded_User_Commands_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
 
 							ReadFile(Recorded_User_Commands_File_Handle, Recorded_User_Commands.data(), Recorded_User_Commands_Amount * sizeof User_Command_Structure, nullptr, nullptr);
 
@@ -440,8 +384,6 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 					{
 						Recorded_Route.clear();
 					}
-
-					//Add Saturation Picker
 				}
 
 				ImGui::TreePop();
