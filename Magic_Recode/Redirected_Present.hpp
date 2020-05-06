@@ -351,58 +351,58 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 		
 		if (ImGui::TreeNodeEx("Player", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 		{
-			auto Load_From_File_Button = [&]()
+			if (User_Commands_Recorder_Record == 0)
 			{
-				if (GetFileAttributesW(Adjusted_Map_Name) != -1)
+				auto Load_From_File_Button = [&]()
 				{
-					if (ImGui::Button("Load From File") == 1)
+					if (GetFileAttributesW(Adjusted_Map_Name) != -1)
 					{
-						void* Recorded_User_Commands_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_READ_DATA, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+						if (ImGui::Button("Load From File") == 1)
+						{
+							void* Recorded_User_Commands_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_READ_DATA, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
 
-						unsigned __int32 Recorded_User_Commands_Amount;
+							unsigned __int32 Recorded_User_Commands_Amount;
 
-						ReadFile(Recorded_User_Commands_File_Handle, &Recorded_User_Commands_Amount, sizeof(unsigned __int32), nullptr, nullptr);
+							ReadFile(Recorded_User_Commands_File_Handle, &Recorded_User_Commands_Amount, sizeof(unsigned __int32), nullptr, nullptr);
 
-						Recorded_User_Commands.resize(Recorded_User_Commands_Amount);
+							Recorded_User_Commands.resize(Recorded_User_Commands_Amount);
 
-						SetFilePointer(Recorded_User_Commands_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
+							SetFilePointer(Recorded_User_Commands_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
 
-						ReadFile(Recorded_User_Commands_File_Handle, Recorded_User_Commands.data(), Recorded_User_Commands_Amount * sizeof User_Command_Structure, nullptr, nullptr);
+							ReadFile(Recorded_User_Commands_File_Handle, Recorded_User_Commands.data(), Recorded_User_Commands_Amount * sizeof User_Command_Structure, nullptr, nullptr);
 
-						CloseHandle(Recorded_User_Commands_File_Handle);
+							CloseHandle(Recorded_User_Commands_File_Handle);
+						}
 					}
-				}
-			};
+				};
 
-			if (Recorded_User_Commands.empty() == 0)
-			{
-				if (ImGui::Checkbox("Playback", (bool*)&User_Commands_Recorder_Playback) == 1)
+				if (Recorded_User_Commands.empty() == 0)
 				{
-					User_Commands_Recorder_Record = 0;
-				}
+					if (ImGui::Checkbox("Playback", (bool*)&User_Commands_Recorder_Playback) == 1)
+					{
+						User_Commands_Recorder_Record = 0;
+					}
 
-				if (User_Commands_Recorder_Playback == 0)
-				{
-					if (User_Commands_Recorder_Record == 0)
+					if (User_Commands_Recorder_Playback == 0)
 					{
 						Save_Number_Editor();
 
 						Load_From_File_Button();
 					}
-				}
 
-				if (ImGui::TreeNodeEx("Keybinds", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
+					if (ImGui::TreeNodeEx("Keybinds", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
+					{
+						Setup_Keybind((char*)"Playback", User_Commands_Recorder_Playback_Bound_To, Button_Number);
+
+						ImGui::TreePop();
+					}
+				}
+				else
 				{
-					Setup_Keybind((char*)"Playback", User_Commands_Recorder_Playback_Bound_To, Button_Number);
+					Save_Number_Editor();
 
-					ImGui::TreePop();
+					Load_From_File_Button();
 				}
-			}
-			else
-			{
-				Save_Number_Editor();
-
-				Load_From_File_Button();
 			}
 
 			ImGui::TreePop();
