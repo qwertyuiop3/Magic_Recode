@@ -46,6 +46,8 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 			Direct_3_Dimensional_Device_9->SetPixelShader(nullptr);
 			
+			__int8 Stop_Drawing_Route = 0;
+
 			Draw_Route_Label:
 			{
 				if (Route_Number != Route_Elements_Amount)
@@ -154,14 +156,19 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 						}
 					}
 
-					Route_Number += Visuals_Route_Step;
-
-					if (Route_Number > Route_Elements_Amount)
+					if (Stop_Drawing_Route != 1)
 					{
-						Route_Number -= Route_Number - Route_Elements_Amount;
-					}
+						Route_Number += Visuals_Route_Step;
 
-					goto Draw_Route_Label;
+						if (Route_Number >= Route_Elements_Amount)
+						{
+							Route_Number = Route_Elements_Amount - 1;
+
+							Stop_Drawing_Route = 1;
+						}
+
+						goto Draw_Route_Label;
+					}
 				}
 			}
 
