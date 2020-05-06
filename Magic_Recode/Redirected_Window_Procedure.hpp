@@ -46,20 +46,21 @@ unsigned __int32 __stdcall Redirected_Window_Procedure(HWND Window, unsigned __i
 				return 1;
 			}
 
-			if (Recorded_User_Commands.empty() == 0)
+			if (User_Commands_Recorder_Record == 0)
 			{
-				if (Parameter_1 == User_Commands_Recorder_Playback_Bound_To)
+				if (Recorded_User_Commands.empty() == 0)
 				{
-					if (Message == WM_KEYDOWN)
+					if (Parameter_1 == User_Commands_Recorder_Playback_Bound_To)
 					{
+						if (Message == WM_KEYDOWN)
+						{
+							return 1;
+						}
+
+						User_Commands_Recorder_Playback ^= 1;
+
 						return 1;
 					}
-
-					User_Commands_Recorder_Record = 0;
-
-					User_Commands_Recorder_Playback ^= 1;
-
-					return 1;
 				}
 			}
 
