@@ -4,7 +4,7 @@ std::vector<User_Command_Structure> Recorded_User_Commands;
 
 unsigned __int32 Recorder_User_Comamand_Number;
 
-__int8 Visuals_Recorder_Route_Record;
+__int8 Route_Recorder_Record;
 
 std::vector<Route_Structure> Recorded_Route;
 

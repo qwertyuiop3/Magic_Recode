@@ -34,6 +34,8 @@ __int32 __stdcall DllMain(void* This_Module_Location, unsigned __int32 Call_Reas
 
 		Redirect_Window_Procedure(Game_Window);
 
+		Initialize_Present();
+		
 		Redirect_Present();
 	}
 

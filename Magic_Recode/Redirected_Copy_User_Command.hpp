@@ -78,7 +78,7 @@ void* __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* U
 				}
 			}
 
-			if (Visuals_Recorder_Route_Record == 1)
+			if (Route_Recorder_Record == 1)
 			{
 				unsigned __int32 Recorded_Route_Elements_Amount = Recorded_Route.size();
 
@@ -122,7 +122,7 @@ void* __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* U
 					}
 					else
 					{
-						Visuals_Recorder_Route_Record = 0;
+						Route_Recorder_Record = 0;
 					}
 				}
 			}

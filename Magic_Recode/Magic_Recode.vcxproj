@@ -82,6 +82,7 @@
     <ClInclude Include="Initialize_Copy_User_Command.hpp" />
     <ClInclude Include="Initialize_I_Am_Graphical_User_Interface.hpp" />
     <ClInclude Include="Initialize_Menu_Select.hpp" />
+    <ClInclude Include="Initialize_Present.hpp" />
     <ClInclude Include="Initialize_Redirect_Chat_Print_Formatted.hpp" />
     <ClInclude Include="Initialize_Window_Procedure.hpp" />
     <ClInclude Include="I_Am_Graphical_User_Interface.hpp" />
