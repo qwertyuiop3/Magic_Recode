@@ -63,6 +63,21 @@ unsigned __int32 __stdcall Redirected_Window_Procedure(HWND Window, unsigned __i
 				}
 			}
 
+			if (Parameter_1 == Route_Recorder_Record_Bound_To)
+			{
+				if (Message == WM_KEYDOWN)
+				{
+					return 1;
+				}
+
+				Route_Recorder_Record ^= 1;
+
+				if (Route_Recorder_Record == 1)
+				{
+					Route.clear();
+				}
+			}
+
 			return 0;
 		};
 

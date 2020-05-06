@@ -6,9 +6,9 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 	{
 		unsigned __int32 Route_Elements_Amount = Route.size();
 
-		if (Route_Elements_Amount > Visuals_Recorded_Route_Step_Size)
+		if (Route_Elements_Amount > Visuals_Recorded_Route_Step_Length)
 		{
-			unsigned __int32 Route_Number = Visuals_Recorded_Route_Step_Size;
+			unsigned __int32 Route_Number = Visuals_Recorded_Route_Step_Length;
 
 			D3DVIEWPORT9 Direct_3_Dimensional_Viewport_9;
 
@@ -76,7 +76,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 					float Route_On_Screen_Location_From[2];
 
-					if (In_World_Location_To_On_Screen_Location((float*)&Route.at(Route_Number - Visuals_Recorded_Route_Step_Size), Route_On_Screen_Location_From) == 1)
+					if (In_World_Location_To_On_Screen_Location((float*)&Route.at(Route_Number - Visuals_Recorded_Route_Step_Length), Route_On_Screen_Location_From) == 1)
 					{
 						float Route_On_Screen_Location_To[2];
 
@@ -136,7 +136,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 									0,
 
-									Hue_To_Alpha_Red_Green_Blue((float)((Route_Number - Visuals_Recorded_Route_Step_Size) % 361))
+									Hue_To_Alpha_Red_Green_Blue((float)((Route_Number - Visuals_Recorded_Route_Step_Length) % 361))
 								},
 
 								{
@@ -158,7 +158,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 					if (Stop_Drawing_Route != 1)
 					{
-						Route_Number += Visuals_Recorded_Route_Step_Size;
+						Route_Number += Visuals_Recorded_Route_Step_Length;
 
 						if (Route_Number >= Route_Elements_Amount)
 						{
@@ -234,8 +234,10 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 			}
 		};
 
-		static __int8 Setting_Up_Keybind[2] =
+		static __int8 Setting_Up_Keybind[3] =
 		{
+			0,
+
 			0,
 
 			0
@@ -424,6 +426,13 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 				}
 			}
 			
+			if (ImGui::TreeNodeEx("Keybinds", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
+			{
+				Setup_Keybind((char*)"Record", Route_Recorder_Record_Bound_To, Button_Number);
+
+				ImGui::TreePop();
+			}
+
 			ImGui::TreePop();
 		}
 
@@ -435,21 +444,21 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 		{
 			ImGui::Checkbox("Draw", (bool*)&Visuals_Recorded_Route_Draw);
 
-			static unsigned __int32 Visuals_Recorded_Route_Step_Size_Minimum = 1;
+			static unsigned __int32 Visuals_Recorded_Route_Step_Length_Minimum = 1;
 
-			static unsigned __int32 Visuals_Recorded_Route_Step_Size_Maximum = UINT_MAX;
+			static unsigned __int32 Visuals_Recorded_Route_Step_Length_Maximum = UINT_MAX;
 
-			if (ImGui::DragScalar("Step Size", ImGuiDataType_U32, &Visuals_Recorded_Route_Step_Size, 1, &Visuals_Recorded_Route_Step_Size_Minimum, &Visuals_Recorded_Route_Step_Size_Maximum, "%i") == 1)
+			if (ImGui::DragScalar("Step Length", ImGuiDataType_U32, &Visuals_Recorded_Route_Step_Length, 1, &Visuals_Recorded_Route_Step_Length_Minimum, &Visuals_Recorded_Route_Step_Length_Maximum, "%i") == 1)
 			{
-				if (Visuals_Recorded_Route_Step_Size < Visuals_Recorded_Route_Step_Size_Minimum)
+				if (Visuals_Recorded_Route_Step_Length < Visuals_Recorded_Route_Step_Length_Minimum)
 				{
-					Visuals_Recorded_Route_Step_Size = Visuals_Recorded_Route_Step_Size_Minimum;
+					Visuals_Recorded_Route_Step_Length = Visuals_Recorded_Route_Step_Length_Minimum;
 				}
 				else
 				{
-					if (Visuals_Recorded_Route_Step_Size > Visuals_Recorded_Route_Step_Size)
+					if (Visuals_Recorded_Route_Step_Length > Visuals_Recorded_Route_Step_Length)
 					{
-						Visuals_Recorded_Route_Step_Size = Visuals_Recorded_Route_Step_Size_Maximum;
+						Visuals_Recorded_Route_Step_Length = Visuals_Recorded_Route_Step_Length_Maximum;
 					}
 				}
 			}
