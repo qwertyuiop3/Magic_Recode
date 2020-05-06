@@ -134,7 +134,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 									0,
 
-									Hue_To_Alpha_Red_Green_Blue((float)((Route_Number - 1) % 361))
+									Hue_To_Alpha_Red_Green_Blue((float)((Route_Number - Visuals_Route_Step) % 361))
 								},
 
 								{
