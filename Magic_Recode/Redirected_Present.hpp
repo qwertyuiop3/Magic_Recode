@@ -208,13 +208,13 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 		static __int8 Save_Number = 0;
 
-		static __int8 Save_Number_Minimum = 0;
-
-		static __int8 Save_Number_Maximum = 9;
-
 		*(__int16*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length + 2) = 48 + Save_Number;
 
 		*(__int16*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length + 4) = 0;
+
+		static __int8 Save_Number_Minimum = 0;
+
+		static __int8 Save_Number_Maximum = 9;
 
 		auto Save_Number_Editor = [&]()
 		{
@@ -299,26 +299,26 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 		{
 			if (ImGui::Checkbox("Record", (bool*)&User_Commands_Recorder_Record) == 1)
 			{
-				if (User_Commands_Recorder_Playback == 1)
+				if (User_Commands_Recorder_Record == 1)
 				{
-					Recorded_User_Commands.resize(Recorder_User_Comamand_Number);
-
-					User_Commands_Recorder_Playback = 0;
-				}
-				else
-				{
-					if (User_Commands_Recorder_Record == 1)
+					if (User_Commands_Recorder_Playback == 1)
 					{
-						Recorded_User_Commands.clear();
-
 						User_Commands_Recorder_Playback = 0;
+
+						Recorded_User_Commands.resize(Recorder_User_Comamand_Number);
+					}
+					else
+					{
+						User_Commands_Recorder_Playback = 0;
+
+						Recorded_User_Commands.clear();
 					}
 				}
 			}
 
-			if (Recorded_User_Commands.empty() == 0)
+			if (User_Commands_Recorder_Record == 0)
 			{
-				if (User_Commands_Recorder_Record == 0)
+				if (Recorded_User_Commands.empty() == 0)
 				{
 					Save_Number_Editor();
 
