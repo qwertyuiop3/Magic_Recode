@@ -70,13 +70,13 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 					return 0;
 				};
 
-				float On_Screen_Location_1[3];
+				float Route_On_Screen_Location_From[2];
 
-				if (In_World_Location_To_On_Screen_Location((float*)&Recorded_Route.at(Recorded_Route_Number - 1), On_Screen_Location_1) == 1)
+				if (In_World_Location_To_On_Screen_Location((float*)&Recorded_Route.at(Recorded_Route_Number - 1), Route_On_Screen_Location_From) == 1)
 				{
-					float On_Screen_Location_2[3];
+					float Route_On_Screen_Location_To[2];
 
-					if (In_World_Location_To_On_Screen_Location((float*)&Recorded_Route.at(Recorded_Route_Number), On_Screen_Location_2) == 1)
+					if (In_World_Location_To_On_Screen_Location((float*)&Recorded_Route.at(Recorded_Route_Number), Route_On_Screen_Location_To) == 1)
 					{
 						struct Vertex_Structure
 						{
@@ -128,9 +128,9 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 						Vertex_Structure Vertices[2]
 						{
 							{
-								On_Screen_Location_1[0],
+								Route_On_Screen_Location_From[0],
 
-								On_Screen_Location_1[1],
+								Route_On_Screen_Location_From[1],
 
 								0,
 
@@ -144,9 +144,9 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 							},
 
 							{
-								On_Screen_Location_2[0],
+								Route_On_Screen_Location_To[0],
 
-								On_Screen_Location_2[1],
+								Route_On_Screen_Location_To[1],
 
 								0,
 
