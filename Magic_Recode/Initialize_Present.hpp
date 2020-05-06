@@ -2,7 +2,7 @@
 
 void Initialize_Present()
 {
-	Visuals_Recorded_Route_Draw = 0;
+	Visuals_Route_Draw = 0;
 
-	Visuals_Recorded_Route_Step = 1;
+	Visuals_Route_Step = 1;
 }
