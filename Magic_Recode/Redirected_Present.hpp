@@ -156,7 +156,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 					Recorded_Route_Number += Visuals_Recorded_Route_Step;
 
-					if (Recorded_Route_Number >= Recorded_Route_Elements_Amount)
+					if (Recorded_Route_Number > Recorded_Route_Elements_Amount)
 					{
 						Recorded_Route_Number -= Recorded_Route_Number - Recorded_Route_Elements_Amount;
 					}
