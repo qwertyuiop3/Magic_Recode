@@ -2,13 +2,13 @@
 
 __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Device_9, void* Unknown_Parameter_1, void* Unknown_Parameter_2, void* Unknown_Parameter_3, void* Unknown_Parameter_4)
 {
-	if (Visuals_Route_Draw == 1)
+	if (Visuals_Recorded_Route_Draw == 1)
 	{
 		unsigned __int32 Route_Elements_Amount = Route.size();
 
-		if (Route_Elements_Amount > Visuals_Route_Step)
+		if (Route_Elements_Amount > Visuals_Recorded_Route_Step_Size)
 		{
-			unsigned __int32 Route_Number = Visuals_Route_Step;
+			unsigned __int32 Route_Number = Visuals_Recorded_Route_Step_Size;
 
 			D3DVIEWPORT9 Direct_3_Dimensional_Viewport_9;
 
@@ -76,7 +76,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 					float Route_On_Screen_Location_From[2];
 
-					if (In_World_Location_To_On_Screen_Location((float*)&Route.at(Route_Number - Visuals_Route_Step), Route_On_Screen_Location_From) == 1)
+					if (In_World_Location_To_On_Screen_Location((float*)&Route.at(Route_Number - Visuals_Recorded_Route_Step_Size), Route_On_Screen_Location_From) == 1)
 					{
 						float Route_On_Screen_Location_To[2];
 
@@ -136,7 +136,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 									0,
 
-									Hue_To_Alpha_Red_Green_Blue((float)((Route_Number - Visuals_Route_Step) % 361))
+									Hue_To_Alpha_Red_Green_Blue((float)((Route_Number - Visuals_Recorded_Route_Step_Size) % 361))
 								},
 
 								{
@@ -158,7 +158,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 					if (Stop_Drawing_Route != 1)
 					{
-						Route_Number += Visuals_Route_Step;
+						Route_Number += Visuals_Recorded_Route_Step_Size;
 
 						if (Route_Number >= Route_Elements_Amount)
 						{
@@ -196,6 +196,105 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 		static void* Client_Module_Location = GetModuleHandleW(L"client.dll");
 
+		static void* Map_Name_Location = (void*)((unsigned __int32)Client_Module_Location + 5245916);
+
+		unsigned __int32 Map_Name_Length = wcslen((wchar_t*)Map_Name_Location) * 2;
+
+		wchar_t* Adjusted_Map_Name = (wchar_t*)malloc(Map_Name_Length + 6);
+
+		Byte_Manager::Copy_Bytes(0, Adjusted_Map_Name, Map_Name_Length, (unsigned __int8*)Map_Name_Location);
+
+		*(wchar_t*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length) = L'.';
+
+		static __int8 Save_Number = 0;
+
+		static __int8 Save_Number_Minimum = 0;
+
+		static __int8 Save_Number_Maximum = 9;
+
+		*(__int16*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length + 2) = 48 + Save_Number;
+
+		*(__int16*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length + 4) = 0;
+
+		auto Save_Number_Editor = [&]()
+		{
+			if (ImGui::DragScalar("Save Number", ImGuiDataType_S8, &Save_Number, 1, &Save_Number_Minimum, &Save_Number_Maximum, "%i") == 1)
+			{
+				if (Save_Number < Save_Number_Minimum)
+				{
+					Save_Number = Save_Number_Minimum;
+				}
+				else
+				{
+					if (Save_Number > Save_Number_Maximum)
+					{
+						Save_Number = Save_Number_Maximum;
+					}
+				}
+			}
+		};
+
+		static __int8 Setting_Up_Keybind[2] =
+		{
+			0,
+
+			0
+		};
+
+		auto Setup_Keybind = [](char* Function_Name, unsigned __int8& Key_Number, __int8& Button_Number) -> void
+		{
+			if (Setting_Up_Keybind[Button_Number] == 0)
+			{
+				Draw_Keybind:
+				{
+					char Formatted_Button_Name[32];
+
+					sprintf_s(Formatted_Button_Name, "%s Bound To Function %i", Function_Name, Key_Number - VK_DIVIDE);
+
+					if (ImGui::Button(Formatted_Button_Name) == 1)
+					{
+						if (Setting_Up_Keybinds == 0)
+						{
+							Setting_Up_Keybinds = 1;
+
+							Setting_Up_Keybind[Button_Number] = 1;
+						}
+					}
+				}
+			}
+			else
+			{
+				unsigned __int8 Function_Key_Number = VK_F1;
+
+				Is_Function_Key_Released_Check_Label:
+				{
+					if (Function_Key_Number != VK_NAVIGATION_VIEW)
+					{
+						if (ImGui::IsKeyReleased(Function_Key_Number) == 1)
+						{
+							Setting_Up_Keybinds = 0;
+
+							Setting_Up_Keybind[Button_Number] = 0;
+
+							Key_Number = Function_Key_Number;
+
+							goto Draw_Keybind;
+						}
+
+						Function_Key_Number += 1;
+
+						goto Is_Function_Key_Released_Check_Label;
+					}
+				}
+
+				ImGui::Button("Press Any Function Key");
+			}
+
+			Button_Number += 1;
+		};
+
+		__int8 Button_Number = 0;
+
 		if (ImGui::TreeNodeEx("Recorder", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 		{
 			if (ImGui::Checkbox("Record", (bool*)&User_Commands_Recorder_Record) == 1)
@@ -217,51 +316,13 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 				}
 			}
 
-			static void* Map_Name_Location = (void*)((unsigned __int32)Client_Module_Location + 5245916);
-
-			unsigned __int32 Map_Name_Length = wcslen((wchar_t*)Map_Name_Location) * 2;
-
-			wchar_t* Adjusted_Map_Name = (wchar_t*)malloc(Map_Name_Length + 6);
-
-			Byte_Manager::Copy_Bytes(0, Adjusted_Map_Name, Map_Name_Length, (unsigned __int8*)Map_Name_Location);
-
-			*(wchar_t*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length) = L'.';
-
-			static __int8 Save_Number = 0;
-
-			static __int8 Save_Number_Minimum = 0;
-
-			static __int8 Save_Number_Maximum = 9;
-
-			if (ImGui::DragScalar("Save Number", ImGuiDataType_S8, &Save_Number, 1, &Save_Number_Minimum, &Save_Number_Maximum, "%i") == 1)
-			{
-				if (Save_Number < Save_Number_Minimum)
-				{
-					Save_Number = Save_Number_Minimum;
-				}
-				else
-				{
-					if (Save_Number > Save_Number_Maximum)
-					{
-						Save_Number = Save_Number_Maximum;
-					}
-				}
-			}
-
-			*(__int16*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length + 2) = 48 + Save_Number;
-
-			*(__int16*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length + 4) = 0;
+			Save_Number_Editor();
 
 			if (Recorded_User_Commands.empty() == 0)
 			{
-				if (ImGui::Checkbox("Playback", (bool*)&User_Commands_Recorder_Playback) == 1)
-				{
-					User_Commands_Recorder_Record = 0;
-				}
-
 				if (User_Commands_Recorder_Record == 0)
 				{
-					if (ImGui::Button("Save") == 1)
+					if (ImGui::Button("Save To File") == 1)
 					{
 						void* Recorded_User_Commands_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_WRITE_DATA, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
 
@@ -278,13 +339,25 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 				}
 			}
 
-			if (User_Commands_Recorder_Record == 0)
+			if (ImGui::TreeNodeEx("Keybinds", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 			{
-				if (User_Commands_Recorder_Playback == 0)
+				Setup_Keybind((char*)"Record", User_Commands_Recorder_Record_Bound_To, Button_Number);
+
+				ImGui::TreePop();
+			}
+
+			ImGui::TreePop();
+		}
+		
+		if (ImGui::TreeNodeEx("Player", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
+		{
+			auto Load_From_File_Button = [&]()
+			{
+				if (User_Commands_Recorder_Record == 0)
 				{
 					if (GetFileAttributesW(Adjusted_Map_Name) != -1)
 					{
-						if (ImGui::Button("Load From Save") == 1)
+						if (ImGui::Button("Load From File") == 1)
 						{
 							void* Recorded_User_Commands_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_READ_DATA, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
 
@@ -302,85 +375,40 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 						}
 					}
 				}
-			}
+			};
 
-			free(Adjusted_Map_Name);
-
-			if (ImGui::TreeNodeEx("Keybinds", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
+			if (Recorded_User_Commands.empty() == 0)
 			{
-				static __int8 Setting_Up_Keybind[2] =
+				if (ImGui::Checkbox("Playback", (bool*)& User_Commands_Recorder_Playback) == 1)
 				{
-					0,
-
-					0
-				};
-
-				auto Setup_Keybind = [](char* Function_Name, unsigned __int8& Key_Number, __int8& Button_Number) -> void
-				{
-					if (Setting_Up_Keybind[Button_Number] == 0)
-					{
-						Draw_Keybind:
-						{
-							char Formatted_Button_Name[32];
-
-							sprintf_s(Formatted_Button_Name, "%s Bound To Function %i", Function_Name, Key_Number - VK_DIVIDE);
-
-							if (ImGui::Button(Formatted_Button_Name) == 1)
-							{
-								if (Setting_Up_Keybinds == 0)
-								{
-									Setting_Up_Keybinds = 1;
-
-									Setting_Up_Keybind[Button_Number] = 1;
-								}
-							}
-						}
-					}
-					else
-					{
-						unsigned __int8 Function_Key_Number = VK_F1;
-
-						Is_Function_Key_Released_Check_Label:
-						{
-							if (Function_Key_Number != VK_NAVIGATION_VIEW)
-							{
-								if (ImGui::IsKeyReleased(Function_Key_Number) == 1)
-								{
-									Setting_Up_Keybinds = 0;
-
-									Setting_Up_Keybind[Button_Number] = 0;
-
-									Key_Number = Function_Key_Number;
-
-									goto Draw_Keybind;
-								}
-
-								Function_Key_Number += 1;
-
-								goto Is_Function_Key_Released_Check_Label;
-							}
-						}
-
-						ImGui::Button("Press Any Function Key");
-					}
-
-					Button_Number += 1;
-				};
-
-				__int8 Button_Number = 0;
-
-				Setup_Keybind((char*)"Record", User_Commands_Recorder_Record_Bound_To, Button_Number);
-
-				if (Recorded_User_Commands.empty() == 0)
-				{
-					Setup_Keybind((char*)"Playback", User_Commands_Recorder_Playback_Bound_To, Button_Number);
+					User_Commands_Recorder_Record = 0;
 				}
 
-				ImGui::TreePop();
+				if (User_Commands_Recorder_Playback == 0)
+				{
+					Save_Number_Editor();
+
+					Load_From_File_Button();
+				}
+
+				if (ImGui::TreeNodeEx("Keybinds", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
+				{
+					Setup_Keybind((char*)"Playback", User_Commands_Recorder_Playback_Bound_To, Button_Number);
+
+					ImGui::TreePop();
+				}
+			}
+			else
+			{
+				Save_Number_Editor();
+
+				Load_From_File_Button();
 			}
 
 			ImGui::TreePop();
 		}
+
+		free(Adjusted_Map_Name);
 
 		ImGui::End();
 
@@ -403,25 +431,25 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 		
 		ImGui::Begin("Visuals", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize);
 
-		if (ImGui::TreeNodeEx("Route", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
+		if (ImGui::TreeNodeEx("Recorded Route", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 		{
-			ImGui::Checkbox("Draw", (bool*)&Visuals_Route_Draw);
+			ImGui::Checkbox("Draw", (bool*)&Visuals_Recorded_Route_Draw);
 
-			static unsigned __int32 Visuals_Route_Step_Minimum = 1;
+			static unsigned __int32 Visuals_Recorded_Route_Step_Size_Minimum = 1;
 
-			static unsigned __int32 Visuals_Route_Step_Maximum = UINT_MAX;
+			static unsigned __int32 Visuals_Recorded_Route_Step_Size_Maximum = UINT_MAX;
 
-			if (ImGui::DragScalar("Step", ImGuiDataType_U32, &Visuals_Route_Step, 1, &Visuals_Route_Step_Minimum, &Visuals_Route_Step_Maximum, "%i") == 1)
+			if (ImGui::DragScalar("Step Size", ImGuiDataType_U32, &Visuals_Recorded_Route_Step_Size, 1, &Visuals_Recorded_Route_Step_Size_Minimum, &Visuals_Recorded_Route_Step_Size_Maximum, "%i") == 1)
 			{
-				if (Visuals_Route_Step < Visuals_Route_Step_Minimum)
+				if (Visuals_Recorded_Route_Step_Size < Visuals_Recorded_Route_Step_Size_Minimum)
 				{
-					Visuals_Route_Step = Visuals_Route_Step_Minimum;
+					Visuals_Recorded_Route_Step_Size = Visuals_Recorded_Route_Step_Size_Minimum;
 				}
 				else
 				{
-					if (Visuals_Route_Step > Visuals_Route_Step)
+					if (Visuals_Recorded_Route_Step_Size > Visuals_Recorded_Route_Step_Size)
 					{
-						Visuals_Route_Step = Visuals_Route_Step_Maximum;
+						Visuals_Recorded_Route_Step_Size = Visuals_Recorded_Route_Step_Size_Maximum;
 					}
 				}
 			}
