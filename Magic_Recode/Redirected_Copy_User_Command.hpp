@@ -12,7 +12,9 @@ void* __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* U
 		{
 			if (User_Commands_Recorder_Record == 1)
 			{
-				if (Recorded_User_Commands.size() != Recorded_User_Commands.max_size())
+				static unsigned __int32 Recorded_User_Commands_Maximum_Elements_Amount = Recorded_Route.max_size();
+
+				if (Recorded_User_Commands.size() != Recorded_User_Commands_Maximum_Elements_Amount)
 				{
 					Recorded_User_Commands.push_back(*(User_Command_Structure*)User_Command);
 
@@ -94,7 +96,9 @@ void* __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* U
 				}
 				else
 				{
-					if (Recorded_Route_Elements_Amount != Recorded_Route.max_size())
+					static unsigned __int32 Recorded_Route_Maximum_Elements_Amount = Recorded_Route.max_size();
+
+					if (Recorded_Route_Elements_Amount != Recorded_Route_Maximum_Elements_Amount)
 					{
 						float* Creature_Location = Get_Creature_Location_Type(Get_Creature_Location_Location)(*(void**)Controlled_Creature_Container);
 
