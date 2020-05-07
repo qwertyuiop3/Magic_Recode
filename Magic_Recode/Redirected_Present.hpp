@@ -176,7 +176,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 						}
 					}
 
-					if (Stop_Drawing_Recorded_Route != 1)
+					if (Stop_Drawing_Recorded_Route == 0)
 					{
 						Recorded_Route_Number += Visuals_Recorded_Route_Step_Length;
 
