@@ -80,7 +80,7 @@ void* __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* U
 
 			if (Route_Recorder_Record == 1)
 			{
-				unsigned __int32 Route_Elements_Amount = Route.size();
+				unsigned __int32 Route_Elements_Amount = Recorded_Route.size();
 
 				using Get_Creature_Location_Type = float*(__thiscall*)(void* Creature);
 
@@ -90,21 +90,21 @@ void* __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* U
 
 				if (Route_Elements_Amount == 0)
 				{
-					Route.push_back(*(Route_Structure*)Get_Creature_Location_Type(Get_Creature_Location_Location)(*(void**)Controlled_Creature_Container));
+					Recorded_Route.push_back(*(Route_Structure*)Get_Creature_Location_Type(Get_Creature_Location_Location)(*(void**)Controlled_Creature_Container));
 				}
 				else
 				{
-					if (Route_Elements_Amount != Route.max_size())
+					if (Route_Elements_Amount != Recorded_Route.max_size())
 					{
 						float* Creature_Location = Get_Creature_Location_Type(Get_Creature_Location_Location)(*(void**)Controlled_Creature_Container);
 
-						float* Previous_Creature_Location = Route.at(Route.size() - 1).Location;
+						float* Previous_Creature_Location = Recorded_Route.at(Recorded_Route.size() - 1).Location;
 
 						if (Creature_Location[0] != Previous_Creature_Location[0])
 						{
 							Record_Route_Label:
 							{
-								Route.push_back(*(Route_Structure*)Creature_Location);
+								Recorded_Route.push_back(*(Route_Structure*)Creature_Location);
 							}
 						}
 						else

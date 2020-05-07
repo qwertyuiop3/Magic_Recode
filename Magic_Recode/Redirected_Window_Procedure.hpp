@@ -75,7 +75,7 @@ unsigned __int32 __stdcall Redirected_Window_Procedure(HWND Window, unsigned __i
 
 				if (Route_Recorder_Record == 1)
 				{
-					Route.clear();
+					Recorded_Route.clear();
 				}
 			}
 

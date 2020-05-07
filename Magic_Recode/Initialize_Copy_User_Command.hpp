@@ -8,5 +8,5 @@ void Initialize_Copy_User_Command()
 
 	Route_Recorder_Record = 0;
 
-	Route.clear();
+	Recorded_Route.clear();
 }
