@@ -4,11 +4,11 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 {
 	if (Visuals_Recorded_Route_Draw == 1)
 	{
-		unsigned __int32 Route_Elements_Amount = Recorded_Route.size();
+		unsigned __int32 Recorded_Route_Elements_Amount = Recorded_Route.size();
 
-		if (Route_Elements_Amount > Visuals_Recorded_Route_Step_Length)
+		if (Recorded_Route_Elements_Amount > Visuals_Recorded_Route_Step_Length)
 		{
-			unsigned __int32 Route_Number = Visuals_Recorded_Route_Step_Length;
+			unsigned __int32 Recorded_Route_Number = Visuals_Recorded_Route_Step_Length;
 
 			D3DVIEWPORT9 Direct_3_Dimensional_Viewport_9;
 
@@ -46,11 +46,11 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 			Direct_3_Dimensional_Device_9->SetPixelShader(nullptr);
 			
-			__int8 Stop_Drawing_Route = 0;
+			__int8 Stop_Drawing_Recorded_Route = 0;
 
-			Draw_Route_Label:
+			Draw_Recorded_Route_Label:
 			{
-				if (Route_Number != Route_Elements_Amount)
+				if (Recorded_Route_Number != Recorded_Route_Elements_Amount)
 				{
 					auto In_World_Location_To_On_Screen_Location = [&](float* In_World_Location, float* On_Screen_Location) -> __int8
 					{
@@ -74,13 +74,13 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 						return 0;
 					};
 
-					float Route_On_Screen_Location_From[2];
+					float Recorded_Route_On_Screen_Location_From[2];
 
-					if (In_World_Location_To_On_Screen_Location((float*)&Recorded_Route.at(Route_Number - Visuals_Recorded_Route_Step_Length), Route_On_Screen_Location_From) == 1)
+					if (In_World_Location_To_On_Screen_Location((float*)&Recorded_Route.at(Recorded_Route_Number - Visuals_Recorded_Route_Step_Length), Recorded_Route_On_Screen_Location_From) == 1)
 					{
-						float Route_On_Screen_Location_To[2];
+						float Recorded_Route_On_Screen_Location_To[2];
 
-						if (In_World_Location_To_On_Screen_Location((float*)&Recorded_Route.at(Route_Number), Route_On_Screen_Location_To) == 1)
+						if (In_World_Location_To_On_Screen_Location((float*)&Recorded_Route.at(Recorded_Route_Number), Recorded_Route_On_Screen_Location_To) == 1)
 						{
 							struct Vertex_Structure
 							{
@@ -128,27 +128,27 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 							Vertex_Structure Vertices[2]
 							{
 								{
-									Route_On_Screen_Location_From[0],
+									Recorded_Route_On_Screen_Location_From[0],
 
-									Route_On_Screen_Location_From[1],
-
-									0,
+									Recorded_Route_On_Screen_Location_From[1],
 
 									0,
 
-									Hue_To_Alpha_Red_Green_Blue((float)((Route_Number - Visuals_Recorded_Route_Step_Length) % 361))
+									0,
+
+									Hue_To_Alpha_Red_Green_Blue((float)((Recorded_Route_Number - Visuals_Recorded_Route_Step_Length) % 361))
 								},
 
 								{
-									Route_On_Screen_Location_To[0],
+									Recorded_Route_On_Screen_Location_To[0],
 
-									Route_On_Screen_Location_To[1],
-
-									0,
+									Recorded_Route_On_Screen_Location_To[1],
 
 									0,
 
-									Hue_To_Alpha_Red_Green_Blue((float)(Route_Number % 361))
+									0,
+
+									Hue_To_Alpha_Red_Green_Blue((float)(Recorded_Route_Number % 361))
 								}
 							};
 							
@@ -156,18 +156,18 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 						}
 					}
 
-					if (Stop_Drawing_Route != 1)
+					if (Stop_Drawing_Recorded_Route != 1)
 					{
-						Route_Number += Visuals_Recorded_Route_Step_Length;
+						Recorded_Route_Number += Visuals_Recorded_Route_Step_Length;
 
-						if (Route_Number >= Route_Elements_Amount)
+						if (Recorded_Route_Number >= Recorded_Route_Elements_Amount)
 						{
-							Route_Number = Route_Elements_Amount - 1;
+							Recorded_Route_Number = Recorded_Route_Elements_Amount - 1;
 
-							Stop_Drawing_Route = 1;
+							Stop_Drawing_Recorded_Route = 1;
 						}
 
-						goto Draw_Route_Label;
+						goto Draw_Recorded_Route_Label;
 					}
 				}
 			}
