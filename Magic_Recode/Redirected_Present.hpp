@@ -57,18 +57,38 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 						static float* View_Matrix_Location = (float*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 5954552);
 
 						float W = In_World_Location[0] * View_Matrix_Location[12] + View_Matrix_Location[13] * In_World_Location[1] + View_Matrix_Location[14] * In_World_Location[2] + View_Matrix_Location[15];
-
-						if (W >= 0.001f)
+						
+						if (W > 0)
 						{
-							float X = On_Screen_Location[0] = View_Matrix_Location[0] * In_World_Location[0] + View_Matrix_Location[1] * In_World_Location[1] + View_Matrix_Location[2] * In_World_Location[2] + View_Matrix_Location[3];
+							float X = 0.5f * ((On_Screen_Location[0] = View_Matrix_Location[0] * In_World_Location[0] + View_Matrix_Location[1] * In_World_Location[1] + View_Matrix_Location[2] * In_World_Location[2] + View_Matrix_Location[3]) / W) * Screen_Width + 0.5f * Screen_Width;
 
-							On_Screen_Location[0] = 0.5f * (X / W) * Screen_Width + 0.5f * Screen_Width;
+							if (X >= 0)
+							{
+								if (X <= Screen_Width)
+								{
+									float Y = -0.5f * ((On_Screen_Location[1] = View_Matrix_Location[4] * In_World_Location[0] + View_Matrix_Location[5] * In_World_Location[1] + View_Matrix_Location[6] * In_World_Location[2] + View_Matrix_Location[7]) / W) * Screen_Height + 0.5f * Screen_Height;
 
-							float Y = On_Screen_Location[1] = View_Matrix_Location[4] * In_World_Location[0] + View_Matrix_Location[5] * In_World_Location[1] + View_Matrix_Location[6] * In_World_Location[2] + View_Matrix_Location[7];
+									if (Y >= 0)
+									{
+										if (Y <= Screen_Height)
+										{
+											On_Screen_Location[0] = X;
 
-							On_Screen_Location[1] = -0.5f * (Y / W) * Screen_Height + 0.5f * Screen_Height;
+											On_Screen_Location[1] = Y;
+											
+											return 1;
+										}
 
-							return 1;
+										return 0;
+									}
+
+									return 0;
+								}
+
+								return 0;
+							}
+							
+							return 0;
 						}
 
 						return 0;
