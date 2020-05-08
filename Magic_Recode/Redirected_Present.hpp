@@ -225,29 +225,29 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 		*(wchar_t*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length) = L'.';
 
-		static __int8 Save_Number = 0;
+		static __int8 File_Number = 0;
 
-		*(__int16*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length + 2) = 48 + Save_Number;
+		*(__int16*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length + 2) = 48 + File_Number;
 
 		*(__int16*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length + 4) = 0;
 
-		static __int8 Save_Number_Minimum = 0;
+		static __int8 File_Number_Minimum = 0;
 
-		static __int8 Save_Number_Maximum = 9;
+		static __int8 File_Number_Maximum = 9;
 
-		auto Save_Number_Editor = [&]()
+		auto File_Number_Editor = [&]()
 		{
-			if (ImGui::DragScalar("Save Number", ImGuiDataType_S8, &Save_Number, 1, &Save_Number_Minimum, &Save_Number_Maximum, "%i") == 1)
+			if (ImGui::DragScalar("File Number", ImGuiDataType_S8, &File_Number, 1, &File_Number_Minimum, &File_Number_Maximum, "%i") == 1)
 			{
-				if (Save_Number < Save_Number_Minimum)
+				if (File_Number < File_Number_Minimum)
 				{
-					Save_Number = Save_Number_Minimum;
+					File_Number = File_Number_Minimum;
 				}
 				else
 				{
-					if (Save_Number > Save_Number_Maximum)
+					if (File_Number > File_Number_Maximum)
 					{
-						Save_Number = Save_Number_Maximum;
+						File_Number = File_Number_Maximum;
 					}
 				}
 			}
@@ -341,7 +341,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 			{
 				if (Recorded_User_Commands.empty() == 0)
 				{
-					Save_Number_Editor();
+					File_Number_Editor();
 
 					if (ImGui::Button("Save To File") == 1)
 					{
@@ -406,7 +406,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 					if (User_Commands_Recorder_Playback == 0)
 					{
-						Save_Number_Editor();
+						File_Number_Editor();
 
 						Load_From_File_Button();
 					}
@@ -420,7 +420,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 				}
 				else
 				{
-					Save_Number_Editor();
+					File_Number_Editor();
 
 					Load_From_File_Button();
 				}
