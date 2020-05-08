@@ -38,9 +38,9 @@ void Redirected_Chat_Print_Formatted(void* Chat, void* Unknown_Parameter_1, void
 
 					unsigned __int32 Future_Recorder_User_Comamand_Number_History = Recorder_User_Comamand_Number_History.at(Recorder_User_Comamand_Number_History_Number);
 
-					if (Commands_Recorder_Record == 1)
+					if (User_Commands_Recorder_Record == 1)
 					{
-						Recorded_Commands.resize(Future_Recorder_User_Comamand_Number_History);
+						Recorded_User_Commands.resize(Future_Recorder_User_Comamand_Number_History);
 					}
 
 					Recorder_User_Comamand_Number = Future_Recorder_User_Comamand_Number_History;
@@ -72,13 +72,13 @@ void Redirected_Chat_Print_Formatted(void* Chat, void* Unknown_Parameter_1, void
 			}
 		};
 
-		if (Commands_Recorder_Record == 1)
+		if (User_Commands_Recorder_Record == 1)
 		{
 			Handle_Formatted_Message_Return_Value = Handle_Formatted_Message();
 		}
 		else
 		{
-			if (Commands_Recorder_Playback == 1)
+			if (User_Commands_Recorder_Playback == 1)
 			{
 				Handle_Formatted_Message_Return_Value = Handle_Formatted_Message();
 			}
@@ -92,9 +92,9 @@ void Redirected_Chat_Print_Formatted(void* Chat, void* Unknown_Parameter_1, void
 		{
 			if (strncmp(Formatted_Message, "[ Magic ] E", 11) == 0)
 			{
-				if (Commands_Recorder_Record == 1)
+				if (User_Commands_Recorder_Record == 1)
 				{
-					Recorded_Commands.clear();
+					Recorded_User_Commands.clear();
 
 					Recorder_User_Comamand_Number = 0;
 				}

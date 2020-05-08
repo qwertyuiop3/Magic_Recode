@@ -2,7 +2,7 @@
 
 void Initialize_Copy_User_Command()
 {
-	Recorded_Commands.clear();
+	Recorded_User_Commands.clear();
 
 	Recorder_User_Comamand_Number = 0;
 

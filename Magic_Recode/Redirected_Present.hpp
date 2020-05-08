@@ -211,7 +211,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 		ImGui::NewFrame();
 
-		ImGui::Begin("Commands", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize);
+		ImGui::Begin("User Commands", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize);
 
 		static void* Client_Module_Location = GetModuleHandleW(L"client.dll");
 
@@ -318,51 +318,51 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 		if (ImGui::TreeNodeEx("Recorder", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 		{
-			if (ImGui::Checkbox("Record", (bool*)&Commands_Recorder_Record) == 1)
+			if (ImGui::Checkbox("Record", (bool*)&User_Commands_Recorder_Record) == 1)
 			{
-				if (Commands_Recorder_Record == 1)
+				if (User_Commands_Recorder_Record == 1)
 				{
-					if (Commands_Recorder_Playback == 1)
+					if (User_Commands_Recorder_Playback == 1)
 					{
-						Commands_Recorder_Playback = 0;
+						User_Commands_Recorder_Playback = 0;
 
-						Recorded_Commands.resize(Recorder_User_Comamand_Number);
+						Recorded_User_Commands.resize(Recorder_User_Comamand_Number);
 					}
 					else
 					{
-						Commands_Recorder_Playback = 0;
+						User_Commands_Recorder_Playback = 0;
 
-						Recorded_Commands.clear();
+						Recorded_User_Commands.clear();
 					}
 				}
 			}
 
-			if (Commands_Recorder_Record == 0)
+			if (User_Commands_Recorder_Record == 0)
 			{
-				if (Recorded_Commands.empty() == 0)
+				if (Recorded_User_Commands.empty() == 0)
 				{
 					File_Number_Editor();
 
 					if (ImGui::Button("Save To File") == 1)
 					{
-						void* Recorded_Commands_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_WRITE_DATA, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+						void* Recorded_User_Commands_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_WRITE_DATA, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
 
-						unsigned __int32 Recorded_Commands_Amount = Recorded_Commands.size();
+						unsigned __int32 Recorded_User_Commands_Amount = Recorded_User_Commands.size();
 
-						WriteFile(Recorded_Commands_File_Handle, &Recorded_Commands_Amount, sizeof(unsigned __int32), nullptr, nullptr);
+						WriteFile(Recorded_User_Commands_File_Handle, &Recorded_User_Commands_Amount, sizeof(unsigned __int32), nullptr, nullptr);
 
-						SetFilePointer(Recorded_Commands_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
+						SetFilePointer(Recorded_User_Commands_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
 
-						WriteFile(Recorded_Commands_File_Handle, Recorded_Commands.data(), Recorded_Commands.size() * sizeof User_Command_Structure, nullptr, nullptr);
+						WriteFile(Recorded_User_Commands_File_Handle, Recorded_User_Commands.data(), Recorded_User_Commands.size() * sizeof User_Command_Structure, nullptr, nullptr);
 
-						CloseHandle(Recorded_Commands_File_Handle);
+						CloseHandle(Recorded_User_Commands_File_Handle);
 					}
 				}
 			}
 
 			if (ImGui::TreeNodeEx("Keybinds", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 			{
-				Setup_Keybind((char*)"Record", Commands_Recorder_Record_Bound_To, Button_Number);
+				Setup_Keybind((char*)"Record", User_Commands_Recorder_Record_Bound_To, Button_Number);
 
 				ImGui::TreePop();
 			}
@@ -372,7 +372,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 		
 		if (ImGui::TreeNodeEx("Player", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 		{
-			if (Commands_Recorder_Record == 0)
+			if (User_Commands_Recorder_Record == 0)
 			{
 				auto Load_From_File_Button = [&]()
 				{
@@ -380,31 +380,31 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 					{
 						if (ImGui::Button("Load From File") == 1)
 						{
-							void* Recorded_Commands_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_READ_DATA, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+							void* Recorded_User_Commands_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_READ_DATA, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
 
-							unsigned __int32 Recorded_Commands_Amount;
+							unsigned __int32 Recorded_User_Commands_Amount;
 
-							ReadFile(Recorded_Commands_File_Handle, &Recorded_Commands_Amount, sizeof(unsigned __int32), nullptr, nullptr);
+							ReadFile(Recorded_User_Commands_File_Handle, &Recorded_User_Commands_Amount, sizeof(unsigned __int32), nullptr, nullptr);
 
-							Recorded_Commands.resize(Recorded_Commands_Amount);
+							Recorded_User_Commands.resize(Recorded_User_Commands_Amount);
 
-							SetFilePointer(Recorded_Commands_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
+							SetFilePointer(Recorded_User_Commands_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
 
-							ReadFile(Recorded_Commands_File_Handle, Recorded_Commands.data(), Recorded_Commands_Amount * sizeof User_Command_Structure, nullptr, nullptr);
+							ReadFile(Recorded_User_Commands_File_Handle, Recorded_User_Commands.data(), Recorded_User_Commands_Amount * sizeof User_Command_Structure, nullptr, nullptr);
 
-							CloseHandle(Recorded_Commands_File_Handle);
+							CloseHandle(Recorded_User_Commands_File_Handle);
 						}
 					}
 				};
 
-				if (Recorded_Commands.empty() == 0)
+				if (Recorded_User_Commands.empty() == 0)
 				{
-					if (ImGui::Checkbox("Playback", (bool*)&Commands_Recorder_Playback) == 1)
+					if (ImGui::Checkbox("Playback", (bool*)&User_Commands_Recorder_Playback) == 1)
 					{
-						Commands_Recorder_Record = 0;
+						User_Commands_Recorder_Record = 0;
 					}
 
-					if (Commands_Recorder_Playback == 0)
+					if (User_Commands_Recorder_Playback == 0)
 					{
 						File_Number_Editor();
 
@@ -413,7 +413,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 					if (ImGui::TreeNodeEx("Keybinds", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 					{
-						Setup_Keybind((char*)"Playback", Commands_Recorder_Playback_Bound_To, Button_Number);
+						Setup_Keybind((char*)"Playback", User_Commands_Recorder_Playback_Bound_To, Button_Number);
 
 						ImGui::TreePop();
 					}

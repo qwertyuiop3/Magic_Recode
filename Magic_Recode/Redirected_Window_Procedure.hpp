@@ -18,46 +18,46 @@ unsigned __int32 __stdcall Redirected_Window_Procedure(HWND Window, unsigned __i
 				return 1;
 			}
 
-			if (Parameter_1 == Commands_Recorder_Record_Bound_To)
+			if (Parameter_1 == User_Commands_Recorder_Record_Bound_To)
 			{
 				if (Message == WM_KEYDOWN)
 				{
 					return 1;
 				}
 
-				Commands_Recorder_Record ^= 1;
+				User_Commands_Recorder_Record ^= 1;
 
-				if (Commands_Recorder_Record == 1)
+				if (User_Commands_Recorder_Record == 1)
 				{
-					if (Commands_Recorder_Playback == 1)
+					if (User_Commands_Recorder_Playback == 1)
 					{
-						Commands_Recorder_Playback = 0;
+						User_Commands_Recorder_Playback = 0;
 
-						Recorded_Commands.resize(Recorder_User_Comamand_Number);
+						Recorded_User_Commands.resize(Recorder_User_Comamand_Number);
 					}
 					else
 					{
-						Commands_Recorder_Playback = 0;
+						User_Commands_Recorder_Playback = 0;
 
-						Recorded_Commands.clear();
+						Recorded_User_Commands.clear();
 					}
 				}
 
 				return 1;
 			}
 
-			if (Commands_Recorder_Record == 0)
+			if (User_Commands_Recorder_Record == 0)
 			{
-				if (Recorded_Commands.empty() == 0)
+				if (Recorded_User_Commands.empty() == 0)
 				{
-					if (Parameter_1 == Commands_Recorder_Playback_Bound_To)
+					if (Parameter_1 == User_Commands_Recorder_Playback_Bound_To)
 					{
 						if (Message == WM_KEYDOWN)
 						{
 							return 1;
 						}
 
-						Commands_Recorder_Playback ^= 1;
+						User_Commands_Recorder_Playback ^= 1;
 
 						return 1;
 					}
