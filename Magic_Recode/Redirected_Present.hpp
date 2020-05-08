@@ -183,13 +183,6 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 						if (Recorded_Route_Number < Recorded_Route_Maximum_Elements_Amount - Visuals_Recorded_Route_Step_Length)
 						{
 							Recorded_Route_Number += Visuals_Recorded_Route_Step_Length;
-
-							if (Recorded_Route_Number >= Recorded_Route_Elements_Amount)
-							{
-								Recorded_Route_Number = Recorded_Route_Elements_Amount - 1;
-
-								Stop_Drawing_Recorded_Route = 1;
-							}
 						}
 						else
 						{
