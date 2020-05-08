@@ -41,13 +41,13 @@ void __cdecl Redirected_Menu_Select(void** Data)
 		}
 	};
 
-	if (User_Commands_Recorder_Record == 1)
+	if (Commands_Recorder_Record == 1)
 	{
 		Handle_Menu_Select();
 	}
 	else
 	{
-		if (User_Commands_Recorder_Playback == 1)
+		if (Commands_Recorder_Playback == 1)
 		{
 			Handle_Menu_Select();
 		}
