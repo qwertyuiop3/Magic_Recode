@@ -48,8 +48,6 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 			
 			__int8 Stop_Drawing_Recorded_Route = 0;
 
-			static unsigned __int32 Recorded_Route_Maximum_Elements_Amount = Recorded_Route.max_size();
-
 			Draw_Recorded_Route_Label:
 			{
 				if (Recorded_Route_Number != Recorded_Route_Elements_Amount)
@@ -180,7 +178,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 					if (Stop_Drawing_Recorded_Route == 0)
 					{
-						if (Recorded_Route_Number < Recorded_Route_Maximum_Elements_Amount - Visuals_Recorded_Route_Step_Length)
+						if (Recorded_Route_Number < Recorded_Route_Elements_Amount - Visuals_Recorded_Route_Step_Length)
 						{
 							Recorded_Route_Number += Visuals_Recorded_Route_Step_Length;
 						}
