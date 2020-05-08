@@ -106,21 +106,20 @@ void* __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* U
 
 						if (Creature_Location[0] != Previous_Creature_Location[0])
 						{
-							Record_Route_Label:
-							{
-								Recorded_Route.push_back(*(Route_Structure*)Creature_Location);
-							}
+							Recorded_Route.push_back(*(Route_Structure*)Creature_Location);
 						}
 						else
 						{
 							if (Creature_Location[1] != Previous_Creature_Location[1])
 							{
-								goto Record_Route_Label;
+								Recorded_Route.push_back(*(Route_Structure*)Creature_Location);
 							}
-
-							if (Creature_Location[2] != Previous_Creature_Location[2])
+							else
 							{
-								goto Record_Route_Label;
+								if (Creature_Location[2] != Previous_Creature_Location[2])
+								{
+									Recorded_Route.push_back(*(Route_Structure*)Creature_Location);
+								}
 							}
 						}
 					}
