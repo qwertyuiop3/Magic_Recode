@@ -475,13 +475,6 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 					{
 						Visuals_Recorded_Route_Step_Length = Visuals_Recorded_Route_Step_Length_Minimum;
 					}
-					else
-					{
-						if (Visuals_Recorded_Route_Step_Length > Visuals_Recorded_Route_Step_Length)
-						{
-							Visuals_Recorded_Route_Step_Length = Visuals_Recorded_Route_Step_Length_Maximum;
-						}
-					}
 				}
 			}
 
