@@ -48,36 +48,31 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 			
 			__int8 Stop_Drawing_Recorded_Route = 0;
 
-			Draw_Recorded_Route_Label:
+			auto In_World_Location_To_On_Screen_Location = [&](float* In_World_Location, float* On_Screen_Location) -> __int8
 			{
-				auto In_World_Location_To_On_Screen_Location = [&](float* In_World_Location, float* On_Screen_Location) -> __int8
+				static float* View_Matrix_Location = (float*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 5954552);
+
+				float W = In_World_Location[0] * View_Matrix_Location[12] + View_Matrix_Location[13] * In_World_Location[1] + View_Matrix_Location[14] * In_World_Location[2] + View_Matrix_Location[15];
+
+				if (W > 0)
 				{
-					static float* View_Matrix_Location = (float*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 5954552);
+					float X = 0.5f * ((View_Matrix_Location[0] * In_World_Location[0] + View_Matrix_Location[1] * In_World_Location[1] + View_Matrix_Location[2] * In_World_Location[2] + View_Matrix_Location[3]) / W) * Screen_Width + 0.5f * Screen_Width;
 
-					float W = In_World_Location[0] * View_Matrix_Location[12] + View_Matrix_Location[13] * In_World_Location[1] + View_Matrix_Location[14] * In_World_Location[2] + View_Matrix_Location[15];
-						
-					if (W > 0)
+					if (X >= 0)
 					{
-						float X = 0.5f * ((View_Matrix_Location[0] * In_World_Location[0] + View_Matrix_Location[1] * In_World_Location[1] + View_Matrix_Location[2] * In_World_Location[2] + View_Matrix_Location[3]) / W) * Screen_Width + 0.5f * Screen_Width;
-
-						if (X >= 0)
+						if (X <= Screen_Width)
 						{
-							if (X <= Screen_Width)
+							float Y = -0.5f * ((View_Matrix_Location[4] * In_World_Location[0] + View_Matrix_Location[5] * In_World_Location[1] + View_Matrix_Location[6] * In_World_Location[2] + View_Matrix_Location[7]) / W) * Screen_Height + 0.5f * Screen_Height;
+
+							if (Y >= 0)
 							{
-								float Y = -0.5f * ((View_Matrix_Location[4] * In_World_Location[0] + View_Matrix_Location[5] * In_World_Location[1] + View_Matrix_Location[6] * In_World_Location[2] + View_Matrix_Location[7]) / W) * Screen_Height + 0.5f * Screen_Height;
-
-								if (Y >= 0)
+								if (Y <= Screen_Height)
 								{
-									if (Y <= Screen_Height)
-									{
-										On_Screen_Location[0] = X;
+									On_Screen_Location[0] = X;
 
-										On_Screen_Location[1] = Y;
-											
-										return 1;
-									}
+									On_Screen_Location[1] = Y;
 
-									return 0;
+									return 1;
 								}
 
 								return 0;
@@ -85,13 +80,18 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 							return 0;
 						}
-							
+
 						return 0;
 					}
 
 					return 0;
-				};
+				}
 
+				return 0;
+			};
+
+			Draw_Recorded_Route_Label:
+			{
 				float Recorded_Route_On_Screen_Location_From[2];
 
 				if (In_World_Location_To_On_Screen_Location((float*)&Recorded_Route.at(Recorded_Route_Number - Visuals_Recorded_Route_Step_Length), Recorded_Route_On_Screen_Location_From) == 1)
