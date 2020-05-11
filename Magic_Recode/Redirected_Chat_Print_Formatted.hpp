@@ -34,16 +34,7 @@ void Redirected_Chat_Print_Formatted(void* Chat, void* Unknown_Parameter_1, void
 			{
 				if (strncmp(Formatted_Message, "[ Magic ] B", 11) == 0)
 				{
-					Freeze_Controlled_Creature = 2;
-
-					unsigned __int32 Future_Recorder_User_Comamand_Number_History = Recorder_User_Comamand_Number_History.at(Recorder_User_Comamand_Number_History_Number);
-
-					if (User_Commands_Recorder_Record == 1)
-					{
-						Recorded_User_Commands.resize(Future_Recorder_User_Comamand_Number_History);
-					}
-
-					Recorder_User_Comamand_Number = Future_Recorder_User_Comamand_Number_History;
+					Recorder_User_Comamand_Number_History_Number -= 1;
 
 					return 1;
 				}
@@ -51,7 +42,7 @@ void Redirected_Chat_Print_Formatted(void* Chat, void* Unknown_Parameter_1, void
 				{
 					if (strncmp(Formatted_Message, "[ Magic ] C", 11) == 0)
 					{
-						Recorder_User_Comamand_Number_History_Number -= 1;
+						Recorder_User_Comamand_Number_History_Number += 1;
 
 						return 1;
 					}
@@ -59,14 +50,21 @@ void Redirected_Chat_Print_Formatted(void* Chat, void* Unknown_Parameter_1, void
 					{
 						if (strncmp(Formatted_Message, "[ Magic ] D", 11) == 0)
 						{
-							Recorder_User_Comamand_Number_History_Number += 1;
+							Freeze_Controlled_Creature = 2;
+
+							unsigned __int32 Future_Recorder_User_Comamand_Number_History = Recorder_User_Comamand_Number_History.at(Recorder_User_Comamand_Number_History_Number);
+
+							if (User_Commands_Recorder_Record == 1)
+							{
+								Recorded_User_Commands.resize(Future_Recorder_User_Comamand_Number_History);
+							}
+
+							Recorder_User_Comamand_Number = Future_Recorder_User_Comamand_Number_History;
 
 							return 1;
 						}
-						else
-						{
-							return 0;
-						}
+
+						return 0;
 					}
 				}
 			}

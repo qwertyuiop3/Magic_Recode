@@ -22,7 +22,7 @@ void __cdecl Redirected_Menu_Select(void** Data)
 						}
 						else
 						{
-							if (Menu_Selection[0] == '2')
+							if (Menu_Selection[0] == '4')
 							{
 								Freeze_Controlled_Creature = 1;
 							}
