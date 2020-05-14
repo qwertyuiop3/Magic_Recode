@@ -52,14 +52,14 @@ void Redirected_Chat_Print_Formatted(void* Chat, void* Unknown_Parameter_1, void
 						{
 							Freeze_Controlled_Creature = 2;
 
-							unsigned __int32 Future_Recorder_User_Comamand_Number_History = Recorder_User_Comamand_Number_History.at(Recorder_User_Comamand_Number_History_Number);
+							unsigned __int32 Future_Recorder_User_Comamand_Number = Recorder_User_Comamand_Number_History.at(Recorder_User_Comamand_Number_History_Number);
 
 							if (User_Commands_Recorder_Record == 1)
 							{
-								Recorded_User_Commands.resize(Future_Recorder_User_Comamand_Number_History);
+								Recorded_User_Commands.resize(Future_Recorder_User_Comamand_Number);
 							}
 
-							Recorder_User_Comamand_Number = Future_Recorder_User_Comamand_Number_History;
+							Recorder_User_Comamand_Number = Future_Recorder_User_Comamand_Number;
 
 							return 1;
 						}
