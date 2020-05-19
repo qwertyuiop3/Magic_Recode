@@ -223,7 +223,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 		Byte_Manager::Copy_Bytes(0, Adjusted_Map_Name, Map_Name_Length, (unsigned __int8*)Map_Name_Location);
 
-		*(wchar_t*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length) = L'.';
+		*(wchar_t*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length) = L'-';
 
 		static __int8 File_Number = 0;
 
@@ -353,7 +353,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 						SetFilePointer(Recorded_User_Commands_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
 
-						WriteFile(Recorded_User_Commands_File_Handle, Recorded_User_Commands.data(), Recorded_User_Commands.size() * sizeof User_Command_Structure, nullptr, nullptr);
+						WriteFile(Recorded_User_Commands_File_Handle, Recorded_User_Commands.data(), Recorded_User_Commands_Amount * sizeof User_Command_Structure, nullptr, nullptr);
 
 						CloseHandle(Recorded_User_Commands_File_Handle);
 					}
@@ -429,12 +429,12 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 			ImGui::TreePop();
 		}
 
-		free(Adjusted_Map_Name);
-
 		ImGui::End();
 
 		ImGui::Begin("Route", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize);
 		
+		*(wchar_t*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length) = L'_';
+
 		if (ImGui::TreeNodeEx("Recorder", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 		{
 			if (ImGui::Checkbox("Record", (bool*)&Route_Recorder_Record) == 1)
@@ -442,6 +442,29 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 				if (Route_Recorder_Record == 1)
 				{
 					Recorded_Route.clear();
+				}
+			}
+
+			if (Route_Recorder_Record == 0)
+			{
+				if (Recorded_Route.empty() == 0)
+				{
+					File_Number_Editor();
+
+					if (ImGui::Button("Save To File") == 1)
+					{
+						void* Recorded_Route_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_WRITE_DATA, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+
+						unsigned __int32 Recorded_Route_Elements_Amount = Recorded_Route.size();
+
+						WriteFile(Recorded_Route_File_Handle, &Recorded_Route_Elements_Amount, sizeof(unsigned __int32), nullptr, nullptr);
+
+						SetFilePointer(Recorded_Route_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
+
+						WriteFile(Recorded_Route_File_Handle, Recorded_Route.data(), Recorded_Route_Elements_Amount * sizeof Route_Structure, nullptr, nullptr);
+
+						CloseHandle(Recorded_Route_File_Handle);
+					}
 				}
 			}
 			
@@ -461,25 +484,55 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 		if (ImGui::TreeNodeEx("Recorded Route", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 		{
-			if (Recorded_Route.empty() == 0)
+			if (Route_Recorder_Record == 0)
 			{
-				ImGui::Checkbox("Draw", (bool*)&Visuals_Recorded_Route_Draw);
-
-				static unsigned __int32 Visuals_Recorded_Route_Step_Length_Minimum = 1;
-
-				static unsigned __int32 Visuals_Recorded_Route_Step_Length_Maximum = UINT_MAX;
-
-				if (ImGui::DragScalar("Step Length", ImGuiDataType_U32, &Visuals_Recorded_Route_Step_Length, 1, &Visuals_Recorded_Route_Step_Length_Minimum, &Visuals_Recorded_Route_Step_Length_Maximum, "%i") == 1)
+				if (Recorded_Route.empty() == 0)
 				{
-					if (Visuals_Recorded_Route_Step_Length < Visuals_Recorded_Route_Step_Length_Minimum)
+					ImGui::Checkbox("Draw", (bool*)&Visuals_Recorded_Route_Draw);
+
+					static unsigned __int32 Visuals_Recorded_Route_Step_Length_Minimum = 1;
+
+					static unsigned __int32 Visuals_Recorded_Route_Step_Length_Maximum = UINT_MAX;
+
+					if (ImGui::DragScalar("Step Length", ImGuiDataType_U32, &Visuals_Recorded_Route_Step_Length, 1, &Visuals_Recorded_Route_Step_Length_Minimum, &Visuals_Recorded_Route_Step_Length_Maximum, "%i") == 1)
 					{
-						Visuals_Recorded_Route_Step_Length = Visuals_Recorded_Route_Step_Length_Minimum;
+						if (Visuals_Recorded_Route_Step_Length < Visuals_Recorded_Route_Step_Length_Minimum)
+						{
+							Visuals_Recorded_Route_Step_Length = Visuals_Recorded_Route_Step_Length_Minimum;
+						}
+					}
+				}
+
+				if (Visuals_Recorded_Route_Draw == 0)
+				{
+					File_Number_Editor();
+
+					if (GetFileAttributesW(Adjusted_Map_Name) != -1)
+					{
+						if (ImGui::Button("Load From File") == 1)
+						{
+							void* Recorded_Route_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_READ_DATA, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+
+							unsigned __int32 Recorded_Route_Elements_Amount;
+
+							ReadFile(Recorded_Route_File_Handle, &Recorded_Route_Elements_Amount, sizeof(unsigned __int32), nullptr, nullptr);
+
+							Recorded_Route.resize(Recorded_Route_Elements_Amount);
+
+							SetFilePointer(Recorded_Route_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
+
+							ReadFile(Recorded_Route_File_Handle, Recorded_Route.data(), Recorded_Route_Elements_Amount * sizeof Route_Structure, nullptr, nullptr);
+
+							CloseHandle(Recorded_Route_File_Handle);
+						}
 					}
 				}
 			}
 
 			ImGui::TreePop();
 		}
+
+		free(Adjusted_Map_Name);
 
 		if (ImGui::TreeNodeEx("Physics", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 		{
