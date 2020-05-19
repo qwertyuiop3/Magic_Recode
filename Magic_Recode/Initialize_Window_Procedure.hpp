@@ -9,4 +9,6 @@ void Initialize_Window_Procedure()
 	User_Commands_Recorder_Playback_Bound_To = VK_F2;
 
 	Route_Recorder_Record_Bound_To = VK_F3;
+
+	Visuals_Recorded_Route_Draw = 0;
 }

@@ -71,11 +71,14 @@ unsigned __int32 __stdcall Redirected_Window_Procedure(HWND Window, unsigned __i
 					return 1;
 				}
 
-				Route_Recorder_Record ^= 1;
-
-				if (Route_Recorder_Record == 1)
+				if (Visuals_Recorded_Route_Draw == 0)
 				{
-					Recorded_Route.clear();
+					Route_Recorder_Record ^= 1;
+
+					if (Route_Recorder_Record == 1)
+					{
+						Recorded_Route.clear();
+					}
 				}
 			}
 
