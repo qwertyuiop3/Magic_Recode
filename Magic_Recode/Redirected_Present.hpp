@@ -347,13 +347,13 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 					{
 						void* Recorded_User_Commands_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_WRITE_DATA, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
 
-						unsigned __int32 Recorded_User_Commands_Amount = Recorded_User_Commands.size();
+						unsigned __int32 Recorded_User_Commands_Elements_Amount = Recorded_User_Commands.size();
 
-						WriteFile(Recorded_User_Commands_File_Handle, &Recorded_User_Commands_Amount, sizeof(unsigned __int32), nullptr, nullptr);
+						WriteFile(Recorded_User_Commands_File_Handle, &Recorded_User_Commands_Elements_Amount, sizeof(unsigned __int32), nullptr, nullptr);
 
 						SetFilePointer(Recorded_User_Commands_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
 
-						WriteFile(Recorded_User_Commands_File_Handle, Recorded_User_Commands.data(), Recorded_User_Commands_Amount * sizeof User_Command_Structure, nullptr, nullptr);
+						WriteFile(Recorded_User_Commands_File_Handle, Recorded_User_Commands.data(), Recorded_User_Commands_Elements_Amount * sizeof User_Command_Structure, nullptr, nullptr);
 
 						CloseHandle(Recorded_User_Commands_File_Handle);
 					}
@@ -382,15 +382,15 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 						{
 							void* Recorded_User_Commands_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_READ_DATA, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
 
-							unsigned __int32 Recorded_User_Commands_Amount;
+							unsigned __int32 Recorded_User_Commands_Elements_Amount;
 
-							ReadFile(Recorded_User_Commands_File_Handle, &Recorded_User_Commands_Amount, sizeof(unsigned __int32), nullptr, nullptr);
+							ReadFile(Recorded_User_Commands_File_Handle, &Recorded_User_Commands_Elements_Amount, sizeof(unsigned __int32), nullptr, nullptr);
 
-							Recorded_User_Commands.resize(Recorded_User_Commands_Amount);
+							Recorded_User_Commands.resize(Recorded_User_Commands_Elements_Amount);
 
 							SetFilePointer(Recorded_User_Commands_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
 
-							ReadFile(Recorded_User_Commands_File_Handle, Recorded_User_Commands.data(), Recorded_User_Commands_Amount * sizeof User_Command_Structure, nullptr, nullptr);
+							ReadFile(Recorded_User_Commands_File_Handle, Recorded_User_Commands.data(), Recorded_User_Commands_Elements_Amount * sizeof User_Command_Structure, nullptr, nullptr);
 
 							CloseHandle(Recorded_User_Commands_File_Handle);
 						}

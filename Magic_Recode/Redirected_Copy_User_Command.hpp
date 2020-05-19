@@ -12,7 +12,7 @@ void* __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* U
 		{
 			if (User_Commands_Recorder_Record == 1)
 			{
-				static unsigned __int32 Recorded_User_Commands_Maximum_Elements_Amount = Recorded_Route.max_size();
+				static unsigned __int32 Recorded_User_Commands_Maximum_Elements_Amount = Recorded_User_Commands.max_size();
 
 				if (Recorded_User_Commands.size() != Recorded_User_Commands_Maximum_Elements_Amount)
 				{
