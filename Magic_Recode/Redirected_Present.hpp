@@ -437,11 +437,14 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 		if (ImGui::TreeNodeEx("Recorder", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 		{
-			if (ImGui::Checkbox("Record", (bool*)&Route_Recorder_Record) == 1)
+			if (Visuals_Recorded_Route_Draw == 0)
 			{
-				if (Route_Recorder_Record == 1)
+				if (ImGui::Checkbox("Record", (bool*)&Route_Recorder_Record) == 1)
 				{
-					Recorded_Route.clear();
+					if (Route_Recorder_Record == 1)
+					{
+						Recorded_Route.clear();
+					}
 				}
 			}
 
