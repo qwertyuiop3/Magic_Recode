@@ -30,9 +30,6 @@
     <Filter Include="Header++\Present\Variables">
       <UniqueIdentifier>{11b905fd-f08c-4ba0-b3ea-e822905a6356}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header++\Present\Function">
-      <UniqueIdentifier>{928d5e28-ec59-4ce4-848d-5dd5cf5ea101}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header++\I_Am_Graphical_User_Interface">
       <UniqueIdentifier>{99693836-9b32-4a2f-9201-664f8637c0c5}</UniqueIdentifier>
     </Filter>
@@ -108,6 +105,9 @@
     <Filter Include="Header++\Chat_Print_Formatted\Functions">
       <UniqueIdentifier>{e4d9fcaf-75ba-41c3-a32e-d744d19465a0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header++\Present\Functions">
+      <UniqueIdentifier>{928d5e28-ec59-4ce4-848d-5dd5cf5ea101}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entry_Point.cpp">
@@ -152,16 +152,13 @@
       <Filter>Header++\Present\Variables</Filter>
     </ClInclude>
     <ClInclude Include="Present_Functions.hpp">
-      <Filter>Header++\Present\Function</Filter>
+      <Filter>Header++\Present\Functions</Filter>
     </ClInclude>
     <ClInclude Include="Redirected_Present.hpp">
-      <Filter>Header++\Present\Function</Filter>
+      <Filter>Header++\Present\Functions</Filter>
     </ClInclude>
     <ClInclude Include="Redirect_Present.h">
-      <Filter>Header++\Present\Function</Filter>
-    </ClInclude>
-    <ClInclude Include="I_Am_Graphical_User_Interface.hpp">
-      <Filter>Header++\I_Am_Graphical_User_Interface</Filter>
+      <Filter>Header++\Present\Functions</Filter>
     </ClInclude>
     <ClInclude Include="I_Am_Graphical_User_Interface_Functions.hpp">
       <Filter>Header++\I_Am_Graphical_User_Interface\Functions</Filter>
@@ -308,7 +305,10 @@
       <Filter>Header++\Copy_User_Command\Structures</Filter>
     </ClInclude>
     <ClInclude Include="Initialize_Present.hpp">
-      <Filter>Header++\Present\Function</Filter>
+      <Filter>Header++\Present\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="I_Am_Graphical_User_Interface.hpp">
+      <Filter>Header++\I_Am_Graphical_User_Interface</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
