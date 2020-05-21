@@ -157,9 +157,6 @@
     <ClInclude Include="Redirected_Present.hpp">
       <Filter>Header++\Present\Functions</Filter>
     </ClInclude>
-    <ClInclude Include="Redirect_Present.h">
-      <Filter>Header++\Present\Functions</Filter>
-    </ClInclude>
     <ClInclude Include="I_Am_Graphical_User_Interface_Functions.hpp">
       <Filter>Header++\I_Am_Graphical_User_Interface\Functions</Filter>
     </ClInclude>
@@ -309,6 +306,9 @@
     </ClInclude>
     <ClInclude Include="I_Am_Graphical_User_Interface.hpp">
       <Filter>Header++\I_Am_Graphical_User_Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Redirect_Present.hpp">
+      <Filter>Header++\Present\Functions</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
