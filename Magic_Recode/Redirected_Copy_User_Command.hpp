@@ -8,7 +8,7 @@ void* __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* U
 
 		static void* Copy_User_Command_Create_Move_Return_Location = (void*)((unsigned __int32)Client_Module_Location + 1338695);
 
-		if (*(void**)_AddressOfReturnAddress() == Copy_User_Command_Create_Move_Return_Location)
+		if (_ReturnAddress() == Copy_User_Command_Create_Move_Return_Location)
 		{
 			if (User_Commands_Recorder_Record == 1)
 			{
