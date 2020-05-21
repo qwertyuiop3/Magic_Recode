@@ -1,6 +1,6 @@
 #pragma once
 
-void Initialize_I_Am_Graphical_User_Interface(HWND Game_Window)
+void Initialize_I_Am_Graphical_User_Interface(HWND Game_Window_Handle)
 {
 	ImGui::CreateContext();
 
@@ -10,5 +10,5 @@ void Initialize_I_Am_Graphical_User_Interface(HWND Game_Window)
 
 	ImGui_ImplDX9_Init(Direct_3_Dimensional_Device_9);
 
-	ImGui_ImplWin32_Init(Game_Window);
+	ImGui_ImplWin32_Init(Game_Window_Handle);
 }

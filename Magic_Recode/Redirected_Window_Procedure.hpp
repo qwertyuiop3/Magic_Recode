@@ -1,6 +1,6 @@
 #pragma once
 
-unsigned __int32 __stdcall Redirected_Window_Procedure(HWND Window, unsigned __int32 Message, unsigned __int32 Parameter_1, unsigned __int32 Parameter_2)
+unsigned __int32 __stdcall Redirected_Window_Procedure(HWND Window_Handle, unsigned __int32 Message, unsigned __int32 Parameter_1, unsigned __int32 Parameter_2)
 {
 	if (Setting_Up_Keybinds == 0)
 	{
@@ -108,10 +108,10 @@ unsigned __int32 __stdcall Redirected_Window_Procedure(HWND Window, unsigned __i
 	{
 		IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-		ImGui_ImplWin32_WndProcHandler(Window, Message, Parameter_1, Parameter_2);
+		ImGui_ImplWin32_WndProcHandler(Window_Handle, Message, Parameter_1, Parameter_2);
 
 		return WM_CREATE;
 	}
 
-	return CallWindowProcW((WNDPROC)Original_Window_Procedure_Location, Window, Message, Parameter_1, Parameter_2);
+	return CallWindowProcW((WNDPROC)Original_Window_Procedure_Location, Window_Handle, Message, Parameter_1, Parameter_2);
 }

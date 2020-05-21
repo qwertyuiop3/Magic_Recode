@@ -26,13 +26,13 @@ __int32 __stdcall DllMain(void* This_Module_Location, unsigned __int32 Call_Reas
 
 		Redirect_Chat_Print_Formatted(Client_Module_Location);
 
-		HWND Game_Window = FindWindowW(nullptr, L"Counter-Strike Source");
+		HWND Game_Window_Handle = FindWindowW(nullptr, L"Counter-Strike Source");
 
-		Initialize_I_Am_Graphical_User_Interface(Game_Window);
+		Initialize_I_Am_Graphical_User_Interface(Game_Window_Handle);
 
 		Initialize_Window_Procedure();
 
-		Redirect_Window_Procedure(Game_Window);
+		Redirect_Window_Procedure(Game_Window_Handle);
 
 		Initialize_Present();
 		
