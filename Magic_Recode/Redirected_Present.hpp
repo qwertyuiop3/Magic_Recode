@@ -87,18 +87,18 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 			Direct_3_Dimensional_Device_9->GetPixelShader(&Previous_Direct_3_Dimensional_Pixel_Shader_9);
 
 			Direct_3_Dimensional_Device_9->SetPixelShader(nullptr);
-			
+
 			__int8 Stop_Drawing_Recorded_Route = 0;
 
-			Draw_Recorded_Route_Label:
+		Draw_Recorded_Route_Label:
 			{
 				float Recorded_Route_On_Screen_Location_From[2];
 
-				if (In_World_Location_To_On_Screen_Location((float*)&Recorded_Route.at(Recorded_Route_Number - Visuals_Recorded_Route_Step_Length), Recorded_Route_On_Screen_Location_From) == 1)
+				if (In_World_Location_To_On_Screen_Location((float*)& Recorded_Route.at(Recorded_Route_Number - Visuals_Recorded_Route_Step_Length), Recorded_Route_On_Screen_Location_From) == 1)
 				{
 					float Recorded_Route_On_Screen_Location_To[2];
 
-					if (In_World_Location_To_On_Screen_Location((float*)&Recorded_Route.at(Recorded_Route_Number), Recorded_Route_On_Screen_Location_To) == 1)
+					if (In_World_Location_To_On_Screen_Location((float*)& Recorded_Route.at(Recorded_Route_Number), Recorded_Route_On_Screen_Location_To) == 1)
 					{
 						struct Vertex_Structure
 						{
@@ -169,7 +169,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 								Hue_To_Alpha_Red_Green_Blue((float)(Recorded_Route_Number % 361))
 							}
 						};
-							
+
 						Direct_3_Dimensional_Device_9->DrawPrimitiveUP(D3DPT_LINELIST, 1, Vertices, sizeof Vertex_Structure);
 					}
 				}
@@ -266,7 +266,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 		{
 			if (Setting_Up_Keybind[Button_Number] == 0)
 			{
-				Draw_Keybind:
+			Draw_Keybind:
 				{
 					char Formatted_Button_Name[32];
 
@@ -287,7 +287,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 			{
 				unsigned __int8 Function_Key_Number = VK_F1;
 
-				Function_Key_Released_Check_Label:
+			Function_Key_Released_Check_Label:
 				{
 					if (Function_Key_Number != VK_NAVIGATION_VIEW)
 					{
@@ -318,7 +318,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 		if (ImGui::TreeNodeEx("Recorder", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 		{
-			if (ImGui::Checkbox("Record", (bool*)&User_Commands_Recorder_Record) == 1)
+			if (ImGui::Checkbox("Record", (bool*)& User_Commands_Recorder_Record) == 1)
 			{
 				if (User_Commands_Recorder_Record == 1)
 				{
@@ -369,7 +369,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 			ImGui::TreePop();
 		}
-		
+
 		if (ImGui::TreeNodeEx("Player", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 		{
 			if (User_Commands_Recorder_Record == 0)
@@ -399,7 +399,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 				if (Recorded_User_Commands.empty() == 0)
 				{
-					if (ImGui::Checkbox("Playback", (bool*)&User_Commands_Recorder_Playback) == 1)
+					if (ImGui::Checkbox("Playback", (bool*)& User_Commands_Recorder_Playback) == 1)
 					{
 						User_Commands_Recorder_Record = 0;
 					}
@@ -432,14 +432,14 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 		ImGui::End();
 
 		ImGui::Begin("Route", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoNavInputs);
-		
+
 		*(wchar_t*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length) = L'_';
 
 		if (ImGui::TreeNodeEx("Recorder", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 		{
 			if (Visuals_Recorded_Route_Draw == 0)
 			{
-				if (ImGui::Checkbox("Record", (bool*)&Route_Recorder_Record) == 1)
+				if (ImGui::Checkbox("Record", (bool*)& Route_Recorder_Record) == 1)
 				{
 					if (Route_Recorder_Record == 1)
 					{
@@ -470,8 +470,8 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 					}
 				}
 			}
-			
-			if (ImGui::TreeNodeEx("Keybinds", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1);
+
+			if (ImGui::TreeNodeEx("Keybinds", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 			{
 				Setup_Keybind((char*)"Record", Route_Recorder_Record_Bound_To, Button_Number);
 
@@ -482,7 +482,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 		}
 
 		ImGui::End();
-		
+
 		ImGui::Begin("Visuals", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoNavInputs);
 
 		if (ImGui::TreeNodeEx("Recorded Route", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
@@ -491,7 +491,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 			{
 				if (Recorded_Route.empty() == 0)
 				{
-					ImGui::Checkbox("Draw", (bool*)&Visuals_Recorded_Route_Draw);
+					ImGui::Checkbox("Draw", (bool*)& Visuals_Recorded_Route_Draw);
 
 					static unsigned __int32 Visuals_Recorded_Route_Step_Length_Minimum = 1;
 
@@ -541,7 +541,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 		{
 			static __int8 Visuals_Physics_Continue_Jumping_If_Jump_Button_Held = 0;
 
-			if (ImGui::Checkbox("Continue Jumping If Jump Button Held", (bool*)&Visuals_Physics_Continue_Jumping_If_Jump_Button_Held) == 1)
+			if (ImGui::Checkbox("Continue Jumping If Jump Button Held", (bool*)& Visuals_Physics_Continue_Jumping_If_Jump_Button_Held) == 1)
 			{
 				static void* Previous_Buttons_In_Jump_Check_Location = (void*)((unsigned __int32)Client_Module_Location + 1936491);
 
@@ -591,7 +591,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 		Direct_3_Dimensional_Device_9->SetRenderState(D3DRS_SRGBWRITEENABLE, 1);
 	}
 
-	using Present_Type = __int32(__stdcall*)(IDirect3DDevice9* Direct_3_Dimensional_Device_9, void* Unknown_Parameter_1, void* Unknown_Parameter_2, void* Unknown_Parameter_3, void* Unknown_Parameter_4);
+	using Present_Type = __int32(__stdcall*)(IDirect3DDevice9 * Direct_3_Dimensional_Device_9, void* Unknown_Parameter_1, void* Unknown_Parameter_2, void* Unknown_Parameter_3, void* Unknown_Parameter_4);
 
 	return Present_Type(Original_Present_Caller_Location)(Direct_3_Dimensional_Device_9, Unknown_Parameter_1, Unknown_Parameter_2, Unknown_Parameter_3, Unknown_Parameter_4);
 }
