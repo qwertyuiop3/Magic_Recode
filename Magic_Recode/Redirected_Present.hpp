@@ -90,15 +90,15 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 			__int8 Stop_Drawing_Recorded_Route = 0;
 
-		Draw_Recorded_Route_Label:
+			Draw_Recorded_Route_Label:
 			{
 				float Recorded_Route_On_Screen_Location_From[2];
 
-				if (In_World_Location_To_On_Screen_Location((float*)& Recorded_Route.at(Recorded_Route_Number - Visuals_Recorded_Route_Step_Length), Recorded_Route_On_Screen_Location_From) == 1)
+				if (In_World_Location_To_On_Screen_Location((float*)&Recorded_Route.at(Recorded_Route_Number - Visuals_Recorded_Route_Step_Length), Recorded_Route_On_Screen_Location_From) == 1)
 				{
 					float Recorded_Route_On_Screen_Location_To[2];
 
-					if (In_World_Location_To_On_Screen_Location((float*)& Recorded_Route.at(Recorded_Route_Number), Recorded_Route_On_Screen_Location_To) == 1)
+					if (In_World_Location_To_On_Screen_Location((float*)&Recorded_Route.at(Recorded_Route_Number), Recorded_Route_On_Screen_Location_To) == 1)
 					{
 						struct Vertex_Structure
 						{
@@ -266,7 +266,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 		{
 			if (Setting_Up_Keybind[Button_Number] == 0)
 			{
-			Draw_Keybind:
+				Draw_Keybind:
 				{
 					char Formatted_Button_Name[32];
 
@@ -287,7 +287,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 			{
 				unsigned __int8 Function_Key_Number = VK_F1;
 
-			Function_Key_Released_Check_Label:
+				Function_Key_Released_Check_Label:
 				{
 					if (Function_Key_Number != VK_NAVIGATION_VIEW)
 					{
@@ -318,7 +318,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 		if (ImGui::TreeNodeEx("Recorder", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 		{
-			if (ImGui::Checkbox("Record", (bool*)& User_Commands_Recorder_Record) == 1)
+			if (ImGui::Checkbox("Record", (bool*)&User_Commands_Recorder_Record) == 1)
 			{
 				if (User_Commands_Recorder_Record == 1)
 				{
@@ -399,7 +399,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 				if (Recorded_User_Commands.empty() == 0)
 				{
-					if (ImGui::Checkbox("Playback", (bool*)& User_Commands_Recorder_Playback) == 1)
+					if (ImGui::Checkbox("Playback", (bool*)&User_Commands_Recorder_Playback) == 1)
 					{
 						User_Commands_Recorder_Record = 0;
 					}
@@ -439,7 +439,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 		{
 			if (Visuals_Recorded_Route_Draw == 0)
 			{
-				if (ImGui::Checkbox("Record", (bool*)& Route_Recorder_Record) == 1)
+				if (ImGui::Checkbox("Record", (bool*)&Route_Recorder_Record) == 1)
 				{
 					if (Route_Recorder_Record == 1)
 					{
@@ -491,7 +491,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 			{
 				if (Recorded_Route.empty() == 0)
 				{
-					ImGui::Checkbox("Draw", (bool*)& Visuals_Recorded_Route_Draw);
+					ImGui::Checkbox("Draw", (bool*)&Visuals_Recorded_Route_Draw);
 
 					static unsigned __int32 Visuals_Recorded_Route_Step_Length_Minimum = 1;
 
@@ -541,7 +541,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 		{
 			static __int8 Visuals_Physics_Continue_Jumping_If_Jump_Button_Held = 0;
 
-			if (ImGui::Checkbox("Continue Jumping If Jump Button Held", (bool*)& Visuals_Physics_Continue_Jumping_If_Jump_Button_Held) == 1)
+			if (ImGui::Checkbox("Continue Jumping If Jump Button Held", (bool*)&Visuals_Physics_Continue_Jumping_If_Jump_Button_Held) == 1)
 			{
 				static void* Previous_Buttons_In_Jump_Check_Location = (void*)((unsigned __int32)Client_Module_Location + 1936491);
 
