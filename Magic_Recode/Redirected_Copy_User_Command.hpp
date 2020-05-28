@@ -14,7 +14,31 @@ void* __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* U
 
 				if (Recorded_User_Commands.size() != Recorded_User_Commands_Maximum_Elements_Amount)
 				{
-					Recorded_User_Commands.push_back(*(User_Command_Structure*)User_Command);
+					Compressed_User_Command_Structure Compressed_User_Command;
+
+					float* User_Command_View_Angles = User_Command->View_Angles;
+
+					Compressed_User_Command.View_Angles[0] = User_Command_View_Angles[0];
+
+					Compressed_User_Command.View_Angles[1] = User_Command_View_Angles[1];
+
+					Compressed_User_Command.View_Angles[2] = User_Command_View_Angles[2];
+
+					Compressed_User_Command.Forward_Move = User_Command->Forward_Move;
+
+					Compressed_User_Command.Side_Move = User_Command->Side_Move;
+
+					Compressed_User_Command.Up_Move = User_Command->Up_Move;
+
+					Compressed_User_Command.Buttons_State = User_Command->Buttons_State;
+
+					Compressed_User_Command.Impulse = User_Command->Impulse;
+
+					Compressed_User_Command.Mouse_Difference_X = User_Command->Mouse_Difference_X;
+
+					Compressed_User_Command.Mouse_Difference_Y = User_Command->Mouse_Difference_Y;
+
+					Recorded_User_Commands.push_back(Compressed_User_Command);
 
 					Recorder_User_Comamand_Number += 1;
 				}
@@ -31,13 +55,17 @@ void* __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* U
 				{
 					if (Recorder_User_Comamand_Number != Recorded_User_Commands.size())
 					{
-						User_Command_Structure* Recorded_User_Command = &Recorded_User_Commands.at(Recorder_User_Comamand_Number);
+						Compressed_User_Command_Structure* Recorded_User_Command = &Recorded_User_Commands.at(Recorder_User_Comamand_Number);
 
-						User_Command->View_Angles[0] = Recorded_User_Command->View_Angles[0];
+						float* User_Command_View_Angles = User_Command->View_Angles;
 
-						User_Command->View_Angles[1] = Recorded_User_Command->View_Angles[1];
+						float* Recorded_User_Command_View_Angles = Recorded_User_Command->View_Angles;
 
-						User_Command->View_Angles[2] = Recorded_User_Command->View_Angles[2];
+						User_Command_View_Angles[0] = Recorded_User_Command_View_Angles[0];
+
+						User_Command_View_Angles[1] = Recorded_User_Command_View_Angles[1];
+
+						User_Command_View_Angles[2] = Recorded_User_Command_View_Angles[2];
 
 						using Set_View_Angles_Type = void(__thiscall*)(void* Engine, float* View_Angles);
 

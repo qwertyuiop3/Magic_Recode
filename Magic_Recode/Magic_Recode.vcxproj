@@ -70,6 +70,7 @@
     <ClInclude Include="Client_Send_Move.hpp" />
     <ClInclude Include="Client_Send_Move_Functions.hpp" />
     <ClInclude Include="Client_Send_Move_Variables.hpp" />
+    <ClInclude Include="Compressed_User_Command.hpp" />
     <ClInclude Include="Controller_Move.hpp" />
     <ClInclude Include="Controller_Move_Functions.hpp" />
     <ClInclude Include="Controller_Move_Variables.hpp" />

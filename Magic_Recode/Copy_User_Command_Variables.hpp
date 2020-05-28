@@ -1,6 +1,6 @@
 #pragma once
 
-std::vector<User_Command_Structure> Recorded_User_Commands;
+std::vector<Compressed_User_Command_Structure> Recorded_User_Commands;
 
 unsigned __int32 Recorder_User_Comamand_Number;
 

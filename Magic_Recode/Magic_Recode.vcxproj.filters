@@ -310,5 +310,8 @@
     <ClInclude Include="Redirect_Present.hpp">
       <Filter>Header++\Present\Functions</Filter>
     </ClInclude>
+    <ClInclude Include="Compressed_User_Command.hpp">
+      <Filter>Header++\Copy_User_Command\Structures</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
