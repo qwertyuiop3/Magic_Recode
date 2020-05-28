@@ -4,9 +4,7 @@ void* __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* U
 {
 	if (Freeze_Controlled_Creature == 0)
 	{
-		static void* Client_Module_Location = GetModuleHandleW(L"client.dll");
-
-		static void* Copy_User_Command_Create_Move_Return_Location = (void*)((unsigned __int32)Client_Module_Location + 1338695);
+		static void* Copy_User_Command_Create_Move_Return_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 1338695);
 
 		if (_ReturnAddress() == Copy_User_Command_Create_Move_Return_Location)
 		{
@@ -43,11 +41,9 @@ void* __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* U
 
 						using Set_View_Angles_Type = void(__thiscall*)(void* Engine, float* View_Angles);
 
-						static void* Engine_Module_Location = GetModuleHandleW(L"engine.dll");
+						static void* Set_View_Angles_Location = (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 676992);
 
-						static void* Set_View_Angles_Location = (void*)((unsigned __int32)Engine_Module_Location + 676992);
-
-						static void* Engine = (void*)((unsigned __int32)Engine_Module_Location + 3916044);
+						static void* Engine = (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 3916044);
 
 						Set_View_Angles_Type((unsigned __int32)Set_View_Angles_Location)(Engine, User_Command->View_Angles);
 
@@ -86,9 +82,9 @@ void* __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* U
 
 				using Get_Creature_Location_Type = float*(__thiscall*)(void* Creature);
 
-				static void* Get_Creature_Location_Location = (void*)((unsigned __int32)Client_Module_Location + 601456);
+				static void* Get_Creature_Location_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 601456);
 
-				static void* Controlled_Creature_Container = (void*)((unsigned __int32)Client_Module_Location + 5007112);
+				static void* Controlled_Creature_Container = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5007112);
 
 				if (Recorded_Route_Elements_Amount == 0)
 				{

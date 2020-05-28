@@ -213,9 +213,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 		ImGui::Begin("User Commands", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoNavInputs);
 
-		static void* Client_Module_Location = GetModuleHandleW(L"client.dll");
-
-		static void* Map_Name_Location = (void*)((unsigned __int32)Client_Module_Location + 5245916);
+		static void* Map_Name_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5245916);
 
 		unsigned __int32 Map_Name_Length = wcslen((wchar_t*)Map_Name_Location) * 2;
 
@@ -543,7 +541,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 			if (ImGui::Checkbox("Continue Jumping If Jump Button Held", (bool*)&Visuals_Physics_Continue_Jumping_If_Jump_Button_Held) == 1)
 			{
-				static void* Previous_Buttons_In_Jump_Check_Location = (void*)((unsigned __int32)Client_Module_Location + 1936491);
+				static void* Previous_Buttons_In_Jump_Check_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 1936491);
 
 				if (Visuals_Physics_Continue_Jumping_If_Jump_Button_Held == 1)
 				{
