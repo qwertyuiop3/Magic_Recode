@@ -260,7 +260,9 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 			0
 		};
 
-		auto Setup_Keybind = [](char* Function_Name, unsigned __int8& Key_Number, __int8& Button_Number) -> void
+		__int8 Button_Number = 0;
+
+		auto Setup_Keybind = [&](char* Function_Name, unsigned __int8& Key_Number) -> void
 		{
 			if (Setting_Up_Keybind[Button_Number] == 0)
 			{
@@ -312,8 +314,6 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 			Button_Number += 1;
 		};
 
-		__int8 Button_Number = 0;
-
 		if (ImGui::TreeNodeEx("Recorder", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 		{
 			if (ImGui::Checkbox("Record", (bool*)&User_Commands_Recorder_Record) == 1)
@@ -360,7 +360,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 			if (ImGui::TreeNodeEx("Keybinds", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 			{
-				Setup_Keybind((char*)"Record", User_Commands_Recorder_Record_Bound_To, Button_Number);
+				Setup_Keybind((char*)"Record", User_Commands_Recorder_Record_Bound_To);
 
 				ImGui::TreePop();
 			}
@@ -411,7 +411,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 					if (ImGui::TreeNodeEx("Keybinds", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 					{
-						Setup_Keybind((char*)"Playback", User_Commands_Recorder_Playback_Bound_To, Button_Number);
+						Setup_Keybind((char*)"Playback", User_Commands_Recorder_Playback_Bound_To);
 
 						ImGui::TreePop();
 					}
@@ -471,7 +471,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 			if (ImGui::TreeNodeEx("Keybinds", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 			{
-				Setup_Keybind((char*)"Record", Route_Recorder_Record_Bound_To, Button_Number);
+				Setup_Keybind((char*)"Record", Route_Recorder_Record_Bound_To);
 
 				ImGui::TreePop();
 			}
