@@ -9,7 +9,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{D92442E2-2B0F-4A56-921D-A1C1D5451B63}</ProjectGuid>
-    <RootNamespace>MagicRecode</RootNamespace>
+    <RootNamespace>Magic_Recode</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
