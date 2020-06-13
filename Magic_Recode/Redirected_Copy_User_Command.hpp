@@ -1,6 +1,6 @@
 #pragma once
 
-void* __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Unknown_Parameter_2, User_Command_Structure* User_Command)
+void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Unknown_Parameter_2, User_Command_Structure* User_Command)
 {
 	if (Freeze_Controlled_Creature == 0)
 	{
@@ -156,7 +156,7 @@ void* __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* U
 		}
 	}
 
-	using Copy_User_Command_Type = void*(__thiscall*)(void* Unknown_Parameter, User_Command_Structure* User_Command);
+	using Copy_User_Command_Type = void(__thiscall*)(void* Unknown_Parameter, User_Command_Structure* User_Command);
 
-	return Copy_User_Command_Type(Original_Copy_User_Command_Caller_Location)(Unknown_Parameter_1, User_Command);
+	Copy_User_Command_Type((unsigned __int32)Original_Copy_User_Command_Caller_Location)(Unknown_Parameter_1, User_Command);
 }
