@@ -93,9 +93,6 @@
     <Filter Include="Header++\Byte_Manager">
       <UniqueIdentifier>{2c98ea86-c2b8-43d2-9bc7-0d266fa74bac}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header++\Byte_Manager\Byte_Manager_Functions">
-      <UniqueIdentifier>{0fbb85cb-3b05-4710-95d0-6347a597bf6f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header++\Chat_Print_Formatted">
       <UniqueIdentifier>{89c62fc1-31e2-4310-90c9-0cce1a47b5f6}</UniqueIdentifier>
     </Filter>
@@ -107,6 +104,9 @@
     </Filter>
     <Filter Include="Header++\Present\Functions">
       <UniqueIdentifier>{928d5e28-ec59-4ce4-848d-5dd5cf5ea101}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header++\Byte_Manager\Functions">
+      <UniqueIdentifier>{0fbb85cb-3b05-4710-95d0-6347a597bf6f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -287,13 +287,13 @@
       <Filter>Header++\Redirection_Manager</Filter>
     </ClInclude>
     <ClInclude Include="Byte_Manager_Functions.hpp">
-      <Filter>Header++\Byte_Manager\Byte_Manager_Functions</Filter>
+      <Filter>Header++\Byte_Manager\Functions</Filter>
     </ClInclude>
     <ClInclude Include="Byte_Manager_Find_Bytes.hpp">
-      <Filter>Header++\Byte_Manager\Byte_Manager_Functions</Filter>
+      <Filter>Header++\Byte_Manager\Functions</Filter>
     </ClInclude>
     <ClInclude Include="Byte_Manager_Copy_Bytes.hpp">
-      <Filter>Header++\Byte_Manager\Byte_Manager_Functions</Filter>
+      <Filter>Header++\Byte_Manager\Functions</Filter>
     </ClInclude>
     <ClInclude Include="Byte_Manager.hpp">
       <Filter>Header++\Byte_Manager</Filter>
