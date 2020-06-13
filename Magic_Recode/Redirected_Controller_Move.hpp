@@ -23,14 +23,14 @@ void __fastcall Redirected_Controller_Move(void* Input, void* Unknown_Parameter_
 					Freeze_Controlled_Creature = 0;
 				}
 
-				*(float*)Mouse_Active_Location = 0;
+				*(__int8*)Mouse_Active_Location = 0;
 			}
 		}
 		else
 		{
 			Previous_Draw_Graphical_User_Interface = 0;
 
-			*(float*)Mouse_Active_Location = 0;
+			*(__int8*)Mouse_Active_Location = 0;
 		}
 	}
 	else
