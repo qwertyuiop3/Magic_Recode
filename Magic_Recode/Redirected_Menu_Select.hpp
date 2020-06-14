@@ -4,7 +4,7 @@ void __cdecl Redirected_Menu_Select(void** Data)
 {
 	auto Handle_Menu_Select = [&]() -> void
 	{
-		static void* Menu_Name_Location = (void*)(GetModuleHandleW(L"client.dll") + 5195824);
+		static void* Menu_Name_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5195824);
 
 		if (strlen((char*)Menu_Name_Location) > 4)
 		{
