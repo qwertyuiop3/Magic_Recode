@@ -42,17 +42,9 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 									return 1;
 								}
-
-								return 0;
 							}
-
-							return 0;
 						}
-
-						return 0;
 					}
-
-					return 0;
 				}
 
 				return 0;
