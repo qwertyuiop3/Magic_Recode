@@ -36,9 +36,9 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 							{
 								if (Y <= Screen_Height)
 								{
-									On_Screen_Location[0] = roundf(X);
+									On_Screen_Location[0] = X;
 
-									On_Screen_Location[1] = roundf(Y);
+									On_Screen_Location[1] = Y;
 
 									return 1;
 								}
