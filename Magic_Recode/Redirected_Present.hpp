@@ -8,7 +8,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 		if (Recorded_Route_Elements_Amount > Visuals_Recorded_Route_Step_Length)
 		{
-			unsigned __int32 Recorded_Route_Number = Visuals_Recorded_Route_Step_Length;
+			static float* View_Matrix_Location = (float*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 5954552);
 
 			D3DVIEWPORT9 Direct_3_Dimensional_Viewport_9;
 
@@ -20,8 +20,6 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 			auto In_World_Location_To_On_Screen_Location = [&](float* In_World_Location, float* On_Screen_Location) -> __int8
 			{
-				static float* View_Matrix_Location = (float*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 5954552);
-
 				float W = In_World_Location[0] * View_Matrix_Location[12] + View_Matrix_Location[13] * In_World_Location[1] + View_Matrix_Location[14] * In_World_Location[2] + View_Matrix_Location[15];
 
 				if (W > 0)
@@ -59,6 +57,8 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 				return 0;
 			};
+
+			unsigned __int32 Recorded_Route_Number = Visuals_Recorded_Route_Step_Length;
 
 			Direct_3_Dimensional_Device_9->SetRenderState(D3DRS_SRGBWRITEENABLE, 0);
 
