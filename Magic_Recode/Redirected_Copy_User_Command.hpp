@@ -16,19 +16,25 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 				{
 					Compressed_User_Command_Structure Compressed_User_Command;
 
+					float* Compressed_User_Command_View_Angles = Compressed_User_Command.View_Angles;
+
 					float* User_Command_View_Angles = User_Command->View_Angles;
 
-					Compressed_User_Command.View_Angles[0] = User_Command_View_Angles[0];
+					Compressed_User_Command_View_Angles[0] = User_Command_View_Angles[0];
 
-					Compressed_User_Command.View_Angles[1] = User_Command_View_Angles[1];
+					Compressed_User_Command_View_Angles[1] = User_Command_View_Angles[1];
 
-					Compressed_User_Command.View_Angles[2] = User_Command_View_Angles[2];
+					Compressed_User_Command_View_Angles[2] = User_Command_View_Angles[2];
 
-					Compressed_User_Command.Forward_Move = User_Command->Forward_Move;
+					float* Compressed_User_Command_Move = Compressed_User_Command.Move;
 
-					Compressed_User_Command.Side_Move = User_Command->Side_Move;
+					float* User_Command_Move = User_Command->Move;
 
-					Compressed_User_Command.Up_Move = User_Command->Up_Move;
+					Compressed_User_Command_Move[0] = User_Command_Move[0];
+
+					Compressed_User_Command_Move[1] = User_Command_Move[1];
+
+					Compressed_User_Command_Move[2] = User_Command_Move[2];
 
 					Compressed_User_Command.Buttons_State = User_Command->Buttons_State;
 
@@ -75,11 +81,15 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 						Set_View_Angles_Type((unsigned __int32)Set_View_Angles_Location)(Engine, User_Command->View_Angles);
 
-						User_Command->Forward_Move = Recorded_User_Command->Forward_Move;
+						float* User_Command_Move = User_Command->Move;
 
-						User_Command->Side_Move = Recorded_User_Command->Side_Move;
+						float* Recorded_User_Command_Move = Recorded_User_Command->Move;
 
-						User_Command->Up_Move = Recorded_User_Command->Up_Move;
+						User_Command_Move[0] = Recorded_User_Command_Move[0];
+
+						User_Command_Move[1] = Recorded_User_Command_Move[1];
+
+						User_Command_Move[2] = Recorded_User_Command_Move[2];
 
 						User_Command->Buttons_State = Recorded_User_Command->Buttons_State;
 

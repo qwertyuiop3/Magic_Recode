@@ -6,11 +6,7 @@ struct User_Command_Structure
 
 	float View_Angles[3];
 
-	float Forward_Move;
-
-	float Side_Move;
-
-	float Up_Move;
+	float Move[3];
 
 	__int32 Buttons_State;
 
