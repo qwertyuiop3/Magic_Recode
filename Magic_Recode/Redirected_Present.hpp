@@ -221,23 +221,19 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 		*(__int16*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length + 4) = 0;
 
-		static __int8 File_Number_Minimum = 0;
-
-		static __int8 File_Number_Maximum = 9;
-
 		auto File_Number_Editor = [&]()
 		{
-			if (ImGui::DragScalar("File Number", ImGuiDataType_S8, &File_Number, 1, &File_Number_Minimum, &File_Number_Maximum, "%i") == 1)
+			if (ImGui::DragScalar("File Number", ImGuiDataType_S8, &File_Number, 1, nullptr, nullptr, "%i") == 1)
 			{
-				if (File_Number < File_Number_Minimum)
+				if (File_Number < 0)
 				{
-					File_Number = File_Number_Minimum;
+					File_Number = 0;
 				}
 				else
 				{
-					if (File_Number > File_Number_Maximum)
+					if (File_Number > 9)
 					{
-						File_Number = File_Number_Maximum;
+						File_Number = 9;
 					}
 				}
 			}
@@ -483,13 +479,11 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 				{
 					ImGui::Checkbox("Draw", (bool*)&Visuals_Recorded_Route_Draw);
 
-					static unsigned __int32 Visuals_Recorded_Route_Step_Length_Minimum = 1;
-
-					if (ImGui::DragScalar("Step Length", ImGuiDataType_U32, &Visuals_Recorded_Route_Step_Length, 1, &Visuals_Recorded_Route_Step_Length_Minimum, nullptr, "%i") == 1)
+					if (ImGui::DragScalar("Step Length", ImGuiDataType_U32, &Visuals_Recorded_Route_Step_Length, 1, nullptr, nullptr, "%i") == 1)
 					{
-						if (Visuals_Recorded_Route_Step_Length < Visuals_Recorded_Route_Step_Length_Minimum)
+						if (Visuals_Recorded_Route_Step_Length < 1)
 						{
-							Visuals_Recorded_Route_Step_Length = Visuals_Recorded_Route_Step_Length_Minimum;
+							Visuals_Recorded_Route_Step_Length = 1;
 						}
 					}
 				}
