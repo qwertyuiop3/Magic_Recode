@@ -485,9 +485,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 					static unsigned __int32 Visuals_Recorded_Route_Step_Length_Minimum = 1;
 
-					static unsigned __int32 Visuals_Recorded_Route_Step_Length_Maximum = UINT_MAX;
-
-					if (ImGui::DragScalar("Step Length", ImGuiDataType_U32, &Visuals_Recorded_Route_Step_Length, 1, &Visuals_Recorded_Route_Step_Length_Minimum, &Visuals_Recorded_Route_Step_Length_Maximum, "%i") == 1)
+					if (ImGui::DragScalar("Step Length", ImGuiDataType_U32, &Visuals_Recorded_Route_Step_Length, 1, &Visuals_Recorded_Route_Step_Length_Minimum, nullptr, "%i") == 1)
 					{
 						if (Visuals_Recorded_Route_Step_Length < Visuals_Recorded_Route_Step_Length_Minimum)
 						{
