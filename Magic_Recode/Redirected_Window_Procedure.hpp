@@ -8,38 +8,34 @@ unsigned __int32 __stdcall Redirected_Window_Procedure(HWND Window_Handle, unsig
 		{
 			if (Parameter_1 == VK_INSERT)
 			{
-				if (Message == WM_KEYDOWN)
+				if (Message == WM_KEYUP)
 				{
-					return 1;
+					Draw_Graphical_User_Interface ^= 1;
 				}
-
-				Draw_Graphical_User_Interface ^= 1;
 
 				return 1;
 			}
 
 			if (Parameter_1 == User_Commands_Recorder_Record_Bound_To)
 			{
-				if (Message == WM_KEYDOWN)
+				if (Message == WM_KEYUP)
 				{
-					return 1;
-				}
+					User_Commands_Recorder_Record ^= 1;
 
-				User_Commands_Recorder_Record ^= 1;
-
-				if (User_Commands_Recorder_Record == 1)
-				{
-					if (User_Commands_Recorder_Playback == 1)
+					if (User_Commands_Recorder_Record == 1)
 					{
-						User_Commands_Recorder_Playback = 0;
+						if (User_Commands_Recorder_Playback == 1)
+						{
+							User_Commands_Recorder_Playback = 0;
 
-						Recorded_User_Commands.resize(Recorder_User_Comamand_Number);
-					}
-					else
-					{
-						User_Commands_Recorder_Playback = 0;
+							Recorded_User_Commands.resize(Recorder_User_Comamand_Number);
+						}
+						else
+						{
+							User_Commands_Recorder_Playback = 0;
 
-						Recorded_User_Commands.clear();
+							Recorded_User_Commands.clear();
+						}
 					}
 				}
 
@@ -52,12 +48,10 @@ unsigned __int32 __stdcall Redirected_Window_Procedure(HWND Window_Handle, unsig
 				{
 					if (Parameter_1 == User_Commands_Recorder_Playback_Bound_To)
 					{
-						if (Message == WM_KEYDOWN)
+						if (Message == WM_KEYUP)
 						{
-							return 1;
+							User_Commands_Recorder_Playback ^= 1;
 						}
-
-						User_Commands_Recorder_Playback ^= 1;
 
 						return 1;
 					}
@@ -66,20 +60,20 @@ unsigned __int32 __stdcall Redirected_Window_Procedure(HWND Window_Handle, unsig
 
 			if (Parameter_1 == Route_Recorder_Record_Bound_To)
 			{
-				if (Message == WM_KEYDOWN)
+				if (Message == WM_KEYUP)
 				{
-					return 1;
-				}
-
-				if (Visuals_Recorded_Route_Draw == 0)
-				{
-					Route_Recorder_Record ^= 1;
-
-					if (Route_Recorder_Record == 1)
+					if (Visuals_Recorded_Route_Draw == 0)
 					{
-						Recorded_Route.clear();
+						Route_Recorder_Record ^= 1;
+
+						if (Route_Recorder_Record == 1)
+						{
+							Recorded_Route.clear();
+						}
 					}
 				}
+
+				return 1;
 			}
 
 			return 0;
