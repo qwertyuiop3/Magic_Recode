@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Initialize_Redirect_Chat_Print_Formatted.hpp"
+#include "Chat_Print_Formatted_Initialize_Redirect_Chat_Print_Formatted.hpp"
 
-#include "Redirected_Chat_Print_Formatted.hpp"
+#include "Chat_Print_Formatted_Redirected_Chat_Print_Formatted.hpp"
 
-#include "Redirect_Chat_Print_Formatted.hpp"
+#include "Chat_Print_Formatted_Redirect_Chat_Print_Formatted.hpp"
