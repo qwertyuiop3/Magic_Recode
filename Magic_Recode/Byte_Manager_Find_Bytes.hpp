@@ -12,7 +12,7 @@ void* Find_Bytes(unsigned __int32 Bytes_Amount, void* Starting_Location, unsigne
 		{
 			if (*(unsigned __int8*)Starting_Location == Bytes[Byte_Number])
 			{
-				if (Byte_Number == Bytes_Amount)
+				if (Bytes_Amount == Byte_Number)
 				{
 					return (void*)((unsigned __int32)Starting_Location - Bytes_Amount);
 				}

@@ -13,7 +13,7 @@ void Copy_Bytes(__int8 Modify_Access_Rights, void* Starting_Location, unsigned _
 		
 	Copy_Byte_Label:
 	{
-		if (Byte_Number != Bytes_Amount)
+		if (Bytes_Amount != Byte_Number)
 		{
 			*(unsigned __int8*)((unsigned __int32)Starting_Location + Byte_Number) = Bytes[Byte_Number];
 				
