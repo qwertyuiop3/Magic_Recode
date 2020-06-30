@@ -4,39 +4,39 @@ __int32 __stdcall DllMain(void* This_Module_Location, unsigned __int32 Call_Reas
 {
 	if (Call_Reason == DLL_PROCESS_ATTACH)
 	{
-		Initialize_Menu_Select();
+		Menu_Select::Initialize_Menu_Select();
 
 		void* Client_Module_Location = GetModuleHandleW(L"client.dll");
 
-		Redirect_Menu_Select(Client_Module_Location);
+		Menu_Select::Redirect_Menu_Select(Client_Module_Location);
 
-		Initialize_Controller_Move();
+		Controller_Move::Initialize_Controller_Move();
 
-		Redirect_Controller_Move(Client_Module_Location);
+		Controller_Move::Redirect_Controller_Move(Client_Module_Location);
 
-		Initialize_Copy_User_Command();
+		Copy_User_Command::Initialize_Copy_User_Command();
 
-		Redirect_Copy_User_Command(Client_Module_Location);
+		Copy_User_Command::Redirect_Copy_User_Command(Client_Module_Location);
 
-		Redirect_Client_Send_Move();
+		Client_Send_Move::Redirect_Client_Send_Move();
 
-		Redirect_Physics_Simulate(Client_Module_Location);
+		Physics_Simulate::Redirect_Physics_Simulate(Client_Module_Location);
 
-		Initialize_Redirect_Chat_Print_Formatted();
+		Chat_Print_Formatted::Initialize_Chat_Print_Formatted();
 
-		Redirect_Chat_Print_Formatted(Client_Module_Location);
+		Chat_Print_Formatted::Redirect_Chat_Print_Formatted(Client_Module_Location);
 
 		HWND Game_Window_Handle = FindWindowW(nullptr, L"Counter-Strike Source");
 
-		Initialize_I_Am_Graphical_User_Interface(Game_Window_Handle);
+		I_Am_Graphical_User_Interface::Initialize_I_Am_Graphical_User_Interface(Game_Window_Handle);
 
-		Initialize_Window_Procedure();
+		Window_Procedure::Initialize_Window_Procedure();
 
-		Redirect_Window_Procedure(Game_Window_Handle);
+		Window_Procedure::Redirect_Window_Procedure(Game_Window_Handle);
 
-		Initialize_Present();
+		Present::Initialize_Present();
 		
-		Redirect_Present();
+		Present::Redirect_Present();
 	}
 
 	return 1;

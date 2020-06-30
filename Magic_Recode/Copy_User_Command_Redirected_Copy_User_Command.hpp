@@ -2,13 +2,13 @@
 
 void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Unknown_Parameter_2, User_Command_Structure* User_Command)
 {
-	if (Freeze_Controlled_Creature == 0)
+	if (Menu_Select::Freeze_Controlled_Creature == 0)
 	{
 		static void* Copy_User_Command_In_Create_Move_Return_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 1338695);
 
 		if (_ReturnAddress() == Copy_User_Command_In_Create_Move_Return_Location)
 		{
-			if (User_Commands_Recorder_Record == 1)
+			if (Menu_Select::User_Commands_Recorder_Record == 1)
 			{
 				static unsigned __int32 Recorded_User_Commands_Maximum_Elements_Amount = Recorded_User_Commands.max_size();
 
@@ -16,25 +16,21 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 				{
 					Compressed_User_Command_Structure Compressed_User_Command;
 
-					float* Compressed_User_Command_View_Angles = Compressed_User_Command.View_Angles;
-
 					float* User_Command_View_Angles = User_Command->View_Angles;
 
-					Compressed_User_Command_View_Angles[0] = User_Command_View_Angles[0];
+					Compressed_User_Command.View_Angles[0] = User_Command_View_Angles[0];
 
-					Compressed_User_Command_View_Angles[1] = User_Command_View_Angles[1];
+					Compressed_User_Command.View_Angles[1] = User_Command_View_Angles[1];
 
-					Compressed_User_Command_View_Angles[2] = User_Command_View_Angles[2];
-
-					float* Compressed_User_Command_Move = Compressed_User_Command.Move;
+					Compressed_User_Command.View_Angles[2] = User_Command_View_Angles[2];
 
 					float* User_Command_Move = User_Command->Move;
 
-					Compressed_User_Command_Move[0] = User_Command_Move[0];
+					Compressed_User_Command.Move[0] = User_Command_Move[0];
 
-					Compressed_User_Command_Move[1] = User_Command_Move[1];
+					Compressed_User_Command.Move[1] = User_Command_Move[1];
 
-					Compressed_User_Command_Move[2] = User_Command_Move[2];
+					Compressed_User_Command.Move[2] = User_Command_Move[2];
 
 					Compressed_User_Command.Buttons_State = User_Command->Buttons_State;
 
@@ -50,14 +46,14 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 				}
 				else
 				{
-					User_Commands_Recorder_Record = 0;
+					Menu_Select::User_Commands_Recorder_Record = 0;
 
 					Recorder_User_Comamand_Number = 0;
 				}
 			}
 			else
 			{
-				if (User_Commands_Recorder_Playback == 1)
+				if (Menu_Select::User_Commands_Recorder_Playback == 1)
 				{
 					if (Recorder_User_Comamand_Number != Recorded_User_Commands.size())
 					{
@@ -103,7 +99,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 					}
 					else
 					{
-						User_Commands_Recorder_Playback = 0;
+						Menu_Select::User_Commands_Recorder_Playback = 0;
 
 						Recorder_User_Comamand_Number = 0;
 					}

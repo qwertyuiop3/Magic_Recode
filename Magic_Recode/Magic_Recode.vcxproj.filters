@@ -304,13 +304,13 @@
     <ClInclude Include="Controller_Move_Redirected_Controller_Move.hpp">
       <Filter>Header++\Controller_Move\Functions</Filter>
     </ClInclude>
-    <ClInclude Include="Chat_Print_Formatted_Initialize_Redirect_Chat_Print_Formatted.hpp">
-      <Filter>Header++\Chat_Print_Formatted\Functions</Filter>
-    </ClInclude>
     <ClInclude Include="Chat_Print_Formatted_Redirect_Chat_Print_Formatted.hpp">
       <Filter>Header++\Chat_Print_Formatted\Functions</Filter>
     </ClInclude>
     <ClInclude Include="Chat_Print_Formatted_Redirected_Chat_Print_Formatted.hpp">
+      <Filter>Header++\Chat_Print_Formatted\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Chat_Print_Formatted_Initialize_Chat_Print_Formatted.hpp">
       <Filter>Header++\Chat_Print_Formatted\Functions</Filter>
     </ClInclude>
   </ItemGroup>

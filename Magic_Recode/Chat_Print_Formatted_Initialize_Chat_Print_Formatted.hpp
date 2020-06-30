@@ -1,6 +1,6 @@
 #pragma once
 
-void Initialize_Redirect_Chat_Print_Formatted()
+void Initialize_Chat_Print_Formatted()
 {
 	Recorder_User_Comamand_Number_History.clear();
 

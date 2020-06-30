@@ -10,7 +10,7 @@ unsigned __int32 __stdcall Redirected_Window_Procedure(HWND Window_Handle, unsig
 			{
 				if (Message == WM_KEYUP)
 				{
-					Draw_Graphical_User_Interface ^= 1;
+					Controller_Move::Draw_Graphical_User_Interface ^= 1;
 				}
 
 				return 1;
@@ -20,21 +20,21 @@ unsigned __int32 __stdcall Redirected_Window_Procedure(HWND Window_Handle, unsig
 			{
 				if (Message == WM_KEYUP)
 				{
-					User_Commands_Recorder_Record ^= 1;
+					Menu_Select::User_Commands_Recorder_Record ^= 1;
 
-					if (User_Commands_Recorder_Record == 1)
+					if (Menu_Select::User_Commands_Recorder_Record == 1)
 					{
-						if (User_Commands_Recorder_Playback == 1)
+						if (Menu_Select::User_Commands_Recorder_Playback == 1)
 						{
-							User_Commands_Recorder_Playback = 0;
+							Menu_Select::User_Commands_Recorder_Playback = 0;
 
-							Recorded_User_Commands.resize(Recorder_User_Comamand_Number);
+							Copy_User_Command::Recorded_User_Commands.resize(Copy_User_Command::Recorder_User_Comamand_Number);
 						}
 						else
 						{
-							User_Commands_Recorder_Playback = 0;
+							Menu_Select::User_Commands_Recorder_Playback = 0;
 
-							Recorded_User_Commands.clear();
+							Copy_User_Command::Recorded_User_Commands.clear();
 						}
 					}
 				}
@@ -42,15 +42,15 @@ unsigned __int32 __stdcall Redirected_Window_Procedure(HWND Window_Handle, unsig
 				return 1;
 			}
 
-			if (User_Commands_Recorder_Record == 0)
+			if (Menu_Select::User_Commands_Recorder_Record == 0)
 			{
-				if (Recorded_User_Commands.empty() == 0)
+				if (Copy_User_Command::Recorded_User_Commands.empty() == 0)
 				{
 					if (Parameter_1 == User_Commands_Recorder_Playback_Bound_To)
 					{
 						if (Message == WM_KEYUP)
 						{
-							User_Commands_Recorder_Playback ^= 1;
+							Menu_Select::User_Commands_Recorder_Playback ^= 1;
 						}
 
 						return 1;
@@ -64,11 +64,11 @@ unsigned __int32 __stdcall Redirected_Window_Procedure(HWND Window_Handle, unsig
 				{
 					if (Visuals_Recorded_Route_Draw == 0)
 					{
-						Route_Recorder_Record ^= 1;
+						Copy_User_Command::Route_Recorder_Record ^= 1;
 
-						if (Route_Recorder_Record == 1)
+						if (Copy_User_Command::Route_Recorder_Record == 1)
 						{
-							Recorded_Route.clear();
+							Copy_User_Command::Recorded_Route.clear();
 						}
 					}
 				}
@@ -98,7 +98,7 @@ unsigned __int32 __stdcall Redirected_Window_Procedure(HWND Window_Handle, unsig
 		}
 	}
 
-	if (Draw_Graphical_User_Interface == 1)
+	if (Controller_Move::Draw_Graphical_User_Interface == 1)
 	{
 		IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 

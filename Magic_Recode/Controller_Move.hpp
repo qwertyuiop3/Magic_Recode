@@ -1,5 +1,8 @@
 #pragma once
 
-#include "Controller_Move_Variables.hpp"
+namespace Controller_Move
+{
+	#include "Controller_Move_Variables.hpp"
 
-#include "Controller_Move_Functions.hpp"
+	#include "Controller_Move_Functions.hpp"
+};

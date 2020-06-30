@@ -1,5 +1,8 @@
 #pragma once
 
-#include "Present_Variables.hpp"
+namespace Present
+{
+	#include "Present_Variables.hpp"
 
-#include "Present_Functions.hpp"
+	#include "Present_Functions.hpp"
+};

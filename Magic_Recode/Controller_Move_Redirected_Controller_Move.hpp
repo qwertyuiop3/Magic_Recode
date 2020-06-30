@@ -8,7 +8,7 @@ void __fastcall Redirected_Controller_Move(void* Input, void* Unknown_Parameter_
 	{
 		if (Previous_Draw_Graphical_User_Interface == 0)
 		{
-			if (Freeze_Controlled_Creature == 0)
+			if (Menu_Select::Freeze_Controlled_Creature == 0)
 			{
 				using Controller_Move_Type = void(__thiscall*)(void* Input, void* Unknown_Parameter_1, void* Unknown_Parameter_2);
 
@@ -16,9 +16,9 @@ void __fastcall Redirected_Controller_Move(void* Input, void* Unknown_Parameter_
 			}
 			else
 			{
-				if (Freeze_Controlled_Creature == 2)
+				if (Menu_Select::Freeze_Controlled_Creature == 2)
 				{
-					Freeze_Controlled_Creature = 0;
+					Menu_Select::Freeze_Controlled_Creature = 0;
 				}
 
 				*(__int8*)((unsigned __int32)Input + 5) = 0;

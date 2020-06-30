@@ -2,7 +2,7 @@
 
 void __fastcall Redirected_Physics_Simulate(void* Creature, void* Unknown_Parameter_2)
 {
-	if (Freeze_Controlled_Creature == 1)
+	if (Menu_Select::Freeze_Controlled_Creature == 1)
 	{
 		*(__int8*)((unsigned __int32)Creature + 4552) = 0;
 	}

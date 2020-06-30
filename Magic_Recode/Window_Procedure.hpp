@@ -1,5 +1,8 @@
 #pragma once
 
-#include "Window_Procedure_Variables.hpp"
+namespace Window_Procedure
+{
+	#include "Window_Procedure_Variables.hpp"
 
-#include "Window_Procedure_Functions.hpp"
+	#include "Window_Procedure_Functions.hpp"
+};

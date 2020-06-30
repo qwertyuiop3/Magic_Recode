@@ -2,9 +2,9 @@
 
 __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Device_9, void* Unknown_Parameter_1, void* Unknown_Parameter_2, void* Unknown_Parameter_3, void* Unknown_Parameter_4)
 {
-	if (Visuals_Recorded_Route_Draw == 1)
+	if (Window_Procedure::Visuals_Recorded_Route_Draw == 1)
 	{
-		unsigned __int32 Recorded_Route_Elements_Amount = Recorded_Route.size();
+		unsigned __int32 Recorded_Route_Elements_Amount = Copy_User_Command::Recorded_Route.size();
 
 		if (Recorded_Route_Elements_Amount > Visuals_Recorded_Route_Step_Length)
 		{
@@ -86,11 +86,11 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 			{
 				float Recorded_Route_On_Screen_Location_From[2];
 
-				if (In_World_Location_To_On_Screen_Location((float*)&Recorded_Route.at(Recorded_Route_Number - Visuals_Recorded_Route_Step_Length), Recorded_Route_On_Screen_Location_From) == 1)
+				if (In_World_Location_To_On_Screen_Location((float*)&Copy_User_Command::Recorded_Route.at(Recorded_Route_Number - Visuals_Recorded_Route_Step_Length), Recorded_Route_On_Screen_Location_From) == 1)
 				{
 					float Recorded_Route_On_Screen_Location_To[2];
 
-					if (In_World_Location_To_On_Screen_Location((float*)&Recorded_Route.at(Recorded_Route_Number), Recorded_Route_On_Screen_Location_To) == 1)
+					if (In_World_Location_To_On_Screen_Location((float*)&Copy_User_Command::Recorded_Route.at(Recorded_Route_Number), Recorded_Route_On_Screen_Location_To) == 1)
 					{
 						struct Vertex_Structure
 						{
@@ -193,7 +193,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 		}
 	}
 
-	if (Draw_Graphical_User_Interface == 1)
+	if (Controller_Move::Draw_Graphical_User_Interface == 1)
 	{
 		Direct_3_Dimensional_Device_9->SetRenderState(D3DRS_SRGBWRITEENABLE, 0);
 
@@ -262,9 +262,9 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 					if (ImGui::Button(Formatted_Button_Name) == 1)
 					{
-						if (Setting_Up_Keybinds == 0)
+						if (Window_Procedure::Setting_Up_Keybinds == 0)
 						{
-							Setting_Up_Keybinds = 1;
+							Window_Procedure::Setting_Up_Keybinds = 1;
 
 							Setting_Up_Keybind[Button_Number] = 1;
 						}
@@ -281,7 +281,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 					{
 						if (ImGui::IsKeyReleased(Function_Key_Number) == 1)
 						{
-							Setting_Up_Keybinds = 0;
+							Window_Procedure::Setting_Up_Keybinds = 0;
 
 							Setting_Up_Keybind[Button_Number] = 0;
 
@@ -304,28 +304,28 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 		if (ImGui::TreeNodeEx("Recorder", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 		{
-			if (ImGui::Checkbox("Record", (bool*)&User_Commands_Recorder_Record) == 1)
+			if (ImGui::Checkbox("Record", (bool*)& Menu_Select::User_Commands_Recorder_Record) == 1)
 			{
-				if (User_Commands_Recorder_Record == 1)
+				if (Menu_Select::User_Commands_Recorder_Record == 1)
 				{
-					if (User_Commands_Recorder_Playback == 1)
+					if (Menu_Select::User_Commands_Recorder_Playback == 1)
 					{
-						User_Commands_Recorder_Playback = 0;
+						Menu_Select::User_Commands_Recorder_Playback = 0;
 
-						Recorded_User_Commands.resize(Recorder_User_Comamand_Number);
+						Copy_User_Command::Recorded_User_Commands.resize(Copy_User_Command::Recorder_User_Comamand_Number);
 					}
 					else
 					{
-						User_Commands_Recorder_Playback = 0;
+						Menu_Select::User_Commands_Recorder_Playback = 0;
 
-						Recorded_User_Commands.clear();
+						Copy_User_Command::Recorded_User_Commands.clear();
 					}
 				}
 			}
 
-			if (User_Commands_Recorder_Record == 0)
+			if (Menu_Select::User_Commands_Recorder_Record == 0)
 			{
-				if (Recorded_User_Commands.empty() == 0)
+				if (Copy_User_Command::Recorded_User_Commands.empty() == 0)
 				{
 					File_Number_Editor();
 
@@ -333,13 +333,13 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 					{
 						void* Recorded_User_Commands_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_WRITE_DATA, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
 
-						unsigned __int32 Recorded_User_Commands_Elements_Amount = Recorded_User_Commands.size();
+						unsigned __int32 Recorded_User_Commands_Elements_Amount = Copy_User_Command::Recorded_User_Commands.size();
 
 						WriteFile(Recorded_User_Commands_File_Handle, &Recorded_User_Commands_Elements_Amount, sizeof(unsigned __int32), nullptr, nullptr);
 
 						SetFilePointer(Recorded_User_Commands_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
 
-						WriteFile(Recorded_User_Commands_File_Handle, Recorded_User_Commands.data(), Recorded_User_Commands_Elements_Amount * sizeof Compressed_User_Command_Structure, nullptr, nullptr);
+						WriteFile(Recorded_User_Commands_File_Handle, Copy_User_Command::Recorded_User_Commands.data(), Recorded_User_Commands_Elements_Amount * sizeof Copy_User_Command::Compressed_User_Command_Structure, nullptr, nullptr);
 
 						CloseHandle(Recorded_User_Commands_File_Handle);
 					}
@@ -348,7 +348,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 			if (ImGui::TreeNodeEx("Keybinds", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 			{
-				Setup_Keybind((char*)"Record", User_Commands_Recorder_Record_Bound_To);
+				Setup_Keybind((char*)"Record", Window_Procedure::User_Commands_Recorder_Record_Bound_To);
 
 				ImGui::TreePop();
 			}
@@ -358,7 +358,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 		if (ImGui::TreeNodeEx("Player", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 		{
-			if (User_Commands_Recorder_Record == 0)
+			if (Menu_Select::User_Commands_Recorder_Record == 0)
 			{
 				auto Load_From_File_Button = [&]()
 				{
@@ -372,25 +372,25 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 							ReadFile(Recorded_User_Commands_File_Handle, &Recorded_User_Commands_Elements_Amount, sizeof(unsigned __int32), nullptr, nullptr);
 
-							Recorded_User_Commands.resize(Recorded_User_Commands_Elements_Amount);
+							Copy_User_Command::Recorded_User_Commands.resize(Recorded_User_Commands_Elements_Amount);
 
 							SetFilePointer(Recorded_User_Commands_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
 
-							ReadFile(Recorded_User_Commands_File_Handle, Recorded_User_Commands.data(), Recorded_User_Commands_Elements_Amount * sizeof Compressed_User_Command_Structure, nullptr, nullptr);
+							ReadFile(Recorded_User_Commands_File_Handle, Copy_User_Command::Recorded_User_Commands.data(), Recorded_User_Commands_Elements_Amount * sizeof Copy_User_Command::Compressed_User_Command_Structure, nullptr, nullptr);
 
 							CloseHandle(Recorded_User_Commands_File_Handle);
 						}
 					}
 				};
 
-				if (Recorded_User_Commands.empty() == 0)
+				if (Copy_User_Command::Recorded_User_Commands.empty() == 0)
 				{
-					if (ImGui::Checkbox("Playback", (bool*)&User_Commands_Recorder_Playback) == 1)
+					if (ImGui::Checkbox("Playback", (bool*)&Menu_Select::User_Commands_Recorder_Playback) == 1)
 					{
-						User_Commands_Recorder_Record = 0;
+						Menu_Select::User_Commands_Recorder_Record = 0;
 					}
 
-					if (User_Commands_Recorder_Playback == 0)
+					if (Menu_Select::User_Commands_Recorder_Playback == 0)
 					{
 						File_Number_Editor();
 
@@ -399,7 +399,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 					if (ImGui::TreeNodeEx("Keybinds", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 					{
-						Setup_Keybind((char*)"Playback", User_Commands_Recorder_Playback_Bound_To);
+						Setup_Keybind((char*)"Playback", Window_Procedure::User_Commands_Recorder_Playback_Bound_To);
 
 						ImGui::TreePop();
 					}
@@ -423,20 +423,20 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 		if (ImGui::TreeNodeEx("Recorder", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 		{
-			if (Visuals_Recorded_Route_Draw == 0)
+			if (Window_Procedure::Visuals_Recorded_Route_Draw == 0)
 			{
-				if (ImGui::Checkbox("Record", (bool*)&Route_Recorder_Record) == 1)
+				if (ImGui::Checkbox("Record", (bool*)&Copy_User_Command::Route_Recorder_Record) == 1)
 				{
-					if (Route_Recorder_Record == 1)
+					if (Copy_User_Command::Route_Recorder_Record == 1)
 					{
-						Recorded_Route.clear();
+						Copy_User_Command::Recorded_Route.clear();
 					}
 				}
 			}
 
-			if (Route_Recorder_Record == 0)
+			if (Copy_User_Command::Route_Recorder_Record == 0)
 			{
-				if (Recorded_Route.empty() == 0)
+				if (Copy_User_Command::Recorded_Route.empty() == 0)
 				{
 					File_Number_Editor();
 
@@ -444,13 +444,13 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 					{
 						void* Recorded_Route_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_WRITE_DATA, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
 
-						unsigned __int32 Recorded_Route_Elements_Amount = Recorded_Route.size();
+						unsigned __int32 Recorded_Route_Elements_Amount = Copy_User_Command::Recorded_Route.size();
 
 						WriteFile(Recorded_Route_File_Handle, &Recorded_Route_Elements_Amount, sizeof(unsigned __int32), nullptr, nullptr);
 
 						SetFilePointer(Recorded_Route_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
 
-						WriteFile(Recorded_Route_File_Handle, Recorded_Route.data(), Recorded_Route_Elements_Amount * sizeof Route_Structure, nullptr, nullptr);
+						WriteFile(Recorded_Route_File_Handle, Copy_User_Command::Recorded_Route.data(), Recorded_Route_Elements_Amount * sizeof Copy_User_Command::Route_Structure, nullptr, nullptr);
 
 						CloseHandle(Recorded_Route_File_Handle);
 					}
@@ -459,7 +459,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 			if (ImGui::TreeNodeEx("Keybinds", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 			{
-				Setup_Keybind((char*)"Record", Route_Recorder_Record_Bound_To);
+				Setup_Keybind((char*)"Record", Window_Procedure::Route_Recorder_Record_Bound_To);
 
 				ImGui::TreePop();
 			}
@@ -473,11 +473,11 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 		if (ImGui::TreeNodeEx("Recorded Route", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 		{
-			if (Route_Recorder_Record == 0)
+			if (Copy_User_Command::Route_Recorder_Record == 0)
 			{
-				if (Recorded_Route.empty() == 0)
+				if (Copy_User_Command::Recorded_Route.empty() == 0)
 				{
-					ImGui::Checkbox("Draw", (bool*)&Visuals_Recorded_Route_Draw);
+					ImGui::Checkbox("Draw", (bool*)&Window_Procedure::Visuals_Recorded_Route_Draw);
 
 					if (ImGui::DragScalar("Step Length", ImGuiDataType_U32, &Visuals_Recorded_Route_Step_Length, 1, nullptr, nullptr, "%i") == 1)
 					{
@@ -488,7 +488,7 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 					}
 				}
 
-				if (Visuals_Recorded_Route_Draw == 0)
+				if (Window_Procedure::Visuals_Recorded_Route_Draw == 0)
 				{
 					File_Number_Editor();
 
@@ -502,11 +502,11 @@ __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensional_Devi
 
 							ReadFile(Recorded_Route_File_Handle, &Recorded_Route_Elements_Amount, sizeof(unsigned __int32), nullptr, nullptr);
 
-							Recorded_Route.resize(Recorded_Route_Elements_Amount);
+							Copy_User_Command::Recorded_Route.resize(Recorded_Route_Elements_Amount);
 
 							SetFilePointer(Recorded_Route_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
 
-							ReadFile(Recorded_Route_File_Handle, Recorded_Route.data(), Recorded_Route_Elements_Amount * sizeof Route_Structure, nullptr, nullptr);
+							ReadFile(Recorded_Route_File_Handle, Copy_User_Command::Recorded_Route.data(), Recorded_Route_Elements_Amount * sizeof Copy_User_Command::Route_Structure, nullptr, nullptr);
 
 							CloseHandle(Recorded_Route_File_Handle);
 						}
