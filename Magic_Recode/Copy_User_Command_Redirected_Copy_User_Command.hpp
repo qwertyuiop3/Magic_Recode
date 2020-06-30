@@ -116,12 +116,12 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 				using Get_Creature_Location_Type = float*(__thiscall*)(void* Creature);
 
-				static void* Get_Creature_Location_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 601456);
-
-				static void* Controlled_Creature_Container = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5007112);
-
 				if (Recorded_Route_Elements_Amount == 0)
 				{
+					static void* Get_Creature_Location_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 601456);
+
+					static void* Controlled_Creature_Container = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5007112);
+
 					Recorded_Route.push_back(*(Route_Structure*)Get_Creature_Location_Type(Get_Creature_Location_Location)(*(void**)Controlled_Creature_Container));
 				}
 				else
@@ -130,6 +130,10 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 					if (Recorded_Route_Elements_Amount != Recorded_Route_Maximum_Elements_Amount)
 					{
+						static void* Get_Creature_Location_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 601456);
+
+						static void* Controlled_Creature_Container = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5007112);
+
 						float* Creature_Location = Get_Creature_Location_Type(Get_Creature_Location_Location)(*(void**)Controlled_Creature_Container);
 
 						float* Previous_Creature_Location = Recorded_Route.at(Recorded_Route.size() - 1).Location;
