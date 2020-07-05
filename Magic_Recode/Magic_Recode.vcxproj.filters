@@ -286,15 +286,6 @@
     <ClInclude Include="Copy_User_Command_Redirected_Copy_User_Command.hpp">
       <Filter>Header++\Copy_User_Command\Functions</Filter>
     </ClInclude>
-    <ClInclude Include="Copy_User_Command_Compressed_User_Command.hpp">
-      <Filter>Header++\Copy_User_Command\Structures</Filter>
-    </ClInclude>
-    <ClInclude Include="Copy_User_Command_Route.hpp">
-      <Filter>Header++\Copy_User_Command\Structures</Filter>
-    </ClInclude>
-    <ClInclude Include="Copy_User_Command_User_Command.hpp">
-      <Filter>Header++\Copy_User_Command\Structures</Filter>
-    </ClInclude>
     <ClInclude Include="Controller_Move_Initialize_Controller_Move.hpp">
       <Filter>Header++\Controller_Move\Functions</Filter>
     </ClInclude>
@@ -312,6 +303,15 @@
     </ClInclude>
     <ClInclude Include="Chat_Print_Formatted_Initialize_Chat_Print_Formatted.hpp">
       <Filter>Header++\Chat_Print_Formatted\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Copy_User_Command_Route_Structure.hpp">
+      <Filter>Header++\Copy_User_Command\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="Copy_User_Command_User_Command_Structure.hpp">
+      <Filter>Header++\Copy_User_Command\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="Copy_User_Command_Compressed_User_Command_Structure.hpp">
+      <Filter>Header++\Copy_User_Command\Structures</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
