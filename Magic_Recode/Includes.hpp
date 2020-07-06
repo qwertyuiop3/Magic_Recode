@@ -24,10 +24,10 @@
 
 #include "imgui_impl_win32.h"
 
+#include "Byte_Manager.hpp"
+
 #include "I_Am_Graphical_User_Interface.hpp"
 
 #include "Window_Procedure.hpp"
-
-#include "Byte_Manager.hpp"
 
 #include "Present.hpp"

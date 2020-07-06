@@ -4,6 +4,13 @@ __int32 __stdcall DllMain(void* This_Module_Location, unsigned __int32 Call_Reas
 {
 	if (Call_Reason == DLL_PROCESS_ATTACH)
 	{
+		HWND Game_Window_Handle = FindWindowW(nullptr, L"Counter-Strike Source");
+
+		if (Game_Window_Handle == nullptr)
+		{
+			Game_Window_Handle = FindWindowW(nullptr, L"Counter-Strike: Global Offensive");
+		}
+
 		Menu_Select::Initialize_Menu_Select();
 
 		void* Client_Module_Location = GetModuleHandleW(L"client.dll");
@@ -25,8 +32,6 @@ __int32 __stdcall DllMain(void* This_Module_Location, unsigned __int32 Call_Reas
 		Chat_Print_Formatted::Initialize_Chat_Print_Formatted();
 
 		Chat_Print_Formatted::Redirect_Chat_Print_Formatted(Client_Module_Location);
-
-		HWND Game_Window_Handle = FindWindowW(nullptr, L"Counter-Strike Source");
 
 		I_Am_Graphical_User_Interface::Initialize_I_Am_Graphical_User_Interface(Game_Window_Handle);
 

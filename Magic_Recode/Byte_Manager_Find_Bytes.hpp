@@ -1,6 +1,6 @@
 #pragma once
 
-void* Find_Bytes(unsigned __int32 Bytes_Amount, void* Starting_Location, unsigned __int8* Bytes)
+void* Find_Bytes(unsigned __int32 Bytes_Amount, void* Starting_Location, unsigned __int8* Bytes, __int8 Return_Starting_Location_Of_Found_Bytes)
 {
 	Bytes_Amount -= 1;
 		
@@ -14,6 +14,11 @@ void* Find_Bytes(unsigned __int32 Bytes_Amount, void* Starting_Location, unsigne
 			{
 				if (Bytes_Amount == Byte_Number)
 				{
+					if (Return_Starting_Location_Of_Found_Bytes == 0)
+					{
+						return Starting_Location;
+					}
+
 					return (void*)((unsigned __int32)Starting_Location - Bytes_Amount);
 				}
 
