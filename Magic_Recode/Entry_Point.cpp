@@ -25,8 +25,6 @@ __int32 __stdcall DllMain(void* This_Module_Location, unsigned __int32 Call_Reas
 
 		Copy_User_Command::Initialize_Copy_User_Command();
 
-		Menu_Select::Game_Identifier = 1;
-
 		Copy_User_Command::Redirect_Copy_User_Command(Client_Module_Location);
 
 		Client_Send_Move::Redirect_Client_Send_Move();
