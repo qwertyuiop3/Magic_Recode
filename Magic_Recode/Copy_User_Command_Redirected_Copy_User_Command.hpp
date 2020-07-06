@@ -10,6 +10,10 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 		{
 			if (Menu_Select::Game_Identifier == 0)
 			{
+				Copy_User_Command_In_Create_Move_Return_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 1338695);
+			}
+			else
+			{
 				unsigned __int8 Copy_User_Command_In_Create_Move_Return_Location_Bytes[4] =
 				{
 					95,
@@ -22,10 +26,6 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 				};
 
 				Copy_User_Command_In_Create_Move_Return_Location = (void*)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof Copy_User_Command_In_Create_Move_Return_Location_Bytes, GetModuleHandleW(L"client.dll"), Copy_User_Command_In_Create_Move_Return_Location_Bytes, 0) - 10);
-			}
-			else
-			{
-				Copy_User_Command_In_Create_Move_Return_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 1338695);
 			}
 		}
 
@@ -102,6 +102,12 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 						{
 							if (Menu_Select::Game_Identifier == 0)
 							{
+								Set_View_Angles_Location = (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 676992);
+
+								Engine = (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 3916044);
+							}
+							else
+							{
 								unsigned __int8 Set_View_Angles_Bytes[14] =
 								{
 									85,
@@ -157,12 +163,6 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 								};
 
 								Engine = *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof Engine_Bytes, GetModuleHandleW(L"engine.dll"), Engine_Bytes, 0) - 12);
-							}
-							else
-							{
-								Set_View_Angles_Location = (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 676992);
-
-								Engine = (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 3916044);
 							}
 						}
 

@@ -10,38 +10,32 @@ __int32 __stdcall DllMain(void* This_Module_Location, unsigned __int32 Call_Reas
 
 		if (Game_Window_Handle == nullptr)
 		{
-			Copy_User_Command::Initialize_Copy_User_Command();
-
-			Menu_Select::Game_Identifier = 0;
-
-			Copy_User_Command::Redirect_Copy_User_Command(Client_Module_Location);
+			Menu_Select::Game_Identifier = 1;
 
 			Game_Window_Handle = FindWindowW(nullptr, L"Counter-Strike: Global Offensive");
 		}
-		else
-		{
-			Menu_Select::Initialize_Menu_Select();
 
-			Menu_Select::Redirect_Menu_Select(Client_Module_Location);
+		Menu_Select::Initialize_Menu_Select();
 
-			Controller_Move::Initialize_Controller_Move();
+		Menu_Select::Redirect_Menu_Select(Client_Module_Location);
 
-			Controller_Move::Redirect_Controller_Move(Client_Module_Location);
+		Controller_Move::Initialize_Controller_Move();
 
-			Copy_User_Command::Initialize_Copy_User_Command();
+		Controller_Move::Redirect_Controller_Move(Client_Module_Location);
 
-			Menu_Select::Game_Identifier = 1;
+		Copy_User_Command::Initialize_Copy_User_Command();
 
-			Copy_User_Command::Redirect_Copy_User_Command(Client_Module_Location);
+		Menu_Select::Game_Identifier = 1;
 
-			Client_Send_Move::Redirect_Client_Send_Move();
+		Copy_User_Command::Redirect_Copy_User_Command(Client_Module_Location);
 
-			Physics_Simulate::Redirect_Physics_Simulate(Client_Module_Location);
+		Client_Send_Move::Redirect_Client_Send_Move();
 
-			Chat_Print_Formatted::Initialize_Chat_Print_Formatted();
+		Physics_Simulate::Redirect_Physics_Simulate(Client_Module_Location);
 
-			Chat_Print_Formatted::Redirect_Chat_Print_Formatted(Client_Module_Location);
-		}
+		Chat_Print_Formatted::Initialize_Chat_Print_Formatted();
+
+		Chat_Print_Formatted::Redirect_Chat_Print_Formatted(Client_Module_Location);
 
 		I_Am_Graphical_User_Interface::Initialize_I_Am_Graphical_User_Interface(Game_Window_Handle);
 
