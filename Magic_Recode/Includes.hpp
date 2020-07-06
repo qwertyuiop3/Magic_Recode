@@ -10,6 +10,8 @@
 
 #include <future>
 
+#include "Byte_Manager.hpp"
+
 #include "Copy_User_Command.hpp"
 
 #include "Client_Send_Move.hpp"
@@ -23,8 +25,6 @@
 #include "imgui_impl_dx9.h"
 
 #include "imgui_impl_win32.h"
-
-#include "Byte_Manager.hpp"
 
 #include "I_Am_Graphical_User_Interface.hpp"
 

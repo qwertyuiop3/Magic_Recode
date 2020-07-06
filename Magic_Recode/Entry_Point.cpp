@@ -6,32 +6,42 @@ __int32 __stdcall DllMain(void* This_Module_Location, unsigned __int32 Call_Reas
 	{
 		HWND Game_Window_Handle = FindWindowW(nullptr, L"Counter-Strike Source");
 
-		if (Game_Window_Handle == nullptr)
-		{
-			Game_Window_Handle = FindWindowW(nullptr, L"Counter-Strike: Global Offensive");
-		}
-
-		Menu_Select::Initialize_Menu_Select();
-
 		void* Client_Module_Location = GetModuleHandleW(L"client.dll");
 
-		Menu_Select::Redirect_Menu_Select(Client_Module_Location);
+		if (Game_Window_Handle == nullptr)
+		{
+			Copy_User_Command::Initialize_Copy_User_Command();
 
-		Controller_Move::Initialize_Controller_Move();
+			Menu_Select::Game_Identifier = 0;
 
-		Controller_Move::Redirect_Controller_Move(Client_Module_Location);
+			Copy_User_Command::Redirect_Copy_User_Command(Client_Module_Location);
 
-		Copy_User_Command::Initialize_Copy_User_Command();
+			Game_Window_Handle = FindWindowW(nullptr, L"Counter-Strike: Global Offensive");
+		}
+		else
+		{
+			Menu_Select::Initialize_Menu_Select();
 
-		Copy_User_Command::Redirect_Copy_User_Command(Client_Module_Location);
+			Menu_Select::Redirect_Menu_Select(Client_Module_Location);
 
-		Client_Send_Move::Redirect_Client_Send_Move();
+			Controller_Move::Initialize_Controller_Move();
 
-		Physics_Simulate::Redirect_Physics_Simulate(Client_Module_Location);
+			Controller_Move::Redirect_Controller_Move(Client_Module_Location);
 
-		Chat_Print_Formatted::Initialize_Chat_Print_Formatted();
+			Copy_User_Command::Initialize_Copy_User_Command();
 
-		Chat_Print_Formatted::Redirect_Chat_Print_Formatted(Client_Module_Location);
+			Menu_Select::Game_Identifier = 1;
+
+			Copy_User_Command::Redirect_Copy_User_Command(Client_Module_Location);
+
+			Client_Send_Move::Redirect_Client_Send_Move();
+
+			Physics_Simulate::Redirect_Physics_Simulate(Client_Module_Location);
+
+			Chat_Print_Formatted::Initialize_Chat_Print_Formatted();
+
+			Chat_Print_Formatted::Redirect_Chat_Print_Formatted(Client_Module_Location);
+		}
 
 		I_Am_Graphical_User_Interface::Initialize_I_Am_Graphical_User_Interface(Game_Window_Handle);
 
