@@ -68,6 +68,11 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 					Compressed_User_Command.Mouse_Difference_Y = User_Command->Mouse_Difference_Y;
 
+					if (Menu_Select::Game_Identifier == 1)
+					{
+						User_Command = (User_Command_Structure*)((unsigned __int32)User_Command - 12);
+					}
+
 					Recorded_User_Commands.push_back(Compressed_User_Command);
 
 					Recorder_User_Comamand_Number += 1;
@@ -195,6 +200,11 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 						User_Command->Mouse_Difference_X = Recorded_User_Command->Mouse_Difference_X;
 
 						User_Command->Mouse_Difference_Y = Recorded_User_Command->Mouse_Difference_Y;
+
+						if (Menu_Select::Game_Identifier == 1)
+						{
+							User_Command = (User_Command_Structure*)((unsigned __int32)User_Command - 12);
+						}
 
 						Recorder_User_Comamand_Number += 1;
 					}
