@@ -6,8 +6,6 @@ __int32 __stdcall DllMain(void* This_Module_Location, unsigned __int32 Call_Reas
 	{
 		HWND Game_Window_Handle = FindWindowW(nullptr, L"Counter-Strike Source");
 
-		void* Client_Module_Location = GetModuleHandleW(L"client.dll");
-
 		if (Game_Window_Handle == nullptr)
 		{
 			Menu_Select::Game_Identifier = 1;
@@ -16,6 +14,8 @@ __int32 __stdcall DllMain(void* This_Module_Location, unsigned __int32 Call_Reas
 		}
 
 		Menu_Select::Initialize_Menu_Select();
+
+		void* Client_Module_Location = GetModuleHandleW(L"client.dll");
 
 		Menu_Select::Redirect_Menu_Select(Client_Module_Location);
 

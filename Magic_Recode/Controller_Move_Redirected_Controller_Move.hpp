@@ -21,14 +21,28 @@ void __fastcall Redirected_Controller_Move(void* Input, void* Unknown_Parameter_
 					Menu_Select::Freeze_Controlled_Creature = 0;
 				}
 
-				*(__int8*)((unsigned __int32)Input + 5) = 0;
+				if (Menu_Select::Game_Identifier == 0)
+				{
+					*(__int8*)((unsigned __int32)Input + 5) = 0;
+				}
+				else
+				{
+					*(__int8*)((unsigned __int32)Input + 14) = 0;
+				}
 			}
 		}
 		else
 		{
 			Previous_Draw_Graphical_User_Interface = 0;
 
-			*(__int8*)((unsigned __int32)Input + 5) = 0;
+			if (Menu_Select::Game_Identifier == 0)
+			{
+				*(__int8*)((unsigned __int32)Input + 5) = 0;
+			}
+			else
+			{
+				*(__int8*)((unsigned __int32)Input + 14) = 0;
+			}
 		}
 	}
 	else

@@ -6,11 +6,11 @@
 
 #include "Menu_Select.hpp"
 
+#include "Byte_Manager.hpp"
+
 #include "Controller_Move.hpp"
 
 #include <future>
-
-#include "Byte_Manager.hpp"
 
 #include "Copy_User_Command.hpp"
 
