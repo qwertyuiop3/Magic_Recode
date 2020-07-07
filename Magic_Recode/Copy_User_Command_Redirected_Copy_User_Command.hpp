@@ -205,29 +205,56 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 			{
 				unsigned __int32 Recorded_Route_Elements_Amount = Recorded_Route.size();
 
-				using Get_Creature_Location_Type = float*(__thiscall*)(void* Creature);
+				static unsigned __int32 Recorded_Route_Maximum_Elements_Amount = Recorded_Route.max_size();
 
-				if (Recorded_Route_Elements_Amount == 0)
+				if (Recorded_Route_Elements_Amount != Recorded_Route_Maximum_Elements_Amount)
 				{
-					static void* Get_Creature_Location_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 601456);
+					using Get_Creature_Location_Type = float*(__thiscall*)(void* Creature);
 
-					static void* Controlled_Creature_Container = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5007112);
+					static void* Get_Creature_Location_Location = nullptr;
 
-					Recorded_Route.push_back(*(Route_Structure*)Get_Creature_Location_Type(Get_Creature_Location_Location)(*(void**)Controlled_Creature_Container));
-				}
-				else
-				{
-					static unsigned __int32 Recorded_Route_Maximum_Elements_Amount = Recorded_Route.max_size();
+					static void* Controlled_Creature_Container;
 
-					if (Recorded_Route_Elements_Amount != Recorded_Route_Maximum_Elements_Amount)
+					if (Get_Creature_Location_Location == nullptr)
 					{
-						static void* Get_Creature_Location_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 601456);
+						if (Menu_Select::Game_Identifier == 0)
+						{
+							Get_Creature_Location_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 601456);
 
-						static void* Controlled_Creature_Container = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5007112);
+							Controlled_Creature_Container = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5007112);
+						}
+						else
+						{
+							unsigned __int8 Controlled_Creature_Container_Bytes[6] =
+							{
+								52,
+									
+								83,
+									
+								86,
+									
+								87,
+									
+								139,
+									
+								61
+							};
 
+							Controlled_Creature_Container = *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof Controlled_Creature_Container_Bytes, GetModuleHandleW(L"client.dll"), Controlled_Creature_Container_Bytes, 0) + 1);
+
+							Get_Creature_Location_Location = *(void**)(**(unsigned __int32**)Controlled_Creature_Container + 40);
+						}
+					}
+
+					if (Recorded_Route_Elements_Amount == 0)
+					{
+						Recorded_Route.push_back(*(Route_Structure*)Get_Creature_Location_Type(Get_Creature_Location_Location)(*(void**)Controlled_Creature_Container));
+					}
+					else
+					{
 						float* Creature_Location = Get_Creature_Location_Type(Get_Creature_Location_Location)(*(void**)Controlled_Creature_Container);
 
-						float* Previous_Creature_Location = Recorded_Route.at(Recorded_Route.size() - 1).Location;
+						float* Previous_Creature_Location = Recorded_Route.at(Recorded_Route_Elements_Amount - 1).Location;
 
 						if (Creature_Location[0] != Previous_Creature_Location[0])
 						{
@@ -248,10 +275,10 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 							}
 						}
 					}
-					else
-					{
-						Route_Recorder_Record = 0;
-					}
+				}
+				else
+				{
+					Route_Recorder_Record = 0;
 				}
 			}
 		}
