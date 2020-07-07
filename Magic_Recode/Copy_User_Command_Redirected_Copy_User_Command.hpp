@@ -47,6 +47,11 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 					Compressed_User_Command.View_Angles[2] = User_Command_View_Angles[2];
 
+					if (Menu_Select::Game_Identifier == 1)
+					{
+						User_Command = (User_Command_Structure*)((unsigned __int32)User_Command + 12);
+					}
+
 					float* User_Command_Move = User_Command->Move;
 
 					Compressed_User_Command.Move[0] = User_Command_Move[0];
@@ -167,6 +172,11 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 						}
 
 						Set_View_Angles_Type((unsigned __int32)Set_View_Angles_Location)(Engine, User_Command->View_Angles);
+
+						if (Menu_Select::Game_Identifier == 1)
+						{
+							User_Command = (User_Command_Structure*)((unsigned __int32)User_Command + 12);
+						}
 
 						float* User_Command_Move = User_Command->Move;
 
