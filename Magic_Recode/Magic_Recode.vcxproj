@@ -67,7 +67,7 @@
     <ClInclude Include="Byte_Manager_Functions.hpp" />
     <ClInclude Include="Chat_Print_Formatted.hpp" />
     <ClInclude Include="Chat_Print_Formatted_Functions.hpp" />
-    <ClInclude Include="Chat_Print_Formatted_Handle_Message.hpp" />
+    <ClInclude Include="Chat_Print_Formatted_Handle_Formatted_Message.hpp" />
     <ClInclude Include="Chat_Print_Formatted_Redirected_Chat_Print_Formatted_Global_Offensive.hpp" />
     <ClInclude Include="Chat_Print_Formatted_Variables.hpp" />
     <ClInclude Include="Client_Send_Move.hpp" />

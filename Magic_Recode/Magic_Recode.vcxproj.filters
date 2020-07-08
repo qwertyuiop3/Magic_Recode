@@ -337,13 +337,13 @@
     <ClInclude Include="Write_User_Command_Delta_To_Buffer_Redirect_Write_User_Command_Delta_To_Buffer.hpp">
       <Filter>Header++\Write_User_Command_Delta_To_Buffer\Functions</Filter>
     </ClInclude>
-    <ClInclude Include="Chat_Print_Formatted_Handle_Message.hpp">
-      <Filter>Header++\Chat_Print_Formatted\Functions</Filter>
-    </ClInclude>
     <ClInclude Include="Chat_Print_Formatted_Redirected_Chat_Print_Formatted_Source.hpp">
       <Filter>Header++\Chat_Print_Formatted\Functions</Filter>
     </ClInclude>
     <ClInclude Include="Chat_Print_Formatted_Redirected_Chat_Print_Formatted_Global_Offensive.hpp">
+      <Filter>Header++\Chat_Print_Formatted\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Chat_Print_Formatted_Handle_Formatted_Message.hpp">
       <Filter>Header++\Chat_Print_Formatted\Functions</Filter>
     </ClInclude>
   </ItemGroup>

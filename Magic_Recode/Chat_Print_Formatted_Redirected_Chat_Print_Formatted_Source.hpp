@@ -10,7 +10,7 @@ void Redirected_Chat_Print_Formatted_Source(void* Chat, void* Unknown_Parameter_
 
 	vsnprintf(Formatted_Message, sizeof Formatted_Message, Message, Variadic_Parameters);
 
-	Handle_Message(Formatted_Message);
+	Handle_Formatted_Message(Formatted_Message);
 
 	va_end(Variadic_Parameters);
 

@@ -1,6 +1,6 @@
 #pragma once
 
-void Handle_Message(char* Formatted_Message)
+void Handle_Formatted_Message(char* Formatted_Message)
 {
 	if (strlen(Formatted_Message) == 12)
 	{
