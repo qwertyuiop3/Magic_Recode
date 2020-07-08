@@ -67,6 +67,8 @@
     <ClInclude Include="Byte_Manager_Functions.hpp" />
     <ClInclude Include="Chat_Print_Formatted.hpp" />
     <ClInclude Include="Chat_Print_Formatted_Functions.hpp" />
+    <ClInclude Include="Chat_Print_Formatted_Handle_Message.hpp" />
+    <ClInclude Include="Chat_Print_Formatted_Redirected_Chat_Print_Formatted_Global_Offensive.hpp" />
     <ClInclude Include="Chat_Print_Formatted_Variables.hpp" />
     <ClInclude Include="Client_Send_Move.hpp" />
     <ClInclude Include="Client_Send_Move_Functions.hpp" />
@@ -99,7 +101,7 @@
     <ClInclude Include="Present.hpp" />
     <ClInclude Include="Present_Functions.hpp" />
     <ClInclude Include="Present_Variables.hpp" />
-    <ClInclude Include="Chat_Print_Formatted_Redirected_Chat_Print_Formatted.hpp" />
+    <ClInclude Include="Chat_Print_Formatted_Redirected_Chat_Print_Formatted_Source.hpp" />
     <ClInclude Include="Client_Send_Move_Redirected_Client_Send_Move.hpp" />
     <ClInclude Include="Controller_Move_Redirected_Controller_Move.hpp" />
     <ClInclude Include="Copy_User_Command_Redirected_Copy_User_Command.hpp" />
