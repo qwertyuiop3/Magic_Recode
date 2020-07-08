@@ -1,6 +1,6 @@
 #pragma once
 
-struct User_Command_Structure
+struct Source_User_Command_Structure
 {
 	__int8 Additional_Bytes_1[12];
 

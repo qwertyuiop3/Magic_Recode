@@ -4,9 +4,9 @@
 
 #include "Redirection_Manager.hpp"
 
-#include "Menu_Select.hpp"
-
 #include "Byte_Manager.hpp"
+
+#include "Menu_Select.hpp"
 
 #include "Controller_Move.hpp"
 
@@ -15,6 +15,8 @@
 #include "Copy_User_Command.hpp"
 
 #include "Client_Send_Move.hpp"
+
+#include "Write_User_Command_Delta_To_Buffer.hpp"
 
 #include "Physics_Simulate.hpp"
 

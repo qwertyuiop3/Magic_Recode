@@ -1,0 +1,5 @@
+#pragma once
+
+#include "Write_User_Command_Delta_To_Buffer_Redirected_Write_User_Command_Delta_To_Buffer.hpp"
+
+#include "Write_User_Command_Delta_To_Buffer_Redirect_Write_User_Command_Delta_To_Buffer.hpp"

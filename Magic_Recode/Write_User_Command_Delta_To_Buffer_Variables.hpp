@@ -1,0 +1,3 @@
+#pragma once
+
+void* Original_Write_User_Command_Delta_To_Buffer_Caller_Location;

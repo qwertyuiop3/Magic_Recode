@@ -27,7 +27,14 @@ __int32 __stdcall DllMain(void* This_Module_Location, unsigned __int32 Call_Reas
 
 		Copy_User_Command::Redirect_Copy_User_Command(Client_Module_Location);
 
-		Client_Send_Move::Redirect_Client_Send_Move();
+		if (Menu_Select::Game_Identifier == 0)
+		{
+			Client_Send_Move::Redirect_Client_Send_Move();
+		}
+		else
+		{
+			Write_User_Command_Delta_To_Buffer::Redirect_Write_User_Command_Delta_To_Buffer(Client_Module_Location);
+		}
 
 		Physics_Simulate::Redirect_Physics_Simulate(Client_Module_Location);
 

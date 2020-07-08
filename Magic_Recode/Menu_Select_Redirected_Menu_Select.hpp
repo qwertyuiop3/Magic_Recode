@@ -4,14 +4,37 @@ void __cdecl Redirected_Menu_Select(void* Data)
 {
 	auto Handle_Menu_Select = [&]() -> void
 	{
-		static void* Menu_Name_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5195824);
+		static void* Menu_Name_Location = nullptr;
 
-		if (strlen((char*)Menu_Name_Location) > 4)
+		if (Menu_Name_Location == nullptr)
 		{
-			if (strncmp((char*)Menu_Name_Location, "Magic", 5) == 0)
+			if (Game_Identifier == 0)
 			{
-				char* Menu_Selection = *(char**)((unsigned __int32)Data + 1036);
+				Menu_Name_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5195824);
+			}
+			else
+			{
+				unsigned __int8 Menu_Name_Bytes[4] =
+				{
+					208,
+					
+					139,
+					
+					202,
+					
+					128
+				};
 
+				Menu_Name_Location = *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof Menu_Name_Bytes, GetModuleHandleW(L"client.dll"), Menu_Name_Bytes, 0) - 11);
+			}
+		}
+
+		if (strncmp((char*)Menu_Name_Location, "Magic", 5) == 0)
+		{
+			char* Menu_Selection = *(char**)((unsigned __int32)Data + 1036);
+
+			if (Game_Identifier == 0)
+			{
 				if (Menu_Selection[1] == 0)
 				{
 					if (Freeze_Controlled_Creature == 0)
@@ -36,6 +59,34 @@ void __cdecl Redirected_Menu_Select(void* Data)
 				else
 				{
 					Freeze_Controlled_Creature = 0;
+				}
+			}
+			else
+			{
+				if (Freeze_Controlled_Creature == 0)
+				{
+					if (Menu_Selection[0] == '1')
+					{
+						Freeze_Controlled_Creature = 1;
+					}
+					else
+					{
+						if (Menu_Selection[0] == '4')
+						{
+							Freeze_Controlled_Creature = 1;
+						}
+					}
+				}
+				else
+				{
+					if (Menu_Selection[0] == '9')
+					{
+						Freeze_Controlled_Creature = 0;
+					}
+					else
+					{
+						Menu_Selection[0] = 0;
+					}
 				}
 			}
 		}
