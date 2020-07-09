@@ -525,37 +525,62 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 			if (ImGui::Checkbox("Continue Jumping If Jump Button Held", (bool*)&Visuals_Physics_Continue_Jumping_If_Jump_Button_Held) == 1)
 			{
-				static void* Previous_Buttons_In_Jump_Check_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 1936491);
-
-				if (Visuals_Physics_Continue_Jumping_If_Jump_Button_Held == 1)
+				if (Menu_Select::Game_Identifier == 0)
 				{
-					static unsigned __int8 Modified_Previous_Buttons_In_Jump_Check[4] =
+					static void* Previous_Buttons_In_Jump_Check_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 1936491);
+
+					if (Visuals_Physics_Continue_Jumping_If_Jump_Button_Held == 1)
 					{
-						50,
+						static unsigned __int8 Modified_Previous_Buttons_In_Jump_Check[4] =
+						{
+							50,
 
-						192,
+							192,
 
-						144,
+							144,
 
-						144
-					};
+							144
+						};
 
-					Byte_Manager::Copy_Bytes(1, Previous_Buttons_In_Jump_Check_Location, sizeof Modified_Previous_Buttons_In_Jump_Check, Modified_Previous_Buttons_In_Jump_Check);
+						Byte_Manager::Copy_Bytes(1, Previous_Buttons_In_Jump_Check_Location, sizeof Modified_Previous_Buttons_In_Jump_Check, Modified_Previous_Buttons_In_Jump_Check);
+					}
+					else
+					{
+						static unsigned __int8 Original_Previous_Buttons_In_Jump_Check[4] =
+						{
+							246,
+
+							64,
+
+							40,
+
+							2
+						};
+
+						Byte_Manager::Copy_Bytes(1, Previous_Buttons_In_Jump_Check_Location, sizeof Original_Previous_Buttons_In_Jump_Check, Original_Previous_Buttons_In_Jump_Check);
+					}
 				}
 				else
 				{
-					static unsigned __int8 Original_Previous_Buttons_In_Jump_Check[4] =
+					static unsigned __int8 Previous_Buttons_In_Jump_Check[3] =
 					{
-						246,
-
-						64,
-
 						40,
-
-						2
+						
+						2,
+						
+						116
 					};
 
-					Byte_Manager::Copy_Bytes(1, Previous_Buttons_In_Jump_Check_Location, sizeof Original_Previous_Buttons_In_Jump_Check, Original_Previous_Buttons_In_Jump_Check);
+					static void* Previous_Buttons_In_Jump_Check_Location = Byte_Manager::Find_Bytes(sizeof Previous_Buttons_In_Jump_Check, GetModuleHandleW(L"client.dll"), Previous_Buttons_In_Jump_Check, 0);
+
+					if (Visuals_Physics_Continue_Jumping_If_Jump_Button_Held == 1)
+					{
+						Byte_Manager::Set_Byte(Previous_Buttons_In_Jump_Check_Location, 235);
+					}
+					else
+					{
+						Byte_Manager::Set_Byte(Previous_Buttons_In_Jump_Check_Location, 116);
+					}
 				}
 			}
 

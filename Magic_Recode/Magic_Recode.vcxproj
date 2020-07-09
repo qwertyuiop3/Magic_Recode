@@ -65,6 +65,7 @@
     <ClInclude Include="Byte_Manager_Copy_Bytes.hpp" />
     <ClInclude Include="Byte_Manager_Find_Bytes.hpp" />
     <ClInclude Include="Byte_Manager_Functions.hpp" />
+    <ClInclude Include="Byte_Manager_Set_Byte.hpp" />
     <ClInclude Include="Chat_Print_Formatted.hpp" />
     <ClInclude Include="Chat_Print_Formatted_Functions.hpp" />
     <ClInclude Include="Chat_Print_Formatted_Handle_Formatted_Message.hpp" />
