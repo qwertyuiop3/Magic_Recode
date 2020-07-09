@@ -562,7 +562,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 				}
 				else
 				{
-					static unsigned __int8 Previous_Buttons_In_Jump_Check[3] =
+					static unsigned __int8 Previous_Buttons_In_Jump_Check_Bytes[3] =
 					{
 						40,
 						
@@ -571,7 +571,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 						116
 					};
 
-					static void* Previous_Buttons_In_Jump_Check_Location = Byte_Manager::Find_Bytes(sizeof Previous_Buttons_In_Jump_Check, GetModuleHandleW(L"client.dll"), Previous_Buttons_In_Jump_Check, 0);
+					static void* Previous_Buttons_In_Jump_Check_Location = Byte_Manager::Find_Bytes(sizeof Previous_Buttons_In_Jump_Check_Bytes, GetModuleHandleW(L"client.dll"), Previous_Buttons_In_Jump_Check_Bytes, 0);
 
 					if (Visuals_Physics_Continue_Jumping_If_Jump_Button_Held == 1)
 					{
