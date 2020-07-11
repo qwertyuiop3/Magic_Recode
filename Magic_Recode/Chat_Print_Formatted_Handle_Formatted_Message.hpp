@@ -9,7 +9,7 @@ void Handle_Formatted_Message(char* Formatted_Message)
 		auto Handle_Formatted_Message = [&]() -> __int8
 		{
 			if (strncmp(Formatted_Message, "[ Magic ] A", 11) == 0)
-			{.
+			{
 				Menu_Select::Freeze_Controlled_Creature = 2;
 
 				Recorder_User_Comamand_Number_History.push_back(Copy_User_Command::Recorder_User_Comamand_Number);
