@@ -230,7 +230,19 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 		ImGui::Begin("User Commands", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoNavInputs);
 
-		static void* Map_Name_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5245916);
+		static void* Map_Name_Location = nullptr;
+
+		if (Map_Name_Location == nullptr)
+		{
+			if (Menu_Select::Game_Identifier == 0)
+			{
+				Map_Name_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5245916);
+			}
+			else
+			{
+				Map_Name_Location = nullptr;
+			}
+		}
 
 		unsigned __int32 Map_Name_Length = wcslen((wchar_t*)Map_Name_Location) * 2;
 
