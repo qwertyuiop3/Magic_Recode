@@ -18,7 +18,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 				}
 				else
 				{
-					static unsigned __int8 View_Matrix_Bytes[5] =
+					unsigned __int8 View_Matrix_Bytes[5] =
 					{
 						80,
 
@@ -240,7 +240,24 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 			}
 			else
 			{
-				Map_Name_Location = nullptr;
+				unsigned __int8 Map_Name_Bytes[7] =
+				{
+					83,
+					
+					139,
+					
+					1,
+					
+					255,
+					
+					80,
+					
+					60,
+					
+					184
+				};
+
+				Map_Name_Location = *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof Map_Name_Bytes, GetModuleHandleW(L"client.dll"), Map_Name_Bytes, 0) + 1);
 			}
 		}
 
@@ -599,16 +616,21 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 				}
 				else
 				{
-					static unsigned __int8 Previous_Buttons_In_Jump_Check_Bytes[3] =
-					{
-						40,
-						
-						2,
-						
-						116
-					};
+					static void* Previous_Buttons_In_Jump_Check_Location = nullptr;
 
-					static void* Previous_Buttons_In_Jump_Check_Location = Byte_Manager::Find_Bytes(sizeof Previous_Buttons_In_Jump_Check_Bytes, GetModuleHandleW(L"client.dll"), Previous_Buttons_In_Jump_Check_Bytes, 0);
+					if (Previous_Buttons_In_Jump_Check_Location == nullptr)
+					{
+						unsigned __int8 Previous_Buttons_In_Jump_Check_Bytes[3] =
+						{
+							40,
+
+							2,
+
+							116
+						};
+
+						Previous_Buttons_In_Jump_Check_Location = Byte_Manager::Find_Bytes(sizeof Previous_Buttons_In_Jump_Check_Bytes, GetModuleHandleW(L"client.dll"), Previous_Buttons_In_Jump_Check_Bytes, 0);
+					}
 
 					if (Visuals_Physics_Continue_Jumping_If_Jump_Button_Held == 1)
 					{
