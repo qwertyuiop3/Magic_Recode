@@ -525,47 +525,52 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 		ImGui::Begin("Visuals", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoNavInputs);
 
-		if (ImGui::TreeNodeEx("Recorded Route", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
+		if (ImGui::TreeNodeEx("Route", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 		{
-			if (Copy_User_Command::Route_Recorder_Record == 0)
+			if (ImGui::TreeNodeEx("Drawer", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 			{
-				if (Copy_User_Command::Recorded_Route.empty() == 0)
+				if (Copy_User_Command::Route_Recorder_Record == 0)
 				{
-					ImGui::Checkbox("Draw", (bool*)&Window_Procedure::Visuals_Recorded_Route_Draw);
-
-					if (ImGui::DragScalar("Step Length", ImGuiDataType_U32, &Visuals_Recorded_Route_Step_Length, 1, nullptr, nullptr, "%i") == 1)
+					if (Copy_User_Command::Recorded_Route.empty() == 0)
 					{
-						if (Visuals_Recorded_Route_Step_Length < 1)
+						ImGui::Checkbox("Draw", (bool*)&Window_Procedure::Visuals_Recorded_Route_Draw);
+
+						if (ImGui::DragScalar("Step Length", ImGuiDataType_U32, &Visuals_Recorded_Route_Step_Length, 1, nullptr, nullptr, "%i") == 1)
 						{
-							Visuals_Recorded_Route_Step_Length = 1;
+							if (Visuals_Recorded_Route_Step_Length < 1)
+							{
+								Visuals_Recorded_Route_Step_Length = 1;
+							}
+						}
+					}
+
+					if (Window_Procedure::Visuals_Recorded_Route_Draw == 0)
+					{
+						File_Number_Editor();
+
+						if (GetFileAttributesW(Adjusted_Map_Name) != -1)
+						{
+							if (ImGui::Button("Load From File") == 1)
+							{
+								void* Recorded_Route_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_READ_DATA, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+
+								unsigned __int32 Recorded_Route_Elements_Amount;
+
+								ReadFile(Recorded_Route_File_Handle, &Recorded_Route_Elements_Amount, sizeof(unsigned __int32), nullptr, nullptr);
+
+								Copy_User_Command::Recorded_Route.resize(Recorded_Route_Elements_Amount);
+
+								SetFilePointer(Recorded_Route_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
+
+								ReadFile(Recorded_Route_File_Handle, Copy_User_Command::Recorded_Route.data(), Recorded_Route_Elements_Amount * sizeof Copy_User_Command::Route_Structure, nullptr, nullptr);
+
+								CloseHandle(Recorded_Route_File_Handle);
+							}
 						}
 					}
 				}
 
-				if (Window_Procedure::Visuals_Recorded_Route_Draw == 0)
-				{
-					File_Number_Editor();
-
-					if (GetFileAttributesW(Adjusted_Map_Name) != -1)
-					{
-						if (ImGui::Button("Load From File") == 1)
-						{
-							void* Recorded_Route_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_READ_DATA, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
-
-							unsigned __int32 Recorded_Route_Elements_Amount;
-
-							ReadFile(Recorded_Route_File_Handle, &Recorded_Route_Elements_Amount, sizeof(unsigned __int32), nullptr, nullptr);
-
-							Copy_User_Command::Recorded_Route.resize(Recorded_Route_Elements_Amount);
-
-							SetFilePointer(Recorded_Route_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
-
-							ReadFile(Recorded_Route_File_Handle, Copy_User_Command::Recorded_Route.data(), Recorded_Route_Elements_Amount * sizeof Copy_User_Command::Route_Structure, nullptr, nullptr);
-
-							CloseHandle(Recorded_Route_File_Handle);
-						}
-					}
-				}
+				ImGui::TreePop();
 			}
 
 			ImGui::TreePop();
