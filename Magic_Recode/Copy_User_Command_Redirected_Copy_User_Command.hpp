@@ -109,6 +109,80 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 				{
 					if (Recorder_User_Comamand_Number != Recorded_User_Commands.size())
 					{
+						using Set_View_Angles_Type = void(__thiscall*)(void* Engine, float* View_Angles);
+
+						static void* Set_View_Angles_Location = nullptr;
+
+						static void* Engine;
+
+						if (Set_View_Angles_Location == nullptr)
+						{
+							if (Menu_Select::Game_Identifier == 0)
+							{
+								Set_View_Angles_Location = (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 676992);
+
+								Engine = (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 3916044);
+							}
+							else
+							{
+								unsigned __int8 Set_View_Angles_Bytes[14] =
+								{
+									85,
+
+									139,
+
+									236,
+
+									131,
+
+									228,
+
+									192,
+
+									131,
+
+									236,
+
+									60,
+
+									86,
+
+									139,
+
+									117,
+
+									8,
+
+									139
+								};
+
+								Set_View_Angles_Location = Byte_Manager::Find_Bytes(sizeof Set_View_Angles_Bytes, GetModuleHandleW(L"engine.dll"), Set_View_Angles_Bytes, 1);
+
+								unsigned __int8 Engine_Bytes[9] =
+								{
+									255,
+
+									117,
+
+									220,
+
+									255,
+
+									117,
+
+									224,
+
+									255,
+
+									117,
+
+									228
+								};
+
+								Engine = *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof Engine_Bytes, GetModuleHandleW(L"engine.dll"), Engine_Bytes, 0) - 12);
+							}
+						}
+
 						if (Menu_Select::Game_Identifier == 0)
 						{
 							float* User_Command_View_Angles = ((Source_User_Command_Structure*)User_Command)->View_Angles;
@@ -122,80 +196,6 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 							User_Command_View_Angles[1] = Recorded_User_Command_View_Angles[1];
 
 							User_Command_View_Angles[2] = Recorded_User_Command_View_Angles[2];
-
-							using Set_View_Angles_Type = void(__thiscall*)(void* Engine, float* View_Angles);
-
-							static void* Set_View_Angles_Location = nullptr;
-
-							static void* Engine;
-
-							if (Set_View_Angles_Location == nullptr)
-							{
-								if (Menu_Select::Game_Identifier == 0)
-								{
-									Set_View_Angles_Location = (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 676992);
-
-									Engine = (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 3916044);
-								}
-								else
-								{
-									unsigned __int8 Set_View_Angles_Bytes[14] =
-									{
-										85,
-
-										139,
-
-										236,
-
-										131,
-
-										228,
-
-										192,
-
-										131,
-
-										236,
-
-										60,
-
-										86,
-
-										139,
-
-										117,
-
-										8,
-
-										139
-									};
-
-									Set_View_Angles_Location = Byte_Manager::Find_Bytes(sizeof Set_View_Angles_Bytes, GetModuleHandleW(L"engine.dll"), Set_View_Angles_Bytes, 1);
-
-									unsigned __int8 Engine_Bytes[9] =
-									{
-										255,
-
-										117,
-
-										220,
-
-										255,
-
-										117,
-
-										224,
-
-										255,
-
-										117,
-
-										228
-									};
-
-									Engine = *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof Engine_Bytes, GetModuleHandleW(L"engine.dll"), Engine_Bytes, 0) - 12);
-								}
-							}
 
 							Set_View_Angles_Type((unsigned __int32)Set_View_Angles_Location)(Engine, ((Source_User_Command_Structure*)User_Command)->View_Angles);
 
@@ -230,80 +230,6 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 							User_Command_View_Angles[1] = Recorded_User_Command_View_Angles[1];
 
 							User_Command_View_Angles[2] = Recorded_User_Command_View_Angles[2];
-
-							using Set_View_Angles_Type = void(__thiscall*)(void* Engine, float* View_Angles);
-
-							static void* Set_View_Angles_Location = nullptr;
-
-							static void* Engine;
-
-							if (Set_View_Angles_Location == nullptr)
-							{
-								if (Menu_Select::Game_Identifier == 0)
-								{
-									Set_View_Angles_Location = (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 676992);
-
-									Engine = (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 3916044);
-								}
-								else
-								{
-									unsigned __int8 Set_View_Angles_Bytes[14] =
-									{
-										85,
-
-										139,
-
-										236,
-
-										131,
-
-										228,
-
-										192,
-
-										131,
-
-										236,
-
-										60,
-
-										86,
-
-										139,
-
-										117,
-
-										8,
-
-										139
-									};
-
-									Set_View_Angles_Location = Byte_Manager::Find_Bytes(sizeof Set_View_Angles_Bytes, GetModuleHandleW(L"engine.dll"), Set_View_Angles_Bytes, 1);
-
-									unsigned __int8 Engine_Bytes[9] =
-									{
-										255,
-
-										117,
-
-										220,
-
-										255,
-
-										117,
-
-										224,
-
-										255,
-
-										117,
-
-										228
-									};
-
-									Engine = *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof Engine_Bytes, GetModuleHandleW(L"engine.dll"), Engine_Bytes, 0) - 12);
-								}
-							}
 
 							Set_View_Angles_Type((unsigned __int32)Set_View_Angles_Location)(Engine, ((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles);
 
