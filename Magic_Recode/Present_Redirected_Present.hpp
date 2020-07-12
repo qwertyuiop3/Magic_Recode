@@ -579,10 +579,31 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 			if (ImGui::Checkbox("Continue Jumping If Jump Button Held", (bool*)&Visuals_Physics_Continue_Jumping_If_Jump_Button_Held) == 1)
 			{
+				static void* Previous_Buttons_In_Jump_Check_Location = nullptr;
+
+				if (Previous_Buttons_In_Jump_Check_Location == nullptr)
+				{
+					if (Menu_Select::Game_Identifier == 0)
+					{
+						Previous_Buttons_In_Jump_Check_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 1936491);
+					}
+					else
+					{
+						unsigned __int8 Previous_Buttons_In_Jump_Check_Bytes[3] =
+						{
+							40,
+
+							2,
+
+							116
+						};
+
+						Previous_Buttons_In_Jump_Check_Location = Byte_Manager::Find_Bytes(sizeof Previous_Buttons_In_Jump_Check_Bytes, GetModuleHandleW(L"client.dll"), Previous_Buttons_In_Jump_Check_Bytes, 0);
+					}
+				}
+
 				if (Menu_Select::Game_Identifier == 0)
 				{
-					static void* Previous_Buttons_In_Jump_Check_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 1936491);
-
 					if (Visuals_Physics_Continue_Jumping_If_Jump_Button_Held == 1)
 					{
 						static unsigned __int8 Modified_Previous_Buttons_In_Jump_Check[4] =
@@ -616,22 +637,6 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 				}
 				else
 				{
-					static void* Previous_Buttons_In_Jump_Check_Location = nullptr;
-
-					if (Previous_Buttons_In_Jump_Check_Location == nullptr)
-					{
-						unsigned __int8 Previous_Buttons_In_Jump_Check_Bytes[3] =
-						{
-							40,
-
-							2,
-
-							116
-						};
-
-						Previous_Buttons_In_Jump_Check_Location = Byte_Manager::Find_Bytes(sizeof Previous_Buttons_In_Jump_Check_Bytes, GetModuleHandleW(L"client.dll"), Previous_Buttons_In_Jump_Check_Bytes, 0);
-					}
-
 					if (Visuals_Physics_Continue_Jumping_If_Jump_Button_Held == 1)
 					{
 						Byte_Manager::Set_Byte(Previous_Buttons_In_Jump_Check_Location, 235);
