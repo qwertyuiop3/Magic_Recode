@@ -439,16 +439,16 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 				if (Copy_User_Command::Recorded_User_Commands.empty() == 0)
 				{
-					if (ImGui::Checkbox("Playback", (bool*)&Menu_Select::User_Commands_Recorder_Playback) == 1)
-					{
-						Menu_Select::User_Commands_Recorder_Record = 0;
-					}
-
 					if (Menu_Select::User_Commands_Recorder_Playback == 0)
 					{
 						File_Number_Editor();
 
 						Load_From_File_Button();
+					}
+
+					if (ImGui::Checkbox("Playback", (bool*)&Menu_Select::User_Commands_Recorder_Playback) == 1)
+					{
+						Menu_Select::User_Commands_Recorder_Record = 0;
 					}
 
 					if (ImGui::TreeNodeEx("Keybinds", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
