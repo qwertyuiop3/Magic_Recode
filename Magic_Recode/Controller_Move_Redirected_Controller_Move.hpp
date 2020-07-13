@@ -16,11 +16,6 @@ void __fastcall Redirected_Controller_Move(void* Input, void* Unknown_Parameter_
 			}
 			else
 			{
-				if (Menu_Select::Freeze_Controlled_Creature == 2)
-				{
-					Menu_Select::Freeze_Controlled_Creature = 0;
-				}
-
 				if (Menu_Select::Game_Identifier == 0)
 				{
 					*(__int8*)((unsigned __int32)Input + 5) = 0;
@@ -29,12 +24,15 @@ void __fastcall Redirected_Controller_Move(void* Input, void* Unknown_Parameter_
 				{
 					*(__int8*)((unsigned __int32)Input + 14) = 0;
 				}
+
+				if (Menu_Select::Freeze_Controlled_Creature == 2)
+				{
+					Menu_Select::Freeze_Controlled_Creature = 0;
+				}
 			}
 		}
 		else
 		{
-			Previous_Draw_Graphical_User_Interface = 0;
-
 			if (Menu_Select::Game_Identifier == 0)
 			{
 				*(__int8*)((unsigned __int32)Input + 5) = 0;
@@ -43,6 +41,8 @@ void __fastcall Redirected_Controller_Move(void* Input, void* Unknown_Parameter_
 			{
 				*(__int8*)((unsigned __int32)Input + 14) = 0;
 			}
+
+			Previous_Draw_Graphical_User_Interface = 0;
 		}
 	}
 	else
