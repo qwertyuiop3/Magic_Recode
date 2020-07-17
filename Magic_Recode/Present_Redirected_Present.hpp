@@ -588,7 +588,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 				{
 					if (Game_Identifier == 0)
 					{
-						return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 1936491)
+						return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 1936491);
 					}
 					else
 					{
