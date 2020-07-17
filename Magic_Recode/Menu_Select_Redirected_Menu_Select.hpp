@@ -4,13 +4,11 @@ void __cdecl Redirected_Menu_Select(void* Data)
 {
 	auto Handle_Menu_Select = [&]() -> void
 	{
-		static void* Menu_Name_Location = nullptr;
-
-		if (Menu_Name_Location == nullptr)
+		auto Find_Menu_Name_Location = []() -> void*
 		{
 			if (Game_Identifier == 0)
 			{
-				Menu_Name_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5195824);
+				return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5195824);
 			}
 			else
 			{
@@ -25,9 +23,11 @@ void __cdecl Redirected_Menu_Select(void* Data)
 					128
 				};
 
-				Menu_Name_Location = *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof Menu_Name_Bytes, GetModuleHandleW(L"client.dll"), Menu_Name_Bytes, 0) - 11);
+				return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof Menu_Name_Bytes, GetModuleHandleW(L"client.dll"), Menu_Name_Bytes, 0) - 11);
 			}
-		}
+		};
+
+		static void* Menu_Name_Location = Find_Menu_Name_Location();
 
 		if (strncmp((char*)Menu_Name_Location, "Magic", 5) == 0)
 		{

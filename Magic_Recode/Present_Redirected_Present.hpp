@@ -8,13 +8,11 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 		if (Recorded_Route_Elements_Amount > Visuals_Recorded_Route_Step_Length)
 		{
-			static float* View_Matrix_Location = nullptr;
-
-			if (View_Matrix_Location == nullptr)
+			auto Find_View_Matrix_Location = []() -> float*
 			{
 				if (Menu_Select::Game_Identifier == 0)
 				{
-					View_Matrix_Location = (float*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 5954552);
+					return (float*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 5954552);
 				}
 				else
 				{
@@ -31,9 +29,11 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 						120
 					};
 
-					View_Matrix_Location = (float*)(*(unsigned __int32*)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof View_Matrix_Bytes, GetModuleHandleW(L"client.dll"), View_Matrix_Bytes, 0) - 8) + 128);
+					return (float*)(*(unsigned __int32*)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof View_Matrix_Bytes, GetModuleHandleW(L"client.dll"), View_Matrix_Bytes, 0) - 8) + 128);
 				}
-			}
+			};
+
+			static float* View_Matrix_Location = Find_View_Matrix_Location();
 
 			D3DVIEWPORT9 Direct_3_Dimensional_Viewport_9;
 
@@ -230,13 +230,11 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 		ImGui::Begin("User Commands", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoNavInputs);
 
-		static void* Map_Name_Location = nullptr;
-
-		if (Map_Name_Location == nullptr)
+		auto Find_Map_Name_Location = []() -> void*
 		{
 			if (Menu_Select::Game_Identifier == 0)
 			{
-				Map_Name_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5245916);
+				return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5245916);
 			}
 			else
 			{
@@ -257,9 +255,11 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 					184
 				};
 
-				Map_Name_Location = *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof Map_Name_Bytes, GetModuleHandleW(L"client.dll"), Map_Name_Bytes, 0) + 1);
+				return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof Map_Name_Bytes, GetModuleHandleW(L"client.dll"), Map_Name_Bytes, 0) + 1);
 			}
-		}
+		};
+
+		static void* Map_Name_Location = Find_Map_Name_Location();
 
 		unsigned __int32 Map_Name_Length = wcslen((wchar_t*)Map_Name_Location) * 2;
 
@@ -584,13 +584,11 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 			if (ImGui::Checkbox("Continue Jumping If Jump Button Held", (bool*)&Visuals_Physics_Continue_Jumping_If_Jump_Button_Held) == 1)
 			{
-				static void* Previous_Buttons_In_Jump_Check_Location = nullptr;
-
-				if (Previous_Buttons_In_Jump_Check_Location == nullptr)
+				auto Find_Previous_Buttons_In_Jump_Check_Location = []() -> void*
 				{
-					if (Menu_Select::Game_Identifier == 0)
+					if (Game_Identifier == 0)
 					{
-						Previous_Buttons_In_Jump_Check_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 1936491);
+						return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 1936491)
 					}
 					else
 					{
@@ -603,9 +601,11 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 							116
 						};
 
-						Previous_Buttons_In_Jump_Check_Location = Byte_Manager::Find_Bytes(sizeof Previous_Buttons_In_Jump_Check_Bytes, GetModuleHandleW(L"client.dll"), Previous_Buttons_In_Jump_Check_Bytes, 0);
+						return Byte_Manager::Find_Bytes(sizeof Previous_Buttons_In_Jump_Check_Bytes, GetModuleHandleW(L"client.dll"), Previous_Buttons_In_Jump_Check_Bytes, 0);
 					}
-				}
+				};
+
+				static void* Previous_Buttons_In_Jump_Check_Location = Find_Previous_Buttons_In_Jump_Check_Location();
 
 				if (Menu_Select::Game_Identifier == 0)
 				{
