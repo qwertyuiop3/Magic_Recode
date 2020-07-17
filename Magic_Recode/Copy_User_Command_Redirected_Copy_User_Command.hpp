@@ -312,6 +312,8 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 					static void* Controlled_Creature_Container = Find_Controlled_Creature_Container();
 
+					using Get_Creature_Location_Type = float*(__thiscall*)(void* Creature);
+
 					auto Find_Get_Creature_Location_Location = [&]() -> void*
 					{
 						if (Menu_Select::Game_Identifier == 0)
@@ -323,9 +325,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 							return *(void**)(**(unsigned __int32**)Controlled_Creature_Container + 40);
 						}
 					};
-
-					using Get_Creature_Location_Type = float*(__thiscall*)(void* Creature);
-
+					
 					static void* Get_Creature_Location_Location = Find_Get_Creature_Location_Location();
 
 					if (Recorded_Route_Elements_Amount == 0)
