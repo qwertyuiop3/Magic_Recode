@@ -100,8 +100,6 @@ unsigned __int32 __stdcall Redirected_Window_Procedure(HWND Window_Handle, unsig
 
 	if (Controller_Move::Draw_Graphical_User_Interface == 1)
 	{
-		IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-
 		ImGui_ImplWin32_WndProcHandler(Window_Handle, Message, Parameter_1, Parameter_2);
 
 		return WM_CREATE;

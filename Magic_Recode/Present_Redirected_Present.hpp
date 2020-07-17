@@ -187,7 +187,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 							}
 						};
 
-						Direct_3_Dimensional_Device_9->DrawPrimitiveUP(D3DPT_LINELIST, 1, Vertices, sizeof Vertex_Structure);
+						Direct_3_Dimensional_Device_9->DrawPrimitiveUP(D3DPT_LINELIST, 1, Vertices, sizeof(Vertex_Structure));
 					}
 				}
 
@@ -312,7 +312,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 				{
 					char Formatted_Button_Name[32];
 
-					sprintf_s(Formatted_Button_Name, "%s Bound To Function %i", Function_Name, Key_Number - VK_DIVIDE);
+					sprintf_s(Formatted_Button_Name, "%s Bound To Function %i", Function_Name, Key_Number - VK_F1 - 1);
 
 					if (ImGui::Button(Formatted_Button_Name) == 1)
 					{
@@ -331,7 +331,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 				Function_Key_Released_Check_Label:
 				{
-					if (Function_Key_Number != VK_NAVIGATION_VIEW)
+					if (Function_Key_Number != VK_F24 + 1)
 					{
 						if (ImGui::IsKeyReleased(Function_Key_Number) == 1)
 						{
@@ -393,7 +393,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 						SetFilePointer(Recorded_User_Commands_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
 
-						WriteFile(Recorded_User_Commands_File_Handle, Copy_User_Command::Recorded_User_Commands.data(), Recorded_User_Commands_Elements_Amount * sizeof Copy_User_Command::Compressed_User_Command_Structure, nullptr, nullptr);
+						WriteFile(Recorded_User_Commands_File_Handle, Copy_User_Command::Recorded_User_Commands.data(), Recorded_User_Commands_Elements_Amount * sizeof(Copy_User_Command::Compressed_User_Command_Structure), nullptr, nullptr);
 
 						CloseHandle(Recorded_User_Commands_File_Handle);
 					}
@@ -430,7 +430,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 							SetFilePointer(Recorded_User_Commands_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
 
-							ReadFile(Recorded_User_Commands_File_Handle, Copy_User_Command::Recorded_User_Commands.data(), Recorded_User_Commands_Elements_Amount * sizeof Copy_User_Command::Compressed_User_Command_Structure, nullptr, nullptr);
+							ReadFile(Recorded_User_Commands_File_Handle, Copy_User_Command::Recorded_User_Commands.data(), Recorded_User_Commands_Elements_Amount * sizeof(Copy_User_Command::Compressed_User_Command_Structure), nullptr, nullptr);
 
 							CloseHandle(Recorded_User_Commands_File_Handle);
 						}
@@ -504,7 +504,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 						SetFilePointer(Recorded_Route_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
 
-						WriteFile(Recorded_Route_File_Handle, Copy_User_Command::Recorded_Route.data(), Recorded_Route_Elements_Amount * sizeof Copy_User_Command::Route_Structure, nullptr, nullptr);
+						WriteFile(Recorded_Route_File_Handle, Copy_User_Command::Recorded_Route.data(), Recorded_Route_Elements_Amount * sizeof(Copy_User_Command::Route_Structure), nullptr, nullptr);
 
 						CloseHandle(Recorded_Route_File_Handle);
 					}
@@ -562,7 +562,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 								SetFilePointer(Recorded_Route_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
 
-								ReadFile(Recorded_Route_File_Handle, Copy_User_Command::Recorded_Route.data(), Recorded_Route_Elements_Amount * sizeof Copy_User_Command::Route_Structure, nullptr, nullptr);
+								ReadFile(Recorded_Route_File_Handle, Copy_User_Command::Recorded_Route.data(), Recorded_Route_Elements_Amount * sizeof(Copy_User_Command::Route_Structure), nullptr, nullptr);
 
 								CloseHandle(Recorded_Route_File_Handle);
 							}

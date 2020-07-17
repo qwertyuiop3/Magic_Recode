@@ -10,7 +10,7 @@
 
 #include "Controller_Move.hpp"
 
-#include <future>
+#include <vector>
 
 #include "Copy_User_Command.hpp"
 
@@ -19,6 +19,8 @@
 #include "Write_User_Command_Delta_To_Buffer.hpp"
 
 #include "Physics_Simulate.hpp"
+
+#include <cstdio>
 
 #include "Chat_Print_Formatted.hpp"
 
@@ -31,5 +33,7 @@
 #include "I_Am_Graphical_User_Interface.hpp"
 
 #include "Window_Procedure.hpp"
+
+#include <cmath>
 
 #include "Present.hpp"

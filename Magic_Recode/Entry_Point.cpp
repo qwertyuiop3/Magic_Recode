@@ -42,7 +42,26 @@ __int32 __stdcall DllMain(void* This_Module_Location, unsigned __int32 Call_Reas
 
 		Chat_Print_Formatted::Redirect_Chat_Print_Formatted(Client_Module_Location);
 
-		I_Am_Graphical_User_Interface::Initialize_I_Am_Graphical_User_Interface(Game_Window_Handle);
+		unsigned __int8 Direct_3_Dimensional_Device_9_Bytes[7] =
+		{
+			86,
+			
+			80,
+			
+			139,
+			
+			8,
+			
+			255,
+			
+			145,
+			
+			112
+		};
+
+		IDirect3DDevice9* Direct_3_Dimensional_Device_9 = **(IDirect3DDevice9***)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof Direct_3_Dimensional_Device_9_Bytes, GetModuleHandleW(L"shaderapidx9.dll"), Direct_3_Dimensional_Device_9_Bytes, 0) - 10);
+
+		I_Am_Graphical_User_Interface::Initialize_I_Am_Graphical_User_Interface(Direct_3_Dimensional_Device_9, Game_Window_Handle);
 
 		Window_Procedure::Initialize_Window_Procedure();
 
@@ -50,7 +69,7 @@ __int32 __stdcall DllMain(void* This_Module_Location, unsigned __int32 Call_Reas
 
 		Present::Initialize_Present();
 		
-		Present::Redirect_Present();
+		Present::Redirect_Present(Direct_3_Dimensional_Device_9);
 	}
 
 	return 1;

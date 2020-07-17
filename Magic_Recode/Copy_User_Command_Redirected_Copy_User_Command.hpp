@@ -29,7 +29,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 		static void* Copy_User_Command_In_Create_Move_Return_Location = Find_Copy_User_Command_In_Create_Move_Return_Location();
 
-		if (_ReturnAddress() == Copy_User_Command_In_Create_Move_Return_Location)
+		if (__builtin_return_address(0) == Copy_User_Command_In_Create_Move_Return_Location)
 		{
 			if (Menu_Select::User_Commands_Recorder_Record == 1)
 			{
