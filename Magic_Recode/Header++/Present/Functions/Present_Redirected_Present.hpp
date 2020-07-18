@@ -312,7 +312,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 				{
 					char Formatted_Button_Name[32];
 
-					sprintf_s(Formatted_Button_Name, "%s Bound To Function %i", Function_Name, Key_Number - VK_F1 - 1);
+					sprintf_s(Formatted_Button_Name, "%s Bound To Function %i", Function_Name, Key_Number - (VK_F1 - 1));
 
 					if (ImGui::Button(Formatted_Button_Name) == 1)
 					{
