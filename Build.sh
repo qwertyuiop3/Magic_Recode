@@ -1,7 +1,11 @@
 #!/bin/bash
 
-cmake ./ -B CMake
+clear
 
-make -C CMake
+cmake -B CMake
 
-mv CMake/libMagic_Recode.so Magic/Magic_Recode.dll
+make -C CMake -s
+
+mkdir Output 2>/dev/null
+
+mv CMake/libMagic_Recode.so Output/Magic_Recode.dll
