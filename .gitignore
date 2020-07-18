@@ -10,6 +10,7 @@
 *.userosscache
 *.sln.docstates
 .vscode
+CMake
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
