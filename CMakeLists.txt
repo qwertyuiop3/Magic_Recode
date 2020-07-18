@@ -1,6 +1,6 @@
 Project(Magic_Recode)
 
-CMake_Minimum_Required(VERSION "3.18.0")
+CMake_Minimum_Required(VERSION "3.0.0")
 
 Set(CMAKE_CXX_COMPILER "i686-w64-mingw32-g++")
 
