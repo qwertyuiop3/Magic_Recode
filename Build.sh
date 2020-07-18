@@ -1,7 +1,5 @@
 #!/bin/bash
 
-clear
-
 cmake ./ -B CMake
 
 make -C CMake
