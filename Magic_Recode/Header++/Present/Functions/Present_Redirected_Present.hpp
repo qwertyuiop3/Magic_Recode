@@ -511,11 +511,14 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 				}
 			}
 
-			if (ImGui::TreeNodeEx("Keybinds", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
+			if (Window_Procedure::Visuals_Recorded_Route_Draw == 0)
 			{
-				Setup_Keybind((char*)"Record", Window_Procedure::Route_Recorder_Record_Bound_To);
+				if (ImGui::TreeNodeEx("Keybinds", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
+				{
+					Setup_Keybind((char*)"Record", Window_Procedure::Route_Recorder_Record_Bound_To);
 
-				ImGui::TreePop();
+					ImGui::TreePop();
+				}
 			}
 
 			ImGui::TreePop();
