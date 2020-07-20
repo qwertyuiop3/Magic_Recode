@@ -6,7 +6,7 @@ Set(CMAKE_CXX_COMPILER "i686-w64-mingw32-g++")
 
 Set(CMAKE_CXX_FLAGS "-std=c++2a -D IMGUI_IMPL_WIN32_DISABLE_GAMEPAD -fpermissive -w -s -Ofast -DNDEBUG -funroll-loops -fno-exceptions -fno-rtti -static-libgcc -static-libstdc++")
 
-File(GLOB_RECURSE Files *.hpp)
+File(GLOB_RECURSE Files "*.hpp")
 
 ForEach(File ${Files})
     Get_Filename_Component(Folder ${File} PATH)
