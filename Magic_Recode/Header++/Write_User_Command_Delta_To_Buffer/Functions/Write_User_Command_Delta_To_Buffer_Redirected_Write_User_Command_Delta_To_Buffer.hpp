@@ -8,6 +8,6 @@ __int8 __fastcall Redirected_Write_User_Command_Delta_To_Buffer(void* Unknown_Pa
 
 		return Write_User_Command_Delta_To_Buffer_Type(Original_Write_User_Command_Delta_To_Buffer_Caller_Location)(Unknown_Parameter_1, Unknown_Parameter_3, Unknown_Parameter_4, Unknown_Parameter_5, Unknown_Parameter_6, Unknown_Parameter_7);
 	}
-	
+
 	return 0;
 }

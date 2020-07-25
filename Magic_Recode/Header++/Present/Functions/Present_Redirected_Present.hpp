@@ -241,17 +241,17 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 				unsigned __int8 Map_Name_Bytes[7] =
 				{
 					83,
-					
+
 					139,
-					
+
 					1,
-					
+
 					255,
-					
+
 					80,
-					
+
 					60,
-					
+
 					184
 				};
 

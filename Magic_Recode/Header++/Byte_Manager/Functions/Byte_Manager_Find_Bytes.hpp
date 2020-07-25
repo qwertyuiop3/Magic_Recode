@@ -3,11 +3,11 @@
 void* Find_Bytes(unsigned __int32 Bytes_Amount, void* Starting_Location, unsigned __int8* Bytes, __int8 Return_Starting_Location_Of_Found_Bytes)
 {
 	Bytes_Amount -= 1;
-		
+
 	Compare_First_Byte_Label:
 	{
 		unsigned __int32 Byte_Number = 0;
-			
+
 		Compare_Next_Byte_Label:
 		{
 			if (*(unsigned __int8*)Starting_Location == Bytes[Byte_Number])

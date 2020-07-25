@@ -45,17 +45,17 @@ __int32 __stdcall DllMain(void* This_Module_Location, unsigned __int32 Call_Reas
 		unsigned __int8 Direct_3_Dimensional_Device_9_Bytes[7] =
 		{
 			86,
-			
+
 			80,
-			
+
 			139,
-			
+
 			8,
-			
+
 			255,
-			
+
 			145,
-			
+
 			112
 		};
 
@@ -68,7 +68,7 @@ __int32 __stdcall DllMain(void* This_Module_Location, unsigned __int32 Call_Reas
 		Window_Procedure::Redirect_Window_Procedure(Game_Window_Handle);
 
 		Present::Initialize_Present();
-		
+
 		Present::Redirect_Present(Direct_3_Dimensional_Device_9);
 	}
 

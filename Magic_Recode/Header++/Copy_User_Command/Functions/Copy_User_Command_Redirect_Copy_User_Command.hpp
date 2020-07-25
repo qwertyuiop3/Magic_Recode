@@ -11,19 +11,19 @@ void Redirect_Copy_User_Command(void* Client_Module_Location)
 		unsigned __int8 Copy_User_Command_Bytes[8] =
 		{
 			85,
-			
+
 			139,
-			
+
 			236,
-			
+
 			139,
-			
+
 			85,
-			
+
 			8,
-			
+
 			59,
-			
+
 			202
 		};
 

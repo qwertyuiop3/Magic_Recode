@@ -270,15 +270,15 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 							unsigned __int8 Controlled_Creature_Container_Bytes[6] =
 							{
 								52,
-									
+
 								83,
-									
+
 								86,
-									
+
 								87,
-									
+
 								139,
-									
+
 								61
 							};
 
@@ -301,7 +301,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 							return *(void**)(**(unsigned __int32**)Controlled_Creature_Container + 40);
 						}
 					};
-					
+
 					static void* Get_Creature_Location_Location = Find_Get_Creature_Location_Location();
 
 					if (Recorded_Route_Elements_Amount == 0)

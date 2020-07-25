@@ -5,15 +5,15 @@ void Redirect_Write_User_Command_Delta_To_Buffer(void* Client_Module_Location)
 	unsigned __int8 Write_user_Command_Delta_To_Buffer_Bytes[6] =
 	{
 		104,
-		
+
 		83,
-		
+
 		86,
-		
+
 		139,
-		
+
 		217,
-		
+
 		199
 	};
 

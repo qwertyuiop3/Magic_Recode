@@ -15,11 +15,11 @@ void __cdecl Redirected_Menu_Select(void* Data)
 				unsigned __int8 Menu_Name_Bytes[4] =
 				{
 					208,
-					
+
 					139,
-					
+
 					202,
-					
+
 					128
 				};
 

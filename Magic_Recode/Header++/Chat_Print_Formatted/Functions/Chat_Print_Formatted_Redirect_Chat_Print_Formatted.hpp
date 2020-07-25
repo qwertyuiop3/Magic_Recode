@@ -11,15 +11,15 @@ void Redirect_Chat_Print_Formatted(void* Client_Module_Location)
 		unsigned __int8 Chat_Print_Formatted_Bytes[6] =
 		{
 			195,
-			
+
 			128,
-			
+
 			62,
-			
+
 			0,
-			
+
 			116,
-			
+
 			40
 		};
 

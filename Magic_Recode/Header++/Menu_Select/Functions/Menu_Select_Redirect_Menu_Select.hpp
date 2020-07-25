@@ -5,13 +5,13 @@ void Redirect_Menu_Select(void* Client_Module_Location)
 	unsigned __int8 Menu_Select_Bytes[5] =
 	{
 		1,
-		
+
 		131,
-		
+
 		248,
-		
+
 		2,
-		
+
 		15
 	};
 
