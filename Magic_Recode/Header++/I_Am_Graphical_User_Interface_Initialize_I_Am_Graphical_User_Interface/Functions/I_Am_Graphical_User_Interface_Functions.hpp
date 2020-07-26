@@ -1,3 +1,0 @@
-#pragma once
-
-#include "I_Am_Graphical_User_Interface_Initialize_I_Am_Graphical_User_Interface.hpp"

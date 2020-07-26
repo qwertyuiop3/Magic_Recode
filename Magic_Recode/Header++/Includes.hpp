@@ -30,7 +30,7 @@
 
 #include "imgui_impl_win32.h"
 
-#include "I_Am_Graphical_User_Interface.hpp"
+#include "Immediate_Mode_Graphical_User_Interface.hpp"
 
 #include "Window_Procedure.hpp"
 

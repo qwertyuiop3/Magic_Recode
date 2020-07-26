@@ -61,7 +61,7 @@ __int32 __stdcall DllMain(void* This_Module_Location, unsigned __int32 Call_Reas
 
 		IDirect3DDevice9* Direct_3_Dimensional_Device_9 = **(IDirect3DDevice9***)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof Direct_3_Dimensional_Device_9_Bytes, GetModuleHandleW(L"shaderapidx9.dll"), Direct_3_Dimensional_Device_9_Bytes, 0) - 10);
 
-		I_Am_Graphical_User_Interface::Initialize_I_Am_Graphical_User_Interface(Direct_3_Dimensional_Device_9, Game_Window_Handle);
+		Immediate_Mode_Graphical_User_Interface::Initialize_Immediate_Mode_Graphical_User_Interface(Direct_3_Dimensional_Device_9, Game_Window_Handle);
 
 		Window_Procedure::Initialize_Window_Procedure();
 
