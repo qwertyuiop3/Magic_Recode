@@ -19,29 +19,29 @@ List(REMOVE_DUPLICATES Includes)
 Include_Directories(
     ${Includes}
 
-    imgui
+    "imgui"
 
-    imgui/examples
+    "imgui/examples"
 )
 
 Add_Library(
-    Magic_Recode SHARED
+    "Magic_Recode" SHARED
 
-    Magic_Recode/C++/Entry_Point.cpp
+    "Magic_Recode/C++/Entry_Point.cpp"
 
-    imgui/imgui.cpp
+    "imgui/imgui.cpp"
 
-    imgui/imgui_widgets.cpp
+    "imgui/imgui_widgets.cpp"
 
-    imgui/imgui_draw.cpp
+    "imgui/imgui_draw.cpp"
 
-    imgui/examples/imgui_impl_dx9.cpp
+    "imgui/examples/imgui_impl_dx9.cpp"
 
-    imgui/examples/imgui_impl_win32.cpp
+    "imgui/examples/imgui_impl_win32.cpp"
 )
 
 Target_Link_Libraries(
-    Magic_Recode
+    "Magic_Recode"
 
-    gdi32
+    "gdi32"
 )
