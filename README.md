@@ -1,7 +1,7 @@
 # Debian
 
 ```
-sudo apt install git cmake mingw-w64
+sudo apt install git bash cmake mingw-w64
 
 git clone https://github.com/qwertyuiop3/Magic_Recode.git --recursive
 
