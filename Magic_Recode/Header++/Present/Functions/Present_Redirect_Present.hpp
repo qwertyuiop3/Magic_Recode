@@ -23,5 +23,7 @@ void Redirect_Present(IDirect3DDevice9* Direct_3_Dimensional_Device_9)
 		}
 	}
 
+	//todo: add disassembler for no-steam users
+
 	Redirection_Manager::Redirect_Function(Original_Present_Caller_Location, 0, Present_Location, Redirected_Present);
 }
