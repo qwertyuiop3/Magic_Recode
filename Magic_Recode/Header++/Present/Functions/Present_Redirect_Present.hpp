@@ -26,29 +26,28 @@ void Redirect_Present(IDirect3DDevice9* Direct_3_Dimensional_Device_9)
 
 	Decode_Instruction_Label:
 	{
-		if ((ZydisDecoderDecodeBuffer(&Zydis_Decoder, (void*)((unsigned __int32)Present_Location + Offset_To_Instruction), UINT_MAX, &Zydis_Decoded_Instruction) & 2147483648) == 0)
+		ZydisDecoderDecodeBuffer(&Zydis_Decoder, (void*)((unsigned __int32)Present_Location + Offset_To_Instruction), UINT_MAX, &Zydis_Decoded_Instruction);
+
+		if (Offset_To_Instruction < 6)
 		{
-			if (Offset_To_Instruction < 6)
-			{
-				unsigned __int32 Future_Offset_To_Instruction = Offset_To_Instruction + Zydis_Decoded_Instruction.length;
+			unsigned __int32 Future_Offset_To_Instruction = Offset_To_Instruction + Zydis_Decoded_Instruction.length;
 
-				if (Future_Offset_To_Instruction < 6)
-				{
-					Offset_To_Instruction = Future_Offset_To_Instruction;
-
-					goto Decode_Instruction_Label;
-				}
-				else
-				{
-					Original_Present_Caller_Offset = Future_Offset_To_Instruction - 6;
-				}
-			}
-			else
+			if (Future_Offset_To_Instruction < 6)
 			{
-				Offset_To_Instruction += Zydis_Decoded_Instruction.length;
+				Offset_To_Instruction = Future_Offset_To_Instruction;
 
 				goto Decode_Instruction_Label;
 			}
+			else
+			{
+				Original_Present_Caller_Offset = Future_Offset_To_Instruction - 6;
+			}
+		}
+		else
+		{
+			Offset_To_Instruction += Zydis_Decoded_Instruction.length;
+
+			goto Decode_Instruction_Label;
 		}
 	}
 
