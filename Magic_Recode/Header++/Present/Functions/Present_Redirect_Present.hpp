@@ -26,7 +26,7 @@ void Redirect_Present(IDirect3DDevice9* Direct_3_Dimensional_Device_9)
 
 	Decode_Instruction_Label:
 	{
-		if ((ZydisDecoderDecodeBuffer(&Zydis_Decoder, (void*)((unsigned __int32)Present_Location + Offset_To_Instruction), 16 - Offset_To_Instruction, &Zydis_Decoded_Instruction) & (INT_MAX + 1)) == 0)
+		if ((ZydisDecoderDecodeBuffer(&Zydis_Decoder, (void*)((unsigned __int32)Present_Location + Offset_To_Instruction), 16 - Offset_To_Instruction, &Zydis_Decoded_Instruction) & 2147483648) == 0)
 		{
 			if (Offset_To_Instruction < 6)
 			{
