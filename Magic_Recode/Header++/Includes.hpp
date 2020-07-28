@@ -36,4 +36,6 @@
 
 #include <cmath>
 
+#include "Zydis/Zydis.h"
+
 #include "Present.hpp"

@@ -1,6 +1,6 @@
-Project(Magic_Recode)
-
 CMake_Minimum_Required(VERSION "3.0.0")
+
+Project("Magic_Recode")
 
 Set(CMAKE_CXX_COMPILER "i686-w64-mingw32-g++")
 
@@ -16,12 +16,26 @@ EndForEach()
 
 List(REMOVE_DUPLICATES Includes)
 
+Set(CMAKE_C_COMPILER "i686-w64-mingw32-gcc")
+
+Set(CMAKE_C_FLAGS "-s -Ofast -DNDEBUG -funroll-loops -fno-exceptions")
+
 Include_Directories(
     ${Includes}
 
     "imgui"
 
     "imgui/examples"
+
+    "zydis"
+
+    "zydis/src"
+
+    "zydis/dependencies/zycore"
+
+    "zydis/dependencies/zycore/include"
+
+    "zydis/include"
 )
 
 Add_Library(
@@ -38,6 +52,34 @@ Add_Library(
     "imgui/examples/imgui_impl_dx9.cpp"
 
     "imgui/examples/imgui_impl_win32.cpp"
+
+    "zydis/src/Zydis.c"
+
+    "zydis/src/Decoder.c"
+
+    "zydis/src/DecoderData.c"
+
+    "zydis/src/Formatter.c"
+
+    "zydis/src/FormatterATT.c"
+
+    "zydis/src/FormatterBase.c"
+
+    "zydis/src/FormatterBuffer.c"
+
+    "zydis/src/FormatterIntel.c"
+
+    "zydis/src/MetaInfo.c"
+
+    "zydis/src/Mnemonic.c"
+
+    "zydis/src/Register.c"
+
+    "zydis/src/SharedData.c"
+
+    "zydis/src/String.c"
+
+    "zydis/src/Utils.c"
 )
 
 Target_Link_Libraries(
