@@ -22,7 +22,7 @@ void Redirect_Present(IDirect3DDevice9* Direct_3_Dimensional_Device_9)
 
     ZydisDecodedInstruction Zydis_Decoded_Instruction;
 
-	unsigned __int32 Original_Function_Caller_Offset;
+	unsigned __int32 Original_Present_Caller_Offset;
 
 	Decode_Instruction_Label:
 	{
@@ -40,7 +40,7 @@ void Redirect_Present(IDirect3DDevice9* Direct_3_Dimensional_Device_9)
 				}
 				else
 				{
-					Original_Function_Caller_Offset = Future_Offset_To_Instruction - 6;
+					Original_Present_Caller_Offset = Future_Offset_To_Instruction - 6;
 				}
 			}
 			else
@@ -52,5 +52,5 @@ void Redirect_Present(IDirect3DDevice9* Direct_3_Dimensional_Device_9)
 		}
 	}
 
-	Redirection_Manager::Redirect_Function(Original_Present_Caller_Location, 0, Present_Location, Redirected_Present);
+	Redirection_Manager::Redirect_Function(Original_Present_Caller_Location, Original_Present_Caller_Offset, Present_Location, Redirected_Present);
 }
