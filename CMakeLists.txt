@@ -27,15 +27,15 @@ Include_Directories(
 
     "imgui/examples"
 
-    "zydis"
+    "zydis/dependencies/zycore/include"
 
-    "zydis/src"
+    "zydis"
 
     "zydis/dependencies/zycore"
 
-    "zydis/dependencies/zycore/include"
-
     "zydis/include"
+
+    "zydis/src"
 )
 
 Add_Library(
@@ -56,8 +56,6 @@ Add_Library(
     "zydis/src/Decoder.c"
 
     "zydis/src/DecoderData.c"
-
-    "zydis/src/Register.c"
 
     "zydis/src/SharedData.c"
 )
