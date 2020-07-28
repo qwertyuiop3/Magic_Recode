@@ -53,33 +53,13 @@ Add_Library(
 
     "imgui/examples/imgui_impl_win32.cpp"
 
-    "zydis/src/Zydis.c"
-
     "zydis/src/Decoder.c"
 
     "zydis/src/DecoderData.c"
 
-    "zydis/src/Formatter.c"
-
-    "zydis/src/FormatterATT.c"
-
-    "zydis/src/FormatterBase.c"
-
-    "zydis/src/FormatterBuffer.c"
-
-    "zydis/src/FormatterIntel.c"
-
-    "zydis/src/MetaInfo.c"
-
-    "zydis/src/Mnemonic.c"
-
     "zydis/src/Register.c"
 
     "zydis/src/SharedData.c"
-
-    "zydis/src/String.c"
-
-    "zydis/src/Utils.c"
 )
 
 Target_Link_Libraries(
