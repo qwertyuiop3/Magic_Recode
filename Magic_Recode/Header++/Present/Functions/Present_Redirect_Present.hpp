@@ -18,9 +18,9 @@ void Redirect_Present(IDirect3DDevice9* Direct_3_Dimensional_Device_9)
 		}
 	}
 
-    unsigned __int32 Offset_To_Instruction = 0;
+	unsigned __int32 Offset_To_Instruction = 0;
 
-    ZydisDecodedInstruction Zydis_Decoded_Instruction;
+	ZydisDecodedInstruction Zydis_Decoded_Instruction;
 
 	unsigned __int32 Original_Present_Caller_Offset;
 
