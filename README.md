@@ -3,7 +3,7 @@
 > Dependencies
 
 ```
-sudo apt install git cmake mingw-w64
+apt install git cmake mingw-w64
 ```
 
 > Installing
