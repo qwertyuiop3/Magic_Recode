@@ -1,6 +1,6 @@
 # Ubuntu
 
-> External Dependencies
+> Dependencies
 
 ```
 sudo apt install git cmake mingw-w64
@@ -18,7 +18,7 @@ cd Magic_Recode
 
 # Arch
 
-> External Dependencies
+> Dependencies
 
 ```
 pacman -S yay git bash cmake
@@ -38,7 +38,7 @@ cd Magic_Recode
 
 # Windows
 
-> External Dependencies
+> Dependencies
 
 ```
 Git
