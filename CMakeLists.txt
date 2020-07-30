@@ -4,7 +4,7 @@ Project("Magic_Recode")
 
 Set(CMAKE_CXX_COMPILER "i686-w64-mingw32-g++")
 
-Set(CMAKE_CXX_FLAGS "-D IMGUI_IMPL_WIN32_DISABLE_GAMEPAD -fpermissive -w -s -Ofast -DNDEBUG -funroll-loops -fno-exceptions -fno-rtti -static-libgcc -static-libstdc++")
+Set(CMAKE_CXX_FLAGS "-D IMGUI_IMPL_WIN32_DISABLE_GAMEPAD -fpermissive -w -s -Ofast -DNDEBUG -funroll-loops -fno-exceptions -fno-rtti -static")
 
 File(GLOB_RECURSE Files "*.hpp")
 
