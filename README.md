@@ -6,7 +6,7 @@
 sudo apt install git cmake mingw-w64
 ```
 
-> Building
+> Installing
 
 ```
 git clone https://github.com/qwertyuiop3/Magic_Recode.git --recursive
@@ -26,7 +26,7 @@ pacman -S yay git bash cmake
 yay mingw-w64-gcc-bin
 ```
 
-> Building
+> Installing
 
 ```
 git clone https://github.com/qwertyuiop3/Magic_Recode.git --recursive
@@ -46,7 +46,7 @@ Git
 MinGW-W64
 ```
 
-> Building
+> Installing
 
 ```
 git clone https://github.com/qwertyuiop3/Magic_Recode.git --recursive
