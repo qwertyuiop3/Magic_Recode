@@ -1,12 +1,12 @@
 # Ubuntu
 
-> Dependencies
+> Installing Dependencies
 
 ```
 apt install git cmake mingw-w64
 ```
 
-> Installing
+> Installing Magic_Recode
 
 ```
 git clone https://github.com/qwertyuiop3/Magic_Recode.git --recursive
@@ -18,7 +18,7 @@ cd Magic_Recode
 
 # Arch
 
-> Dependencies
+> Installing Dependencies
 
 ```
 pacman -S git fakeroot binutils make bash cmake
@@ -32,7 +32,7 @@ makepkg -is
 yay mingw-w64-gcc-bin
 ```
 
-> Installing
+> Installing Magic_Recode
 
 ```
 git clone https://github.com/qwertyuiop3/Magic_Recode.git --recursive
@@ -44,7 +44,7 @@ cd Magic_Recode
 
 # Windows
 
-> Dependencies
+> Installing Dependencies
 
 ```
 Git
@@ -52,7 +52,7 @@ Git
 MinGW-W64
 ```
 
-> Installing
+> Installing Magic_Recode
 
 ```
 git clone https://github.com/qwertyuiop3/Magic_Recode.git --recursive
