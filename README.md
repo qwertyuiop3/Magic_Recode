@@ -21,7 +21,13 @@ cd Magic_Recode
 > Dependencies
 
 ```
-pacman -S yay git bash cmake
+pacman -S git fakeroot binutils make bash cmake
+
+git clone https://aur.archlinux.org/yay.git
+
+cd yay
+
+makepkg -is
 
 yay mingw-w64-gcc-bin
 ```
