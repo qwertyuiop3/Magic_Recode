@@ -4,7 +4,7 @@ cls
 
 cmake zydis -B zydis
 
-cmake zydis/dependencies/zycore -B zydis/dependencies/zycore
+cmake zydis\dependencies\zycore -B zydis\dependencies\zycore
 
 cmake -B CMake
 
