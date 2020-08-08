@@ -29,7 +29,7 @@ void __cdecl Redirected_Menu_Select(void* Data)
 
 		static void* Menu_Name_Location = Find_Menu_Name_Location();
 
-		if (strncmp((char*)Menu_Name_Location, "Magic", 5) == 0)
+		if (strncmp(Menu_Name_Location, "Magic", 5) == 0)
 		{
 			char* Menu_Selection = *(char**)((unsigned __int32)Data + 1036);
 

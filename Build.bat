@@ -2,11 +2,11 @@
 
 cls
 
-cmake zydis -B zydis
+cmake -Wno-dev zydis -B zydis
 
 cmake zydis\dependencies\zycore -B zydis\dependencies\zycore
 
-cmake -B CMake
+cmake -Wno-dev -B CMake
 
 make -C CMake -s
 

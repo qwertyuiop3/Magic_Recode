@@ -402,7 +402,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 			if (ImGui::TreeNodeEx("Keybinds", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 			{
-				Setup_Keybind((char*)"Record", Window_Procedure::User_Commands_Recorder_Record_Bound_To);
+				Setup_Keybind("Record", Window_Procedure::User_Commands_Recorder_Record_Bound_To);
 
 				ImGui::TreePop();
 			}
@@ -453,7 +453,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 					if (ImGui::TreeNodeEx("Keybinds", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 					{
-						Setup_Keybind((char*)"Playback", Window_Procedure::User_Commands_Recorder_Playback_Bound_To);
+						Setup_Keybind("Playback", Window_Procedure::User_Commands_Recorder_Playback_Bound_To);
 
 						ImGui::TreePop();
 					}
@@ -515,7 +515,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 			{
 				if (ImGui::TreeNodeEx("Keybinds", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 				{
-					Setup_Keybind((char*)"Record", Window_Procedure::Route_Recorder_Record_Bound_To);
+					Setup_Keybind("Record", Window_Procedure::Route_Recorder_Record_Bound_To);
 
 					ImGui::TreePop();
 				}
