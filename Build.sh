@@ -4,7 +4,7 @@ clear
 
 cmake -Wno-dev zydis -B zydis
 
-cmake zydis/dependencies/zycore -B zydis/dependencies/zycore
+cmake -Wno-dev zydis/dependencies/zycore -B zydis/dependencies/zycore
 
 cmake -Wno-dev -B CMake
 
