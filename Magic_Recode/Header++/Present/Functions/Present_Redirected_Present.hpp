@@ -173,7 +173,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 								0,
 
-								Hue_To_Alpha_Red_Green_Blue((float)((Recorded_Route_Number_With_Subtracted_Step) % 361))
+								Hue_To_Alpha_Red_Green_Blue((float)(Recorded_Route_Number_With_Subtracted_Step % 361))
 							},
 
 							{
