@@ -364,14 +364,14 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 			{
 				if (Menu_Select::User_Commands_Recorder_Record == 1)
 				{
-          Menu_Select::User_Commands_Recorder_Playback = 0;
-
 					if (Menu_Select::User_Commands_Recorder_Playback == 0)
 					{
 						Copy_User_Command::Recorded_User_Commands.clear();
 					}
 					else
 					{
+            Menu_Select::User_Commands_Recorder_Playback = 0;
+
 						Copy_User_Command::Recorded_User_Commands.resize(Copy_User_Command::Recorder_User_Comamand_Number);
 					}
 				}
