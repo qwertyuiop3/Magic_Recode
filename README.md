@@ -16,7 +16,7 @@ cd Magic_Recode
 ./Build.sh
 ```
 
-# Arch
+# Arch Linux
 
 > Installing Dependencies
 
