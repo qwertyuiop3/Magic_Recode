@@ -4,8 +4,6 @@ void Redirect_Function(void*& Original_Function_Caller_Location, unsigned __int3
 {
 	Original_Function_Caller_Location = malloc(12 + Original_Function_Caller_Offset);
 
-	Original_Function_Location = Original_Function_Location;
-
 	*(void**)Original_Function_Caller_Location = *(void**)Original_Function_Location;
 
 	*(unsigned __int16*)((unsigned __int32)Original_Function_Caller_Location + 4) = *(unsigned __int16*)((unsigned __int32)Original_Function_Location + 4);
