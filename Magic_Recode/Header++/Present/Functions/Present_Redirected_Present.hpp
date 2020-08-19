@@ -107,13 +107,15 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
       __int8 Stop_Drawing_Recorded_Route = 0;
 
+      unsigned __int32 Recorded_Route_Elements_Amount_With_Subtracted_Step = Recorded_Route_Elements_Amount - Visuals_Recorded_Route_Step_Length;
+
 			Draw_Recorded_Route_Label:
 			{
         unsigned __int32 Recorded_Route_Number_With_Subtracted_Step = Recorded_Route_Number - Visuals_Recorded_Route_Step_Length;
 
 				float Recorded_Route_On_Screen_Location_From[2];
 
-				if (In_World_Location_To_On_Screen_Location((float*)&Copy_User_Command::Recorded_Route.at(Recorded_Route_Number_With_Subtracted_Step), Recorded_Route_On_Screen_Location_From) == 1)
+        if (In_World_Location_To_On_Screen_Location((float*)&Copy_User_Command::Recorded_Route.at(Recorded_Route_Number_With_Subtracted_Step), Recorded_Route_On_Screen_Location_From) == 1)
 				{
 					float Recorded_Route_On_Screen_Location_To[2];
 
@@ -195,7 +197,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 				if (Stop_Drawing_Recorded_Route == 0)
 				{
-					if (Recorded_Route_Number < Recorded_Route_Number_With_Subtracted_Step)
+					if (Recorded_Route_Number < Recorded_Route_Elements_Amount_With_Subtracted_Step)
 					{
 						Recorded_Route_Number += Visuals_Recorded_Route_Step_Length;
 					}
