@@ -21,15 +21,7 @@ cd Magic_Recode
 > Installing Dependencies
 
 ```
-sudo pacman -S git fakeroot binutils make gcc cmake
-
-git clone https://aur.archlinux.org/yay.git
-
-cd yay
-
-makepkg -is
-
-yay mingw-w64-gcc-bin
+sudo pacman -S git make cmake mingw-w64-gcc
 ```
 
 > Installing Magic_Recode
