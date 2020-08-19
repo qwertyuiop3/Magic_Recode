@@ -105,11 +105,11 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 			Direct_3_Dimensional_Device_9->SetPixelShader(nullptr);
 
-            __int8 Stop_Drawing_Recorded_Route = 0;
+      __int8 Stop_Drawing_Recorded_Route = 0;
 
 			Draw_Recorded_Route_Label:
 			{
-                unsigned __int32 Recorded_Route_Number_With_Subtracted_Step = Recorded_Route_Number - Visuals_Recorded_Route_Step_Length;
+        unsigned __int32 Recorded_Route_Number_With_Subtracted_Step = Recorded_Route_Number - Visuals_Recorded_Route_Step_Length;
 
 				float Recorded_Route_On_Screen_Location_From[2];
 
@@ -362,7 +362,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 			{
 				if (Menu_Select::User_Commands_Recorder_Record == 1)
 				{
-                    Menu_Select::User_Commands_Recorder_Playback = 0;
+          Menu_Select::User_Commands_Recorder_Playback = 0;
 
 					if (Menu_Select::User_Commands_Recorder_Playback == 0)
 					{
@@ -612,7 +612,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 				{
 					if (Visuals_Physics_Continue_Jumping_If_Jump_Button_Held == 0)
 					{
-                        static unsigned __int8 Original_Previous_Buttons_In_Jump_Check[4] =
+            static unsigned __int8 Original_Previous_Buttons_In_Jump_Check[4] =
 						{
 							246,
 
@@ -661,7 +661,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 		ImGui::GetIO().MouseDrawCursor = 1;
 
-        Direct_3_Dimensional_Device_9->SetRenderState(D3DRS_SRGBWRITEENABLE, 0);
+    Direct_3_Dimensional_Device_9->SetRenderState(D3DRS_SRGBWRITEENABLE, 0);
 
 		ImGui::Render();
 

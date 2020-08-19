@@ -24,7 +24,7 @@ unsigned __int32 __stdcall Redirected_Window_Procedure(HWND Window_Handle, unsig
 
 					if (Menu_Select::User_Commands_Recorder_Record == 1)
 					{
-                        Menu_Select::User_Commands_Recorder_Playback = 0;
+            Menu_Select::User_Commands_Recorder_Playback = 0;
 
 						if (Menu_Select::User_Commands_Recorder_Playback == 1)
 						{

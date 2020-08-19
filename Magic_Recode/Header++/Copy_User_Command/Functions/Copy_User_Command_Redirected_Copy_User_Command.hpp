@@ -33,13 +33,13 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 		{
 			if (Menu_Select::User_Commands_Recorder_Record == 0)
 			{
-                if (Menu_Select::User_Commands_Recorder_Playback == 0)
+        if (Menu_Select::User_Commands_Recorder_Playback == 0)
 				{
-                    Recorder_User_Comamand_Number = 0;
-                }
-                else
-                {
-                    if (Recorder_User_Comamand_Number != Recorded_User_Commands.size())
+          Recorder_User_Comamand_Number = 0;
+        }
+        else
+        {
+          if (Recorder_User_Comamand_Number != Recorded_User_Commands.size())
 					{
 						using Set_View_Angles_Type = void(__thiscall*)(void* Engine, float* View_Angles);
 
@@ -184,7 +184,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 						Recorder_User_Comamand_Number = 0;
 					}
-                }
+        }
 			}
 			else
 			{
