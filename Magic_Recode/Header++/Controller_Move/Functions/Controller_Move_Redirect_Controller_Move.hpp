@@ -4,7 +4,7 @@ void Redirect_Controller_Move(void* Client_Module_Location)
 {
 	if (Menu_Select::Game_Identifier == 0)
 	{
-		Redirection_Manager::Redirect_Function(Original_Controller_Move_Caller_Location, 0, (void*)((unsigned __int32)Client_Module_Location + 1337472), Redirected_Controller_Move);
+		Redirection_Manager::Redirect_Function(Original_Controller_Move_Caller_Location, 0, (void*)((unsigned __int32)Client_Module_Location + 1337472), (void*)Redirected_Controller_Move);
 	}
 	else
 	{
@@ -37,6 +37,6 @@ void Redirect_Controller_Move(void* Client_Module_Location)
 			0
 		};
 
-		Redirection_Manager::Redirect_Function(Original_Controller_Move_Caller_Location, 0, Byte_Manager::Find_Bytes(sizeof Controller_Move_Bytes, Client_Module_Location, Controller_Move_Bytes, 1), Redirected_Controller_Move);
+		Redirection_Manager::Redirect_Function(Original_Controller_Move_Caller_Location, 0, Byte_Manager::Find_Bytes(sizeof(Controller_Move_Bytes), Client_Module_Location, Controller_Move_Bytes, 1), (void*)Redirected_Controller_Move);
 	}
 }

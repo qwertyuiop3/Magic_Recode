@@ -23,7 +23,7 @@ void __cdecl Redirected_Menu_Select(void* Data)
 					128
 				};
 
-				return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof Menu_Name_Bytes, GetModuleHandleW(L"client.dll"), Menu_Name_Bytes, 0) - 11);
+				return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Menu_Name_Bytes), GetModuleHandleW(L"client.dll"), Menu_Name_Bytes, 0) - 11);
 			}
 		};
 

@@ -38,7 +38,7 @@ void Redirect_Present(IDirect3DDevice9* Direct_3_Dimensional_Device_9)
 			}
 			else
 			{
-				Redirection_Manager::Redirect_Function(Original_Present_Caller_Location, Future_Offset_To_Instruction - 6, Present_Location, Redirected_Present);
+				Redirection_Manager::Redirect_Function(Original_Present_Caller_Location, Future_Offset_To_Instruction - 6, Present_Location, (void*)Redirected_Present);
 			}
 		}
 		else

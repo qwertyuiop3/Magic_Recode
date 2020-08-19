@@ -29,7 +29,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 						120
 					};
 
-					return (float*)(*(unsigned __int32*)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof View_Matrix_Bytes, GetModuleHandleW(L"client.dll"), View_Matrix_Bytes, 0) - 8) + 128);
+					return (float*)(*(unsigned __int32*)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(View_Matrix_Bytes), GetModuleHandleW(L"client.dll"), View_Matrix_Bytes, 0) - 8) + 128);
 				}
 			};
 
@@ -255,7 +255,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 					184
 				};
 
-				return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof Map_Name_Bytes, GetModuleHandleW(L"client.dll"), Map_Name_Bytes, 0) + 1);
+				return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Map_Name_Bytes), GetModuleHandleW(L"client.dll"), Map_Name_Bytes, 0) + 1);
 			}
 		};
 
@@ -604,7 +604,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 							116
 						};
 
-						return Byte_Manager::Find_Bytes(sizeof Previous_Buttons_In_Jump_Check_Bytes, GetModuleHandleW(L"client.dll"), Previous_Buttons_In_Jump_Check_Bytes, 0);
+						return Byte_Manager::Find_Bytes(sizeof(Previous_Buttons_In_Jump_Check_Bytes), GetModuleHandleW(L"client.dll"), Previous_Buttons_In_Jump_Check_Bytes, 0);
 					}
 				};
 
@@ -625,7 +625,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 							144
 						};
 
-						Byte_Manager::Copy_Bytes(1, Previous_Buttons_In_Jump_Check_Location, sizeof Modified_Previous_Buttons_In_Jump_Check, Modified_Previous_Buttons_In_Jump_Check);
+						Byte_Manager::Copy_Bytes(1, Previous_Buttons_In_Jump_Check_Location, sizeof(Modified_Previous_Buttons_In_Jump_Check), Modified_Previous_Buttons_In_Jump_Check);
 					}
 					else
 					{
@@ -640,7 +640,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 							2
 						};
 
-						Byte_Manager::Copy_Bytes(1, Previous_Buttons_In_Jump_Check_Location, sizeof Original_Previous_Buttons_In_Jump_Check, Original_Previous_Buttons_In_Jump_Check);
+						Byte_Manager::Copy_Bytes(1, Previous_Buttons_In_Jump_Check_Location, sizeof(Original_Previous_Buttons_In_Jump_Check), Original_Previous_Buttons_In_Jump_Check);
 					}
 				}
 				else

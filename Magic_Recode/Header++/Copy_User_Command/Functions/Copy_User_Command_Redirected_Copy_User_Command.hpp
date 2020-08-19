@@ -23,7 +23,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 					100
 				};
 
-				return (void*)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof Copy_User_Command_In_Create_Move_Return_Location_Bytes, GetModuleHandleW(L"client.dll"), Copy_User_Command_In_Create_Move_Return_Location_Bytes, 0) - 10);
+				return (void*)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Copy_User_Command_In_Create_Move_Return_Location_Bytes), GetModuleHandleW(L"client.dll"), Copy_User_Command_In_Create_Move_Return_Location_Bytes, 0) - 10);
 			}
 		};
 
@@ -142,7 +142,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 									139
 								};
 
-								return Byte_Manager::Find_Bytes(sizeof Set_View_Angles_Bytes, GetModuleHandleW(L"engine.dll"), Set_View_Angles_Bytes, 1);
+								return Byte_Manager::Find_Bytes(sizeof(Set_View_Angles_Bytes), GetModuleHandleW(L"engine.dll"), Set_View_Angles_Bytes, 1);
 							}
 						};
 
@@ -177,7 +177,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 									228
 								};
 
-								return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof Engine_Bytes, GetModuleHandleW(L"engine.dll"), Engine_Bytes, 0) - 12);
+								return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Engine_Bytes), GetModuleHandleW(L"engine.dll"), Engine_Bytes, 0) - 12);
 							}
 						};
 
@@ -282,7 +282,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 								61
 							};
 
-							return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof Controlled_Creature_Container_Bytes, GetModuleHandleW(L"client.dll"), Controlled_Creature_Container_Bytes, 0) + 1);
+							return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Controlled_Creature_Container_Bytes), GetModuleHandleW(L"client.dll"), Controlled_Creature_Container_Bytes, 0) + 1);
 						}
 					};
 
