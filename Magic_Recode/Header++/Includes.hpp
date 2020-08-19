@@ -30,6 +30,8 @@
 
 #include "imgui_impl_win32.h"
 
+IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
 #include "Immediate_Mode_Graphical_User_Interface.hpp"
 
 #include "Window_Procedure.hpp"

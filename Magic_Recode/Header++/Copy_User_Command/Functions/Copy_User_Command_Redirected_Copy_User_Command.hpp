@@ -31,75 +31,15 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 		if (__builtin_return_address(0) == Copy_User_Command_In_Create_Move_Return_Location)
 		{
-			if (Menu_Select::User_Commands_Recorder_Record == 1)
+			if (Menu_Select::User_Commands_Recorder_Record == 0)
 			{
-				static unsigned __int32 Recorded_User_Commands_Maximum_Elements_Amount = Recorded_User_Commands.max_size();
-
-				if (Recorded_User_Commands.size() != Recorded_User_Commands_Maximum_Elements_Amount)
+                if (Menu_Select::User_Commands_Recorder_Playback == 0)
 				{
-					Compressed_User_Command_Structure Compressed_User_Command;
-
-					if (Menu_Select::Game_Identifier == 0)
-					{
-						Compressed_User_Command.View_Angles[0] = ((Source_User_Command_Structure*)User_Command)->View_Angles[0];
-
-						Compressed_User_Command.View_Angles[1] = ((Source_User_Command_Structure*)User_Command)->View_Angles[1];
-
-						Compressed_User_Command.View_Angles[2] = ((Source_User_Command_Structure*)User_Command)->View_Angles[2];
-
-						Compressed_User_Command.Move[0] = ((Source_User_Command_Structure*)User_Command)->Move[0];
-
-						Compressed_User_Command.Move[1] = ((Source_User_Command_Structure*)User_Command)->Move[1];
-
-						Compressed_User_Command.Move[2] = ((Source_User_Command_Structure*)User_Command)->Move[2];
-
-						Compressed_User_Command.Buttons_State = ((Source_User_Command_Structure*)User_Command)->Buttons_State;
-
-						Compressed_User_Command.Impulse = ((Source_User_Command_Structure*)User_Command)->Impulse;
-
-						Compressed_User_Command.Mouse_Difference_X = ((Source_User_Command_Structure*)User_Command)->Mouse_Difference_X;
-
-						Compressed_User_Command.Mouse_Difference_Y = ((Source_User_Command_Structure*)User_Command)->Mouse_Difference_Y;
-					}
-					else
-					{
-						Compressed_User_Command.View_Angles[0] = ((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[0];
-
-						Compressed_User_Command.View_Angles[1] = ((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1];
-
-						Compressed_User_Command.View_Angles[2] = ((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[2];
-
-						Compressed_User_Command.Move[0] = ((Global_Offensive_User_Command_Structure*)User_Command)->Move[0];
-
-						Compressed_User_Command.Move[1] = ((Global_Offensive_User_Command_Structure*)User_Command)->Move[1];
-
-						Compressed_User_Command.Move[2] = ((Global_Offensive_User_Command_Structure*)User_Command)->Move[2];
-
-						Compressed_User_Command.Buttons_State = ((Global_Offensive_User_Command_Structure*)User_Command)->Buttons_State;
-
-						Compressed_User_Command.Impulse = ((Global_Offensive_User_Command_Structure*)User_Command)->Impulse;
-
-						Compressed_User_Command.Mouse_Difference_X = ((Global_Offensive_User_Command_Structure*)User_Command)->Mouse_Difference_X;
-
-						Compressed_User_Command.Mouse_Difference_Y = ((Global_Offensive_User_Command_Structure*)User_Command)->Mouse_Difference_Y;
-					}
-
-					Recorded_User_Commands.push_back(Compressed_User_Command);
-
-					Recorder_User_Comamand_Number += 1;
-				}
-				else
-				{
-					Menu_Select::User_Commands_Recorder_Record = 0;
-
-					Recorder_User_Comamand_Number = 0;
-				}
-			}
-			else
-			{
-				if (Menu_Select::User_Commands_Recorder_Playback == 1)
-				{
-					if (Recorder_User_Comamand_Number != Recorded_User_Commands.size())
+                    Recorder_User_Comamand_Number = 0;
+                }
+                else
+                {
+                    if (Recorder_User_Comamand_Number != Recorded_User_Commands.size())
 					{
 						using Set_View_Angles_Type = void(__thiscall*)(void* Engine, float* View_Angles);
 
@@ -244,9 +184,69 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 						Recorder_User_Comamand_Number = 0;
 					}
+                }
+			}
+			else
+			{
+				static unsigned __int32 Recorded_User_Commands_Maximum_Elements_Amount = Recorded_User_Commands.max_size();
+
+				if (Recorded_User_Commands.size() != Recorded_User_Commands_Maximum_Elements_Amount)
+				{
+					Compressed_User_Command_Structure Compressed_User_Command;
+
+					if (Menu_Select::Game_Identifier == 0)
+					{
+						Compressed_User_Command.View_Angles[0] = ((Source_User_Command_Structure*)User_Command)->View_Angles[0];
+
+						Compressed_User_Command.View_Angles[1] = ((Source_User_Command_Structure*)User_Command)->View_Angles[1];
+
+						Compressed_User_Command.View_Angles[2] = ((Source_User_Command_Structure*)User_Command)->View_Angles[2];
+
+						Compressed_User_Command.Move[0] = ((Source_User_Command_Structure*)User_Command)->Move[0];
+
+						Compressed_User_Command.Move[1] = ((Source_User_Command_Structure*)User_Command)->Move[1];
+
+						Compressed_User_Command.Move[2] = ((Source_User_Command_Structure*)User_Command)->Move[2];
+
+						Compressed_User_Command.Buttons_State = ((Source_User_Command_Structure*)User_Command)->Buttons_State;
+
+						Compressed_User_Command.Impulse = ((Source_User_Command_Structure*)User_Command)->Impulse;
+
+						Compressed_User_Command.Mouse_Difference_X = ((Source_User_Command_Structure*)User_Command)->Mouse_Difference_X;
+
+						Compressed_User_Command.Mouse_Difference_Y = ((Source_User_Command_Structure*)User_Command)->Mouse_Difference_Y;
+					}
+					else
+					{
+						Compressed_User_Command.View_Angles[0] = ((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[0];
+
+						Compressed_User_Command.View_Angles[1] = ((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1];
+
+						Compressed_User_Command.View_Angles[2] = ((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[2];
+
+						Compressed_User_Command.Move[0] = ((Global_Offensive_User_Command_Structure*)User_Command)->Move[0];
+
+						Compressed_User_Command.Move[1] = ((Global_Offensive_User_Command_Structure*)User_Command)->Move[1];
+
+						Compressed_User_Command.Move[2] = ((Global_Offensive_User_Command_Structure*)User_Command)->Move[2];
+
+						Compressed_User_Command.Buttons_State = ((Global_Offensive_User_Command_Structure*)User_Command)->Buttons_State;
+
+						Compressed_User_Command.Impulse = ((Global_Offensive_User_Command_Structure*)User_Command)->Impulse;
+
+						Compressed_User_Command.Mouse_Difference_X = ((Global_Offensive_User_Command_Structure*)User_Command)->Mouse_Difference_X;
+
+						Compressed_User_Command.Mouse_Difference_Y = ((Global_Offensive_User_Command_Structure*)User_Command)->Mouse_Difference_Y;
+					}
+
+					Recorded_User_Commands.push_back(Compressed_User_Command);
+
+					Recorder_User_Comamand_Number += 1;
 				}
 				else
 				{
+					Menu_Select::User_Commands_Recorder_Record = 0;
+
 					Recorder_User_Comamand_Number = 0;
 				}
 			}

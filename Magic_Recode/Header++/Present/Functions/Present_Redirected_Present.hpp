@@ -105,13 +105,15 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 			Direct_3_Dimensional_Device_9->SetPixelShader(nullptr);
 
-			__int8 Stop_Drawing_Recorded_Route = 0;
+            __int8 Stop_Drawing_Recorded_Route = 0;
 
 			Draw_Recorded_Route_Label:
 			{
+                unsigned __int32 Recorded_Route_Number_With_Subtracted_Step = Recorded_Route_Number - Visuals_Recorded_Route_Step_Length;
+
 				float Recorded_Route_On_Screen_Location_From[2];
 
-				if (In_World_Location_To_On_Screen_Location((float*)&Copy_User_Command::Recorded_Route.at(Recorded_Route_Number - Visuals_Recorded_Route_Step_Length), Recorded_Route_On_Screen_Location_From) == 1)
+				if (In_World_Location_To_On_Screen_Location((float*)&Copy_User_Command::Recorded_Route.at(Recorded_Route_Number_With_Subtracted_Step), Recorded_Route_On_Screen_Location_From) == 1)
 				{
 					float Recorded_Route_On_Screen_Location_To[2];
 
@@ -171,7 +173,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 								0,
 
-								Hue_To_Alpha_Red_Green_Blue((float)((Recorded_Route_Number - Visuals_Recorded_Route_Step_Length) % 361))
+								Hue_To_Alpha_Red_Green_Blue((float)((Recorded_Route_Number_With_Subtracted_Step) % 361))
 							},
 
 							{
@@ -193,7 +195,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 				if (Stop_Drawing_Recorded_Route == 0)
 				{
-					if (Recorded_Route_Number < Recorded_Route_Elements_Amount - Visuals_Recorded_Route_Step_Length)
+					if (Recorded_Route_Number < Recorded_Route_Number_With_Subtracted_Step)
 					{
 						Recorded_Route_Number += Visuals_Recorded_Route_Step_Length;
 					}
@@ -220,8 +222,6 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 	if (Controller_Move::Draw_Graphical_User_Interface == 1)
 	{
-		Direct_3_Dimensional_Device_9->SetRenderState(D3DRS_SRGBWRITEENABLE, 0);
-
 		ImGui_ImplDX9_NewFrame();
 
 		ImGui_ImplWin32_NewFrame();
@@ -230,11 +230,11 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 		ImGui::Begin("User Commands", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoNavInputs);
 
-		auto Find_Map_Name_Location = []() -> void*
+		auto Find_Map_Name = []() -> wchar_t*
 		{
 			if (Menu_Select::Game_Identifier == 0)
 			{
-				return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5245916);
+				return (wchar_t*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5245916);
 			}
 			else
 			{
@@ -255,17 +255,17 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 					184
 				};
 
-				return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Map_Name_Bytes), GetModuleHandleW(L"client.dll"), Map_Name_Bytes, 0) + 1);
+				return *(wchar_t**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Map_Name_Bytes), GetModuleHandleW(L"client.dll"), Map_Name_Bytes, 0) + 1);
 			}
 		};
 
-		static void* Map_Name_Location = Find_Map_Name_Location();
+		static wchar_t* Map_Name = Find_Map_Name();
 
-		unsigned __int32 Map_Name_Length = wcslen((wchar_t*)Map_Name_Location) * 2;
+		unsigned __int32 Map_Name_Length = wcslen(Map_Name) * 2;
 
 		wchar_t* Adjusted_Map_Name = (wchar_t*)malloc(Map_Name_Length + 6);
 
-		Byte_Manager::Copy_Bytes(0, Adjusted_Map_Name, Map_Name_Length, (unsigned __int8*)Map_Name_Location);
+		Byte_Manager::Copy_Bytes(0, Adjusted_Map_Name, Map_Name_Length, (unsigned __int8*)Map_Name);
 
 		*(wchar_t*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length) = L'-';
 
@@ -275,7 +275,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 		*(__int16*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length + 4) = 0;
 
-		auto File_Number_Editor = [&]()
+		auto File_Number_Editor = []()
 		{
 			if (ImGui::DragScalar("File Number", ImGuiDataType_S8, &File_Number, 1, nullptr, nullptr, "%i") == 1)
 			{
@@ -302,11 +302,11 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 			0
 		};
 
-		__int8 Button_Number = 0;
+		__int8 Keybind_Number = 0;
 
 		auto Setup_Keybind = [&](char* Function_Name, unsigned __int8& Key_Number) -> void
 		{
-			if (Setting_Up_Keybind[Button_Number] == 0)
+			if (Setting_Up_Keybind[Keybind_Number] == 0)
 			{
 				Draw_Keybind:
 				{
@@ -320,7 +320,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 						{
 							Window_Procedure::Setting_Up_Keybinds = 1;
 
-							Setting_Up_Keybind[Button_Number] = 1;
+							Setting_Up_Keybind[Keybind_Number] = 1;
 						}
 					}
 				}
@@ -337,7 +337,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 						{
 							Window_Procedure::Setting_Up_Keybinds = 0;
 
-							Setting_Up_Keybind[Button_Number] = 0;
+							Setting_Up_Keybind[Keybind_Number] = 0;
 
 							Key_Number = Function_Key_Number;
 
@@ -353,26 +353,24 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 				ImGui::Button("Press Any Function Key");
 			}
 
-			Button_Number += 1;
+			Keybind_Number += 1;
 		};
 
 		if (ImGui::TreeNodeEx("Recorder", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 		{
-			if (ImGui::Checkbox("Record", (bool*)& Menu_Select::User_Commands_Recorder_Record) == 1)
+			if (ImGui::Checkbox("Record", (bool*)&Menu_Select::User_Commands_Recorder_Record) == 1)
 			{
 				if (Menu_Select::User_Commands_Recorder_Record == 1)
 				{
-					if (Menu_Select::User_Commands_Recorder_Playback == 1)
-					{
-						Menu_Select::User_Commands_Recorder_Playback = 0;
+                    Menu_Select::User_Commands_Recorder_Playback = 0;
 
-						Copy_User_Command::Recorded_User_Commands.resize(Copy_User_Command::Recorder_User_Comamand_Number);
+					if (Menu_Select::User_Commands_Recorder_Playback == 0)
+					{
+						Copy_User_Command::Recorded_User_Commands.clear();
 					}
 					else
 					{
-						Menu_Select::User_Commands_Recorder_Playback = 0;
-
-						Copy_User_Command::Recorded_User_Commands.clear();
+						Copy_User_Command::Recorded_User_Commands.resize(Copy_User_Command::Recorder_User_Comamand_Number);
 					}
 				}
 			}
@@ -612,7 +610,22 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 				if (Menu_Select::Game_Identifier == 0)
 				{
-					if (Visuals_Physics_Continue_Jumping_If_Jump_Button_Held == 1)
+					if (Visuals_Physics_Continue_Jumping_If_Jump_Button_Held == 0)
+					{
+                        static unsigned __int8 Original_Previous_Buttons_In_Jump_Check[4] =
+						{
+							246,
+
+							64,
+
+							40,
+
+							2
+						};
+
+						Byte_Manager::Copy_Bytes(1, Previous_Buttons_In_Jump_Check_Location, sizeof(Original_Previous_Buttons_In_Jump_Check), Original_Previous_Buttons_In_Jump_Check);
+					}
+					else
 					{
 						static unsigned __int8 Modified_Previous_Buttons_In_Jump_Check[4] =
 						{
@@ -627,31 +640,16 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 						Byte_Manager::Copy_Bytes(1, Previous_Buttons_In_Jump_Check_Location, sizeof(Modified_Previous_Buttons_In_Jump_Check), Modified_Previous_Buttons_In_Jump_Check);
 					}
-					else
-					{
-						static unsigned __int8 Original_Previous_Buttons_In_Jump_Check[4] =
-						{
-							246,
-
-							64,
-
-							40,
-
-							2
-						};
-
-						Byte_Manager::Copy_Bytes(1, Previous_Buttons_In_Jump_Check_Location, sizeof(Original_Previous_Buttons_In_Jump_Check), Original_Previous_Buttons_In_Jump_Check);
-					}
 				}
 				else
 				{
-					if (Visuals_Physics_Continue_Jumping_If_Jump_Button_Held == 1)
+					if (Visuals_Physics_Continue_Jumping_If_Jump_Button_Held == 0)
 					{
-						Byte_Manager::Set_Byte(Previous_Buttons_In_Jump_Check_Location, 235);
+						Byte_Manager::Set_Byte(Previous_Buttons_In_Jump_Check_Location, 116);
 					}
 					else
 					{
-						Byte_Manager::Set_Byte(Previous_Buttons_In_Jump_Check_Location, 116);
+						Byte_Manager::Set_Byte(Previous_Buttons_In_Jump_Check_Location, 235);
 					}
 				}
 			}
@@ -662,6 +660,8 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 		ImGui::End();
 
 		ImGui::GetIO().MouseDrawCursor = 1;
+
+        Direct_3_Dimensional_Device_9->SetRenderState(D3DRS_SRGBWRITEENABLE, 0);
 
 		ImGui::Render();
 

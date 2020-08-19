@@ -60,20 +60,20 @@ void Handle_Formatted_Message(char* Formatted_Message)
 			}
 		};
 
-		if (Menu_Select::User_Commands_Recorder_Record == 1)
+		if (Menu_Select::User_Commands_Recorder_Record == 0)
 		{
-			Handle_Formatted_Message_Return_Value = Handle_Formatted_Message();
-		}
-		else
-		{
-			if (Menu_Select::User_Commands_Recorder_Playback == 1)
-			{
-				Handle_Formatted_Message_Return_Value = Handle_Formatted_Message();
-			}
-			else
+			if (Menu_Select::User_Commands_Recorder_Playback == 0)
 			{
 				Handle_Formatted_Message_Return_Value = 0;
 			}
+			else
+			{
+				Handle_Formatted_Message_Return_Value = Handle_Formatted_Message();
+			}
+		}
+		else
+		{
+			Handle_Formatted_Message_Return_Value = Handle_Formatted_Message();
 		}
 
 		if (Handle_Formatted_Message_Return_Value == 0)
