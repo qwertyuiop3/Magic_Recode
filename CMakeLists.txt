@@ -18,7 +18,7 @@ List(REMOVE_DUPLICATES Includes)
 
 Set(CMAKE_C_COMPILER "i686-w64-mingw32-gcc")
 
-Set(CMAKE_C_FLAGS "-D ZYDIS_MINIMAL_MODE -s -Ofast -DNDEBUG -funroll-loops -fno-exceptions")
+Set(CMAKE_C_FLAGS "-D ZYDIS_MINIMAL_MODE -D NDEBUG -s -Ofast -funroll-loops -fno-exceptions")
 
 Include_Directories(
     ${Includes}
