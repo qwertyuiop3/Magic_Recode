@@ -21,7 +21,25 @@ cd Magic_Recode
 > Installing Dependencies
 
 ```
-sudo pacman -S git zsh make cmake mingw-w64-gcc
+sudo pacman -S git zsh cmake gcc mingw-w64-gcc make
+```
+
+> Installing Magic_Recode
+
+```
+git clone https://github.com/qwertyuiop3/Magic_Recode.git --recursive
+
+cd Magic_Recode
+
+./Build.sh
+```
+
+# Void Linux
+
+> Installing Dependencies
+
+```
+sudo xbps-install -S git zsh cmake gcc cross-i686-w64-mingw32 make
 ```
 
 > Installing Magic_Recode
