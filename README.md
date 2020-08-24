@@ -59,6 +59,8 @@ cd Magic_Recode
 ```
 Git
 
+CMake
+
 MinGW-W64
 ```
 
