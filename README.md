@@ -21,7 +21,7 @@ cd Magic_Recode
 > Installing Dependencies
 
 ```
-sudo pacman -S git zsh cmake gcc mingw-w64-gcc make
+doas pacman -S git zsh cmake gcc mingw-w64-gcc make
 ```
 
 > Installing Magic_Recode
@@ -39,7 +39,27 @@ cd Magic_Recode
 > Installing Dependencies
 
 ```
-sudo xbps-install -S git zsh cmake gcc cross-i686-w64-mingw32 make
+doas xbps-install -S git zsh cmake gcc cross-i686-w64-mingw32 make
+```
+
+> Installing Magic_Recode
+
+```
+git clone https://github.com/qwertyuiop3/Magic_Recode.git --recursive
+
+cd Magic_Recode
+
+./Build.sh
+```
+
+# Gentoo
+
+> Installing Dependencies
+
+```
+doas emerge dev-vcs/git app-shells/zsh sys-devel/binutils sys-devel/crossdev
+
+doas crossdev --target i686-w64-mingw32
 ```
 
 > Installing Magic_Recode
@@ -62,6 +82,8 @@ Git
 CMake
 
 MinGW-W64
+
+Make
 ```
 
 > Installing Magic_Recode
