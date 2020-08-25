@@ -57,7 +57,7 @@ cd Magic_Recode
 > Installing Dependencies
 
 ```
-doas emerge dev-vcs/git app-shells/zsh sys-devel/binutils sys-devel/crossdev
+doas emerge dev-vcs/git app-shells/zsh dev-util/cmake sys-devel/binutils sys-devel/crossdev
 
 doas crossdev --target i686-w64-mingw32
 ```
