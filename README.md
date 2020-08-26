@@ -21,7 +21,9 @@ cd Magic_Recode
 > Installing Dependencies
 
 ```
-doas pacman -S git zsh cmake gcc mingw-w64-gcc make
+su root
+
+pacman -S git zsh cmake gcc mingw-w64-gcc make
 ```
 
 > Installing Magic_Recode
@@ -39,7 +41,9 @@ cd Magic_Recode
 > Installing Dependencies
 
 ```
-doas xbps-install -S git zsh cmake gcc cross-i686-w64-mingw32 make
+su root
+
+xbps-install -S git zsh cmake gcc cross-i686-w64-mingw32 make
 ```
 
 > Installing Magic_Recode
@@ -57,9 +61,11 @@ cd Magic_Recode
 > Installing Dependencies
 
 ```
-doas emerge dev-vcs/git app-shells/zsh dev-util/cmake sys-devel/binutils sys-devel/crossdev
+su root
 
-doas crossdev --target i686-w64-mingw32
+emerge dev-vcs/git app-shells/zsh dev-util/cmake sys-devel/binutils sys-devel/crossdev
+
+crossdev --target i686-w64-mingw32
 ```
 
 > Installing Magic_Recode
