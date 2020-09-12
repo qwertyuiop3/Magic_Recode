@@ -60,14 +60,14 @@ Add_Library(
     "zydis/src/SharedData.c"
 )
 
-Set_Target_Properties("Magic_Recode" PROPERTIES PREFIX "")
-
-Set_Target_Properties("Magic_Recode" PROPERTIES OUTPUT_NAME "Magic_Recode")
-
-Set_Target_Properties("Magic_Recode" PROPERTIES SUFFIX ".dll")
-
 Target_Link_Libraries(
     "Magic_Recode"
 
     "gdi32"
 )
+
+Set_Target_Properties("Magic_Recode" PROPERTIES PREFIX "")
+
+Set_Target_Properties("Magic_Recode" PROPERTIES OUTPUT_NAME "Magic_Recode")
+
+Set_Target_Properties("Magic_Recode" PROPERTIES SUFFIX ".dll")
