@@ -47,17 +47,17 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 			{
 				float W = In_World_Location[0] * View_Matrix_Location[12] + View_Matrix_Location[13] * In_World_Location[1] + View_Matrix_Location[14] * In_World_Location[2] + View_Matrix_Location[15];
 
-				if (W > FLT_EPSILON)
+				if (W >= FLT_MIN)
 				{
 					float X = 0.5f * ((View_Matrix_Location[0] * In_World_Location[0] + View_Matrix_Location[1] * In_World_Location[1] + View_Matrix_Location[2] * In_World_Location[2] + View_Matrix_Location[3]) / W) * Screen_Width + 0.5f * Screen_Width;
 
-					if (X >= FLT_EPSILON)
+					if (X >= 0)
 					{
 						if (X <= Screen_Width)
 						{
 							float Y = -0.5f * ((View_Matrix_Location[4] * In_World_Location[0] + View_Matrix_Location[5] * In_World_Location[1] + View_Matrix_Location[6] * In_World_Location[2] + View_Matrix_Location[7]) / W) * Screen_Height + 0.5f * Screen_Height;
 
-							if (Y >= FLT_EPSILON)
+							if (Y >= 0)
 							{
 								if (Y <= Screen_Height)
 								{
