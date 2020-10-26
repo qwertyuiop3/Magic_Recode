@@ -389,11 +389,13 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 						unsigned __int32 Recorded_User_Commands_Elements_Amount = Copy_User_Command::Recorded_User_Commands.size();
 
-						WriteFile(Recorded_User_Commands_File_Handle, &Recorded_User_Commands_Elements_Amount, sizeof(unsigned __int32), nullptr, nullptr);
+            unsigned long __int32 Recorded_User_Commands_Accessed_Bytes_Amount;
+
+						WriteFile(Recorded_User_Commands_File_Handle, &Recorded_User_Commands_Elements_Amount, sizeof(unsigned __int32), &Recorded_User_Commands_Accessed_Bytes_Amount, nullptr);
 
 						SetFilePointer(Recorded_User_Commands_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
 
-						WriteFile(Recorded_User_Commands_File_Handle, Copy_User_Command::Recorded_User_Commands.data(), Recorded_User_Commands_Elements_Amount * sizeof(Copy_User_Command::Compressed_User_Command_Structure), nullptr, nullptr);
+						WriteFile(Recorded_User_Commands_File_Handle, Copy_User_Command::Recorded_User_Commands.data(), Recorded_User_Commands_Elements_Amount * sizeof(Copy_User_Command::Compressed_User_Command_Structure), &Recorded_User_Commands_Accessed_Bytes_Amount, nullptr);
 
 						CloseHandle(Recorded_User_Commands_File_Handle);
 					}
@@ -424,13 +426,15 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 							unsigned __int32 Recorded_User_Commands_Elements_Amount;
 
-							ReadFile(Recorded_User_Commands_File_Handle, &Recorded_User_Commands_Elements_Amount, sizeof(unsigned __int32), nullptr, nullptr);
+              unsigned long __int32 Recorded_User_Commands_Accessed_Bytes_Amount;
+
+							ReadFile(Recorded_User_Commands_File_Handle, &Recorded_User_Commands_Elements_Amount, sizeof(unsigned __int32), &Recorded_User_Commands_Accessed_Bytes_Amount, nullptr);
 
 							Copy_User_Command::Recorded_User_Commands.resize(Recorded_User_Commands_Elements_Amount);
 
 							SetFilePointer(Recorded_User_Commands_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
 
-							ReadFile(Recorded_User_Commands_File_Handle, Copy_User_Command::Recorded_User_Commands.data(), Recorded_User_Commands_Elements_Amount * sizeof(Copy_User_Command::Compressed_User_Command_Structure), nullptr, nullptr);
+							ReadFile(Recorded_User_Commands_File_Handle, Copy_User_Command::Recorded_User_Commands.data(), Recorded_User_Commands_Elements_Amount * sizeof(Copy_User_Command::Compressed_User_Command_Structure), &Recorded_User_Commands_Accessed_Bytes_Amount, nullptr);
 
 							CloseHandle(Recorded_User_Commands_File_Handle);
 						}
@@ -500,11 +504,13 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 						unsigned __int32 Recorded_Route_Elements_Amount = Copy_User_Command::Recorded_Route.size();
 
-						WriteFile(Recorded_Route_File_Handle, &Recorded_Route_Elements_Amount, sizeof(unsigned __int32), nullptr, nullptr);
+            unsigned long __int32 Recorded_Route_Accessed_Bytes_Amount;
+
+						WriteFile(Recorded_Route_File_Handle, &Recorded_Route_Elements_Amount, sizeof(unsigned __int32), &Recorded_Route_Accessed_Bytes_Amount, nullptr);
 
 						SetFilePointer(Recorded_Route_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
 
-						WriteFile(Recorded_Route_File_Handle, Copy_User_Command::Recorded_Route.data(), Recorded_Route_Elements_Amount * sizeof(Copy_User_Command::Route_Structure), nullptr, nullptr);
+						WriteFile(Recorded_Route_File_Handle, Copy_User_Command::Recorded_Route.data(), Recorded_Route_Elements_Amount * sizeof(Copy_User_Command::Route_Structure), &Recorded_Route_Accessed_Bytes_Amount, nullptr);
 
 						CloseHandle(Recorded_Route_File_Handle);
 					}
@@ -546,13 +552,15 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 								unsigned __int32 Recorded_Route_Elements_Amount;
 
-								ReadFile(Recorded_Route_File_Handle, &Recorded_Route_Elements_Amount, sizeof(unsigned __int32), nullptr, nullptr);
+                unsigned long __int32 Recorded_Route_Accessed_Bytes_Amount;
+
+								ReadFile(Recorded_Route_File_Handle, &Recorded_Route_Elements_Amount, sizeof(unsigned __int32), &Recorded_Route_Accessed_Bytes_Amount, nullptr);
 
 								Copy_User_Command::Recorded_Route.resize(Recorded_Route_Elements_Amount);
 
 								SetFilePointer(Recorded_Route_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
 
-								ReadFile(Recorded_Route_File_Handle, Copy_User_Command::Recorded_Route.data(), Recorded_Route_Elements_Amount * sizeof(Copy_User_Command::Route_Structure), nullptr, nullptr);
+								ReadFile(Recorded_Route_File_Handle, Copy_User_Command::Recorded_Route.data(), Recorded_Route_Elements_Amount * sizeof(Copy_User_Command::Route_Structure), &Recorded_Route_Accessed_Bytes_Amount, nullptr);
 
 								CloseHandle(Recorded_Route_File_Handle);
 							}
