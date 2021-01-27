@@ -25,7 +25,7 @@ Include_Directories(
 
     "imgui"
 
-    "imgui/examples"
+    "imgui/backends"
 
     "zydis/dependencies/zycore/include"
 
@@ -49,9 +49,9 @@ Add_Library(
 
     "imgui/imgui_draw.cpp"
 
-    "imgui/examples/imgui_impl_dx9.cpp"
+    "imgui/backends/imgui_impl_dx9.cpp"
 
-    "imgui/examples/imgui_impl_win32.cpp"
+    "imgui/backends/imgui_impl_win32.cpp"
 
     "zydis/src/Decoder.c"
 
