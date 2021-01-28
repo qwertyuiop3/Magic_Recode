@@ -1,8 +1,8 @@
 CMake_Minimum_Required(VERSION "3.0.0")
 
-Project("Magic_Recode")
+Set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
 
-Set(CMAKE_CXX_COMPILER "i686-w64-mingw32-g++")
+Project("Magic_Recode")
 
 Set(CMAKE_CXX_FLAGS "-D IMGUI_IMPL_WIN32_DISABLE_GAMEPAD -D NDEBUG -fpermissive -s -Ofast -funroll-loops -fno-exceptions -fno-rtti -static")
 
@@ -15,8 +15,6 @@ ForEach(File ${Files})
 EndForEach()
 
 List(REMOVE_DUPLICATES Includes)
-
-Set(CMAKE_C_COMPILER "i686-w64-mingw32-gcc")
 
 Set(CMAKE_C_FLAGS "-D ZYDIS_MINIMAL_MODE -D NDEBUG -s -Ofast -funroll-loops -fno-exceptions")
 
