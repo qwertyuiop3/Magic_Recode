@@ -391,7 +391,11 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 										Strafe_Angle = -Strafe_Optimizer_Greatest_Possible_Strafe_Angle;
 									}
 
+									float Previous_View_Angles_Y = ((Source_User_Command_Structure*)User_Command)->View_Angles[1];
+
 									((Source_User_Command_Structure*)User_Command)->View_Angles[1] = remainderf(((Source_User_Command_Structure*)User_Command)->View_Angles[1] - Angle_Step * roundf(Strafe_Angle / Mouse_Yaw / Mouse_Sensitivity), 360);
+
+									((Source_User_Command_Structure*)User_Command)->Mouse_Difference_X = remainderf(Previous_View_Angles_Y - ((Source_User_Command_Structure*)User_Command)->View_Angles[1], 360) / Mouse_Sensitivity / Mouse_Yaw;
 								}
 							}
 						}
@@ -408,7 +412,11 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 											Strafe_Angle = Strafe_Optimizer_Greatest_Possible_Strafe_Angle;
 										}
 
+										float Previous_View_Angles_Y = ((Source_User_Command_Structure*)User_Command)->View_Angles[1];
+
 										((Source_User_Command_Structure*)User_Command)->View_Angles[1] = remainderf(((Source_User_Command_Structure*)User_Command)->View_Angles[1] - Angle_Step * roundf(Strafe_Angle / Mouse_Yaw / Mouse_Sensitivity), 360);
+
+										((Source_User_Command_Structure*)User_Command)->Mouse_Difference_X = remainderf(Previous_View_Angles_Y - ((Source_User_Command_Structure*)User_Command)->View_Angles[1], 360) / Mouse_Sensitivity / Mouse_Yaw;
 									}
 								}
 							}
