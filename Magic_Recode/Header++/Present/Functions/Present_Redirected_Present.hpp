@@ -493,14 +493,6 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 				}
 			}
 
-			if (ImGui::DragScalar("Optimize When Horizontal Mouse Difference Greater Than X", ImGuiDataType_S16, &Copy_User_Command::Strafe_Optimizer_Optimize_When_Horizontal_Mouse_Difference_Greater_Than_X, 1, nullptr, nullptr, "%i") == 1)
-			{
-				if (Copy_User_Command::Strafe_Optimizer_Optimize_When_Horizontal_Mouse_Difference_Greater_Than_X < 0)
-				{
-					Copy_User_Command::Strafe_Optimizer_Optimize_When_Horizontal_Mouse_Difference_Greater_Than_X = 0;
-				}
-			}
-
 			if (ImGui::DragScalar("Greatest Possible Strafe Angle", ImGuiDataType_Float, &Copy_User_Command::Strafe_Optimizer_Greatest_Possible_Strafe_Angle, 1, nullptr, nullptr, "%.2f") == 1)
 			{
 				if (Copy_User_Command::Strafe_Optimizer_Greatest_Possible_Strafe_Angle < 0)

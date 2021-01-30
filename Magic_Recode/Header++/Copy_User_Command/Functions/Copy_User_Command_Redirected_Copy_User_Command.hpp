@@ -370,18 +370,28 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 						float Strafe_Angle = remainderf(((Source_User_Command_Structure*)User_Command)->View_Angles[1] - atan2f(Velocity[1], Velocity[0]) * 180 / M_PI, 360) * Strafe_Optimizer_Desired_Gain / 100;
 
+						static void* Mouse_Yaw_Container = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5193388);
+
+						float Mouse_Yaw = *(float*)Mouse_Yaw_Container;
+
+						static void* Mouse_Sensitivity_Container = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5193604);
+
+						float Mouse_Sensitivity = *(float*)Mouse_Sensitivity_Container;
+
+						float Angle_Step = Mouse_Yaw * Mouse_Sensitivity;
+
 						if (((Source_User_Command_Structure*)User_Command)->Move[1] < 0)
 						{
-							if (((Source_User_Command_Structure*)User_Command)->Mouse_Difference_X < -Strafe_Optimizer_Optimize_When_Horizontal_Mouse_Difference_Greater_Than_X)
+							if (((Source_User_Command_Structure*)User_Command)->Mouse_Difference_X < 0)
 							{
-								if (Strafe_Angle < 0)
+								if (Strafe_Angle < -Angle_Step)
 								{
 									if (Strafe_Angle < -Strafe_Optimizer_Greatest_Possible_Strafe_Angle)
 									{
 										Strafe_Angle = -Strafe_Optimizer_Greatest_Possible_Strafe_Angle;
 									}
 
-									((Source_User_Command_Structure*)User_Command)->View_Angles[1] = remainderf(((Source_User_Command_Structure*)User_Command)->View_Angles[1] - Strafe_Angle, 360);
+									((Source_User_Command_Structure*)User_Command)->View_Angles[1] = remainderf(((Source_User_Command_Structure*)User_Command)->View_Angles[1] - Angle_Step * roundf(Strafe_Angle / Mouse_Yaw / Mouse_Sensitivity), 360);
 								}
 							}
 						}
@@ -389,16 +399,16 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 						{
 							if (((Source_User_Command_Structure*)User_Command)->Move[1] > 0)
 							{
-								if (((Source_User_Command_Structure*)User_Command)->Mouse_Difference_X > Strafe_Optimizer_Optimize_When_Horizontal_Mouse_Difference_Greater_Than_X)
+								if (((Source_User_Command_Structure*)User_Command)->Mouse_Difference_X > 0)
 								{
-									if (Strafe_Angle > 0)
+									if (Strafe_Angle > Angle_Step)
 									{
 										if (Strafe_Angle > Strafe_Optimizer_Greatest_Possible_Strafe_Angle)
 										{
 											Strafe_Angle = Strafe_Optimizer_Greatest_Possible_Strafe_Angle;
 										}
 
-										((Source_User_Command_Structure*)User_Command)->View_Angles[1] = remainderf(((Source_User_Command_Structure*)User_Command)->View_Angles[1] - Strafe_Angle, 360);
+										((Source_User_Command_Structure*)User_Command)->View_Angles[1] = remainderf(((Source_User_Command_Structure*)User_Command)->View_Angles[1] - Angle_Step * roundf(Strafe_Angle / Mouse_Yaw / Mouse_Sensitivity), 360);
 									}
 								}
 							}
