@@ -9,9 +9,9 @@ Set(CMAKE_CXX_FLAGS "-D IMGUI_IMPL_WIN32_DISABLE_GAMEPAD -D NDEBUG -fpermissive 
 File(GLOB_RECURSE Files "*.hpp")
 
 ForEach(File ${Files})
-    Get_Filename_Component(Folder ${File} PATH)
+	Get_Filename_Component(Folder ${File} PATH)
 
-    Set(Includes ${Includes} ${Folder})
+	Set(Includes ${Includes} ${Folder})
 EndForEach()
 
 List(REMOVE_DUPLICATES Includes)
@@ -19,49 +19,49 @@ List(REMOVE_DUPLICATES Includes)
 Set(CMAKE_C_FLAGS "-D ZYDIS_MINIMAL_MODE -D NDEBUG -s -Ofast -funroll-loops -fno-exceptions")
 
 Include_Directories(
-    ${Includes}
+	${Includes}
 
-    "imgui"
+	"imgui"
 
-    "imgui/backends"
+	"imgui/backends"
 
-    "zydis/dependencies/zycore/include"
+	"zydis/dependencies/zycore/include"
 
-    "zydis"
+	"zydis"
 
-    "zydis/dependencies/zycore"
+	"zydis/dependencies/zycore"
 
-    "zydis/include"
+	"zydis/include"
 
-    "zydis/src"
+	"zydis/src"
 )
 
 Add_Library(
-    "Magic_Recode" SHARED
+	"Magic_Recode" SHARED
 
-    "Magic_Recode/C++/Entry_Point.cpp"
+	"Magic_Recode/C++/Entry_Point.cpp"
 
-    "imgui/imgui.cpp"
+	"imgui/imgui.cpp"
 
-    "imgui/imgui_widgets.cpp"
+	"imgui/imgui_widgets.cpp"
 
-    "imgui/imgui_draw.cpp"
+	"imgui/imgui_draw.cpp"
 
-    "imgui/backends/imgui_impl_dx9.cpp"
+	"imgui/backends/imgui_impl_dx9.cpp"
 
-    "imgui/backends/imgui_impl_win32.cpp"
+	"imgui/backends/imgui_impl_win32.cpp"
 
-    "zydis/src/Decoder.c"
+	"zydis/src/Decoder.c"
 
-    "zydis/src/DecoderData.c"
+	"zydis/src/DecoderData.c"
 
-    "zydis/src/SharedData.c"
+	"zydis/src/SharedData.c"
 )
 
 Target_Link_Libraries(
-    "Magic_Recode"
+	"Magic_Recode"
 
-    "gdi32"
+	"gdi32"
 )
 
 Set_Target_Properties("Magic_Recode" PROPERTIES PREFIX "")

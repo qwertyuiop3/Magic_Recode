@@ -33,13 +33,13 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 		{
 			if (Menu_Select::User_Commands_Recorder_Record == 0)
 			{
-        if (Menu_Select::User_Commands_Recorder_Playback == 0)
+				if (Menu_Select::User_Commands_Recorder_Playback == 0)
 				{
-          Recorder_User_Comamand_Number = 0;
-        }
-        else
-        {
-          if (Recorder_User_Comamand_Number != Recorded_User_Commands.size())
+					Recorder_User_Comamand_Number = 0;
+				}
+				else
+				{
+					if (Recorder_User_Comamand_Number != Recorded_User_Commands.size())
 					{
 						using Set_View_Angles_Type = void(__thiscall*)(void* Engine, float* View_Angles);
 
@@ -184,7 +184,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 						Recorder_User_Comamand_Number = 0;
 					}
-        }
+				}
 			}
 			else
 			{
@@ -337,6 +337,184 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 				else
 				{
 					Route_Recorder_Record = 0;
+				}
+			}
+
+			if (Strafe_Optimizer_Optimize == 1)
+			{
+				if (((Source_User_Command_Structure*)User_Command)->Move[0] == 0)
+				{
+					if ((((Source_User_Command_Structure*)User_Command)->Buttons_State & 2) == 2)
+					{
+						static void* Prediction = *(void**)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 4554060);
+
+						static void* Predict_Location = *(void**)(*(unsigned __int32*)Prediction + 12);
+
+						static void* Delta_Tick_Container = (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 4671440);
+
+						__int32 Delta_Tick = *(__int32*)Delta_Tick_Container;
+
+						static void* Last_Command_Acknowledged_Container = (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 4690268);
+
+						static void* Last_Outgoing_Command_Container = (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 4690260);
+
+						static void* Choked_Commands_Container = (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 4690264);
+
+						using Predict_Type = void(__thiscall*)(void* Prediction, __int32 Delta_Tick, __int8 Valid, __int32 Last_Command_Acknowledged_Container, __int32 Command_Number);
+
+						Predict_Type((unsigned __int32)Predict_Location)(Prediction, Delta_Tick, Delta_Tick > 0, *(__int32*)Last_Command_Acknowledged_Container, *(__int32*)Last_Outgoing_Command_Container + *(__int32*)Choked_Commands_Container);
+
+						auto Find_Controlled_Creature_Container = []() -> void*
+						{
+							if (Menu_Select::Game_Identifier == 0)
+							{
+								return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5007112);
+							}
+							else
+							{
+								unsigned __int8 Controlled_Creature_Container_Bytes[6] =
+								{
+									52,
+
+									83,
+
+									86,
+
+									87,
+
+									139,
+
+									61
+								};
+
+								return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Controlled_Creature_Container_Bytes), GetModuleHandleW(L"client.dll"), Controlled_Creature_Container_Bytes, 0) + 1);
+							}
+						};
+
+						static void* Controlled_Creature_Container = Find_Controlled_Creature_Container();
+
+						float* Velocity = (float*)(*(unsigned __int32*)Controlled_Creature_Container + 244);
+
+						float Strafe_Angle = remainderf(((Source_User_Command_Structure*)User_Command)->View_Angles[1] - atan2f(Velocity[1], Velocity[0]) * 180 / M_PI, 360) * Strafe_Optimizer_Desired_Gain / 100;
+
+						if (((Source_User_Command_Structure*)User_Command)->Move[1] < 0)
+						{
+							if (((Source_User_Command_Structure*)User_Command)->Mouse_Difference_X < -Strafe_Optimizer_Optimize_When_Vertical_Mouse_Difference_Greater_Than_X)
+							{
+								if (Strafe_Angle < 0)
+								{
+									if (Strafe_Angle < -Strafe_Optimizer_Greatest_Possible_Strafe_Angle)
+									{
+										Strafe_Angle = -Strafe_Optimizer_Greatest_Possible_Strafe_Angle;
+									}
+
+									((Source_User_Command_Structure*)User_Command)->View_Angles[1] = remainderf(((Source_User_Command_Structure*)User_Command)->View_Angles[1] - Strafe_Angle, 360);
+								}
+							}
+						}
+						else
+						{
+							if (((Source_User_Command_Structure*)User_Command)->Move[1] > 0)
+							{
+								if (((Source_User_Command_Structure*)User_Command)->Mouse_Difference_X > Strafe_Optimizer_Optimize_When_Vertical_Mouse_Difference_Greater_Than_X)
+								{
+									if (Strafe_Angle > 0)
+									{
+										if (Strafe_Angle > Strafe_Optimizer_Greatest_Possible_Strafe_Angle)
+										{
+											Strafe_Angle = Strafe_Optimizer_Greatest_Possible_Strafe_Angle;
+										}
+
+										((Source_User_Command_Structure*)User_Command)->View_Angles[1] = remainderf(((Source_User_Command_Structure*)User_Command)->View_Angles[1] - Strafe_Angle, 360);
+									}
+								}
+							}
+						}
+
+						using Set_View_Angles_Type = void(__thiscall*)(void* Engine, float* View_Angles);
+
+						auto Find_Set_View_Angles_Type = []() -> void*
+						{
+							if (Menu_Select::Game_Identifier == 0)
+							{
+								return (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 676992);
+							}
+							else
+							{
+								unsigned __int8 Set_View_Angles_Bytes[14] =
+								{
+									85,
+
+									139,
+
+									236,
+
+									131,
+
+									228,
+
+									192,
+
+									131,
+
+									236,
+
+									60,
+
+									86,
+
+									139,
+
+									117,
+
+									8,
+
+									139
+								};
+
+								return Byte_Manager::Find_Bytes(sizeof(Set_View_Angles_Bytes), GetModuleHandleW(L"engine.dll"), Set_View_Angles_Bytes, 1);
+							}
+						};
+
+						static void* Set_View_Angles_Location = Find_Set_View_Angles_Type();
+
+						auto Find_Engine = []() -> void*
+						{
+							if (Menu_Select::Game_Identifier == 0)
+							{
+								return (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 3916044);
+							}
+							else
+							{
+								unsigned __int8 Engine_Bytes[9] =
+								{
+									255,
+
+									117,
+
+									220,
+
+									255,
+
+									117,
+
+									224,
+
+									255,
+
+									117,
+
+									228
+								};
+
+								return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Engine_Bytes), GetModuleHandleW(L"engine.dll"), Engine_Bytes, 0) - 12);
+							}
+						};
+
+						static void* Engine = Find_Engine();
+
+						Set_View_Angles_Type((unsigned __int32)Set_View_Angles_Location)(Engine, ((Source_User_Command_Structure*)User_Command)->View_Angles);
+					}
 				}
 			}
 		}

@@ -105,17 +105,17 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 			Direct_3_Dimensional_Device_9->SetPixelShader(nullptr);
 
-      __int8 Stop_Drawing_Recorded_Route = 0;
+			__int8 Stop_Drawing_Recorded_Route = 0;
 
-      unsigned __int32 Recorded_Route_Elements_Amount_With_Subtracted_Step = Recorded_Route_Elements_Amount - Visuals_Recorded_Route_Step_Length;
+			unsigned __int32 Recorded_Route_Elements_Amount_With_Subtracted_Step = Recorded_Route_Elements_Amount - Visuals_Recorded_Route_Step_Length;
 
 			Draw_Recorded_Route_Label:
 			{
-        unsigned __int32 Recorded_Route_Number_With_Subtracted_Step = Recorded_Route_Number - Visuals_Recorded_Route_Step_Length;
+				unsigned __int32 Recorded_Route_Number_With_Subtracted_Step = Recorded_Route_Number - Visuals_Recorded_Route_Step_Length;
 
 				float Recorded_Route_On_Screen_Location_From[2];
 
-        if (In_World_Location_To_On_Screen_Location((float*)&Copy_User_Command::Recorded_Route.at(Recorded_Route_Number_With_Subtracted_Step), Recorded_Route_On_Screen_Location_From) == 1)
+				if (In_World_Location_To_On_Screen_Location((float*)&Copy_User_Command::Recorded_Route.at(Recorded_Route_Number_With_Subtracted_Step), Recorded_Route_On_Screen_Location_From) == 1)
 				{
 					float Recorded_Route_On_Screen_Location_To[2];
 
@@ -370,7 +370,8 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 					}
 					else
 					{
-            Menu_Select::User_Commands_Recorder_Playback = 0;
+
+						Menu_Select::User_Commands_Recorder_Playback = 0;
 
 						Copy_User_Command::Recorded_User_Commands.resize(Copy_User_Command::Recorder_User_Comamand_Number);
 					}
@@ -389,7 +390,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 						unsigned __int32 Recorded_User_Commands_Elements_Amount = Copy_User_Command::Recorded_User_Commands.size();
 
-            unsigned long __int32 Recorded_User_Commands_Accessed_Bytes_Amount;
+						unsigned long __int32 Recorded_User_Commands_Accessed_Bytes_Amount;
 
 						WriteFile(Recorded_User_Commands_File_Handle, &Recorded_User_Commands_Elements_Amount, sizeof(unsigned __int32), &Recorded_User_Commands_Accessed_Bytes_Amount, nullptr);
 
@@ -426,7 +427,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 							unsigned __int32 Recorded_User_Commands_Elements_Amount;
 
-              unsigned long __int32 Recorded_User_Commands_Accessed_Bytes_Amount;
+							unsigned long __int32 Recorded_User_Commands_Accessed_Bytes_Amount;
 
 							ReadFile(Recorded_User_Commands_File_Handle, &Recorded_User_Commands_Elements_Amount, sizeof(unsigned __int32), &Recorded_User_Commands_Accessed_Bytes_Amount, nullptr);
 
@@ -473,6 +474,51 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 			ImGui::TreePop();
 		}
 
+		if (ImGui::TreeNodeEx("Strafe Optimizer", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
+		{
+			ImGui::Checkbox("Optimize", (bool*)&Copy_User_Command::Strafe_Optimizer_Optimize);
+
+			if (ImGui::DragScalar("Desired Gain", ImGuiDataType_Float, &Copy_User_Command::Strafe_Optimizer_Desired_Gain, 1, nullptr, nullptr, "%.2f") == 1)
+			{
+				if (Copy_User_Command::Strafe_Optimizer_Desired_Gain < 0)
+				{
+					Copy_User_Command::Strafe_Optimizer_Desired_Gain = 0;
+				}
+				else
+				{
+					if (Copy_User_Command::Strafe_Optimizer_Desired_Gain > 100)
+					{
+						Copy_User_Command::Strafe_Optimizer_Desired_Gain = 100;
+					}
+				}
+			}
+
+			if (ImGui::DragScalar("Optimize When Vertical Mouse Difference Greater Than X", ImGuiDataType_U16, &Copy_User_Command::Strafe_Optimizer_Optimize_When_Vertical_Mouse_Difference_Greater_Than_X, 1, nullptr, nullptr, "%i") == 1)
+			{
+				if (Copy_User_Command::Strafe_Optimizer_Optimize_When_Vertical_Mouse_Difference_Greater_Than_X < 0)
+				{
+					Copy_User_Command::Strafe_Optimizer_Optimize_When_Vertical_Mouse_Difference_Greater_Than_X = 0;
+				}
+			}
+
+			if (ImGui::DragScalar("Greatest Possible Strafe Angle", ImGuiDataType_Float, &Copy_User_Command::Strafe_Optimizer_Greatest_Possible_Strafe_Angle, 1, nullptr, nullptr, "%.2f") == 1)
+			{
+				if (Copy_User_Command::Strafe_Optimizer_Greatest_Possible_Strafe_Angle < 0)
+				{
+					Copy_User_Command::Strafe_Optimizer_Greatest_Possible_Strafe_Angle = 0;
+				}
+				else
+				{
+					if (Copy_User_Command::Strafe_Optimizer_Greatest_Possible_Strafe_Angle > 180)
+					{
+						Copy_User_Command::Strafe_Optimizer_Greatest_Possible_Strafe_Angle = 180;
+					}
+				}
+			}
+
+			ImGui::TreePop();
+		}
+
 		ImGui::End();
 
 		ImGui::Begin("Route", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoNavInputs);
@@ -504,7 +550,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 						unsigned __int32 Recorded_Route_Elements_Amount = Copy_User_Command::Recorded_Route.size();
 
-            unsigned long __int32 Recorded_Route_Accessed_Bytes_Amount;
+						unsigned long __int32 Recorded_Route_Accessed_Bytes_Amount;
 
 						WriteFile(Recorded_Route_File_Handle, &Recorded_Route_Elements_Amount, sizeof(unsigned __int32), &Recorded_Route_Accessed_Bytes_Amount, nullptr);
 
@@ -552,7 +598,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 								unsigned __int32 Recorded_Route_Elements_Amount;
 
-                unsigned long __int32 Recorded_Route_Accessed_Bytes_Amount;
+								unsigned long __int32 Recorded_Route_Accessed_Bytes_Amount;
 
 								ReadFile(Recorded_Route_File_Handle, &Recorded_Route_Elements_Amount, sizeof(unsigned __int32), &Recorded_Route_Accessed_Bytes_Amount, nullptr);
 
@@ -622,7 +668,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 				{
 					if (Visuals_Physics_Continue_Jumping_If_Jump_Button_Held == 0)
 					{
-            static unsigned __int8 Original_Previous_Buttons_In_Jump_Check[4] =
+						static unsigned __int8 Original_Previous_Buttons_In_Jump_Check[4] =
 						{
 							246,
 
@@ -671,7 +717,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 		ImGui::GetIO().MouseDrawCursor = 1;
 
-    Direct_3_Dimensional_Device_9->SetRenderState(D3DRS_SRGBWRITEENABLE, 0);
+		Direct_3_Dimensional_Device_9->SetRenderState(D3DRS_SRGBWRITEENABLE, 0);
 
 		ImGui::Render();
 

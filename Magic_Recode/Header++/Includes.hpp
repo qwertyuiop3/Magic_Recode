@@ -12,6 +12,8 @@
 
 #include <vector>
 
+#include <cmath>
+
 #include "Copy_User_Command.hpp"
 
 #include "Client_Send_Move.hpp"
@@ -35,8 +37,6 @@ IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARA
 #include "Immediate_Mode_Graphical_User_Interface.hpp"
 
 #include "Window_Procedure.hpp"
-
-#include <cmath>
 
 #include "Zydis/Zydis.h"
 
