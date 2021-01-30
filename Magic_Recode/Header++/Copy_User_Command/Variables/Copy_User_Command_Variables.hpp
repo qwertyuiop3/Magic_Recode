@@ -12,7 +12,7 @@ __int8 Strafe_Optimizer_Optimize;
 
 float Strafe_Optimizer_Desired_Gain;
 
-__int16 Strafe_Optimizer_Optimize_When_Vertical_Mouse_Difference_Greater_Than_X;
+__int16 Strafe_Optimizer_Optimize_When_Horizontal_Mouse_Difference_Greater_Than_X;
 
 float Strafe_Optimizer_Greatest_Possible_Strafe_Angle;
 

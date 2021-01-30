@@ -372,7 +372,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 						if (((Source_User_Command_Structure*)User_Command)->Move[1] < 0)
 						{
-							if (((Source_User_Command_Structure*)User_Command)->Mouse_Difference_X < -Strafe_Optimizer_Optimize_When_Vertical_Mouse_Difference_Greater_Than_X)
+							if (((Source_User_Command_Structure*)User_Command)->Mouse_Difference_X < -Strafe_Optimizer_Optimize_When_Horizontal_Mouse_Difference_Greater_Than_X)
 							{
 								if (Strafe_Angle < 0)
 								{
@@ -389,7 +389,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 						{
 							if (((Source_User_Command_Structure*)User_Command)->Move[1] > 0)
 							{
-								if (((Source_User_Command_Structure*)User_Command)->Mouse_Difference_X > Strafe_Optimizer_Optimize_When_Vertical_Mouse_Difference_Greater_Than_X)
+								if (((Source_User_Command_Structure*)User_Command)->Mouse_Difference_X > Strafe_Optimizer_Optimize_When_Horizontal_Mouse_Difference_Greater_Than_X)
 								{
 									if (Strafe_Angle > 0)
 									{
