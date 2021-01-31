@@ -10,21 +10,19 @@ void __cdecl Redirected_Menu_Select(void* Data)
 			{
 				return (char*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5195824);
 			}
-			else
+			
+			unsigned __int8 Menu_Name_Bytes[4] =
 			{
-				unsigned __int8 Menu_Name_Bytes[4] =
-				{
-					208,
+				208,
 
-					139,
+				139,
 
-					202,
+				202,
 
-					128
-				};
+				128
+			};
 
-				return *(char**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Menu_Name_Bytes), GetModuleHandleW(L"client.dll"), Menu_Name_Bytes, 0) - 11);
-			}
+			return *(char**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Menu_Name_Bytes), GetModuleHandleW(L"client.dll"), Menu_Name_Bytes, 0) - 11);
 		};
 
 		static char* Menu_Name = Find_Menu_Name();

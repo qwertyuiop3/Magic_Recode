@@ -14,23 +14,21 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 				{
 					return (float*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 5954552);
 				}
-				else
+
+				unsigned __int8 View_Matrix_Bytes[5] =
 				{
-					unsigned __int8 View_Matrix_Bytes[5] =
-					{
-						80,
+					80,
 
-						15,
+					15,
 
-						17,
+					17,
 
-						133,
+					133,
 
-						120
-					};
+					120
+				};
 
-					return (float*)(*(unsigned __int32*)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(View_Matrix_Bytes), GetModuleHandleW(L"client.dll"), View_Matrix_Bytes, 0) - 8) + 128);
-				}
+				return (float*)(*(unsigned __int32*)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(View_Matrix_Bytes), GetModuleHandleW(L"client.dll"), View_Matrix_Bytes, 0) - 8) + 128);
 			};
 
 			static float* View_Matrix_Location = Find_View_Matrix_Location();
@@ -232,69 +230,6 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 		ImGui::Begin("User Commands", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoNavInputs);
 
-		auto Find_Map_Name = []() -> wchar_t*
-		{
-			if (Menu_Select::Game_Identifier == 0)
-			{
-				return (wchar_t*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5245916);
-			}
-			else
-			{
-				unsigned __int8 Map_Name_Bytes[7] =
-				{
-					83,
-
-					139,
-
-					1,
-
-					255,
-
-					80,
-
-					60,
-
-					184
-				};
-
-				return *(wchar_t**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Map_Name_Bytes), GetModuleHandleW(L"client.dll"), Map_Name_Bytes, 0) + 1);
-			}
-		};
-
-		static wchar_t* Map_Name = Find_Map_Name();
-
-		unsigned __int32 Map_Name_Length = wcslen(Map_Name) * 2;
-
-		wchar_t* Adjusted_Map_Name = (wchar_t*)malloc(Map_Name_Length + 6);
-
-		Byte_Manager::Copy_Bytes(0, Adjusted_Map_Name, Map_Name_Length, (unsigned __int8*)Map_Name);
-
-		*(wchar_t*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length) = L'-';
-
-		static __int8 File_Number = 0;
-
-		*(__int16*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length + 2) = 48 + File_Number;
-
-		*(__int16*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length + 4) = 0;
-
-		auto File_Number_Editor = []()
-		{
-			if (ImGui::DragScalar("File Number", ImGuiDataType_S8, &File_Number, 1, nullptr, nullptr, "%i") == 1)
-			{
-				if (File_Number < 0)
-				{
-					File_Number = 0;
-				}
-				else
-				{
-					if (File_Number > 9)
-					{
-						File_Number = 9;
-					}
-				}
-			}
-		};
-
 		static __int8 Setting_Up_Keybind[3] =
 		{
 			0,
@@ -356,6 +291,111 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 			}
 
 			Keybind_Number += 1;
+		};
+
+		if (ImGui::TreeNodeEx("Strafe Optimizer", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
+		{
+			ImGui::Checkbox("Optimize", (bool*)&Copy_User_Command::Strafe_Optimizer_Optimize);
+
+			if (ImGui::DragScalar("Desired Gain", ImGuiDataType_Float, &Copy_User_Command::Strafe_Optimizer_Desired_Gain, 1, nullptr, nullptr, "%.2f") == 1)
+			{
+				if (Copy_User_Command::Strafe_Optimizer_Desired_Gain < 0)
+				{
+					Copy_User_Command::Strafe_Optimizer_Desired_Gain = 0;
+				}
+				else
+				{
+					if (Copy_User_Command::Strafe_Optimizer_Desired_Gain > 100)
+					{
+						Copy_User_Command::Strafe_Optimizer_Desired_Gain = 100;
+					}
+				}
+			}
+
+			if (ImGui::DragScalar("Greatest Possible Strafe Angle", ImGuiDataType_Float, &Copy_User_Command::Strafe_Optimizer_Greatest_Possible_Strafe_Angle, 1, nullptr, nullptr, "%.2f") == 1)
+			{
+				if (Copy_User_Command::Strafe_Optimizer_Greatest_Possible_Strafe_Angle < 0)
+				{
+					Copy_User_Command::Strafe_Optimizer_Greatest_Possible_Strafe_Angle = 0;
+				}
+				else
+				{
+					if (Copy_User_Command::Strafe_Optimizer_Greatest_Possible_Strafe_Angle > 180)
+					{
+						Copy_User_Command::Strafe_Optimizer_Greatest_Possible_Strafe_Angle = 180;
+					}
+				}
+			}
+
+			if (ImGui::TreeNodeEx("Keybinds", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
+			{
+				Setup_Keybind((char*)"Optimize", Window_Procedure::User_Commands_Strafe_Optimizer_Optimize_Bound_To);
+
+				ImGui::TreePop();
+			}
+
+			ImGui::TreePop();
+		}
+
+		auto Find_Map_Name = []() -> wchar_t*
+		{
+			if (Menu_Select::Game_Identifier == 0)
+			{
+				return (wchar_t*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5245916);
+			}
+
+			unsigned __int8 Map_Name_Bytes[7] =
+			{
+				83,
+
+				139,
+
+				1,
+
+				255,
+
+				80,
+
+				60,
+
+				184
+			};
+
+			return *(wchar_t**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Map_Name_Bytes), GetModuleHandleW(L"client.dll"), Map_Name_Bytes, 0) + 1);
+		};
+
+		static wchar_t* Map_Name = Find_Map_Name();
+
+		unsigned __int32 Map_Name_Length = wcslen(Map_Name) * 2;
+
+		wchar_t* Adjusted_Map_Name = (wchar_t*)malloc(Map_Name_Length + 6);
+
+		Byte_Manager::Copy_Bytes(0, Adjusted_Map_Name, Map_Name_Length, (unsigned __int8*)Map_Name);
+
+		*(wchar_t*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length) = L'-';
+
+		static __int8 File_Number = 0;
+
+		*(__int16*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length + 2) = 48 + File_Number;
+
+		*(__int16*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length + 4) = 0;
+
+		auto File_Number_Editor = []()
+		{
+			if (ImGui::DragScalar("File Number", ImGuiDataType_S8, &File_Number, 1, nullptr, nullptr, "%i") == 1)
+			{
+				if (File_Number < 0)
+				{
+					File_Number = 0;
+				}
+				else
+				{
+					if (File_Number > 9)
+					{
+						File_Number = 9;
+					}
+				}
+			}
 		};
 
 		if (ImGui::TreeNodeEx("Recorder", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
@@ -469,50 +509,6 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 					Load_From_File_Button();
 				}
-			}
-
-			ImGui::TreePop();
-		}
-
-		if (ImGui::TreeNodeEx("Strafe Optimizer", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
-		{
-			ImGui::Checkbox("Optimize", (bool*)&Copy_User_Command::Strafe_Optimizer_Optimize);
-
-			if (ImGui::DragScalar("Desired Gain", ImGuiDataType_Float, &Copy_User_Command::Strafe_Optimizer_Desired_Gain, 1, nullptr, nullptr, "%.2f") == 1)
-			{
-				if (Copy_User_Command::Strafe_Optimizer_Desired_Gain < 0)
-				{
-					Copy_User_Command::Strafe_Optimizer_Desired_Gain = 0;
-				}
-				else
-				{
-					if (Copy_User_Command::Strafe_Optimizer_Desired_Gain > 100)
-					{
-						Copy_User_Command::Strafe_Optimizer_Desired_Gain = 100;
-					}
-				}
-			}
-
-			if (ImGui::DragScalar("Greatest Possible Strafe Angle", ImGuiDataType_Float, &Copy_User_Command::Strafe_Optimizer_Greatest_Possible_Strafe_Angle, 1, nullptr, nullptr, "%.2f") == 1)
-			{
-				if (Copy_User_Command::Strafe_Optimizer_Greatest_Possible_Strafe_Angle < 0)
-				{
-					Copy_User_Command::Strafe_Optimizer_Greatest_Possible_Strafe_Angle = 0;
-				}
-				else
-				{
-					if (Copy_User_Command::Strafe_Optimizer_Greatest_Possible_Strafe_Angle > 180)
-					{
-						Copy_User_Command::Strafe_Optimizer_Greatest_Possible_Strafe_Angle = 180;
-					}
-				}
-			}
-
-			if (ImGui::TreeNodeEx("Keybinds", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
-			{
-				Setup_Keybind((char*)"Optimize", Window_Procedure::User_Commands_Strafe_Optimizer_Optimize_Bound_To);
-
-				ImGui::TreePop();
 			}
 
 			ImGui::TreePop();
@@ -646,19 +642,17 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 					{
 						return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 1936491);
 					}
-					else
+					
+					unsigned __int8 Previous_Buttons_In_Jump_Check_Bytes[3] =
 					{
-						unsigned __int8 Previous_Buttons_In_Jump_Check_Bytes[3] =
-						{
-							40,
+						40,
 
-							2,
+						2,
 
-							116
-						};
+						116
+					};
 
-						return Byte_Manager::Find_Bytes(sizeof(Previous_Buttons_In_Jump_Check_Bytes), GetModuleHandleW(L"client.dll"), Previous_Buttons_In_Jump_Check_Bytes, 0);
-					}
+					return Byte_Manager::Find_Bytes(sizeof(Previous_Buttons_In_Jump_Check_Bytes), GetModuleHandleW(L"client.dll"), Previous_Buttons_In_Jump_Check_Bytes, 0);
 				};
 
 				static void* Previous_Buttons_In_Jump_Check_Location = Find_Previous_Buttons_In_Jump_Check_Location();
