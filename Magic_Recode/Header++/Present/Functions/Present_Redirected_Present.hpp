@@ -508,6 +508,13 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 				}
 			}
 
+			if (ImGui::TreeNodeEx("Keybinds", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
+			{
+				Setup_Keybind((char*)"Optimize", Window_Procedure::User_Commands_Strafe_Optimizer_Optimize_Bound_To);
+
+				ImGui::TreePop();
+			}
+
 			ImGui::TreePop();
 		}
 

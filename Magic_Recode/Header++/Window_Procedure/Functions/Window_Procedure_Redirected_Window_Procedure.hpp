@@ -56,6 +56,16 @@ unsigned __int32 __stdcall Redirected_Window_Procedure(HWND Window_Handle, unsig
 				}
 			}
 
+			if (Parameter_1 == User_Commands_Strafe_Optimizer_Optimize_Bound_To)
+			{
+				if (Message == WM_KEYUP)
+				{
+					Copy_User_Command::Strafe_Optimizer_Optimize ^= 1;
+				}
+				
+				return 1;
+			}
+
 			if (Parameter_1 == Route_Recorder_Record_Bound_To)
 			{
 				if (Message == WM_KEYUP)

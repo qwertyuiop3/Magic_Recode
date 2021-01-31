@@ -342,74 +342,55 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 			if (Strafe_Optimizer_Optimize == 1)
 			{
-				if (((Source_User_Command_Structure*)User_Command)->Move[0] == 0)
+				if (Menu_Select::User_Commands_Recorder_Playback == 0)
 				{
-					if ((((Source_User_Command_Structure*)User_Command)->Buttons_State & 2) == 2)
+					if (((Source_User_Command_Structure*)User_Command)->Move[0] == 0)
 					{
-						static void* Prediction = *(void**)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 4554060);
-
-						static void* Predict_Location = *(void**)(*(unsigned __int32*)Prediction + 12);
-
-						static void* Delta_Tick_Container = (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 4671440);
-
-						__int32 Delta_Tick = *(__int32*)Delta_Tick_Container;
-
-						static void* Last_Command_Acknowledged_Container = (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 4690268);
-
-						static void* Last_Outgoing_Command_Container = (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 4690260);
-
-						static void* Choked_Commands_Container = (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 4690264);
-
-						using Predict_Type = void(__thiscall*)(void* Prediction, __int32 Delta_Tick, __int8 Valid, __int32 Last_Command_Acknowledged_Container, __int32 Command_Number);
-
-						Predict_Type((unsigned __int32)Predict_Location)(Prediction, Delta_Tick, Delta_Tick > 0, *(__int32*)Last_Command_Acknowledged_Container, *(__int32*)Last_Outgoing_Command_Container + *(__int32*)Choked_Commands_Container);
-
-						static void* Controlled_Creature_Container = Find_Controlled_Creature_Container();
-
-						float* Velocity = (float*)(*(unsigned __int32*)Controlled_Creature_Container + 244);
-
-						float Strafe_Angle = remainderf(((Source_User_Command_Structure*)User_Command)->View_Angles[1] - atan2f(Velocity[1], Velocity[0]) * 180 / M_PI, 360) * Strafe_Optimizer_Desired_Gain / 100;
-
-						static void* Mouse_Yaw_Container = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5193388);
-
-						float Mouse_Yaw = *(float*)Mouse_Yaw_Container;
-
-						static void* Mouse_Sensitivity_Container = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5193604);
-
-						float Mouse_Sensitivity = *(float*)Mouse_Sensitivity_Container;
-
-						float Angle_Step = Mouse_Yaw * Mouse_Sensitivity;
-
-						if (((Source_User_Command_Structure*)User_Command)->Move[1] < 0)
+						if ((((Source_User_Command_Structure*)User_Command)->Buttons_State & 2) == 2)
 						{
-							if (((Source_User_Command_Structure*)User_Command)->Mouse_Difference_X < 0)
+							static void* Prediction = *(void**)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 4554060);
+
+							static void* Predict_Location = *(void**)(*(unsigned __int32*)Prediction + 12);
+
+							static void* Delta_Tick_Container = (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 4671440);
+
+							__int32 Delta_Tick = *(__int32*)Delta_Tick_Container;
+
+							static void* Last_Command_Acknowledged_Container = (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 4690268);
+
+							static void* Last_Outgoing_Command_Container = (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 4690260);
+
+							static void* Choked_Commands_Container = (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 4690264);
+
+							using Predict_Type = void(__thiscall*)(void* Prediction, __int32 Delta_Tick, __int8 Valid, __int32 Last_Command_Acknowledged_Container, __int32 Command_Number);
+
+							Predict_Type((unsigned __int32)Predict_Location)(Prediction, Delta_Tick, Delta_Tick > 0, *(__int32*)Last_Command_Acknowledged_Container, *(__int32*)Last_Outgoing_Command_Container + *(__int32*)Choked_Commands_Container);
+
+							static void* Controlled_Creature_Container = Find_Controlled_Creature_Container();
+
+							float* Velocity = (float*)(*(unsigned __int32*)Controlled_Creature_Container + 244);
+
+							float Strafe_Angle = remainderf(((Source_User_Command_Structure*)User_Command)->View_Angles[1] - atan2f(Velocity[1], Velocity[0]) * 180 / M_PI, 360) * Strafe_Optimizer_Desired_Gain / 100;
+
+							static void* Mouse_Yaw_Container = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5193388);
+
+							float Mouse_Yaw = *(float*)Mouse_Yaw_Container;
+
+							static void* Mouse_Sensitivity_Container = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5193604);
+
+							float Mouse_Sensitivity = *(float*)Mouse_Sensitivity_Container;
+
+							float Angle_Step = Mouse_Yaw * Mouse_Sensitivity;
+
+							if (((Source_User_Command_Structure*)User_Command)->Move[1] < 0)
 							{
-								if (Strafe_Angle < -Angle_Step)
+								if (((Source_User_Command_Structure*)User_Command)->Mouse_Difference_X < 0)
 								{
-									if (Strafe_Angle < -Strafe_Optimizer_Greatest_Possible_Strafe_Angle)
+									if (Strafe_Angle < -Angle_Step)
 									{
-										Strafe_Angle = -Strafe_Optimizer_Greatest_Possible_Strafe_Angle;
-									}
-
-									float Previous_View_Angles_Y = ((Source_User_Command_Structure*)User_Command)->View_Angles[1];
-
-									((Source_User_Command_Structure*)User_Command)->View_Angles[1] = remainderf(((Source_User_Command_Structure*)User_Command)->View_Angles[1] - Angle_Step * roundf(Strafe_Angle / Mouse_Yaw / Mouse_Sensitivity), 360);
-
-									((Source_User_Command_Structure*)User_Command)->Mouse_Difference_X = remainderf(Previous_View_Angles_Y - ((Source_User_Command_Structure*)User_Command)->View_Angles[1], 360) / Mouse_Sensitivity / Mouse_Yaw;
-								}
-							}
-						}
-						else
-						{
-							if (((Source_User_Command_Structure*)User_Command)->Move[1] > 0)
-							{
-								if (((Source_User_Command_Structure*)User_Command)->Mouse_Difference_X > 0)
-								{
-									if (Strafe_Angle > Angle_Step)
-									{
-										if (Strafe_Angle > Strafe_Optimizer_Greatest_Possible_Strafe_Angle)
+										if (Strafe_Angle < -Strafe_Optimizer_Greatest_Possible_Strafe_Angle)
 										{
-											Strafe_Angle = Strafe_Optimizer_Greatest_Possible_Strafe_Angle;
+											Strafe_Angle = -Strafe_Optimizer_Greatest_Possible_Strafe_Angle;
 										}
 
 										float Previous_View_Angles_Y = ((Source_User_Command_Structure*)User_Command)->View_Angles[1];
@@ -420,11 +401,33 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 									}
 								}
 							}
+							else
+							{
+								if (((Source_User_Command_Structure*)User_Command)->Move[1] > 0)
+								{
+									if (((Source_User_Command_Structure*)User_Command)->Mouse_Difference_X > 0)
+									{
+										if (Strafe_Angle > Angle_Step)
+										{
+											if (Strafe_Angle > Strafe_Optimizer_Greatest_Possible_Strafe_Angle)
+											{
+												Strafe_Angle = Strafe_Optimizer_Greatest_Possible_Strafe_Angle;
+											}
+
+											float Previous_View_Angles_Y = ((Source_User_Command_Structure*)User_Command)->View_Angles[1];
+
+											((Source_User_Command_Structure*)User_Command)->View_Angles[1] = remainderf(((Source_User_Command_Structure*)User_Command)->View_Angles[1] - Angle_Step * roundf(Strafe_Angle / Mouse_Yaw / Mouse_Sensitivity), 360);
+
+											((Source_User_Command_Structure*)User_Command)->Mouse_Difference_X = remainderf(Previous_View_Angles_Y - ((Source_User_Command_Structure*)User_Command)->View_Angles[1], 360) / Mouse_Sensitivity / Mouse_Yaw;
+										}
+									}
+								}
+							}
+
+							using Set_View_Angles_Type = void(__thiscall*)(void* Engine, float* View_Angles);
+
+							Set_View_Angles_Type((unsigned __int32)Set_View_Angles_Location)(Engine, ((Source_User_Command_Structure*)User_Command)->View_Angles);
 						}
-
-						using Set_View_Angles_Type = void(__thiscall*)(void* Engine, float* View_Angles);
-
-						Set_View_Angles_Type((unsigned __int32)Set_View_Angles_Location)(Engine, ((Source_User_Command_Structure*)User_Command)->View_Angles);
 					}
 				}
 			}
