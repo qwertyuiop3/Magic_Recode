@@ -395,7 +395,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 										float Previous_View_Angles_Y = ((Source_User_Command_Structure*)User_Command)->View_Angles[1];
 
-										((Source_User_Command_Structure*)User_Command)->View_Angles[1] = remainderf(((Source_User_Command_Structure*)User_Command)->View_Angles[1] - roundf(Strafe_Angle / Mouse_Yaw_Step) * Mouse_Yaw_Step, 360);
+										((Source_User_Command_Structure*)User_Command)->View_Angles[1] = remainderf(((Source_User_Command_Structure*)User_Command)->View_Angles[1] - Mouse_Yaw_Step * roundf(Strafe_Angle / Mouse_Yaw_Step), 360);
 
 										((Source_User_Command_Structure*)User_Command)->Mouse_Difference_X = remainderf(Previous_View_Angles_Y - ((Source_User_Command_Structure*)User_Command)->View_Angles[1], 360) / Mouse_Yaw_Step;
 									}
@@ -416,7 +416,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 											float Previous_View_Angles_Y = ((Source_User_Command_Structure*)User_Command)->View_Angles[1];
 
-											((Source_User_Command_Structure*)User_Command)->View_Angles[1] = remainderf(((Source_User_Command_Structure*)User_Command)->View_Angles[1] - roundf(Strafe_Angle / Mouse_Yaw_Step) * Mouse_Yaw_Step, 360);
+											((Source_User_Command_Structure*)User_Command)->View_Angles[1] = remainderf(((Source_User_Command_Structure*)User_Command)->View_Angles[1] - Mouse_Yaw_Step * roundf(Strafe_Angle / Mouse_Yaw_Step), 360);
 
 											((Source_User_Command_Structure*)User_Command)->Mouse_Difference_X = remainderf(Previous_View_Angles_Y - ((Source_User_Command_Structure*)User_Command)->View_Angles[1], 360) / Mouse_Yaw_Step;
 										}
@@ -447,7 +447,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 										float Previous_View_Angles_Y = ((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1];
 
-										((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1] = remainderf(((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1] - roundf(Strafe_Angle / Mouse_Yaw_Step) * Mouse_Yaw_Step, 360);
+										((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1] = remainderf(((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1] - Mouse_Yaw_Step * roundf(Strafe_Angle / Mouse_Yaw_Step), 360);
 
 										((Global_Offensive_User_Command_Structure*)User_Command)->Mouse_Difference_X = remainderf(Previous_View_Angles_Y - ((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1], 360) / Mouse_Yaw_Step;
 									}
@@ -468,7 +468,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 											float Previous_View_Angles_Y = ((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1];
 
-											((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1] = remainderf(((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1] - roundf(Strafe_Angle / Mouse_Yaw_Step) * Mouse_Yaw_Step, 360);
+											((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1] = remainderf(((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1] - Mouse_Yaw_Step * roundf(Strafe_Angle / Mouse_Yaw_Step), 360);
 
 											((Global_Offensive_User_Command_Structure*)User_Command)->Mouse_Difference_X = remainderf(Previous_View_Angles_Y - ((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1], 360) / Mouse_Yaw_Step;
 										}
