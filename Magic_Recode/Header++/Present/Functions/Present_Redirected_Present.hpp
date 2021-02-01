@@ -312,6 +312,8 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 				}
 			}
 
+			ImGui::DragScalar("Required Speed", ImGuiDataType_Float, &Copy_User_Command::Strafe_Optimizer_Required_Speed, 1, nullptr, nullptr, "%.0f");
+
 			if (ImGui::DragScalar("Greatest Possible Strafe Angle", ImGuiDataType_Float, &Copy_User_Command::Strafe_Optimizer_Greatest_Possible_Strafe_Angle, 1, nullptr, nullptr, "%.2f") == 1)
 			{
 				if (Copy_User_Command::Strafe_Optimizer_Greatest_Possible_Strafe_Angle < 0)
@@ -642,7 +644,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 					{
 						return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 1936491);
 					}
-					
+
 					unsigned __int8 Previous_Buttons_In_Jump_Check_Bytes[3] =
 					{
 						40,

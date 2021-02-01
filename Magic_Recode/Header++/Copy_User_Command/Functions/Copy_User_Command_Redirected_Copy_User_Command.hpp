@@ -382,51 +382,58 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 							float Strafe_Angle = remainderf(((Source_User_Command_Structure*)User_Command)->View_Angles[1] - atan2f(Velocity[1], Velocity[0]) * 180 / M_PI, 360) * Strafe_Optimizer_Desired_Gain / 100;
 
-							if (((Source_User_Command_Structure*)User_Command)->Move[1] < 0)
+							if (sqrtf(Velocity[0] * Velocity[0] + Velocity[1] * Velocity[1]) >= Strafe_Optimizer_Required_Speed)
 							{
-								if (Previous_View_Angles_Y - ((Source_User_Command_Structure*)User_Command)->View_Angles[1] < 0)
+								if (((Source_User_Command_Structure*)User_Command)->Move[1] < 0)
 								{
-									if (Strafe_Angle < -Mouse_Yaw_Step)
+									if (Previous_View_Angles_Y - ((Source_User_Command_Structure*)User_Command)->View_Angles[1] < 0)
 									{
-										if (Strafe_Angle < -Strafe_Optimizer_Greatest_Possible_Strafe_Angle)
+										if (Strafe_Angle < -Mouse_Yaw_Step)
 										{
-											Strafe_Angle = -Strafe_Optimizer_Greatest_Possible_Strafe_Angle;
-										}
-
-										float Previous_View_Angles_Y = ((Source_User_Command_Structure*)User_Command)->View_Angles[1];
-
-										((Source_User_Command_Structure*)User_Command)->View_Angles[1] = remainderf(((Source_User_Command_Structure*)User_Command)->View_Angles[1] - Mouse_Yaw_Step * roundf(Strafe_Angle / Mouse_Yaw_Step), 360);
-
-										((Source_User_Command_Structure*)User_Command)->Mouse_Difference_X = remainderf(Previous_View_Angles_Y - ((Source_User_Command_Structure*)User_Command)->View_Angles[1], 360) / Mouse_Yaw_Step;
-									}
-								}
-							}
-							else
-							{
-								if (((Source_User_Command_Structure*)User_Command)->Move[1] > 0)
-								{
-									if (Previous_View_Angles_Y - ((Source_User_Command_Structure*)User_Command)->View_Angles[1] > 0)
-									{
-										if (Strafe_Angle > Mouse_Yaw_Step)
-										{
-											if (Strafe_Angle > Strafe_Optimizer_Greatest_Possible_Strafe_Angle)
+											if (Strafe_Angle < -Strafe_Optimizer_Greatest_Possible_Strafe_Angle)
 											{
-												Strafe_Angle = Strafe_Optimizer_Greatest_Possible_Strafe_Angle;
+												Strafe_Angle = -Strafe_Optimizer_Greatest_Possible_Strafe_Angle;
 											}
 
 											float Previous_View_Angles_Y = ((Source_User_Command_Structure*)User_Command)->View_Angles[1];
 
 											((Source_User_Command_Structure*)User_Command)->View_Angles[1] = remainderf(((Source_User_Command_Structure*)User_Command)->View_Angles[1] - Mouse_Yaw_Step * roundf(Strafe_Angle / Mouse_Yaw_Step), 360);
 
-											((Source_User_Command_Structure*)User_Command)->Mouse_Difference_X = remainderf(Previous_View_Angles_Y - ((Source_User_Command_Structure*)User_Command)->View_Angles[1], 360) / Mouse_Yaw_Step;
+											((Source_User_Command_Structure*)User_Command)->Mouse_Difference_X = (__int16)remainderf(Previous_View_Angles_Y - ((Source_User_Command_Structure*)User_Command)->View_Angles[1], 360) / Mouse_Yaw_Step;
+
+											using Set_View_Angles_Type = void(__thiscall*)(void* Engine, float* View_Angles);
+
+											Set_View_Angles_Type((unsigned __int32)Set_View_Angles_Location)(Engine, ((Source_User_Command_Structure*)User_Command)->View_Angles);
+										}
+									}
+								}
+								else
+								{
+									if (((Source_User_Command_Structure*)User_Command)->Move[1] > 0)
+									{
+										if (Previous_View_Angles_Y - ((Source_User_Command_Structure*)User_Command)->View_Angles[1] > 0)
+										{
+											if (Strafe_Angle > Mouse_Yaw_Step)
+											{
+												if (Strafe_Angle > Strafe_Optimizer_Greatest_Possible_Strafe_Angle)
+												{
+													Strafe_Angle = Strafe_Optimizer_Greatest_Possible_Strafe_Angle;
+												}
+
+												float Previous_View_Angles_Y = ((Source_User_Command_Structure*)User_Command)->View_Angles[1];
+
+												((Source_User_Command_Structure*)User_Command)->View_Angles[1] = remainderf(((Source_User_Command_Structure*)User_Command)->View_Angles[1] - Mouse_Yaw_Step * roundf(Strafe_Angle / Mouse_Yaw_Step), 360);
+
+												((Source_User_Command_Structure*)User_Command)->Mouse_Difference_X = (__int16)remainderf(Previous_View_Angles_Y - ((Source_User_Command_Structure*)User_Command)->View_Angles[1], 360) / Mouse_Yaw_Step;
+
+												using Set_View_Angles_Type = void(__thiscall*)(void* Engine, float* View_Angles);
+
+												Set_View_Angles_Type((unsigned __int32)Set_View_Angles_Location)(Engine, ((Source_User_Command_Structure*)User_Command)->View_Angles);
+											}
 										}
 									}
 								}
 							}
-
-							using Set_View_Angles_Type = void(__thiscall*)(void* Engine, float* View_Angles);
-
-							Set_View_Angles_Type((unsigned __int32)Set_View_Angles_Location)(Engine, ((Source_User_Command_Structure*)User_Command)->View_Angles);
 						}
 						else
 						{
@@ -434,51 +441,58 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 							float Strafe_Angle = remainderf(((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1] - atan2f(Velocity[1], Velocity[0]) * 180 / M_PI, 360) * Strafe_Optimizer_Desired_Gain / 100;
 
-							if (((Global_Offensive_User_Command_Structure*)User_Command)->Move[1] < 0)
+							if (sqrtf(Velocity[0] * Velocity[0] + Velocity[1] * Velocity[1]) >= Strafe_Optimizer_Required_Speed)
 							{
-								if (Previous_View_Angles_Y - ((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1] < 0)
+								if (((Global_Offensive_User_Command_Structure*)User_Command)->Move[1] < 0)
 								{
-									if (Strafe_Angle < -Mouse_Yaw_Step)
+									if (Previous_View_Angles_Y - ((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1] < 0)
 									{
-										if (Strafe_Angle < -Strafe_Optimizer_Greatest_Possible_Strafe_Angle)
+										if (Strafe_Angle < -Mouse_Yaw_Step)
 										{
-											Strafe_Angle = -Strafe_Optimizer_Greatest_Possible_Strafe_Angle;
-										}
-
-										float Previous_View_Angles_Y = ((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1];
-
-										((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1] = remainderf(((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1] - Mouse_Yaw_Step * roundf(Strafe_Angle / Mouse_Yaw_Step), 360);
-
-										((Global_Offensive_User_Command_Structure*)User_Command)->Mouse_Difference_X = remainderf(Previous_View_Angles_Y - ((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1], 360) / Mouse_Yaw_Step;
-									}
-								}
-							}
-							else
-							{
-								if (((Global_Offensive_User_Command_Structure*)User_Command)->Move[1] > 0)
-								{
-									if (Previous_View_Angles_Y - ((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1] > 0)
-									{
-										if (Strafe_Angle > Mouse_Yaw_Step)
-										{
-											if (Strafe_Angle > Strafe_Optimizer_Greatest_Possible_Strafe_Angle)
+											if (Strafe_Angle < -Strafe_Optimizer_Greatest_Possible_Strafe_Angle)
 											{
-												Strafe_Angle = Strafe_Optimizer_Greatest_Possible_Strafe_Angle;
+												Strafe_Angle = -Strafe_Optimizer_Greatest_Possible_Strafe_Angle;
 											}
 
 											float Previous_View_Angles_Y = ((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1];
 
 											((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1] = remainderf(((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1] - Mouse_Yaw_Step * roundf(Strafe_Angle / Mouse_Yaw_Step), 360);
 
-											((Global_Offensive_User_Command_Structure*)User_Command)->Mouse_Difference_X = remainderf(Previous_View_Angles_Y - ((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1], 360) / Mouse_Yaw_Step;
+											((Global_Offensive_User_Command_Structure*)User_Command)->Mouse_Difference_X = (__int16)remainderf(Previous_View_Angles_Y - ((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1], 360) / Mouse_Yaw_Step;
+
+											using Set_View_Angles_Type = void(__thiscall*)(void* Engine, float* View_Angles);
+
+											Set_View_Angles_Type((unsigned __int32)Set_View_Angles_Location)(Engine, ((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles);
+										}
+									}
+								}
+								else
+								{
+									if (((Global_Offensive_User_Command_Structure*)User_Command)->Move[1] > 0)
+									{
+										if (Previous_View_Angles_Y - ((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1] > 0)
+										{
+											if (Strafe_Angle > Mouse_Yaw_Step)
+											{
+												if (Strafe_Angle > Strafe_Optimizer_Greatest_Possible_Strafe_Angle)
+												{
+													Strafe_Angle = Strafe_Optimizer_Greatest_Possible_Strafe_Angle;
+												}
+
+												float Previous_View_Angles_Y = ((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1];
+
+												((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1] = remainderf(((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1] - Mouse_Yaw_Step * roundf(Strafe_Angle / Mouse_Yaw_Step), 360);
+
+												((Global_Offensive_User_Command_Structure*)User_Command)->Mouse_Difference_X = (__int16)remainderf(Previous_View_Angles_Y - ((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles[1], 360) / Mouse_Yaw_Step;
+
+												using Set_View_Angles_Type = void(__thiscall*)(void* Engine, float* View_Angles);
+
+												Set_View_Angles_Type((unsigned __int32)Set_View_Angles_Location)(Engine, ((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles);
+											}
 										}
 									}
 								}
 							}
-
-							using Set_View_Angles_Type = void(__thiscall*)(void* Engine, float* View_Angles);
-
-							Set_View_Angles_Type((unsigned __int32)Set_View_Angles_Location)(Engine, ((Global_Offensive_User_Command_Structure*)User_Command)->View_Angles);
 						}
 					}
 
