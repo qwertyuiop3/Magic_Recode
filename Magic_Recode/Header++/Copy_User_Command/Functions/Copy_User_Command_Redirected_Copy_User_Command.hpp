@@ -280,6 +280,50 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 						static void* Controlled_Creature_Container = Find_Controlled_Creature_Container();
 
+						auto Find_Mouse_Sensitivity_Container = []() -> void*
+						{
+							if (Menu_Select::Game_Identifier == 0)
+							{
+								return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5193604);
+							}
+
+							unsigned __int8 Mouse_Sensitivity_Bytes[8] =
+							{
+								12,
+
+								243,
+
+								15,
+
+								17,
+
+								68,
+
+								36,
+
+								12,
+
+								139
+							};
+
+							return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Mouse_Sensitivity_Bytes), GetModuleHandleW(L"client.dll"), Mouse_Sensitivity_Bytes, 0) - 33);
+						};
+
+						static void* Mouse_Sensitivity_Container = Find_Mouse_Sensitivity_Container();
+
+						float Mouse_Sensitivity;
+
+						if (Menu_Select::Game_Identifier == 0)
+						{
+							Mouse_Sensitivity = *(float*)Mouse_Sensitivity_Container;
+						}
+						else
+						{
+							unsigned __int32 Raw_Mouse_Sensitivity = *(unsigned __int32*)((unsigned __int32)Mouse_Sensitivity_Container + 44) ^ (unsigned __int32)Mouse_Sensitivity_Container;
+
+							Mouse_Sensitivity = *(float*)&Raw_Mouse_Sensitivity;
+						}
+
 						auto Find_Mouse_Yaw_Factor_Container = []() -> void*
 						{
 							if (Menu_Select::Game_Identifier == 0)
@@ -330,51 +374,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 							Mouse_Yaw_Factor = *(float*)&Raw_Mouse_Yaw_Factor;
 						}
 
-						auto Find_Mouse_Sensitivity_Container = []() -> void*
-						{
-							if (Menu_Select::Game_Identifier == 0)
-							{
-								return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5193604);
-							}
-
-							unsigned __int8 Mouse_Sensitivity_Bytes[8] =
-							{
-								12,
-
-								243,
-
-								15,
-
-								17,
-
-								68,
-
-								36,
-
-								12,
-
-								139
-							};
-
-							return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Mouse_Sensitivity_Bytes), GetModuleHandleW(L"client.dll"), Mouse_Sensitivity_Bytes, 0) - 33);
-						};
-
-						static void* Mouse_Sensitivity_Container = Find_Mouse_Sensitivity_Container();
-
-						float Mouse_Sensitivity;
-
-						if (Menu_Select::Game_Identifier == 0)
-						{
-							Mouse_Sensitivity = *(float*)Mouse_Sensitivity_Container;
-						}
-						else
-						{
-							unsigned __int32 Raw_Mouse_Sensitivity = *(unsigned __int32*)((unsigned __int32)Mouse_Sensitivity_Container + 44) ^ (unsigned __int32)Mouse_Sensitivity_Container;
-
-							Mouse_Sensitivity = *(float*)&Raw_Mouse_Sensitivity;
-						}
-
-						float Mouse_Yaw_Step = Mouse_Yaw_Factor * Mouse_Sensitivity;
+						float Mouse_Yaw_Step = Mouse_Sensitivity * Mouse_Yaw_Factor;
 
 						if (Menu_Select::Game_Identifier == 0)
 						{
