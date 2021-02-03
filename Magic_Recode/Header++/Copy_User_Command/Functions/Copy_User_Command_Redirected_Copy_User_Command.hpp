@@ -1,11 +1,12 @@
 #pragma once
 
 /*
-//todo list i can't work on now
 optimize prediction call
 //do correct logical sorting
 //try to use traceray
-use up to date traceray
+use up to date rays
+more accurate rays
+take pitch into account for rays
 */
 
 void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Unknown_Parameter_2, void* User_Command)
