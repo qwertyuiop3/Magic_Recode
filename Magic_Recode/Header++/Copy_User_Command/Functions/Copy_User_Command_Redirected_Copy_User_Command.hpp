@@ -281,7 +281,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 											float Ending_Location[3];
 
-											__int8 Additional_Bytes_2[488];
+											__int8 Additional_Bytes_2[60];
 										};
 
 										using Trace_Ray_Type = void(__thiscall*)(void* Engine_Trace, Structure_Ray* Ray, __int32 Mask, Structure_Trace_Filter* Trace_Filter, Structure_Trace* Trace);
