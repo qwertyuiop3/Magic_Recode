@@ -4,7 +4,8 @@
 //todo list i can't work on now
 optimize prediction call
 //do correct logical sorting
-try to use traceray
+//try to use traceray
+use up to date traceray
 */
 
 void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Unknown_Parameter_2, void* User_Command)
@@ -258,91 +259,111 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 								if (sqrtf(Velocity[0] * Velocity[0] + Velocity[1] * Velocity[1]) >= Strafe_Optimizer_Required_Speed)
 								{
-									/*
-									0x100677C0
-									int __usercall UTIL_TraceLine@<eax>(int a1@<ebp>, int a2@<esi>, int a3, int a4, int a5, int a6, int a7, int a8)
+									if (Strafe_Optimizer_Least_Allowed_Distance_To_Wall == 0)
 									{
-									  int result; // eax
-									  int v9; // [esp+24h] [ebp-6Ch]
-									  int v10; // [esp+74h] [ebp-1Ch]
-									  int v11; // [esp+84h] [ebp-Ch]
-									  int v12; // [esp+88h] [ebp-8h]
-									  int retaddr; // [esp+90h] [ebp+0h]
-
-									  v11 = a1;
-									  v12 = retaddr;
-									  ray_Init((float *)&v9, (float *)a3, (float *)a4);
-									  ConstructTraceFilter(&v10, a6, a7, 0);
-									  (*(void (__thiscall **)(int, int *, int, int *, int, int))(*(_DWORD *)enginetrace + 16))(
-									    enginetrace,
-									    &v9,
-									    a5,
-									    &v10,
-									    a8,
-									    a2);
-									  result = r_visualizetraces;
-									  if ( *(_DWORD *)(r_visualizetraces + 48) )
-									    result = DebugDrawLine(a8, a8 + 12, 255, 0, 0, 1, -1.0);
-									  return result;
+										Optimization_Time = 1;
 									}
-									*/
-
-									#define	CONTENTS_SOLID			0x1				// an eye is never valid in a solid
-									#define	CONTENTS_WINDOW			0x2				// translucent, but not watery (glass)
-									#define	CONTENTS_GRATE			0x8				// alpha-tested "grate" textures.  Bullets/sight pass through, but solids don't
-									#define	CONTENTS_MONSTER		0x2000000	// should never be on a brush, only in game
-									#define CONTENTS_MOVEABLE		0x4000		// hits entities which are MOVETYPE_PUSH (doors, plats, etc.)
-									#define	MASK_SOLID					(CONTENTS_SOLID|CONTENTS_MOVEABLE|CONTENTS_WINDOW|CONTENTS_MONSTER|CONTENTS_GRATE)
-
-									struct CTraceFilterSimple
+									else
 									{
-										void* Trace_Filter;
-										void* m_pPassEnt;
-										__int32 m_collisionGroup;
-										void* m_pExtraShouldHitCheckFunction;
-									};
+										struct Structure_Ray
+										{
+											__int8 Additional_Bytes[66];
+										};
 
-									CTraceFilterSimple tracefilter;
+										struct Structure_Trace_Filter
+										{
+											void* Trace_Filter;
+										};
 
-									static void* trfilloc = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 0x3B8158);
+										struct Structure_Trace
+										{
+											__int8 Additional_Bytes_1[12];
 
-									tracefilter.Trace_Filter = trfilloc;
+											float Ending_Location[3];
 
-									tracefilter.m_pPassEnt = *(void**)Controlled_Creature_Container;
+											__int8 Additional_Bytes_2[488];
+										};
 
-									tracefilter.m_collisionGroup = 0;
+										using Trace_Ray_Type = void(__thiscall*)(void* Engine_Trace, Structure_Ray* Ray, __int32 Mask, Structure_Trace_Filter* Trace_Filter, Structure_Trace* Trace);
 
-									tracefilter.m_pExtraShouldHitCheckFunction = nullptr;
+										static void* Trace_Ray_Location = (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 1654560);
 
-									struct Ray_t
-									{
-										__int8 space[512];
-									};
+										static void* Engine_Trace = *(void**)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5055848);
 
-									Ray_t ray;
+										using Initialize_Ray_Type = void(__thiscall*)(Structure_Ray* Ray, float* Starting_Location, float* Ending_Location);
 
-									using Ray_Init_Type = void(__thiscall*)(Ray_t* ray, float* start, float* end);
+										static void* Initialize_Ray_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 389296);
 
-									static void* rayinitloc = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 0x5F0B0);
+										Structure_Ray Ray;
 
-									float start[3] = {0,0,0};
+										float Ray_Angle = 0;
 
-									float end[3] = {0,0,0};
+										Structure_Trace_Filter Trace_Filter;
 
-									Ray_Init_Type((unsigned __int32)rayinitloc)(&ray, start, end);
+										static void* Trace_Filter_Table_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 3736588);
 
-									struct trace_t
-									{
-										__int8 space[512];
-									};
+										Trace_Filter.Trace_Filter = Trace_Filter_Table_Location;
 
-									trace_t trace;
+										Structure_Trace Trace;
 
-									void* enginetrace = *(void**)((unsigned __int32)GetModuleHandleW(L"client.dll") + 0x4D2568);
+										Trace_Ray_Label:
+										{
+											float* Controlled_Creature_In_World_Location = (float*)(*(unsigned __int32*)Controlled_Creature_Container + 824);
 
-									(*(void(__thiscall**)(void*, Ray_t*, __int32, CTraceFilterSimple*, trace_t*))(*(DWORD*)enginetrace + 16))(enginetrace, &ray, MASK_SOLID, &tracefilter, &trace);
+											float* Controlled_Creature_View_Offset = (float*)(*(unsigned __int32*)Controlled_Creature_Container + 232);
 
-									Optimization_Time = 1;
+											float Ray_Starting_Location[3] =
+											{
+												Controlled_Creature_In_World_Location[0] + Controlled_Creature_View_Offset[0],
+
+												Controlled_Creature_In_World_Location[1] + Controlled_Creature_View_Offset[1],
+
+												Controlled_Creature_In_World_Location[2]
+											};
+
+											float View_Angles_Yaw_Direction = remainderf(Ray_Angle, 360) * (M_PI / 180);
+
+											float Ray_Ending_Location_Maximum_Distance = 1 + 16 * Strafe_Optimizer_Least_Allowed_Distance_To_Wall;
+
+											float Ray_Ending_Location[3] =
+											{
+												Ray_Starting_Location[0] + cosf(View_Angles_Yaw_Direction) * Ray_Ending_Location_Maximum_Distance,
+
+												Ray_Starting_Location[1] + sinf(View_Angles_Yaw_Direction) * Ray_Ending_Location_Maximum_Distance,
+
+												Ray_Starting_Location[2]
+											};
+
+											Initialize_Ray_Type((unsigned __int32)Initialize_Ray_Location)(&Ray, Ray_Starting_Location, Ray_Ending_Location);
+
+											Trace_Ray_Type((unsigned __int32)Trace_Ray_Location)(Engine_Trace, &Ray, 33570827, &Trace_Filter, &Trace);
+
+											float Distance = sqrtf(powf(Ray_Starting_Location[0] - Trace.Ending_Location[0], 2) + powf(Ray_Starting_Location[1] - Trace.Ending_Location[1], 2));
+
+											if (Distance > 16 * Strafe_Optimizer_Least_Allowed_Distance_To_Wall)
+											{
+												Optimization_Time = 1;
+											}
+											else
+											{
+												Optimization_Time = 0;
+
+												goto Stop_Tracing_Ray_Label;
+											}
+
+											if (Ray_Angle != 270)
+											{
+												Ray_Angle += 90;
+
+												goto Trace_Ray_Label;
+											}
+										}
+
+										Stop_Tracing_Ray_Label:
+										{
+
+										}
+									}
 								}
 								else
 								{

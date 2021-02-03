@@ -6,6 +6,8 @@ void Initialize_Copy_User_Command()
 
 	Strafe_Optimizer_Required_Speed = 0;
 
+	Strafe_Optimizer_Least_Allowed_Distance_To_Wall = 0;
+
 	Strafe_Optimizer_Desired_Gain = 0;
 
 	Strafe_Optimizer_Greatest_Possible_Strafe_Angle = 0;

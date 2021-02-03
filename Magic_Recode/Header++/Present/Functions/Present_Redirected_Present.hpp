@@ -305,6 +305,14 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 				}
 			}
 
+			if (ImGui::DragScalar("Least Allowed Distance To Wall", ImGuiDataType_Float, &Copy_User_Command::Strafe_Optimizer_Least_Allowed_Distance_To_Wall, 1, nullptr, nullptr, "%.0f") == 1)
+			{
+				if (Copy_User_Command::Strafe_Optimizer_Least_Allowed_Distance_To_Wall < 0)
+				{
+					Copy_User_Command::Strafe_Optimizer_Least_Allowed_Distance_To_Wall = 0;
+				}
+			}
+
 			if (ImGui::DragScalar("Desired Gain", ImGuiDataType_Float, &Copy_User_Command::Strafe_Optimizer_Desired_Gain, 1, nullptr, nullptr, "%.2f") == 1)
 			{
 				if (Copy_User_Command::Strafe_Optimizer_Desired_Gain < 0)
