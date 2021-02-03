@@ -258,6 +258,90 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 								if (sqrtf(Velocity[0] * Velocity[0] + Velocity[1] * Velocity[1]) >= Strafe_Optimizer_Required_Speed)
 								{
+									/*
+									0x100677C0
+									int __usercall UTIL_TraceLine@<eax>(int a1@<ebp>, int a2@<esi>, int a3, int a4, int a5, int a6, int a7, int a8)
+									{
+									  int result; // eax
+									  int v9; // [esp+24h] [ebp-6Ch]
+									  int v10; // [esp+74h] [ebp-1Ch]
+									  int v11; // [esp+84h] [ebp-Ch]
+									  int v12; // [esp+88h] [ebp-8h]
+									  int retaddr; // [esp+90h] [ebp+0h]
+
+									  v11 = a1;
+									  v12 = retaddr;
+									  ray_Init((float *)&v9, (float *)a3, (float *)a4);
+									  ConstructTraceFilter(&v10, a6, a7, 0);
+									  (*(void (__thiscall **)(int, int *, int, int *, int, int))(*(_DWORD *)enginetrace + 16))(
+									    enginetrace,
+									    &v9,
+									    a5,
+									    &v10,
+									    a8,
+									    a2);
+									  result = r_visualizetraces;
+									  if ( *(_DWORD *)(r_visualizetraces + 48) )
+									    result = DebugDrawLine(a8, a8 + 12, 255, 0, 0, 1, -1.0);
+									  return result;
+									}
+									*/
+
+									#define	CONTENTS_SOLID			0x1				// an eye is never valid in a solid
+									#define	CONTENTS_WINDOW			0x2				// translucent, but not watery (glass)
+									#define	CONTENTS_GRATE			0x8				// alpha-tested "grate" textures.  Bullets/sight pass through, but solids don't
+									#define	CONTENTS_MONSTER		0x2000000	// should never be on a brush, only in game
+									#define CONTENTS_MOVEABLE		0x4000		// hits entities which are MOVETYPE_PUSH (doors, plats, etc.)
+									#define	MASK_SOLID					(CONTENTS_SOLID|CONTENTS_MOVEABLE|CONTENTS_WINDOW|CONTENTS_MONSTER|CONTENTS_GRATE)
+
+									struct CTraceFilterSimple
+									{
+										void* Trace_Filter;
+										void* m_pPassEnt;
+										__int32 m_collisionGroup;
+										void* m_pExtraShouldHitCheckFunction;
+									};
+
+									CTraceFilterSimple tracefilter;
+
+									static void* trfilloc = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 0x3B8158);
+
+									tracefilter.Trace_Filter = trfilloc;
+
+									tracefilter.m_pPassEnt = *(void**)Controlled_Creature_Container;
+
+									tracefilter.m_collisionGroup = 0;
+
+									tracefilter.m_pExtraShouldHitCheckFunction = nullptr;
+
+									struct Ray_t
+									{
+										__int8 space[512];
+									};
+
+									Ray_t ray;
+
+									using Ray_Init_Type = void(__thiscall*)(Ray_t* ray, float* start, float* end);
+
+									static void* rayinitloc = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 0x5F0B0);
+
+									float start[3] = {0,0,0};
+
+									float end[3] = {0,0,0};
+
+									Ray_Init_Type((unsigned __int32)rayinitloc)(&ray, start, end);
+
+									struct trace_t
+									{
+										__int8 space[512];
+									};
+
+									trace_t trace;
+
+									void* enginetrace = *(void**)((unsigned __int32)GetModuleHandleW(L"client.dll") + 0x4D2568);
+
+									(*(void(__thiscall**)(void*, Ray_t*, __int32, CTraceFilterSimple*, trace_t*))(*(DWORD*)enginetrace + 16))(enginetrace, &ray, MASK_SOLID, &tracefilter, &trace);
+
 									Optimization_Time = 1;
 								}
 								else
