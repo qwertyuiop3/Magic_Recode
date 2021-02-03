@@ -4,9 +4,9 @@ void Initialize_Copy_User_Command()
 {
 	Strafe_Optimizer_Optimize = 0;
 
-	Strafe_Optimizer_Desired_Gain = 0;
-
 	Strafe_Optimizer_Required_Speed = 0;
+
+	Strafe_Optimizer_Desired_Gain = 0;
 
 	Strafe_Optimizer_Greatest_Possible_Strafe_Angle = 0;
 

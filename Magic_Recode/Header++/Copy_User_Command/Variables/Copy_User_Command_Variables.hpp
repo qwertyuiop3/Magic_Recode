@@ -2,9 +2,9 @@
 
 __int8 Strafe_Optimizer_Optimize;
 
-float Strafe_Optimizer_Desired_Gain;
-
 float Strafe_Optimizer_Required_Speed;
+
+float Strafe_Optimizer_Desired_Gain;
 
 float Strafe_Optimizer_Greatest_Possible_Strafe_Angle;
 
