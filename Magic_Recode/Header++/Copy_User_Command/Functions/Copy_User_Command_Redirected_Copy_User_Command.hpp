@@ -334,6 +334,10 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 										float Ray_Ending_Location_Maximum_Distance = 1 + 16 * Strafe_Optimizer_Least_Allowed_Distance_To_Wall;
 
+										float Ray_Ending_Location[3];
+
+										Ray_Ending_Location[2] = Ray_Starting_Location[2];
+
 										Structure_Trace_Filter Trace_Filter;
 
 										static void* Trace_Filter_Table_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 3736588);
@@ -348,14 +352,9 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 											{
 												float View_Angles_Yaw_Direction = remainderf(Ray_Angle, 360) * (M_PI / 180);
 
-												float Ray_Ending_Location[3] =
-												{
-													Ray_Starting_Location[0] + cosf(View_Angles_Yaw_Direction) * Ray_Ending_Location_Maximum_Distance,
+												Ray_Ending_Location[0] = Ray_Starting_Location[0] + cosf(View_Angles_Yaw_Direction) * Ray_Ending_Location_Maximum_Distance;
 
-													Ray_Starting_Location[1] + sinf(View_Angles_Yaw_Direction) * Ray_Ending_Location_Maximum_Distance,
-
-													Ray_Starting_Location[2]
-												};
+												Ray_Ending_Location[1] = Ray_Starting_Location[1] + sinf(View_Angles_Yaw_Direction) * Ray_Ending_Location_Maximum_Distance;
 
 												Initialize_Ray_Type((unsigned __int32)Initialize_Ray_Location)(&Ray, Ray_Starting_Location, Ray_Ending_Location);
 
