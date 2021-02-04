@@ -538,10 +538,6 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 								if (sqrtf(Velocity[0] * Velocity[0] + Velocity[1] * Velocity[1]) >= Strafe_Optimizer_Required_Speed)
 								{
-									Optimization_Time = 1;
-								}
-								else
-								{
 									if (Strafe_Optimizer_Least_Allowed_Distance_To_Wall == 0)
 									{
 										Optimization_Time = 1;
@@ -654,6 +650,10 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 										}
 									}
+								}
+								else
+								{
+									Optimization_Time = 0;
 								}
 							}
 							else
