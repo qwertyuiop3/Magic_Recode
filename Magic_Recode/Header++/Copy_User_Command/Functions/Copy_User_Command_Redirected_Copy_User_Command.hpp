@@ -233,6 +233,121 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 					float* Velocity;
 
+					auto Find_Trace_Ray = []() -> void*
+					{
+						if (Menu_Select::Game_Identifier == 0)
+						{
+							return (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 1654560);
+						}
+
+						unsigned __int8 Trace_Ray_Bytes[3] =
+						{
+							16,
+
+							87,
+
+							168
+						};
+
+						return (void*)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Trace_Ray_Bytes), GetModuleHandleW(L"engine.dll"), Trace_Ray_Bytes, 0) - 29);
+					};
+
+					auto Find_Engine_Trace = []() -> void*
+					{
+						if (Menu_Select::Game_Identifier == 0)
+						{
+							return *(void**)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5055848);
+						}
+
+						unsigned __int8 Engine_Trace_Bytes[5] =
+						{
+							36,
+
+							32,
+
+							139,
+
+							117,
+
+							24
+						};
+
+						return **(void***)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Engine_Trace_Bytes), GetModuleHandleW(L"client.dll"), Engine_Trace_Bytes, 0) - 10);
+					};
+
+					auto Find_Initialize_Ray = []() -> void*
+					{
+						if (Menu_Select::Game_Identifier == 0)
+						{
+							return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 389296);
+						}
+
+						unsigned __int8 Initialize_Ray_Bytes[9] =
+						{
+							85,
+
+							8,
+
+							243,
+
+							15,
+
+							16,
+
+							0,
+
+							243,
+
+							15,
+
+							92
+						};
+
+						return (void*)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Initialize_Ray_BytesInitialize_Ray_Bytes), GetModuleHandleW(L"client.dll"), Initialize_Ray_Bytes, 0) - 15);
+					};
+
+					auto Find_Get_Eye_Position = []() -> void*
+					{
+						if (Menu_Select::Game_Identifier == 0)
+						{
+							return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 430752);
+						}
+
+						unsigned __int8 Get_Eye_Position_Bytes[4] =
+						{
+							249,
+
+							139,
+
+							143,
+
+							240
+						};
+
+						return (void*)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Get_Eye_Position_Bytes), GetModuleHandleW(L"client.dll"), Get_Eye_Position_Bytes, 0) - 8);
+					};
+
+					auto Find_Trace_Filter_Table = []() -> void*
+					{
+						if (Menu_Select::Game_Identifier == 0)
+						{
+							return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 3736588);
+						}
+
+						unsigned __int8 Trace_Filter_Table_Bytes[4] =
+						{
+							255,
+
+							15,
+
+							142,
+
+							61
+						};
+
+						return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Trace_Filter_Table_Bytes), GetModuleHandleW(L"client.dll"), Trace_Filter_Table_Bytes, 0) - 12);
+					};
+
 					__int8 Optimization_Time;
 
 					if (Menu_Select::Game_Identifier == 0)
@@ -292,19 +407,19 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 										using Trace_Ray_Type = void(__thiscall*)(void* Engine_Trace, Structure_Ray* Ray, __int32 Mask, Structure_Trace_Filter* Trace_Filter, Structure_Trace* Trace);
 
-										static void* Trace_Ray_Location = (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 1654560);
+										static void* Trace_Ray_Location = Find_Trace_Ray();
 
-										static void* Engine_Trace = *(void**)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5055848);
+										static void* Engine_Trace = Find_Engine_Trace();
 
 										using Initialize_Ray_Type = void(__thiscall*)(Structure_Ray* Ray, float* Starting_Location, float* Ending_Location);
 
-										static void* Initialize_Ray_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 389296);
+										static void* Initialize_Ray_Location = Find_Initialize_Ray();
 
 										Structure_Ray Ray;
 
 										using Get_Eye_Position_Type = void(__thiscall*)(void* Creature, float Eye_Position[3]);
 
-										static void* Get_Eye_Position_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 430752);
+										static void* Get_Eye_Position_Location = Find_Get_Eye_Position();
 
 										float Eye_Position[3];
 
@@ -333,7 +448,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 										Structure_Trace_Filter Trace_Filter;
 
-										static void* Trace_Filter_Table_Location = (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 3736588);
+										static void* Trace_Filter_Table_Location = Find_Trace_Filter_Table();
 
 										Trace_Filter.Trace_Filter = Trace_Filter_Table_Location;
 
@@ -433,7 +548,111 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 									}
 									else
 									{
-										Optimization_Time = 0;
+										struct Structure_Ray
+										{
+											__int8 Additional_Bytes[70];
+										};
+
+										struct Structure_Trace_Filter
+										{
+											void* Trace_Filter;
+										};
+
+										struct Structure_Trace
+										{
+											__int8 Additional_Bytes_1[12];
+
+											float Ending_Location[3];
+
+											__int8 Additional_Bytes_2[60];
+										};
+
+										using Trace_Ray_Type = void(__thiscall*)(void* Engine_Trace, Structure_Ray* Ray, __int32 Mask, Structure_Trace_Filter* Trace_Filter, Structure_Trace* Trace);
+
+										static void* Trace_Ray_Location = Find_Trace_Ray();
+
+										static void* Engine_Trace = Find_Engine_Trace();
+
+										using Initialize_Ray_Type = void(__thiscall*)(Structure_Ray* Ray, float* Starting_Location, float* Ending_Location);
+
+										static void* Initialize_Ray_Location = Find_Initialize_Ray();
+
+										Structure_Ray Ray;
+
+										using Get_Eye_Position_Type = void(__thiscall*)(void* Creature, float Eye_Position[3]);
+
+										static void* Get_Eye_Position_Location = Find_Get_Eye_Position();
+
+										float Eye_Position[3];
+
+										Get_Eye_Position_Type((unsigned __int32)Get_Eye_Position_Location)(*(void**)Controlled_Creature_Container, Eye_Position);
+
+										static void* Get_Creature_In_World_Location_Location = Find_Get_Creature_In_World_Location_Location();
+
+										float* Controlled_Creature_In_World_Location = Get_Creature_In_World_Location_Type(Get_Creature_In_World_Location_Location)(*(void**)Controlled_Creature_Container);
+
+										float Ray_Starting_Location[3] =
+										{
+											Eye_Position[0],
+
+											Eye_Position[1],
+
+											Controlled_Creature_In_World_Location[2]
+										};
+
+										float Ray_Angle = 0;
+
+										float Ray_Ending_Location_Maximum_Distance = 16 + 16 * Strafe_Optimizer_Least_Allowed_Distance_To_Wall;
+
+										float Ray_Ending_Location[3];
+
+										Ray_Ending_Location[2] = Ray_Starting_Location[2];
+
+										Structure_Trace_Filter Trace_Filter;
+
+										static void* Trace_Filter_Table_Location = Find_Trace_Filter_Table();
+
+										Trace_Filter.Trace_Filter = Trace_Filter_Table_Location;
+
+										Structure_Trace Trace;
+
+										Source_Trace_Ray_Label:
+										{
+											if (Ray_Angle != 360)
+											{
+												float View_Angles_Yaw_Direction = remainderf(Ray_Angle, 360) * (M_PI / 180);
+
+												Ray_Ending_Location[0] = Ray_Starting_Location[0] + cosf(View_Angles_Yaw_Direction) * Ray_Ending_Location_Maximum_Distance;
+
+												Ray_Ending_Location[1] = Ray_Starting_Location[1] + sinf(View_Angles_Yaw_Direction) * Ray_Ending_Location_Maximum_Distance;
+
+												Initialize_Ray_Type((unsigned __int32)Initialize_Ray_Location)(&Ray, Ray_Starting_Location, Ray_Ending_Location);
+
+												Trace_Ray_Type((unsigned __int32)Trace_Ray_Location)(Engine_Trace, &Ray, 33570827, &Trace_Filter, &Trace);
+
+												float Distance = sqrtf(powf(Ray_Starting_Location[0] - Trace.Ending_Location[0], 2) + powf(Ray_Starting_Location[1] - Trace.Ending_Location[1], 2));
+
+												if (Distance > 16 * Strafe_Optimizer_Least_Allowed_Distance_To_Wall)
+												{
+													Ray_Angle += 90;
+
+													goto Source_Trace_Ray_Label;
+												}
+												else
+												{
+													Optimization_Time = 0;
+
+													goto Source_Stop_Tracing_Ray_Label;
+												}
+											}
+										}
+
+										Optimization_Time = 1;
+
+										Source_Stop_Tracing_Ray_Label:
+										{
+
+										}
 									}
 								}
 							}
