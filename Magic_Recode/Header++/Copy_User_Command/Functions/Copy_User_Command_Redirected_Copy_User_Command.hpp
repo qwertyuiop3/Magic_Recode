@@ -303,7 +303,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 							92
 						};
 
-						return (void*)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Initialize_Ray_BytesInitialize_Ray_Bytes), GetModuleHandleW(L"client.dll"), Initialize_Ray_Bytes, 0) - 15);
+						return (void*)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Initialize_Ray_Bytes), GetModuleHandleW(L"client.dll"), Initialize_Ray_Bytes, 0) - 15);
 					};
 
 					auto Find_Get_Eye_Position = []() -> void*
@@ -616,7 +616,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 										Structure_Trace Trace;
 
-										Source_Trace_Ray_Label:
+										Global_Offensive_Trace_Ray_Label:
 										{
 											if (Ray_Angle != 360)
 											{
@@ -636,20 +636,20 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 												{
 													Ray_Angle += 90;
 
-													goto Source_Trace_Ray_Label;
+													goto Global_Offensive_Trace_Ray_Label;
 												}
 												else
 												{
 													Optimization_Time = 0;
 
-													goto Source_Stop_Tracing_Ray_Label;
+													goto Global_Offensive_Stop_Tracing_Ray_Label;
 												}
 											}
 										}
 
 										Optimization_Time = 1;
 
-										Source_Stop_Tracing_Ray_Label:
+										Global_Offensive_Stop_Tracing_Ray_Label:
 										{
 
 										}
