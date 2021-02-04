@@ -1,12 +1,5 @@
 #pragma once
 
-/*
-optimize prediction call
-more accurate rays
-take height into account for rays
-traceray for csgo
-*/
-
 void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Unknown_Parameter_2, void* User_Command)
 {
 	if (Menu_Select::Freeze_Controlled_Creature == 0)
@@ -332,7 +325,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 										float Ray_Angle = 0;
 
-										float Ray_Ending_Location_Maximum_Distance = 1 + 16 * Strafe_Optimizer_Least_Allowed_Distance_To_Wall;
+										float Ray_Ending_Location_Maximum_Distance = 16 + 16 * Strafe_Optimizer_Least_Allowed_Distance_To_Wall;
 
 										float Ray_Ending_Location[3];
 
@@ -364,7 +357,9 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 												if (Distance > 16 * Strafe_Optimizer_Least_Allowed_Distance_To_Wall)
 												{
-													Optimization_Time = 1;
+													Ray_Angle += 90;
+
+													goto Source_Trace_Ray_Label;
 												}
 												else
 												{
@@ -372,12 +367,10 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 													goto Source_Stop_Tracing_Ray_Label;
 												}
-
-												Ray_Angle += 45;
-
-												goto Source_Trace_Ray_Label;
 											}
 										}
+
+										Optimization_Time = 1;
 
 										Source_Stop_Tracing_Ray_Label:
 										{
