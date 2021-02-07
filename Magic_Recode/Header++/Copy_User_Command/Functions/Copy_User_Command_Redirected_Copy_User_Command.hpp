@@ -386,7 +386,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 									}
 									else
 									{
-										if (Strafe_Optimizer_Ray_Angle_Step == 0)
+										if (Strafe_Optimizer_Ray_Angle_Step_Length == 0)
 										{
 											Optimization_Time = 1;
 										}
@@ -478,7 +478,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 													if (Distance > Strafe_Optimizer_Least_Allowed_Distance_To_Wall)
 													{
-														Ray_Angle += Strafe_Optimizer_Ray_Angle_Step;
+														Ray_Angle += Strafe_Optimizer_Ray_Angle_Step_Length;
 
 														goto Source_Trace_Ray_Label;
 													}
@@ -551,7 +551,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 									}
 									else
 									{
-										if (Strafe_Optimizer_Ray_Angle_Step == 0)
+										if (Strafe_Optimizer_Ray_Angle_Step_Length == 0)
 										{
 											Optimization_Time = 1;
 										}
@@ -643,7 +643,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 													if (Distance > Strafe_Optimizer_Least_Allowed_Distance_To_Wall)
 													{
-														Ray_Angle += Strafe_Optimizer_Ray_Angle_Step;
+														Ray_Angle += Strafe_Optimizer_Ray_Angle_Step_Length;
 
 														goto Global_Offensive_Trace_Ray_Label;
 													}

@@ -313,17 +313,17 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 				}
 			}
 
-			if (ImGui::DragScalar("Ray Angle Step", ImGuiDataType_Float, &Copy_User_Command::Strafe_Optimizer_Ray_Angle_Step, 1, nullptr, nullptr, "%.7f") == 1)
+			if (ImGui::DragScalar("Ray Angle Step", ImGuiDataType_Float, &Copy_User_Command::Strafe_Optimizer_Ray_Angle_Step_Length, 1, nullptr, nullptr, "%.7f") == 1)
 			{
-				if (Copy_User_Command::Strafe_Optimizer_Ray_Angle_Step < 0)
+				if (Copy_User_Command::Strafe_Optimizer_Ray_Angle_Step_Length < 0)
 				{
-					Copy_User_Command::Strafe_Optimizer_Ray_Angle_Step = 0;
+					Copy_User_Command::Strafe_Optimizer_Ray_Angle_Step_Length = 0;
 				}
 				else
 				{
-					if (Copy_User_Command::Strafe_Optimizer_Ray_Angle_Step > 180)
+					if (Copy_User_Command::Strafe_Optimizer_Ray_Angle_Step_Length > 180)
 					{
-						Copy_User_Command::Strafe_Optimizer_Ray_Angle_Step = 180;
+						Copy_User_Command::Strafe_Optimizer_Ray_Angle_Step_Length = 180;
 					}
 				}
 			}
