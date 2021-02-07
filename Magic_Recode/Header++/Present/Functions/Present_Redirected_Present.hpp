@@ -305,11 +305,26 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 				}
 			}
 
-			if (ImGui::DragScalar("Least Allowed Distance To Wall", ImGuiDataType_Float, &Copy_User_Command::Strafe_Optimizer_Least_Allowed_Distance_To_Wall, 1, nullptr, nullptr, "%.0f") == 1)
+			if (ImGui::DragScalar("Least Allowed Distance To Wall", ImGuiDataType_Float, &Copy_User_Command::Strafe_Optimizer_Least_Allowed_Distance_To_Wall, 1, nullptr, nullptr, "%.2f") == 1)
 			{
 				if (Copy_User_Command::Strafe_Optimizer_Least_Allowed_Distance_To_Wall < 0)
 				{
 					Copy_User_Command::Strafe_Optimizer_Least_Allowed_Distance_To_Wall = 0;
+				}
+			}
+
+			if (ImGui::DragScalar("Ray Angle Step", ImGuiDataType_Float, &Copy_User_Command::Strafe_Optimizer_Ray_Angle_Step, 1, nullptr, nullptr, "%.7f") == 1)
+			{
+				if (Copy_User_Command::Strafe_Optimizer_Ray_Angle_Step < 0)
+				{
+					Copy_User_Command::Strafe_Optimizer_Ray_Angle_Step = 0;
+				}
+				else
+				{
+					if (Copy_User_Command::Strafe_Optimizer_Ray_Angle_Step > 180)
+					{
+						Copy_User_Command::Strafe_Optimizer_Ray_Angle_Step = 180;
+					}
 				}
 			}
 

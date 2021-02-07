@@ -6,6 +6,8 @@ float Strafe_Optimizer_Required_Speed;
 
 float Strafe_Optimizer_Least_Allowed_Distance_To_Wall;
 
+float Strafe_Optimizer_Ray_Angle_Step;
+
 float Strafe_Optimizer_Desired_Gain;
 
 float Strafe_Optimizer_Greatest_Possible_Strafe_Angle;

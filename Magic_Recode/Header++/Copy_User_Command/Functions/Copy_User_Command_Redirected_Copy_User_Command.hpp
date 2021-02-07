@@ -386,110 +386,117 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 									}
 									else
 									{
-										struct Structure_Ray
+										if (Strafe_Optimizer_Ray_Angle_Step == 0)
 										{
-											__int8 Additional_Bytes[66];
-										};
-
-										struct Structure_Trace_Filter
+											Optimization_Time = 1;
+										}
+										else
 										{
-											void* Trace_Filter;
-										};
-
-										struct Structure_Trace
-										{
-											__int8 Additional_Bytes_1[12];
-
-											float Ending_Location[3];
-
-											__int8 Additional_Bytes_2[60];
-										};
-
-										using Trace_Ray_Type = void(__thiscall*)(void* Engine_Trace, Structure_Ray* Ray, __int32 Mask, Structure_Trace_Filter* Trace_Filter, Structure_Trace* Trace);
-
-										static void* Trace_Ray_Location = Find_Trace_Ray();
-
-										static void* Engine_Trace = Find_Engine_Trace();
-
-										using Initialize_Ray_Type = void(__thiscall*)(Structure_Ray* Ray, float* Starting_Location, float* Ending_Location);
-
-										static void* Initialize_Ray_Location = Find_Initialize_Ray();
-
-										Structure_Ray Ray;
-
-										using Get_Eye_Position_Type = void(__thiscall*)(void* Creature, float Eye_Position[3]);
-
-										static void* Get_Eye_Position_Location = Find_Get_Eye_Position();
-
-										float Eye_Position[3];
-
-										Get_Eye_Position_Type((unsigned __int32)Get_Eye_Position_Location)(*(void**)Controlled_Creature_Container, Eye_Position);
-
-										static void* Get_Creature_In_World_Location_Location = Find_Get_Creature_In_World_Location_Location();
-
-										float* Controlled_Creature_In_World_Location = Get_Creature_In_World_Location_Type(Get_Creature_In_World_Location_Location)(*(void**)Controlled_Creature_Container);
-
-										float Ray_Starting_Location[3] =
-										{
-											Eye_Position[0],
-
-											Eye_Position[1],
-
-											Controlled_Creature_In_World_Location[2]
-										};
-
-										float Ray_Angle = 0;
-
-										float Ray_Ending_Location_Maximum_Distance = 16 + 16 * Strafe_Optimizer_Least_Allowed_Distance_To_Wall;
-
-										float Ray_Ending_Location[3];
-
-										Ray_Ending_Location[2] = Ray_Starting_Location[2];
-
-										Structure_Trace_Filter Trace_Filter;
-
-										static void* Trace_Filter_Table_Location = Find_Trace_Filter_Table();
-
-										Trace_Filter.Trace_Filter = Trace_Filter_Table_Location;
-
-										Structure_Trace Trace;
-
-										Source_Trace_Ray_Label:
-										{
-											if (Ray_Angle != 360)
+											struct Structure_Ray
 											{
-												float View_Angles_Yaw_Direction = remainderf(Ray_Angle, 360) * (M_PI / 180);
+												__int8 Additional_Bytes[66];
+											};
 
-												Ray_Ending_Location[0] = Ray_Starting_Location[0] + cosf(View_Angles_Yaw_Direction) * Ray_Ending_Location_Maximum_Distance;
+											struct Structure_Trace_Filter
+											{
+												void* Trace_Filter;
+											};
 
-												Ray_Ending_Location[1] = Ray_Starting_Location[1] + sinf(View_Angles_Yaw_Direction) * Ray_Ending_Location_Maximum_Distance;
+											struct Structure_Trace
+											{
+												__int8 Additional_Bytes_1[12];
 
-												Initialize_Ray_Type((unsigned __int32)Initialize_Ray_Location)(&Ray, Ray_Starting_Location, Ray_Ending_Location);
+												float Ending_Location[3];
 
-												Trace_Ray_Type((unsigned __int32)Trace_Ray_Location)(Engine_Trace, &Ray, 33570827, &Trace_Filter, &Trace);
+												__int8 Additional_Bytes_2[60];
+											};
 
-												float Distance = sqrtf(powf(Ray_Starting_Location[0] - Trace.Ending_Location[0], 2) + powf(Ray_Starting_Location[1] - Trace.Ending_Location[1], 2));
+											using Trace_Ray_Type = void(__thiscall*)(void* Engine_Trace, Structure_Ray* Ray, __int32 Mask, Structure_Trace_Filter* Trace_Filter, Structure_Trace* Trace);
 
-												if (Distance > 16 * Strafe_Optimizer_Least_Allowed_Distance_To_Wall)
+											static void* Trace_Ray_Location = Find_Trace_Ray();
+
+											static void* Engine_Trace = Find_Engine_Trace();
+
+											using Initialize_Ray_Type = void(__thiscall*)(Structure_Ray* Ray, float* Starting_Location, float* Ending_Location);
+
+											static void* Initialize_Ray_Location = Find_Initialize_Ray();
+
+											Structure_Ray Ray;
+
+											using Get_Eye_Position_Type = void(__thiscall*)(void* Creature, float Eye_Position[3]);
+
+											static void* Get_Eye_Position_Location = Find_Get_Eye_Position();
+
+											float Eye_Position[3];
+
+											Get_Eye_Position_Type((unsigned __int32)Get_Eye_Position_Location)(*(void**)Controlled_Creature_Container, Eye_Position);
+
+											static void* Get_Creature_In_World_Location_Location = Find_Get_Creature_In_World_Location_Location();
+
+											float* Controlled_Creature_In_World_Location = Get_Creature_In_World_Location_Type(Get_Creature_In_World_Location_Location)(*(void**)Controlled_Creature_Container);
+
+											float Ray_Starting_Location[3] =
+											{
+												Eye_Position[0],
+
+												Eye_Position[1],
+
+												Controlled_Creature_In_World_Location[2]
+											};
+
+											float Ray_Angle = 0;
+
+											float Ray_Ending_Location_Maximum_Distance = 16 + Strafe_Optimizer_Least_Allowed_Distance_To_Wall;
+
+											float Ray_Ending_Location[3];
+
+											Ray_Ending_Location[2] = Ray_Starting_Location[2];
+
+											Structure_Trace_Filter Trace_Filter;
+
+											static void* Trace_Filter_Table_Location = Find_Trace_Filter_Table();
+
+											Trace_Filter.Trace_Filter = Trace_Filter_Table_Location;
+
+											Structure_Trace Trace;
+
+											Source_Trace_Ray_Label:
+											{
+												if (Ray_Angle < 360)
 												{
-													Ray_Angle += 90;
+													float View_Angles_Yaw_Direction = remainderf(Ray_Angle, 360) * (M_PI / 180);
 
-													goto Source_Trace_Ray_Label;
-												}
-												else
-												{
-													Optimization_Time = 0;
+													Ray_Ending_Location[0] = Ray_Starting_Location[0] + cosf(View_Angles_Yaw_Direction) * Ray_Ending_Location_Maximum_Distance;
 
-													goto Source_Stop_Tracing_Ray_Label;
+													Ray_Ending_Location[1] = Ray_Starting_Location[1] + sinf(View_Angles_Yaw_Direction) * Ray_Ending_Location_Maximum_Distance;
+
+													Initialize_Ray_Type((unsigned __int32)Initialize_Ray_Location)(&Ray, Ray_Starting_Location, Ray_Ending_Location);
+
+													Trace_Ray_Type((unsigned __int32)Trace_Ray_Location)(Engine_Trace, &Ray, 33570827, &Trace_Filter, &Trace);
+
+													float Distance = sqrtf(powf(Ray_Starting_Location[0] - Trace.Ending_Location[0], 2) + powf(Ray_Starting_Location[1] - Trace.Ending_Location[1], 2));
+
+													if (Distance > Strafe_Optimizer_Least_Allowed_Distance_To_Wall)
+													{
+														Ray_Angle += Strafe_Optimizer_Ray_Angle_Step;
+
+														goto Source_Trace_Ray_Label;
+													}
+													else
+													{
+														Optimization_Time = 0;
+
+														goto Source_Stop_Tracing_Ray_Label;
+													}
 												}
 											}
-										}
 
-										Optimization_Time = 1;
+											Optimization_Time = 1;
 
-										Source_Stop_Tracing_Ray_Label:
-										{
+											Source_Stop_Tracing_Ray_Label:
+											{
 
+											}
 										}
 									}
 								}
@@ -544,110 +551,117 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 									}
 									else
 									{
-										struct Structure_Ray
+										if (Strafe_Optimizer_Ray_Angle_Step == 0)
 										{
-											__int8 Additional_Bytes[70];
-										};
-
-										struct Structure_Trace_Filter
+											Optimization_Time = 1;
+										}
+										else
 										{
-											void* Trace_Filter;
-										};
-
-										struct Structure_Trace
-										{
-											__int8 Additional_Bytes_1[12];
-
-											float Ending_Location[3];
-
-											__int8 Additional_Bytes_2[60];
-										};
-
-										using Trace_Ray_Type = void(__thiscall*)(void* Engine_Trace, Structure_Ray* Ray, __int32 Mask, Structure_Trace_Filter* Trace_Filter, Structure_Trace* Trace);
-
-										static void* Trace_Ray_Location = Find_Trace_Ray();
-
-										static void* Engine_Trace = Find_Engine_Trace();
-
-										using Initialize_Ray_Type = void(__thiscall*)(Structure_Ray* Ray, float* Starting_Location, float* Ending_Location);
-
-										static void* Initialize_Ray_Location = Find_Initialize_Ray();
-
-										Structure_Ray Ray;
-
-										using Get_Eye_Position_Type = void(__thiscall*)(void* Creature, float Eye_Position[3]);
-
-										static void* Get_Eye_Position_Location = Find_Get_Eye_Position();
-
-										float Eye_Position[3];
-
-										Get_Eye_Position_Type((unsigned __int32)Get_Eye_Position_Location)(*(void**)Controlled_Creature_Container, Eye_Position);
-
-										static void* Get_Creature_In_World_Location_Location = Find_Get_Creature_In_World_Location_Location();
-
-										float* Controlled_Creature_In_World_Location = Get_Creature_In_World_Location_Type(Get_Creature_In_World_Location_Location)(*(void**)Controlled_Creature_Container);
-
-										float Ray_Starting_Location[3] =
-										{
-											Eye_Position[0],
-
-											Eye_Position[1],
-
-											Controlled_Creature_In_World_Location[2]
-										};
-
-										float Ray_Angle = 0;
-
-										float Ray_Ending_Location_Maximum_Distance = 16 + 16 * Strafe_Optimizer_Least_Allowed_Distance_To_Wall;
-
-										float Ray_Ending_Location[3];
-
-										Ray_Ending_Location[2] = Ray_Starting_Location[2];
-
-										Structure_Trace_Filter Trace_Filter;
-
-										static void* Trace_Filter_Table_Location = Find_Trace_Filter_Table();
-
-										Trace_Filter.Trace_Filter = Trace_Filter_Table_Location;
-
-										Structure_Trace Trace;
-
-										Global_Offensive_Trace_Ray_Label:
-										{
-											if (Ray_Angle != 360)
+											struct Structure_Ray
 											{
-												float View_Angles_Yaw_Direction = remainderf(Ray_Angle, 360) * (M_PI / 180);
+												__int8 Additional_Bytes[70];
+											};
 
-												Ray_Ending_Location[0] = Ray_Starting_Location[0] + cosf(View_Angles_Yaw_Direction) * Ray_Ending_Location_Maximum_Distance;
+											struct Structure_Trace_Filter
+											{
+												void* Trace_Filter;
+											};
 
-												Ray_Ending_Location[1] = Ray_Starting_Location[1] + sinf(View_Angles_Yaw_Direction) * Ray_Ending_Location_Maximum_Distance;
+											struct Structure_Trace
+											{
+												__int8 Additional_Bytes_1[12];
 
-												Initialize_Ray_Type((unsigned __int32)Initialize_Ray_Location)(&Ray, Ray_Starting_Location, Ray_Ending_Location);
+												float Ending_Location[3];
 
-												Trace_Ray_Type((unsigned __int32)Trace_Ray_Location)(Engine_Trace, &Ray, 33570827, &Trace_Filter, &Trace);
+												__int8 Additional_Bytes_2[60];
+											};
 
-												float Distance = sqrtf(powf(Ray_Starting_Location[0] - Trace.Ending_Location[0], 2) + powf(Ray_Starting_Location[1] - Trace.Ending_Location[1], 2));
+											using Trace_Ray_Type = void(__thiscall*)(void* Engine_Trace, Structure_Ray* Ray, __int32 Mask, Structure_Trace_Filter* Trace_Filter, Structure_Trace* Trace);
 
-												if (Distance > 16 * Strafe_Optimizer_Least_Allowed_Distance_To_Wall)
+											static void* Trace_Ray_Location = Find_Trace_Ray();
+
+											static void* Engine_Trace = Find_Engine_Trace();
+
+											using Initialize_Ray_Type = void(__thiscall*)(Structure_Ray* Ray, float* Starting_Location, float* Ending_Location);
+
+											static void* Initialize_Ray_Location = Find_Initialize_Ray();
+
+											Structure_Ray Ray;
+
+											using Get_Eye_Position_Type = void(__thiscall*)(void* Creature, float Eye_Position[3]);
+
+											static void* Get_Eye_Position_Location = Find_Get_Eye_Position();
+
+											float Eye_Position[3];
+
+											Get_Eye_Position_Type((unsigned __int32)Get_Eye_Position_Location)(*(void**)Controlled_Creature_Container, Eye_Position);
+
+											static void* Get_Creature_In_World_Location_Location = Find_Get_Creature_In_World_Location_Location();
+
+											float* Controlled_Creature_In_World_Location = Get_Creature_In_World_Location_Type(Get_Creature_In_World_Location_Location)(*(void**)Controlled_Creature_Container);
+
+											float Ray_Starting_Location[3] =
+											{
+												Eye_Position[0],
+
+												Eye_Position[1],
+
+												Controlled_Creature_In_World_Location[2]
+											};
+
+											float Ray_Angle = 0;
+
+											float Ray_Ending_Location_Maximum_Distance = 16 + Strafe_Optimizer_Least_Allowed_Distance_To_Wall;
+
+											float Ray_Ending_Location[3];
+
+											Ray_Ending_Location[2] = Ray_Starting_Location[2];
+
+											Structure_Trace_Filter Trace_Filter;
+
+											static void* Trace_Filter_Table_Location = Find_Trace_Filter_Table();
+
+											Trace_Filter.Trace_Filter = Trace_Filter_Table_Location;
+
+											Structure_Trace Trace;
+
+											Global_Offensive_Trace_Ray_Label:
+											{
+												if (Ray_Angle < 360)
 												{
-													Ray_Angle += 90;
+													float View_Angles_Yaw_Direction = remainderf(Ray_Angle, 360) * (M_PI / 180);
 
-													goto Global_Offensive_Trace_Ray_Label;
-												}
-												else
-												{
-													Optimization_Time = 0;
+													Ray_Ending_Location[0] = Ray_Starting_Location[0] + cosf(View_Angles_Yaw_Direction) * Ray_Ending_Location_Maximum_Distance;
 
-													goto Global_Offensive_Stop_Tracing_Ray_Label;
+													Ray_Ending_Location[1] = Ray_Starting_Location[1] + sinf(View_Angles_Yaw_Direction) * Ray_Ending_Location_Maximum_Distance;
+
+													Initialize_Ray_Type((unsigned __int32)Initialize_Ray_Location)(&Ray, Ray_Starting_Location, Ray_Ending_Location);
+
+													Trace_Ray_Type((unsigned __int32)Trace_Ray_Location)(Engine_Trace, &Ray, 33570827, &Trace_Filter, &Trace);
+
+													float Distance = sqrtf(powf(Ray_Starting_Location[0] - Trace.Ending_Location[0], 2) + powf(Ray_Starting_Location[1] - Trace.Ending_Location[1], 2));
+
+													if (Distance > Strafe_Optimizer_Least_Allowed_Distance_To_Wall)
+													{
+														Ray_Angle += Strafe_Optimizer_Ray_Angle_Step;
+
+														goto Global_Offensive_Trace_Ray_Label;
+													}
+													else
+													{
+														Optimization_Time = 0;
+
+														goto Global_Offensive_Stop_Tracing_Ray_Label;
+													}
 												}
 											}
-										}
 
-										Optimization_Time = 1;
+											Optimization_Time = 1;
 
-										Global_Offensive_Stop_Tracing_Ray_Label:
-										{
+											Global_Offensive_Stop_Tracing_Ray_Label:
+											{
 
+											}
 										}
 									}
 								}
