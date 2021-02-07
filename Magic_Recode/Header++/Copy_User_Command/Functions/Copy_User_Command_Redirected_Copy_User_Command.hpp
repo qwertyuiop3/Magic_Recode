@@ -29,47 +29,6 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 		if (__builtin_return_address(0) == Copy_User_Command_In_Create_Move_Return_Location)
 		{
-			auto Find_Controlled_Creature_Container = []() -> void*
-			{
-				if (Menu_Select::Game_Identifier == 0)
-				{
-					return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5007112);
-				}
-
-				unsigned __int8 Controlled_Creature_Container_Bytes[6] =
-				{
-					52,
-
-					83,
-
-					86,
-
-					87,
-
-					139,
-
-					61
-				};
-
-				return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Controlled_Creature_Container_Bytes), GetModuleHandleW(L"client.dll"), Controlled_Creature_Container_Bytes, 0) + 1);
-			};
-
-			using Get_Creature_In_World_Location_Type = float*(__thiscall*)(void* Creature);
-
-			static void* Controlled_Creature_Container = Find_Controlled_Creature_Container();
-
-			auto Find_Get_Creature_In_World_Location_Location = [&]() -> void*
-			{
-				if (Menu_Select::Game_Identifier == 0)
-				{
-					return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 601456);
-				}
-				else
-				{
-					return *(void**)(**(unsigned __int32**)Controlled_Creature_Container + 40);
-				}
-			};
-
 			auto Initialize_Previous_View_Angles_Y = [&]() -> float
 			{
 				if (Menu_Select::Game_Identifier == 0)
@@ -154,6 +113,31 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 				};
 
 				return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Engine_Bytes), GetModuleHandleW(L"engine.dll"), Engine_Bytes, 0) - 12);
+			};
+
+			auto Find_Controlled_Creature_Container = []() -> void*
+			{
+				if (Menu_Select::Game_Identifier == 0)
+				{
+					return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5007112);
+				}
+
+				unsigned __int8 Controlled_Creature_Container_Bytes[6] =
+				{
+					52,
+
+					83,
+
+					86,
+
+					87,
+
+					139,
+
+					61
+				};
+
+				return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Controlled_Creature_Container_Bytes), GetModuleHandleW(L"client.dll"), Controlled_Creature_Container_Bytes, 0) + 1);
 			};
 
 			if (Strafe_Optimizer_Optimize == 1)
@@ -376,6 +360,8 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 								Predict_Type((unsigned __int32)Predict_Location)(Prediction, Delta_Tick, Delta_Tick > 0, *(__int32*)Last_Command_Acknowledged_Container, *(__int32*)Last_Outgoing_Command_Container + *(__int32*)Choked_Commands_Container);
 
+								static void* Controlled_Creature_Container = Find_Controlled_Creature_Container();
+
 								Velocity = (float*)(*(unsigned __int32*)Controlled_Creature_Container + 244);
 
 								if (sqrtf(Velocity[0] * Velocity[0] + Velocity[1] * Velocity[1]) >= Strafe_Optimizer_Required_Speed)
@@ -431,17 +417,13 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 											Get_Eye_Position_Type((unsigned __int32)Get_Eye_Position_Location)(*(void**)Controlled_Creature_Container, Eye_Position);
 
-											static void* Get_Creature_In_World_Location_Location = Find_Get_Creature_In_World_Location_Location();
-
-											float* Controlled_Creature_In_World_Location = Get_Creature_In_World_Location_Type(Get_Creature_In_World_Location_Location)(*(void**)Controlled_Creature_Container);
-
 											float Ray_Starting_Location[3] =
 											{
 												Eye_Position[0],
 
 												Eye_Position[1],
 
-												Controlled_Creature_In_World_Location[2]
+												Eye_Position[2]
 											};
 
 											float Ray_Angle = 0;
@@ -541,6 +523,8 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 								Predict_Type((unsigned __int32)Predict_Location)(Prediction, Delta_Tick, Delta_Tick > 0, *(__int32*)Last_Command_Acknowledged_Container, *(__int32*)Last_Outgoing_Command_Container + *(__int32*)Choked_Commands_Container);
 
+								static void* Controlled_Creature_Container = Find_Controlled_Creature_Container();
+
 								Velocity = (float*)(*(unsigned __int32*)Controlled_Creature_Container + 276);
 
 								if (sqrtf(Velocity[0] * Velocity[0] + Velocity[1] * Velocity[1]) >= Strafe_Optimizer_Required_Speed)
@@ -596,17 +580,13 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 											Get_Eye_Position_Type((unsigned __int32)Get_Eye_Position_Location)(*(void**)Controlled_Creature_Container, Eye_Position);
 
-											static void* Get_Creature_In_World_Location_Location = Find_Get_Creature_In_World_Location_Location();
-
-											float* Controlled_Creature_In_World_Location = Get_Creature_In_World_Location_Type(Get_Creature_In_World_Location_Location)(*(void**)Controlled_Creature_Container);
-
 											float Ray_Starting_Location[3] =
 											{
 												Eye_Position[0],
 
 												Eye_Position[1],
 
-												Controlled_Creature_In_World_Location[2]
+												Eye_Position[2]
 											};
 
 											float Ray_Angle = 0;
@@ -1078,6 +1058,22 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 				if (Recorded_Route_Elements_Amount != Recorded_Route_Maximum_Elements_Amount)
 				{
+					using Get_Creature_In_World_Location_Type = float*(__thiscall*)(void* Creature);
+
+					static void* Controlled_Creature_Container = Find_Controlled_Creature_Container();
+
+					auto Find_Get_Creature_In_World_Location_Location = [&]() -> void*
+					{
+						if (Menu_Select::Game_Identifier == 0)
+						{
+							return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 601456);
+						}
+						else
+						{
+							return *(void**)(**(unsigned __int32**)Controlled_Creature_Container + 40);
+						}
+					};
+
 					static void* Get_Creature_In_World_Location_Location = Find_Get_Creature_In_World_Location_Location();
 
 					if (Recorded_Route_Elements_Amount == 0)
