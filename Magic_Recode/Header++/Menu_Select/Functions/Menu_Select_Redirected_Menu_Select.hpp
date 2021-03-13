@@ -10,7 +10,7 @@ void __cdecl Redirected_Menu_Select(void* Data)
 			{
 				return (char*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5195824);
 			}
-			
+
 			unsigned __int8 Menu_Name_Bytes[4] =
 			{
 				208,

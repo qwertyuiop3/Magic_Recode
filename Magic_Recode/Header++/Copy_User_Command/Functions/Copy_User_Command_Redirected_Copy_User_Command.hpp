@@ -29,6 +29,31 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 		if (__builtin_return_address(0) == Copy_User_Command_In_Create_Move_Return_Location)
 		{
+			auto Find_Controlled_Creature_Container = []() -> void*
+			{
+				if (Menu_Select::Game_Identifier == 0)
+				{
+					return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5007112);
+				}
+
+				unsigned __int8 Controlled_Creature_Container_Bytes[6] =
+				{
+					52,
+
+					83,
+
+					86,
+
+					87,
+
+					139,
+
+					61
+				};
+
+				return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Controlled_Creature_Container_Bytes), GetModuleHandleW(L"client.dll"), Controlled_Creature_Container_Bytes, 0) + 1);
+			};
+
 			auto Initialize_Previous_View_Angles_Y = [&]() -> float
 			{
 				if (Menu_Select::Game_Identifier == 0)
@@ -115,31 +140,6 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 				return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Engine_Bytes), GetModuleHandleW(L"engine.dll"), Engine_Bytes, 0) - 12);
 			};
 
-			auto Find_Controlled_Creature_Container = []() -> void*
-			{
-				if (Menu_Select::Game_Identifier == 0)
-				{
-					return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5007112);
-				}
-
-				unsigned __int8 Controlled_Creature_Container_Bytes[6] =
-				{
-					52,
-
-					83,
-
-					86,
-
-					87,
-
-					139,
-
-					61
-				};
-
-				return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Controlled_Creature_Container_Bytes), GetModuleHandleW(L"client.dll"), Controlled_Creature_Container_Bytes, 0) + 1);
-			};
-
 			if (Strafe_Optimizer_Optimize == 1)
 			{
 				if (Menu_Select::User_Commands_Recorder_Playback == 0)
@@ -175,7 +175,9 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 						return nullptr;
 					};
 
-					auto Find_Delta_Tick_Container = [](void* Prediction_Data) -> void*
+					static void* Prediction_Data = Find_Prediction_Data();
+
+					auto Find_Delta_Tick_Container = [&]() -> void*
 					{
 						if (Menu_Select::Game_Identifier == 0)
 						{
@@ -185,7 +187,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 						return (void*)((unsigned __int32)Prediction_Data + 372);
 					};
 
-					auto Find_Last_Command_Acknowledged_Container = [](void* Prediction_Data) -> void*
+					auto Find_Last_Command_Acknowledged_Container = [&]() -> void*
 					{
 						if (Menu_Select::Game_Identifier == 0)
 						{
@@ -195,7 +197,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 						return (void*)((unsigned __int32)Prediction_Data + 19764);
 					};
 
-					auto Find_Last_Outgoing_Command_Container = [](void* Prediction_Data) -> void*
+					auto Find_Last_Outgoing_Command_Container = [&]() -> void*
 					{
 						if (Menu_Select::Game_Identifier == 0)
 						{
@@ -205,7 +207,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 						return (void*)((unsigned __int32)Prediction_Data + 19756);
 					};
 
-					auto Find_Choked_Commands_Container = [](void* Prediction_Data) -> void*
+					auto Find_Choked_Commands_Container = [&]() -> void*
 					{
 						if (Menu_Select::Game_Identifier == 0)
 						{
@@ -344,17 +346,15 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 								static void* Predict_Location = *(void**)(*(unsigned __int32*)Prediction + 12);
 
-								static void* Prediction_Data = Find_Prediction_Data();
-
-								static void* Delta_Tick_Container = Find_Delta_Tick_Container(Prediction_Data);
+								static void* Delta_Tick_Container = Find_Delta_Tick_Container();
 
 								__int32 Delta_Tick = *(__int32*)Delta_Tick_Container;
 
-								static void* Last_Command_Acknowledged_Container = Find_Last_Command_Acknowledged_Container(Prediction_Data);
+								static void* Last_Command_Acknowledged_Container = Find_Last_Command_Acknowledged_Container();
 
-								static void* Last_Outgoing_Command_Container = Find_Last_Outgoing_Command_Container(Prediction_Data);
+								static void* Last_Outgoing_Command_Container = Find_Last_Outgoing_Command_Container();
 
-								static void* Choked_Commands_Container = Find_Choked_Commands_Container(Prediction_Data);
+								static void* Choked_Commands_Container = Find_Choked_Commands_Container();
 
 								using Predict_Type = void(__thiscall*)(void* Prediction, __int32 Delta_Tick, __int8 Valid, __int32 Last_Command_Acknowledged_Container, __int32 Command_Number);
 
@@ -507,17 +507,15 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 								static void* Predict_Location = *(void**)(*(unsigned __int32*)Prediction + 12);
 
-								static void* Prediction_Data = Find_Prediction_Data();
-
-								static void* Delta_Tick_Container = Find_Delta_Tick_Container(Prediction_Data);
+								static void* Delta_Tick_Container = Find_Delta_Tick_Container();
 
 								__int32 Delta_Tick = *(__int32*)Delta_Tick_Container;
 
-								static void* Last_Command_Acknowledged_Container = Find_Last_Command_Acknowledged_Container(Prediction_Data);
+								static void* Last_Command_Acknowledged_Container = Find_Last_Command_Acknowledged_Container();
 
-								static void* Last_Outgoing_Command_Container = Find_Last_Outgoing_Command_Container(Prediction_Data);
+								static void* Last_Outgoing_Command_Container = Find_Last_Outgoing_Command_Container();
 
-								static void* Choked_Commands_Container = Find_Choked_Commands_Container(Prediction_Data);
+								static void* Choked_Commands_Container = Find_Choked_Commands_Container();
 
 								using Predict_Type = void(__thiscall*)(void* Prediction, __int32 Delta_Tick, __int8 Valid, __int32 Last_Command_Acknowledged_Container, __int32 Command_Number);
 
