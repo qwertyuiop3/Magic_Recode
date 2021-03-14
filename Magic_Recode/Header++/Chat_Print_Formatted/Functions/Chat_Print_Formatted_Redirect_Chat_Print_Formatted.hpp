@@ -23,6 +23,6 @@ void Redirect_Chat_Print_Formatted(void* Client_Module_Location)
 			40
 		};
 
-		Redirection_Manager::Redirect_Function(Original_Chat_Print_Formatted_Caller_Location, 2, (void*)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Chat_Print_Formatted_Bytes), Client_Module_Location, Chat_Print_Formatted_Bytes, 0) - 168), (void*)Redirected_Chat_Print_Formatted_Global_Offensive);
+		Redirection_Manager::Redirect_Function(Original_Chat_Print_Formatted_Caller_Location, 2, (void*)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Chat_Print_Formatted_Bytes), Client_Module_Location, Chat_Print_Formatted_Bytes, 0) - 173), (void*)Redirected_Chat_Print_Formatted_Global_Offensive);
 	}
 }
