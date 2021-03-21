@@ -378,17 +378,17 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 										}
 										else
 										{
-											struct Structure_Ray
+											struct Ray_Structure
 											{
 												__int8 Additional_Bytes[66];
 											};
 
-											struct Structure_Trace_Filter
+											struct Trace_Filter_Structure
 											{
 												void* Trace_Filter;
 											};
 
-											struct Structure_Trace
+											struct Trace_Structure
 											{
 												__int8 Additional_Bytes_1[12];
 
@@ -397,17 +397,17 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 												__int8 Additional_Bytes_2[60];
 											};
 
-											using Trace_Ray_Type = void(__thiscall*)(void* Engine_Trace, Structure_Ray* Ray, __int32 Mask, Structure_Trace_Filter* Trace_Filter, Structure_Trace* Trace);
+											using Trace_Ray_Type = void(__thiscall*)(void* Engine_Trace, Ray_Structure* Ray, __int32 Mask, Trace_Filter_Structure* Trace_Filter, Trace_Structure* Trace);
 
 											static void* Trace_Ray_Location = Find_Trace_Ray();
 
 											static void* Engine_Trace = Find_Engine_Trace();
 
-											using Initialize_Ray_Type = void(__thiscall*)(Structure_Ray* Ray, float* Starting_Location, float* Ending_Location);
+											using Initialize_Ray_Type = void(__thiscall*)(Ray_Structure* Ray, float* Starting_Location, float* Ending_Location);
 
 											static void* Initialize_Ray_Location = Find_Initialize_Ray();
 
-											Structure_Ray Ray;
+											Ray_Structure Ray;
 
 											using Get_Eye_Position_Type = void(__thiscall*)(void* Creature, float Eye_Position[3]);
 
@@ -434,13 +434,13 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 											Ray_Ending_Location[2] = Ray_Starting_Location[2];
 
-											Structure_Trace_Filter Trace_Filter;
+											Trace_Filter_Structure Trace_Filter;
 
 											static void* Trace_Filter_Table_Location = Find_Trace_Filter_Table();
 
 											Trace_Filter.Trace_Filter = Trace_Filter_Table_Location;
 
-											Structure_Trace Trace;
+											Trace_Structure Trace;
 
 											Source_Trace_Ray_Label:
 											{
@@ -539,17 +539,17 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 										}
 										else
 										{
-											struct Structure_Ray
+											struct Ray_Structure
 											{
 												__int8 Additional_Bytes[70];
 											};
 
-											struct Structure_Trace_Filter
+											struct Trace_Filter_Structure
 											{
 												void* Trace_Filter;
 											};
 
-											struct Structure_Trace
+											struct Trace_Structure
 											{
 												__int8 Additional_Bytes_1[12];
 
@@ -558,17 +558,17 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 												__int8 Additional_Bytes_2[60];
 											};
 
-											using Trace_Ray_Type = void(__thiscall*)(void* Engine_Trace, Structure_Ray* Ray, __int32 Mask, Structure_Trace_Filter* Trace_Filter, Structure_Trace* Trace);
+											using Trace_Ray_Type = void(__thiscall*)(void* Engine_Trace, Ray_Structure* Ray, __int32 Mask, Trace_Filter_Structure* Trace_Filter, Trace_Structure* Trace);
 
 											static void* Trace_Ray_Location = Find_Trace_Ray();
 
 											static void* Engine_Trace = Find_Engine_Trace();
 
-											using Initialize_Ray_Type = void(__thiscall*)(Structure_Ray* Ray, float* Starting_Location, float* Ending_Location);
+											using Initialize_Ray_Type = void(__thiscall*)(Ray_Structure* Ray, float* Starting_Location, float* Ending_Location);
 
 											static void* Initialize_Ray_Location = Find_Initialize_Ray();
 
-											Structure_Ray Ray;
+											Ray_Structure Ray;
 
 											using Get_Eye_Position_Type = void(__thiscall*)(void* Creature, float Eye_Position[3]);
 
@@ -595,13 +595,13 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 											Ray_Ending_Location[2] = Ray_Starting_Location[2];
 
-											Structure_Trace_Filter Trace_Filter;
+											Trace_Filter_Structure Trace_Filter;
 
 											static void* Trace_Filter_Table_Location = Find_Trace_Filter_Table();
 
 											Trace_Filter.Trace_Filter = Trace_Filter_Table_Location;
 
-											Structure_Trace Trace;
+											Trace_Structure Trace;
 
 											Global_Offensive_Trace_Ray_Label:
 											{
