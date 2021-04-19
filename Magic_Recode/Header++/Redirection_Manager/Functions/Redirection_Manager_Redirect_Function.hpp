@@ -14,7 +14,7 @@ void Redirect_Function(void*& Original_Function_Caller_Location, unsigned __int3
 	{
 		if (Original_Function_Caller_Offset != Byte_Number)
 		{
-			*(unsigned __int8*)((unsigned __int32)Original_Function_Caller_Location + 6 + Byte_Number) = *(unsigned __int32*)((unsigned __int64)Original_Function_Location + 6 + Byte_Number);
+			*(unsigned __int8*)((unsigned __int32)Original_Function_Caller_Location + 6 + Byte_Number) = *(unsigned __int8*)((unsigned __int64)Original_Function_Location + 6 + Byte_Number);
 
 			Byte_Number += 1;
 
