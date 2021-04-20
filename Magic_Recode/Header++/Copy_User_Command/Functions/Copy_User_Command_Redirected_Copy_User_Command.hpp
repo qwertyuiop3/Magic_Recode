@@ -167,12 +167,21 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 					auto Find_Prediction_Data = []() -> void*
 					{
-						if (Menu_Select::Game_Identifier == 1)
+						if (Menu_Select::Game_Identifier == 0)
 						{
-							return *(void**)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 5828580);
+							return nullptr;
 						}
 
-						return nullptr;
+						unsigned __int8 Prediction_Data_Bytes[3] =
+						{
+							123,
+
+							21,
+
+							161
+						};
+
+						return **(void***)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Prediction_Data_Bytes), GetModuleHandleW(L"engine.dll"), Prediction_Data_Bytes, 0) + 1);
 					};
 
 					static void* Prediction_Data = Find_Prediction_Data();
