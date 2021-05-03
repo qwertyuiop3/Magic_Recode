@@ -45,6 +45,8 @@ Add_Library(
 
 	"imgui/imgui_widgets.cpp"
 
+	"imgui/imgui_tables.cpp"
+
 	"imgui/imgui_draw.cpp"
 
 	"imgui/backends/imgui_impl_dx9.cpp"
@@ -62,6 +64,10 @@ Target_Link_Libraries(
 	"Magic_Recode"
 
 	"gdi32"
+
+	"imm32"
+
+	"dwmapi"
 )
 
 Set_Target_Properties("Magic_Recode" PROPERTIES PREFIX "")
