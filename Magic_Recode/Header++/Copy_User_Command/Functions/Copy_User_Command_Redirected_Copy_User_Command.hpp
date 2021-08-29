@@ -489,6 +489,146 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 								{
 									Optimization_Time = 0;
 								}
+
+								if (Optimization_Time == 1)
+								{
+									float Strafe_Angle = remainderf(User_Command->View_Angles[1] - atan2f(Velocity[1], Velocity[0]) * 180 / M_PI, 360) * Strafe_Optimizer_Desired_Gain / 100;
+
+									auto Find_Mouse_Sensitivity_Container = [&]() -> void*
+									{
+										if (Menu_Select::Game_Identifier == 0)
+										{
+											return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5193604);
+										}
+
+										unsigned __int8 Mouse_Sensitivity_Bytes[8] =
+										{
+											12,
+
+											243,
+
+											15,
+
+											17,
+
+											68,
+
+											36,
+
+											12,
+
+											139
+										};
+
+										return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Mouse_Sensitivity_Bytes), GetModuleHandleW(L"client.dll"), Mouse_Sensitivity_Bytes, 0) - 33);
+									};
+
+									static void* Mouse_Sensitivity_Container = Find_Mouse_Sensitivity_Container();
+
+									float Mouse_Sensitivity;
+
+									auto Find_Mouse_Yaw_Factor_Container = [&]() -> void*
+									{
+										if (Menu_Select::Game_Identifier == 0)
+										{
+											return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5193388);
+										}
+
+										unsigned __int8 Mouse_Yaw_Factor_Bytes[11] =
+										{
+											12,
+
+											243,
+
+											15,
+
+											16,
+
+											77,
+
+											12,
+
+											243,
+
+											15,
+
+											89,
+
+											77,
+
+											20
+										};
+
+										return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Mouse_Yaw_Factor_Bytes), GetModuleHandleW(L"client.dll"), Mouse_Yaw_Factor_Bytes, 0) - 25);
+									};
+
+									static void* Mouse_Yaw_Factor_Container = Find_Mouse_Yaw_Factor_Container();
+
+									float Mouse_Yaw_Step;
+
+									if (Menu_Select::Game_Identifier == 0)
+									{
+										Mouse_Sensitivity = *(float*)Mouse_Sensitivity_Container;
+
+										Mouse_Yaw_Step = Mouse_Sensitivity * *(float*)Mouse_Yaw_Factor_Container;
+									}
+									else
+									{
+										unsigned __int32 Raw_Mouse_Sensitivity = *(unsigned __int32*)((unsigned __int32)Mouse_Sensitivity_Container + 44) ^ (unsigned __int32)Mouse_Sensitivity_Container;
+
+										Mouse_Sensitivity = *(float*)&Raw_Mouse_Sensitivity;
+
+										unsigned __int32 Raw_Mouse_Yaw_Factor = *(unsigned __int32*)((unsigned __int32)Mouse_Yaw_Factor_Container + 44) ^ (unsigned __int32)Mouse_Yaw_Factor_Container;
+
+										Mouse_Yaw_Step = Mouse_Sensitivity * *(float*)&Raw_Mouse_Yaw_Factor;
+									}
+
+									if (User_Command->Move[1] < 0)
+									{
+										if (Previous_View_Angles_Y - User_Command->View_Angles[1] < 0)
+										{
+											if (Strafe_Angle < -Mouse_Yaw_Step)
+											{
+												if (Strafe_Angle < -Strafe_Optimizer_Greatest_Possible_Strafe_Angle)
+												{
+													Strafe_Angle = -Strafe_Optimizer_Greatest_Possible_Strafe_Angle;
+												}
+
+												Previous_View_Angles_Y = User_Command->View_Angles[1];
+
+												User_Command->View_Angles[1] = remainderf(User_Command->View_Angles[1] - Mouse_Yaw_Step * roundf(Strafe_Angle / Mouse_Yaw_Step), 360);
+
+												User_Command->Mouse_Difference_X = (__int16)(Mouse_Sensitivity * ceilf(remainderf(Previous_View_Angles_Y - User_Command->View_Angles[1], 360) / sqrtf(Mouse_Yaw_Step)));
+
+												Set_View_Angles_Type((unsigned __int32)Set_View_Angles_Location)(Engine, User_Command->View_Angles);
+											}
+										}
+									}
+									else
+									{
+										if (User_Command->Move[1] > 0)
+										{
+											if (Previous_View_Angles_Y - User_Command->View_Angles[1] > 0)
+											{
+												if (Strafe_Angle > Mouse_Yaw_Step)
+												{
+													if (Strafe_Angle > Strafe_Optimizer_Greatest_Possible_Strafe_Angle)
+													{
+														Strafe_Angle = Strafe_Optimizer_Greatest_Possible_Strafe_Angle;
+													}
+
+													Previous_View_Angles_Y = User_Command->View_Angles[1];
+
+													User_Command->View_Angles[1] = remainderf(User_Command->View_Angles[1] - Mouse_Yaw_Step * roundf(Strafe_Angle / Mouse_Yaw_Step), 360);
+
+													User_Command->Mouse_Difference_X = (__int16)(Mouse_Sensitivity * ceilf(remainderf(Previous_View_Angles_Y - User_Command->View_Angles[1], 360) / sqrtf(Mouse_Yaw_Step)));
+
+													Set_View_Angles_Type((unsigned __int32)Set_View_Angles_Location)(Engine, User_Command->View_Angles);
+												}
+											}
+										}
+									}
+								}
 							}
 							else
 							{
@@ -498,146 +638,6 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 						else
 						{
 							Optimization_Time = 0;
-						}
-
-						if (Optimization_Time == 1)
-						{
-							float Strafe_Angle = remainderf(User_Command->View_Angles[1] - atan2f(Velocity[1], Velocity[0]) * 180 / M_PI, 360) * Strafe_Optimizer_Desired_Gain / 100;
-
-							auto Find_Mouse_Sensitivity_Container = [&]() -> void*
-							{
-								if (Menu_Select::Game_Identifier == 0)
-								{
-									return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5193604);
-								}
-
-								unsigned __int8 Mouse_Sensitivity_Bytes[8] =
-								{
-									12,
-
-									243,
-
-									15,
-
-									17,
-
-									68,
-
-									36,
-
-									12,
-
-									139
-								};
-
-								return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Mouse_Sensitivity_Bytes), GetModuleHandleW(L"client.dll"), Mouse_Sensitivity_Bytes, 0) - 33);
-							};
-
-							static void* Mouse_Sensitivity_Container = Find_Mouse_Sensitivity_Container();
-
-							float Mouse_Sensitivity;
-
-							auto Find_Mouse_Yaw_Factor_Container = [&]() -> void*
-							{
-								if (Menu_Select::Game_Identifier == 0)
-								{
-									return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5193388);
-								}
-
-								unsigned __int8 Mouse_Yaw_Factor_Bytes[11] =
-								{
-									12,
-
-									243,
-
-									15,
-
-									16,
-
-									77,
-
-									12,
-
-									243,
-
-									15,
-
-									89,
-
-									77,
-
-									20
-								};
-
-								return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Mouse_Yaw_Factor_Bytes), GetModuleHandleW(L"client.dll"), Mouse_Yaw_Factor_Bytes, 0) - 25);
-							};
-
-							static void* Mouse_Yaw_Factor_Container = Find_Mouse_Yaw_Factor_Container();
-
-							float Mouse_Yaw_Step;
-
-							if (Menu_Select::Game_Identifier == 0)
-							{
-								Mouse_Sensitivity = *(float*)Mouse_Sensitivity_Container;
-
-								Mouse_Yaw_Step = Mouse_Sensitivity * *(float*)Mouse_Yaw_Factor_Container;
-							}
-							else
-							{
-								unsigned __int32 Raw_Mouse_Sensitivity = *(unsigned __int32*)((unsigned __int32)Mouse_Sensitivity_Container + 44) ^ (unsigned __int32)Mouse_Sensitivity_Container;
-
-								Mouse_Sensitivity = *(float*)&Raw_Mouse_Sensitivity;
-
-								unsigned __int32 Raw_Mouse_Yaw_Factor = *(unsigned __int32*)((unsigned __int32)Mouse_Yaw_Factor_Container + 44) ^ (unsigned __int32)Mouse_Yaw_Factor_Container;
-
-								Mouse_Yaw_Step = Mouse_Sensitivity * *(float*)&Raw_Mouse_Yaw_Factor;
-							}
-
-							if (User_Command->Move[1] < 0)
-							{
-								if (Previous_View_Angles_Y - User_Command->View_Angles[1] < 0)
-								{
-									if (Strafe_Angle < -Mouse_Yaw_Step)
-									{
-										if (Strafe_Angle < -Strafe_Optimizer_Greatest_Possible_Strafe_Angle)
-										{
-											Strafe_Angle = -Strafe_Optimizer_Greatest_Possible_Strafe_Angle;
-										}
-
-										Previous_View_Angles_Y = User_Command->View_Angles[1];
-
-										User_Command->View_Angles[1] = remainderf(User_Command->View_Angles[1] - Mouse_Yaw_Step * roundf(Strafe_Angle / Mouse_Yaw_Step), 360);
-
-										User_Command->Mouse_Difference_X = (__int16)(Mouse_Sensitivity * ceilf(remainderf(Previous_View_Angles_Y - User_Command->View_Angles[1], 360) / sqrtf(Mouse_Yaw_Step)));
-
-										Set_View_Angles_Type((unsigned __int32)Set_View_Angles_Location)(Engine, User_Command->View_Angles);
-									}
-								}
-							}
-							else
-							{
-								if (User_Command->Move[1] > 0)
-								{
-									if (Previous_View_Angles_Y - User_Command->View_Angles[1] > 0)
-									{
-										if (Strafe_Angle > Mouse_Yaw_Step)
-										{
-											if (Strafe_Angle > Strafe_Optimizer_Greatest_Possible_Strafe_Angle)
-											{
-												Strafe_Angle = Strafe_Optimizer_Greatest_Possible_Strafe_Angle;
-											}
-
-											Previous_View_Angles_Y = User_Command->View_Angles[1];
-
-											User_Command->View_Angles[1] = remainderf(User_Command->View_Angles[1] - Mouse_Yaw_Step * roundf(Strafe_Angle / Mouse_Yaw_Step), 360);
-
-											User_Command->Mouse_Difference_X = (__int16)(Mouse_Sensitivity * ceilf(remainderf(Previous_View_Angles_Y - User_Command->View_Angles[1], 360) / sqrtf(Mouse_Yaw_Step)));
-
-											Set_View_Angles_Type((unsigned __int32)Set_View_Angles_Location)(Engine, User_Command->View_Angles);
-										}
-									}
-								}
-							}
 						}
 					}
 				}
