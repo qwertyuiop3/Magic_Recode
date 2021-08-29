@@ -4,7 +4,7 @@ void __cdecl Redirected_Menu_Select(void* Data)
 {
 	auto Handle_Menu_Select = [&]() -> void
 	{
-		auto Find_Menu_Name = []() -> char*
+		auto Find_Menu_Name = [&]() -> char*
 		{
 			if (Game_Identifier == 0)
 			{

@@ -8,7 +8,7 @@ void Initialize_Copy_User_Command()
 
 	Strafe_Optimizer_Least_Allowed_Distance_To_Wall = 0;
 
-	Strafe_Optimizer_Ray_Angle_Step_Length = 0;
+	Strafe_Optimizer_Ray_Angle_Step_Offset = 1;
 
 	Strafe_Optimizer_Desired_Gain = 0;
 

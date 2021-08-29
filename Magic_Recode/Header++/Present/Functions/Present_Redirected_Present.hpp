@@ -8,7 +8,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 		if (Recorded_Route_Elements_Amount > Visuals_Recorded_Route_Step_Length)
 		{
-			auto Find_View_Matrix_Location = []() -> float*
+			auto Find_View_Matrix_Location = [&]() -> float*
 			{
 				if (Menu_Select::Game_Identifier == 0)
 				{
@@ -45,29 +45,13 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 			{
 				float W = In_World_Location[0] * View_Matrix_Location[12] + View_Matrix_Location[13] * In_World_Location[1] + View_Matrix_Location[14] * In_World_Location[2] + View_Matrix_Location[15];
 
-				if (W >= FLT_MIN)
+				if (W != 0)
 				{
-					float X = 0.5f * ((View_Matrix_Location[0] * In_World_Location[0] + View_Matrix_Location[1] * In_World_Location[1] + View_Matrix_Location[2] * In_World_Location[2] + View_Matrix_Location[3]) / W) * Screen_Width + 0.5f * Screen_Width;
+						On_Screen_Location[0] = 0.5f * ((View_Matrix_Location[0] * In_World_Location[0] + View_Matrix_Location[1] * In_World_Location[1] + View_Matrix_Location[2] * In_World_Location[2] + View_Matrix_Location[3]) / W) * Screen_Width + 0.5f * Screen_Width;
 
-					if (X >= 0)
-					{
-						if (X <= Screen_Width)
-						{
-							float Y = -0.5f * ((View_Matrix_Location[4] * In_World_Location[0] + View_Matrix_Location[5] * In_World_Location[1] + View_Matrix_Location[6] * In_World_Location[2] + View_Matrix_Location[7]) / W) * Screen_Height + 0.5f * Screen_Height;
+						On_Screen_Location[1] = -0.5f * ((View_Matrix_Location[4] * In_World_Location[0] + View_Matrix_Location[5] * In_World_Location[1] + View_Matrix_Location[6] * In_World_Location[2] + View_Matrix_Location[7]) / W) * Screen_Height + 0.5f * Screen_Height;
 
-							if (Y >= 0)
-							{
-								if (Y <= Screen_Height)
-								{
-									On_Screen_Location[0] = X;
-
-									On_Screen_Location[1] = Y;
-
-									return 1;
-								}
-							}
-						}
-					}
+						return 1;
 				}
 
 				return 0;
@@ -313,17 +297,17 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 				}
 			}
 
-			if (ImGui::DragScalar("Ray Angle Step", ImGuiDataType_Float, &Copy_User_Command::Strafe_Optimizer_Ray_Angle_Step_Length, 1, nullptr, nullptr, "%.7f") == 1)
+			if (ImGui::DragScalar("Ray Angle Step Offset", ImGuiDataType_Float, &Copy_User_Command::Strafe_Optimizer_Ray_Angle_Step_Offset, 1, nullptr, nullptr, "%.7f") == 1)
 			{
-				if (Copy_User_Command::Strafe_Optimizer_Ray_Angle_Step_Length < 0)
+				if (Copy_User_Command::Strafe_Optimizer_Ray_Angle_Step_Offset < 1)
 				{
-					Copy_User_Command::Strafe_Optimizer_Ray_Angle_Step_Length = 0;
+					Copy_User_Command::Strafe_Optimizer_Ray_Angle_Step_Offset = 1;
 				}
 				else
 				{
-					if (Copy_User_Command::Strafe_Optimizer_Ray_Angle_Step_Length > 180)
+					if (Copy_User_Command::Strafe_Optimizer_Ray_Angle_Step_Offset > 180)
 					{
-						Copy_User_Command::Strafe_Optimizer_Ray_Angle_Step_Length = 180;
+						Copy_User_Command::Strafe_Optimizer_Ray_Angle_Step_Offset = 180;
 					}
 				}
 			}
@@ -368,7 +352,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 			ImGui::TreePop();
 		}
 
-		auto Find_Map_Name = []() -> wchar_t*
+		auto Find_Map_Name = [&]() -> wchar_t*
 		{
 			if (Menu_Select::Game_Identifier == 0)
 			{
@@ -411,7 +395,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 		*(__int16*)((unsigned __int32)Adjusted_Map_Name + Map_Name_Length + 4) = 0;
 
-		auto File_Number_Editor = []()
+		auto File_Number_Editor = [&]()
 		{
 			if (ImGui::DragScalar("File Number", ImGuiDataType_S8, &File_Number, 1, nullptr, nullptr, "%i") == 1)
 			{
@@ -667,7 +651,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 			if (ImGui::Checkbox("Continue Jumping If Jump Button Held", (bool*)&Visuals_Physics_Continue_Jumping_If_Jump_Button_Held) == 1)
 			{
-				auto Find_Previous_Buttons_In_Jump_Check_Location = []() -> void*
+				auto Find_Previous_Buttons_In_Jump_Check_Location = [&]() -> void*
 				{
 					if (Menu_Select::Game_Identifier == 0)
 					{
@@ -739,9 +723,9 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 		ImGui::End();
 
-		ImGui::GetIO().MouseDrawCursor = 1;
-
 		Direct_3_Dimensional_Device_9->SetRenderState(D3DRS_SRGBWRITEENABLE, 0);
+
+		ImGui::GetIO().MouseDrawCursor = 1;
 
 		ImGui::Render();
 
