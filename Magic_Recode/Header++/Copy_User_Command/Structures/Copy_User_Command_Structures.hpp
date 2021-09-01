@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Copy_User_Command_Dynamic_Allocator_Structure.hpp"
+
 #include "Copy_User_Command_Compressed_User_Command_Structure.hpp"
 
 #include "Copy_User_Command_Source_User_Command_Structure.hpp"
