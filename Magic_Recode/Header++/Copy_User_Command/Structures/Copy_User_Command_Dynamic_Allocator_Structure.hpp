@@ -10,7 +10,9 @@ template <typename Dynamic_Allocator_Type, unsigned __int32 Reserve> struct Dyna
 
 	void Initialize()
 	{
-		Allocations_Size = sizeof(Dynamic_Allocator_Type) * Reserve;
+		Allocation_Size = sizeof(Dynamic_Allocator_Type);
+
+		Allocations_Size = Allocation_Size * Reserve;
 
 		Allocator = malloc(Allocations_Size);
 
@@ -24,7 +26,7 @@ template <typename Dynamic_Allocator_Type, unsigned __int32 Reserve> struct Dyna
 
 	void Preallocate(unsigned __int32 Preallocations_Size)
 	{
-		Allocator = realloc(Allocator, Preallocations_Size * sizeof(Dynamic_Allocator_Type));
+		Allocator = realloc(Allocator, Preallocations_Size * Allocation_Size);
 	}
 
 	void Append(Dynamic_Allocator_Type* Value)
