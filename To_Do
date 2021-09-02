@@ -1,4 +1,4 @@
-Dynamic Memory Allocator [ ? ]
+Dynamic Memory Allocator [ % ]
 
 Advanced Vector Extensions [ - ]
 
@@ -7,5 +7,7 @@ Smaller Code -> Template [ + ]
 Normalized Device Coordinates [ - ]
 
 Store Lines Into Texture [ ? ]
+
+Accurate Definitions ( Count, Number, Value, Amount ) [ ? ]
 
 Update [ ? ]

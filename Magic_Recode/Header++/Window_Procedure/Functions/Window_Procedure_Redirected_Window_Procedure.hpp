@@ -76,7 +76,9 @@ unsigned __int32 __stdcall Redirected_Window_Procedure(HWND Window_Handle, unsig
 
 						if (Copy_User_Command::Route_Recorder_Record == 1)
 						{
-							Copy_User_Command::Recorded_Route.clear();
+							Copy_User_Command::Recorded_Route_Alternative.Free();
+
+							Copy_User_Command::Recorded_Route_Alternative.Initialize();
 						}
 					}
 				}

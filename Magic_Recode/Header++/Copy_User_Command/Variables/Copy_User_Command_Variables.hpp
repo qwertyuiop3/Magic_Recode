@@ -18,6 +18,6 @@ unsigned __int32 Recorder_User_Comamand_Number;
 
 __int8 Route_Recorder_Record;
 
-std::vector<Route_Structure> Recorded_Route;
+Dynamic_Allocator_Structure<Route_Structure, 100> Recorded_Route_Alternative;
 
 void* Original_Copy_User_Command_Caller_Location;

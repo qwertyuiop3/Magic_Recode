@@ -20,5 +20,5 @@ void Initialize_Copy_User_Command()
 
 	Route_Recorder_Record = 0;
 
-	Recorded_Route.clear();
+	Recorded_Route_Alternative.Initialize();
 }

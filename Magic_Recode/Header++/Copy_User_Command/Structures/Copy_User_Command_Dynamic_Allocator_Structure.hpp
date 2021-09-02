@@ -1,18 +1,16 @@
-template <typename Dynamic_Allocator_Type, size_t Reserve> struct Dynamic_Allocator_Structure
+template <typename Dynamic_Allocator_Type, unsigned __int32 Reserve> struct Dynamic_Allocator_Structure
 {
-	size_t Allocation_Size;
+	unsigned __int32 Allocation_Size;
 
-	size_t Allocations_Size;
+	unsigned __int32 Allocations_Size;
 
 	void* Allocator;
 
-	size_t Allocations;
+	unsigned __int32 Allocations;
 
 	void Initialize()
 	{
-		Allocation_Size = sizeof(Dynamic_Allocator_Type);
-
-		Allocations_Size = Allocation_Size * Reserve;
+		Allocations_Size = sizeof(Dynamic_Allocator_Type) * Reserve;
 
 		Allocator = malloc(Allocations_Size);
 
@@ -24,6 +22,11 @@ template <typename Dynamic_Allocator_Type, size_t Reserve> struct Dynamic_Alloca
 		Allocations = 0;
 	}
 
+	void Preallocate(unsigned __int32 Preallocations_Size)
+	{
+		Allocator = realloc(Allocator, Preallocations_Size * sizeof(Dynamic_Allocator_Type));
+	}
+
 	void Append(Dynamic_Allocator_Type* Value)
 	{
 		if (Allocation_Size * Allocations >= Allocations_Size)
@@ -33,20 +36,18 @@ template <typename Dynamic_Allocator_Type, size_t Reserve> struct Dynamic_Alloca
 			Allocator = realloc(Allocator, Allocations_Size);
 		}
 
-		memcpy((void*)((unsigned __int64)Allocator + Allocation_Size * Allocations), Value, Allocation_Size);
+		memcpy((void*)((unsigned __int32)Allocator + Allocation_Size * Allocations), Value, Allocation_Size);
 
 		Allocations += 1;
 	}
 
-	Dynamic_Allocator_Type* Read(size_t Number)
+	Dynamic_Allocator_Type* Read(unsigned __int32 Number)
 	{
-		return (Dynamic_Allocator_Type*)((unsigned __int64)Allocator + Allocation_Size * Number);
+		return (Dynamic_Allocator_Type*)((unsigned __int32)Allocator + Allocation_Size * Number);
 	}
 
 	void Free()
 	{
-		using Free_Type = void(__cdecl*)(void* Block);
-
 		free(Allocator);
 	}
 };

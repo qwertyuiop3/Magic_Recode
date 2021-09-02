@@ -740,61 +740,38 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 			if (Route_Recorder_Record == 1)
 			{
-				unsigned __int32 Recorded_Route_Elements_Amount = Recorded_Route.size();
+				unsigned __int32 Recorded_Route_Elements_Amount = Recorded_Route_Alternative.Allocations;
 
-				static unsigned __int32 Recorded_Route_Maximum_Elements_Amount = Recorded_Route.max_size();
+				using Get_Creature_In_World_Location_Type = float*(__thiscall*)(void* Creature);
 
-				if (Recorded_Route_Elements_Amount != Recorded_Route_Maximum_Elements_Amount)
+				auto Find_Get_Creature_In_World_Location_Location = [&]() -> void*
 				{
-					using Get_Creature_In_World_Location_Type = float*(__thiscall*)(void* Creature);
-
-					auto Find_Get_Creature_In_World_Location_Location = [&]() -> void*
+					if (Menu_Select::Game_Identifier == 0)
 					{
-						if (Menu_Select::Game_Identifier == 0)
-						{
-							return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 601456);
-						}
-						else
-						{
-							return *(void**)(**(unsigned __int32**)Controlled_Creature_Container + 40);
-						}
-					};
-
-					static void* Get_Creature_In_World_Location_Location = Find_Get_Creature_In_World_Location_Location();
-
-					if (Recorded_Route_Elements_Amount == 0)
-					{
-						Recorded_Route.push_back(*(Route_Structure*)Get_Creature_In_World_Location_Type(Get_Creature_In_World_Location_Location)(*(void**)Controlled_Creature_Container));
+						return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 601456);
 					}
 					else
 					{
-						float* Creature_Location = Get_Creature_In_World_Location_Type(Get_Creature_In_World_Location_Location)(*(void**)Controlled_Creature_Container);
-
-						float* Previous_Creature_Location = Recorded_Route.at(Recorded_Route_Elements_Amount - 1).Location;
-
-						if (Creature_Location[0] != Previous_Creature_Location[0])
-						{
-							Recorded_Route.push_back(*(Route_Structure*)Creature_Location);
-						}
-						else
-						{
-							if (Creature_Location[1] != Previous_Creature_Location[1])
-							{
-								Recorded_Route.push_back(*(Route_Structure*)Creature_Location);
-							}
-							else
-							{
-								if (Creature_Location[2] != Previous_Creature_Location[2])
-								{
-									Recorded_Route.push_back(*(Route_Structure*)Creature_Location);
-								}
-							}
-						}
+						return *(void**)(**(unsigned __int32**)Controlled_Creature_Container + 40);
 					}
+				};
+
+				static void* Get_Creature_In_World_Location_Location = Find_Get_Creature_In_World_Location_Location();
+
+				if (Recorded_Route_Elements_Amount == 0)
+				{
+					Recorded_Route_Alternative.Append((Route_Structure*)Get_Creature_In_World_Location_Type(Get_Creature_In_World_Location_Location)(*(void**)Controlled_Creature_Container));
 				}
 				else
 				{
-					Route_Recorder_Record = 0;
+					float* Creature_Location = Get_Creature_In_World_Location_Type(Get_Creature_In_World_Location_Location)(*(void**)Controlled_Creature_Container);
+
+					float* Previous_Creature_Location = Recorded_Route_Alternative.Read(Recorded_Route_Elements_Amount - 1)->Location;
+
+					if (Creature_Location[0] + Creature_Location[1] + Creature_Location[2] != Previous_Creature_Location[0] + Previous_Creature_Location[1] + Previous_Creature_Location[2])
+					{
+						Recorded_Route_Alternative.Append((Route_Structure*)Creature_Location);
+					}
 				}
 			}
 		}
