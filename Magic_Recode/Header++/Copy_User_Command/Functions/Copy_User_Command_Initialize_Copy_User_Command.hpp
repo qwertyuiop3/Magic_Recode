@@ -14,11 +14,11 @@ void Initialize_Copy_User_Command()
 
 	Strafe_Optimizer_Greatest_Possible_Strafe_Angle = 0;
 
-	Recorded_User_Commands.clear();
+	Recorded_User_Commands.Initialize();
 
 	Recorder_User_Comamand_Number = 0;
 
 	Route_Recorder_Record = 0;
 
-	Recorded_Route_Alternative.Initialize();
+	Recorded_Route.Initialize();
 }

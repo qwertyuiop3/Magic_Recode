@@ -36,13 +36,13 @@ unsigned __int32 __stdcall Redirected_Window_Procedure(HWND Window_Handle, unsig
 					{
 						if (Menu_Select::User_Commands_Recorder_Playback == 0)
 						{
-							Copy_User_Command::Recorded_User_Commands.clear();
+							Copy_User_Command::Recorded_User_Commands.Clear();
 						}
 						else
 						{
 							Menu_Select::User_Commands_Recorder_Playback = 0;
 
-							Copy_User_Command::Recorded_User_Commands.resize(Copy_User_Command::Recorder_User_Comamand_Number);
+							Copy_User_Command::Recorded_User_Commands.Reallocate(Copy_User_Command::Recorder_User_Comamand_Number);
 						}
 					}
 				}
@@ -52,7 +52,7 @@ unsigned __int32 __stdcall Redirected_Window_Procedure(HWND Window_Handle, unsig
 
 			if (Menu_Select::User_Commands_Recorder_Record == 0)
 			{
-				if (Copy_User_Command::Recorded_User_Commands.empty() == 0)
+				if (Copy_User_Command::Recorded_User_Commands.Allocations == 0)
 				{
 					if (Parameter_1 == User_Commands_Recorder_Playback_Bound_To)
 					{
@@ -76,9 +76,7 @@ unsigned __int32 __stdcall Redirected_Window_Procedure(HWND Window_Handle, unsig
 
 						if (Copy_User_Command::Route_Recorder_Record == 1)
 						{
-							Copy_User_Command::Recorded_Route_Alternative.Free();
-
-							Copy_User_Command::Recorded_Route_Alternative.Initialize();
+							Copy_User_Command::Recorded_Route.Clear();
 						}
 					}
 				}

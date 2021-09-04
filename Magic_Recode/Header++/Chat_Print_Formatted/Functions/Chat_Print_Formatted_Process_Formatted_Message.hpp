@@ -12,7 +12,7 @@ void Process_Formatted_Message(char* Formatted_Message)
 			{
 				Menu_Select::Freeze_Controlled_Creature = 2;
 
-				Recorder_User_Comamand_Number_History.push_back(Copy_User_Command::Recorder_User_Comamand_Number);
+				Recorder_User_Comamand_Number_History.Append(&Copy_User_Command::Recorder_User_Comamand_Number);
 
 				Recorder_User_Comamand_Number_History_Number = Recorder_User_Comamand_Number_Greatest_History_Number;
 
@@ -42,11 +42,11 @@ void Process_Formatted_Message(char* Formatted_Message)
 						{
 							Menu_Select::Freeze_Controlled_Creature = 2;
 
-							unsigned __int32 Future_Recorder_User_Comamand_Number = Recorder_User_Comamand_Number_History.at(Recorder_User_Comamand_Number_History_Number);
+							unsigned __int32 Future_Recorder_User_Comamand_Number = *(unsigned __int32*)Recorder_User_Comamand_Number_History.Read(Recorder_User_Comamand_Number_History_Number);
 
 							if (Menu_Select::User_Commands_Recorder_Record == 1)
 							{
-								Copy_User_Command::Recorded_User_Commands.resize(Future_Recorder_User_Comamand_Number);
+								Copy_User_Command::Recorded_User_Commands.Reallocate(Future_Recorder_User_Comamand_Number);
 							}
 
 							Copy_User_Command::Recorder_User_Comamand_Number = Future_Recorder_User_Comamand_Number;
@@ -82,12 +82,12 @@ void Process_Formatted_Message(char* Formatted_Message)
 			{
 				if (Menu_Select::User_Commands_Recorder_Record == 1)
 				{
-					Copy_User_Command::Recorded_User_Commands.clear();
+					Copy_User_Command::Recorded_User_Commands.Clear();
 
 					Copy_User_Command::Recorder_User_Comamand_Number = 0;
 				}
 
-				Recorder_User_Comamand_Number_History.clear();
+				Recorder_User_Comamand_Number_History.Clear();
 
 				Recorder_User_Comamand_Number_History_Number = 0;
 

@@ -10,8 +10,6 @@
 
 #include "Controller_Move.hpp"
 
-#include <vector>
-
 #include <cmath>
 
 #include "Copy_User_Command.hpp"

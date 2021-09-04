@@ -652,31 +652,31 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 					}
 					else
 					{
-						if (Recorder_User_Comamand_Number != Recorded_User_Commands.size())
+						if (Recorder_User_Comamand_Number != Recorded_User_Commands.Allocations)
 						{
-							Compressed_User_Command_Structure Recorded_User_Command = Recorded_User_Commands.at(Recorder_User_Comamand_Number);
+							Compressed_User_Command_Structure* Recorded_User_Command = Recorded_User_Commands.Read(Recorder_User_Comamand_Number);
 
-							User_Command->View_Angles[0] = Recorded_User_Command.View_Angles[0];
+							User_Command->View_Angles[0] = Recorded_User_Command->View_Angles[0];
 
-							User_Command->View_Angles[1] = Recorded_User_Command.View_Angles[1];
+							User_Command->View_Angles[1] = Recorded_User_Command->View_Angles[1];
 
-							User_Command->View_Angles[2] = Recorded_User_Command.View_Angles[2];
+							User_Command->View_Angles[2] = Recorded_User_Command->View_Angles[2];
 
 							Set_View_Angles_Type((unsigned __int32)Set_View_Angles_Location)(Engine, User_Command->View_Angles);
 
-							User_Command->Move[0] = Recorded_User_Command.Move[0];
+							User_Command->Move[0] = Recorded_User_Command->Move[0];
 
-							User_Command->Move[1] = Recorded_User_Command.Move[1];
+							User_Command->Move[1] = Recorded_User_Command->Move[1];
 
-							User_Command->Move[2] = Recorded_User_Command.Move[2];
+							User_Command->Move[2] = Recorded_User_Command->Move[2];
 
-							User_Command->Buttons_State = Recorded_User_Command.Buttons_State;
+							User_Command->Buttons_State = Recorded_User_Command->Buttons_State;
 
-							User_Command->Impulse = Recorded_User_Command.Impulse;
+							User_Command->Impulse = Recorded_User_Command->Impulse;
 
-							User_Command->Mouse_Difference_X = Recorded_User_Command.Mouse_Difference_X;
+							User_Command->Mouse_Difference_X = Recorded_User_Command->Mouse_Difference_X;
 
-							User_Command->Mouse_Difference_Y = Recorded_User_Command.Mouse_Difference_Y;
+							User_Command->Mouse_Difference_Y = Recorded_User_Command->Mouse_Difference_Y;
 
 							Recorder_User_Comamand_Number += 1;
 						}
@@ -690,42 +690,31 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 				}
 				else
 				{
-					static unsigned __int32 Recorded_User_Commands_Maximum_Elements_Amount = Recorded_User_Commands.max_size();
+					Compressed_User_Command_Structure Recorded_User_Command;
 
-					if (Recorded_User_Commands.size() != Recorded_User_Commands_Maximum_Elements_Amount)
-					{
-						Compressed_User_Command_Structure Recorded_User_Command;
+					Recorded_User_Command.View_Angles[0] = User_Command->View_Angles[0];
 
-						Recorded_User_Command.View_Angles[0] = User_Command->View_Angles[0];
+					Recorded_User_Command.View_Angles[1] = User_Command->View_Angles[1];
 
-						Recorded_User_Command.View_Angles[1] = User_Command->View_Angles[1];
+					Recorded_User_Command.View_Angles[2] = User_Command->View_Angles[2];
 
-						Recorded_User_Command.View_Angles[2] = User_Command->View_Angles[2];
+					Recorded_User_Command.Move[0] = User_Command->Move[0];
 
-						Recorded_User_Command.Move[0] = User_Command->Move[0];
+					Recorded_User_Command.Move[1] = User_Command->Move[1];
 
-						Recorded_User_Command.Move[1] = User_Command->Move[1];
+					Recorded_User_Command.Move[2] = User_Command->Move[2];
 
-						Recorded_User_Command.Move[2] = User_Command->Move[2];
+					Recorded_User_Command.Buttons_State = User_Command->Buttons_State;
 
-						Recorded_User_Command.Buttons_State = User_Command->Buttons_State;
+					Recorded_User_Command.Impulse = User_Command->Impulse;
 
-						Recorded_User_Command.Impulse = User_Command->Impulse;
+					Recorded_User_Command.Mouse_Difference_X = User_Command->Mouse_Difference_X;
 
-						Recorded_User_Command.Mouse_Difference_X = User_Command->Mouse_Difference_X;
+					Recorded_User_Command.Mouse_Difference_Y = User_Command->Mouse_Difference_Y;
 
-						Recorded_User_Command.Mouse_Difference_Y = User_Command->Mouse_Difference_Y;
+					Recorded_User_Commands.Append(&Recorded_User_Command);
 
-						Recorded_User_Commands.push_back(Recorded_User_Command);
-
-						Recorder_User_Comamand_Number += 1;
-					}
-					else
-					{
-						Menu_Select::User_Commands_Recorder_Record = 0;
-
-						Recorder_User_Comamand_Number = 0;
-					}
+					Recorder_User_Comamand_Number += 1;
 				}
 			};
 
@@ -740,7 +729,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 			if (Route_Recorder_Record == 1)
 			{
-				unsigned __int32 Recorded_Route_Elements_Amount = Recorded_Route_Alternative.Allocations;
+				unsigned __int32 Recorded_Route_Elements_Amount = Recorded_Route.Allocations;
 
 				using Get_Creature_In_World_Location_Type = float*(__thiscall*)(void* Creature);
 
@@ -760,17 +749,17 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 				if (Recorded_Route_Elements_Amount == 0)
 				{
-					Recorded_Route_Alternative.Append((Route_Structure*)Get_Creature_In_World_Location_Type(Get_Creature_In_World_Location_Location)(*(void**)Controlled_Creature_Container));
+					Recorded_Route.Append((Route_Structure*)Get_Creature_In_World_Location_Type(Get_Creature_In_World_Location_Location)(*(void**)Controlled_Creature_Container));
 				}
 				else
 				{
 					float* Creature_Location = Get_Creature_In_World_Location_Type(Get_Creature_In_World_Location_Location)(*(void**)Controlled_Creature_Container);
 
-					float* Previous_Creature_Location = Recorded_Route_Alternative.Read(Recorded_Route_Elements_Amount - 1)->Location;
+					float* Previous_Creature_Location = Recorded_Route.Read(Recorded_Route_Elements_Amount - 1)->Location;
 
 					if (Creature_Location[0] + Creature_Location[1] + Creature_Location[2] != Previous_Creature_Location[0] + Previous_Creature_Location[1] + Previous_Creature_Location[2])
 					{
-						Recorded_Route_Alternative.Append((Route_Structure*)Creature_Location);
+						Recorded_Route.Append((Route_Structure*)Creature_Location);
 					}
 				}
 			}

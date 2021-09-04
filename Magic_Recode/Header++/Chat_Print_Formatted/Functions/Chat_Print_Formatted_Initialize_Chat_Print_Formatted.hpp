@@ -2,7 +2,7 @@
 
 void Initialize_Chat_Print_Formatted()
 {
-	Recorder_User_Comamand_Number_History.clear();
+	Recorder_User_Comamand_Number_History.Initialize();
 
 	Recorder_User_Comamand_Number_History_Number = 0;
 

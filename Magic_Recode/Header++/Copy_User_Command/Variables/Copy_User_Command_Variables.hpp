@@ -12,12 +12,12 @@ float Strafe_Optimizer_Desired_Gain;
 
 float Strafe_Optimizer_Greatest_Possible_Strafe_Angle;
 
-std::vector<Compressed_User_Command_Structure> Recorded_User_Commands;
+Dynamic_Allocator_Structure<Compressed_User_Command_Structure, 100> Recorded_User_Commands;
 
 unsigned __int32 Recorder_User_Comamand_Number;
 
 __int8 Route_Recorder_Record;
 
-Dynamic_Allocator_Structure<Route_Structure, 100> Recorded_Route_Alternative;
+Dynamic_Allocator_Structure<Route_Structure, 100> Recorded_Route;
 
 void* Original_Copy_User_Command_Caller_Location;

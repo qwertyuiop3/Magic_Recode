@@ -4,7 +4,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 {
 	if (Window_Procedure::Visuals_Recorded_Route_Draw == 1)
 	{
-		unsigned __int32 Recorded_Route_Elements_Amount = Copy_User_Command::Recorded_Route_Alternative.Allocations;
+		unsigned __int32 Recorded_Route_Elements_Amount = Copy_User_Command::Recorded_Route.Allocations;
 
 		if (Recorded_Route_Elements_Amount > Visuals_Recorded_Route_Step_Length)
 		{
@@ -97,11 +97,11 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 				float Recorded_Route_On_Screen_Location_From[2];
 
-				if (In_World_Location_To_On_Screen_Location((float*)Copy_User_Command::Recorded_Route_Alternative.Read(Recorded_Route_Number_With_Subtracted_Step), Recorded_Route_On_Screen_Location_From) == 1)
+				if (In_World_Location_To_On_Screen_Location((float*)Copy_User_Command::Recorded_Route.Read(Recorded_Route_Number_With_Subtracted_Step), Recorded_Route_On_Screen_Location_From) == 1)
 				{
 					float Recorded_Route_On_Screen_Location_To[2];
 
-					if (In_World_Location_To_On_Screen_Location((float*)Copy_User_Command::Recorded_Route_Alternative.Read(Recorded_Route_Number), Recorded_Route_On_Screen_Location_To) == 1)
+					if (In_World_Location_To_On_Screen_Location((float*)Copy_User_Command::Recorded_Route.Read(Recorded_Route_Number), Recorded_Route_On_Screen_Location_To) == 1)
 					{
 						struct Vertex_Structure
 						{
@@ -421,21 +421,21 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 				{
 					if (Menu_Select::User_Commands_Recorder_Playback == 0)
 					{
-						Copy_User_Command::Recorded_User_Commands.clear();
+						Copy_User_Command::Recorded_User_Commands.Clear();
 					}
 					else
 					{
 
 						Menu_Select::User_Commands_Recorder_Playback = 0;
 
-						Copy_User_Command::Recorded_User_Commands.resize(Copy_User_Command::Recorder_User_Comamand_Number);
+						Copy_User_Command::Recorded_User_Commands.Reallocate(Copy_User_Command::Recorder_User_Comamand_Number);
 					}
 				}
 			}
 
 			if (Menu_Select::User_Commands_Recorder_Record == 0)
 			{
-				if (Copy_User_Command::Recorded_User_Commands.empty() == 0)
+				if (Copy_User_Command::Recorded_User_Commands.Allocations == 0)
 				{
 					File_Number_Editor();
 
@@ -443,7 +443,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 					{
 						void* Recorded_User_Commands_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_WRITE_DATA, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
 
-						unsigned __int32 Recorded_User_Commands_Elements_Amount = Copy_User_Command::Recorded_User_Commands.size();
+						unsigned __int32 Recorded_User_Commands_Elements_Amount = Copy_User_Command::Recorded_User_Commands.Allocations;
 
 						unsigned long __int32 Recorded_User_Commands_Accessed_Bytes_Amount;
 
@@ -451,7 +451,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 						SetFilePointer(Recorded_User_Commands_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
 
-						WriteFile(Recorded_User_Commands_File_Handle, Copy_User_Command::Recorded_User_Commands.data(), Recorded_User_Commands_Elements_Amount * sizeof(Copy_User_Command::Compressed_User_Command_Structure), &Recorded_User_Commands_Accessed_Bytes_Amount, nullptr);
+						WriteFile(Recorded_User_Commands_File_Handle, Copy_User_Command::Recorded_User_Commands.Read(0), Recorded_User_Commands_Elements_Amount * sizeof(Copy_User_Command::Compressed_User_Command_Structure), &Recorded_User_Commands_Accessed_Bytes_Amount, nullptr);
 
 						CloseHandle(Recorded_User_Commands_File_Handle);
 					}
@@ -486,18 +486,18 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 							ReadFile(Recorded_User_Commands_File_Handle, &Recorded_User_Commands_Elements_Amount, sizeof(unsigned __int32), &Recorded_User_Commands_Accessed_Bytes_Amount, nullptr);
 
-							Copy_User_Command::Recorded_User_Commands.resize(Recorded_User_Commands_Elements_Amount);
+							Copy_User_Command::Recorded_User_Commands.Reallocate(Recorded_User_Commands_Elements_Amount);
 
 							SetFilePointer(Recorded_User_Commands_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
 
-							ReadFile(Recorded_User_Commands_File_Handle, Copy_User_Command::Recorded_User_Commands.data(), Recorded_User_Commands_Elements_Amount * sizeof(Copy_User_Command::Compressed_User_Command_Structure), &Recorded_User_Commands_Accessed_Bytes_Amount, nullptr);
+							ReadFile(Recorded_User_Commands_File_Handle, Copy_User_Command::Recorded_User_Commands.Read(0), Recorded_User_Commands_Elements_Amount * sizeof(Copy_User_Command::Compressed_User_Command_Structure), &Recorded_User_Commands_Accessed_Bytes_Amount, nullptr);
 
 							CloseHandle(Recorded_User_Commands_File_Handle);
 						}
 					}
 				};
 
-				if (Copy_User_Command::Recorded_User_Commands.empty() == 0)
+				if (Copy_User_Command::Recorded_User_Commands.Allocations == 0)
 				{
 					if (Menu_Select::User_Commands_Recorder_Playback == 0)
 					{
@@ -543,16 +543,14 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 				{
 					if (Copy_User_Command::Route_Recorder_Record == 1)
 					{
-						Copy_User_Command::Recorded_Route_Alternative.Free();
-
-						Copy_User_Command::Recorded_Route_Alternative.Initialize();
+						Copy_User_Command::Recorded_Route.Clear();
 					}
 				}
 			}
 
 			if (Copy_User_Command::Route_Recorder_Record == 0)
 			{
-				if (Copy_User_Command::Recorded_Route_Alternative.Allocations == 0)
+				if (Copy_User_Command::Recorded_Route.Allocations == 0)
 				{
 					File_Number_Editor();
 
@@ -560,7 +558,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 					{
 						void* Recorded_Route_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_WRITE_DATA, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
 
-						unsigned __int32 Recorded_Route_Elements_Amount = Copy_User_Command::Recorded_Route_Alternative.Allocations;
+						unsigned __int32 Recorded_Route_Elements_Amount = Copy_User_Command::Recorded_Route.Allocations;
 
 						unsigned long __int32 Recorded_Route_Accessed_Bytes_Amount;
 
@@ -568,7 +566,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 						SetFilePointer(Recorded_Route_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
 
-						WriteFile(Recorded_Route_File_Handle, Copy_User_Command::Recorded_Route_Alternative.Read(0), Recorded_Route_Elements_Amount * sizeof(Copy_User_Command::Route_Structure), &Recorded_Route_Accessed_Bytes_Amount, nullptr);
+						WriteFile(Recorded_Route_File_Handle, Copy_User_Command::Recorded_Route.Read(0), Recorded_Route_Elements_Amount * sizeof(Copy_User_Command::Route_Structure), &Recorded_Route_Accessed_Bytes_Amount, nullptr);
 
 						CloseHandle(Recorded_Route_File_Handle);
 					}
@@ -614,18 +612,18 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 								ReadFile(Recorded_Route_File_Handle, &Recorded_Route_Elements_Amount, sizeof(unsigned __int32), &Recorded_Route_Accessed_Bytes_Amount, nullptr);
 
-								Copy_User_Command::Recorded_Route_Alternative.Preallocate(Recorded_Route_Elements_Amount);
+								Copy_User_Command::Recorded_Route.Reallocate(Recorded_Route_Elements_Amount);
 
 								SetFilePointer(Recorded_Route_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
 
-								ReadFile(Recorded_Route_File_Handle, Copy_User_Command::Recorded_Route_Alternative.Read(0), Recorded_Route_Elements_Amount * sizeof(Copy_User_Command::Route_Structure), &Recorded_Route_Accessed_Bytes_Amount, nullptr);
+								ReadFile(Recorded_Route_File_Handle, Copy_User_Command::Recorded_Route.Read(0), Recorded_Route_Elements_Amount * sizeof(Copy_User_Command::Route_Structure), &Recorded_Route_Accessed_Bytes_Amount, nullptr);
 
 								CloseHandle(Recorded_Route_File_Handle);
 							}
 						}
 					}
 
-					if (Copy_User_Command::Recorded_Route_Alternative.Allocations == 0)
+					if (Copy_User_Command::Recorded_Route.Allocations == 0)
 					{
 						ImGui::Checkbox("Draw", (bool*)&Window_Procedure::Visuals_Recorded_Route_Draw);
 

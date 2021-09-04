@@ -1,8 +1,8 @@
+#pragma once
+
 template <typename Dynamic_Allocator_Type, unsigned __int32 Reserve> struct Dynamic_Allocator_Structure
 {
 	unsigned __int32 Allocation_Size;
-
-	unsigned __int32 Allocations_Size;
 
 	void* Allocator;
 
@@ -10,46 +10,49 @@ template <typename Dynamic_Allocator_Type, unsigned __int32 Reserve> struct Dyna
 
 	void Initialize()
 	{
-		Allocation_Size = sizeof(Dynamic_Allocator_Type);
+		Allocation_Size = sizeof(Dynamic_Allocator_Type) * Reserve;
 
-		Allocations_Size = Allocation_Size * Reserve;
-
-		Allocator = malloc(Allocations_Size);
+		Allocator = malloc(Allocation_Size);
 
 		Allocations = 0;
 	}
 
 	void Clear()
 	{
+		free(Allocator);
+
+		Allocation_Size = sizeof(Dynamic_Allocator_Type) * Reserve;
+
+		Allocator = malloc(Allocation_Size);
+
 		Allocations = 0;
 	}
 
-	void Preallocate(unsigned __int32 Preallocations_Size)
+	void Reallocate(unsigned __int32 Reallocations)
 	{
-		Allocator = realloc(Allocator, Preallocations_Size * Allocation_Size);
+		Allocation_Size = sizeof(Dynamic_Allocator_Type) * Reallocations;
+
+		Allocator = realloc(Allocator, Allocation_Size);
+
+		Allocations = Reallocations;
 	}
 
 	void Append(Dynamic_Allocator_Type* Value)
 	{
-		if (Allocation_Size * Allocations >= Allocations_Size)
+		if (sizeof(Dynamic_Allocator_Type) * Allocations >= Allocation_Size)
 		{
-			Allocations_Size = Allocation_Size * (Allocations + Reserve);
+			Allocation_Size = sizeof(Dynamic_Allocator_Type) * (Allocations + Reserve);
 
-			Allocator = realloc(Allocator, Allocations_Size);
+			Allocator = realloc(Allocator, Allocation_Size);
 		}
 
-		memcpy((void*)((unsigned __int32)Allocator + Allocation_Size * Allocations), Value, Allocation_Size);
+		memcpy((void*)((unsigned __int32)Allocator + sizeof(Dynamic_Allocator_Type) * Allocations), Value, sizeof(Dynamic_Allocator_Type));
 
 		Allocations += 1;
 	}
 
 	Dynamic_Allocator_Type* Read(unsigned __int32 Number)
 	{
-		return (Dynamic_Allocator_Type*)((unsigned __int32)Allocator + Allocation_Size * Number);
-	}
-
-	void Free()
-	{
-		free(Allocator);
+		return (Dynamic_Allocator_Type*)((unsigned __int32)Allocator + sizeof(Dynamic_Allocator_Type) * Number);
 	}
 };
