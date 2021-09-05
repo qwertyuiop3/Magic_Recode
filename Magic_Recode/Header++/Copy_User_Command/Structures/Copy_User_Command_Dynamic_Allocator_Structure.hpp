@@ -17,26 +17,6 @@ template <typename Dynamic_Allocator_Type, unsigned __int32 Reserve> struct Dyna
 		Allocations = 0;
 	}
 
-	void Clear()
-	{
-		free(Allocator);
-
-		Allocation_Size = sizeof(Dynamic_Allocator_Type) * Reserve;
-
-		Allocator = malloc(Allocation_Size);
-
-		Allocations = 0;
-	}
-
-	void Reallocate(unsigned __int32 Reallocations)
-	{
-		Allocation_Size = sizeof(Dynamic_Allocator_Type) * Reallocations;
-
-		Allocator = realloc(Allocator, Allocation_Size);
-
-		Allocations = Reallocations;
-	}
-
 	void Append(Dynamic_Allocator_Type* Value)
 	{
 		if (sizeof(Dynamic_Allocator_Type) * Allocations >= Allocation_Size)
@@ -46,7 +26,7 @@ template <typename Dynamic_Allocator_Type, unsigned __int32 Reserve> struct Dyna
 			Allocator = realloc(Allocator, Allocation_Size);
 		}
 
-		memcpy((void*)((unsigned __int32)Allocator + sizeof(Dynamic_Allocator_Type) * Allocations), Value, sizeof(Dynamic_Allocator_Type));
+		__builtin_memcpy((void*)((unsigned __int32)Allocator + sizeof(Dynamic_Allocator_Type) * Allocations), Value, sizeof(Dynamic_Allocator_Type));
 
 		Allocations += 1;
 	}
@@ -54,5 +34,25 @@ template <typename Dynamic_Allocator_Type, unsigned __int32 Reserve> struct Dyna
 	Dynamic_Allocator_Type* Read(unsigned __int32 Number)
 	{
 		return (Dynamic_Allocator_Type*)((unsigned __int32)Allocator + sizeof(Dynamic_Allocator_Type) * Number);
+	}
+
+	void Reallocate(unsigned __int32 Reallocations)
+	{
+		Allocation_Size = sizeof(Dynamic_Allocator_Type) * (Reallocations + Reserve);
+
+		Allocator = realloc(Allocator, Allocation_Size);
+
+		Allocations = Reallocations;
+	}
+
+	void Clear()
+	{
+		free(Allocator);
+
+		Allocation_Size = sizeof(Dynamic_Allocator_Type) * Reserve;
+
+		Allocator = malloc(Allocation_Size);
+
+		Allocations = 0;
 	}
 };

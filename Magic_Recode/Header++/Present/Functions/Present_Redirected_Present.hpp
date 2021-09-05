@@ -4,9 +4,9 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 {
 	if (Window_Procedure::Visuals_Recorded_Route_Draw == 1)
 	{
-		unsigned __int32 Recorded_Route_Elements_Amount = Copy_User_Command::Recorded_Route.Allocations;
+		unsigned __int32 Recorded_Route_Allocations = Copy_User_Command::Recorded_Route.Allocations;
 
-		if (Recorded_Route_Elements_Amount > Visuals_Recorded_Route_Step_Length)
+		if (Recorded_Route_Allocations > Visuals_Recorded_Route_Step_Length)
 		{
 			auto Find_View_Matrix_Location = [&]() -> float*
 			{
@@ -89,7 +89,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 			__int8 Stop_Drawing_Recorded_Route = 0;
 
-			unsigned __int32 Recorded_Route_Elements_Amount_With_Subtracted_Step = Recorded_Route_Elements_Amount - Visuals_Recorded_Route_Step_Length;
+			unsigned __int32 Recorded_Route_Allocations_With_Subtracted_Step = Recorded_Route_Allocations - Visuals_Recorded_Route_Step_Length;
 
 			Draw_Recorded_Route_Label:
 			{
@@ -179,13 +179,13 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 				if (Stop_Drawing_Recorded_Route == 0)
 				{
-					if (Recorded_Route_Number < Recorded_Route_Elements_Amount_With_Subtracted_Step)
+					if (Recorded_Route_Number < Recorded_Route_Allocations_With_Subtracted_Step)
 					{
 						Recorded_Route_Number += Visuals_Recorded_Route_Step_Length;
 					}
 					else
 					{
-						Recorded_Route_Number = Recorded_Route_Elements_Amount - 1;
+						Recorded_Route_Number = Recorded_Route_Allocations - 1;
 
 						Stop_Drawing_Recorded_Route = 1;
 					}
@@ -443,15 +443,15 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 					{
 						void* Recorded_User_Commands_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_WRITE_DATA, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
 
-						unsigned __int32 Recorded_User_Commands_Elements_Amount = Copy_User_Command::Recorded_User_Commands.Allocations;
+						unsigned __int32 Recorded_User_Commands_Allocations = Copy_User_Command::Recorded_User_Commands.Allocations;
 
-						unsigned long __int32 Recorded_User_Commands_Accessed_Bytes_Amount;
+						unsigned long __int32 Recorded_User_Commands_Accessed_Bytes_Count;
 
-						WriteFile(Recorded_User_Commands_File_Handle, &Recorded_User_Commands_Elements_Amount, sizeof(unsigned __int32), &Recorded_User_Commands_Accessed_Bytes_Amount, nullptr);
+						WriteFile(Recorded_User_Commands_File_Handle, &Recorded_User_Commands_Allocations, sizeof(unsigned __int32), &Recorded_User_Commands_Accessed_Bytes_Count, nullptr);
 
 						SetFilePointer(Recorded_User_Commands_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
 
-						WriteFile(Recorded_User_Commands_File_Handle, Copy_User_Command::Recorded_User_Commands.Read(0), Recorded_User_Commands_Elements_Amount * sizeof(Copy_User_Command::Compressed_User_Command_Structure), &Recorded_User_Commands_Accessed_Bytes_Amount, nullptr);
+						WriteFile(Recorded_User_Commands_File_Handle, Copy_User_Command::Recorded_User_Commands.Read(0), Recorded_User_Commands_Allocations * sizeof(Copy_User_Command::Compressed_User_Command_Structure), &Recorded_User_Commands_Accessed_Bytes_Count, nullptr);
 
 						CloseHandle(Recorded_User_Commands_File_Handle);
 					}
@@ -480,17 +480,17 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 						{
 							void* Recorded_User_Commands_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_READ_DATA, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
 
-							unsigned __int32 Recorded_User_Commands_Elements_Amount;
+							unsigned __int32 Recorded_User_Commands_Allocations;
 
-							unsigned long __int32 Recorded_User_Commands_Accessed_Bytes_Amount;
+							unsigned long __int32 Recorded_User_Commands_Accessed_Bytes_Count;
 
-							ReadFile(Recorded_User_Commands_File_Handle, &Recorded_User_Commands_Elements_Amount, sizeof(unsigned __int32), &Recorded_User_Commands_Accessed_Bytes_Amount, nullptr);
+							ReadFile(Recorded_User_Commands_File_Handle, &Recorded_User_Commands_Allocations, sizeof(unsigned __int32), &Recorded_User_Commands_Accessed_Bytes_Count, nullptr);
 
-							Copy_User_Command::Recorded_User_Commands.Reallocate(Recorded_User_Commands_Elements_Amount);
+							Copy_User_Command::Recorded_User_Commands.Reallocate(Recorded_User_Commands_Allocations);
 
 							SetFilePointer(Recorded_User_Commands_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
 
-							ReadFile(Recorded_User_Commands_File_Handle, Copy_User_Command::Recorded_User_Commands.Read(0), Recorded_User_Commands_Elements_Amount * sizeof(Copy_User_Command::Compressed_User_Command_Structure), &Recorded_User_Commands_Accessed_Bytes_Amount, nullptr);
+							ReadFile(Recorded_User_Commands_File_Handle, Copy_User_Command::Recorded_User_Commands.Read(0), Recorded_User_Commands_Allocations * sizeof(Copy_User_Command::Compressed_User_Command_Structure), &Recorded_User_Commands_Accessed_Bytes_Count, nullptr);
 
 							CloseHandle(Recorded_User_Commands_File_Handle);
 						}
@@ -558,15 +558,15 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 					{
 						void* Recorded_Route_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_WRITE_DATA, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
 
-						unsigned __int32 Recorded_Route_Elements_Amount = Copy_User_Command::Recorded_Route.Allocations;
+						unsigned __int32 Recorded_Route_Allocations = Copy_User_Command::Recorded_Route.Allocations;
 
-						unsigned long __int32 Recorded_Route_Accessed_Bytes_Amount;
+						unsigned long __int32 Recorded_Route_Accessed_Bytes_Count;
 
-						WriteFile(Recorded_Route_File_Handle, &Recorded_Route_Elements_Amount, sizeof(unsigned __int32), &Recorded_Route_Accessed_Bytes_Amount, nullptr);
+						WriteFile(Recorded_Route_File_Handle, &Recorded_Route_Allocations, sizeof(unsigned __int32), &Recorded_Route_Accessed_Bytes_Count, nullptr);
 
 						SetFilePointer(Recorded_Route_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
 
-						WriteFile(Recorded_Route_File_Handle, Copy_User_Command::Recorded_Route.Read(0), Recorded_Route_Elements_Amount * sizeof(Copy_User_Command::Route_Structure), &Recorded_Route_Accessed_Bytes_Amount, nullptr);
+						WriteFile(Recorded_Route_File_Handle, Copy_User_Command::Recorded_Route.Read(0), Recorded_Route_Allocations * sizeof(Copy_User_Command::Route_Structure), &Recorded_Route_Accessed_Bytes_Count, nullptr);
 
 						CloseHandle(Recorded_Route_File_Handle);
 					}
@@ -606,17 +606,17 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 							{
 								void* Recorded_Route_File_Handle = CreateFileW(Adjusted_Map_Name, FILE_READ_DATA, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
 
-								unsigned __int32 Recorded_Route_Elements_Amount;
+								unsigned __int32 Recorded_Route_Allocations;
 
-								unsigned long __int32 Recorded_Route_Accessed_Bytes_Amount;
+								unsigned long __int32 Recorded_Route_Accessed_Bytes_Count;
 
-								ReadFile(Recorded_Route_File_Handle, &Recorded_Route_Elements_Amount, sizeof(unsigned __int32), &Recorded_Route_Accessed_Bytes_Amount, nullptr);
+								ReadFile(Recorded_Route_File_Handle, &Recorded_Route_Allocations, sizeof(unsigned __int32), &Recorded_Route_Accessed_Bytes_Count, nullptr);
 
-								Copy_User_Command::Recorded_Route.Reallocate(Recorded_Route_Elements_Amount);
+								Copy_User_Command::Recorded_Route.Reallocate(Recorded_Route_Allocations);
 
 								SetFilePointer(Recorded_Route_File_Handle, sizeof(unsigned __int32), nullptr, FILE_BEGIN);
 
-								ReadFile(Recorded_Route_File_Handle, Copy_User_Command::Recorded_Route.Read(0), Recorded_Route_Elements_Amount * sizeof(Copy_User_Command::Route_Structure), &Recorded_Route_Accessed_Bytes_Amount, nullptr);
+								ReadFile(Recorded_Route_File_Handle, Copy_User_Command::Recorded_Route.Read(0), Recorded_Route_Allocations * sizeof(Copy_User_Command::Route_Structure), &Recorded_Route_Accessed_Bytes_Count, nullptr);
 
 								CloseHandle(Recorded_Route_File_Handle);
 							}

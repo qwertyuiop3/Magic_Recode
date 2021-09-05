@@ -729,7 +729,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 			if (Route_Recorder_Record == 1)
 			{
-				unsigned __int32 Recorded_Route_Elements_Amount = Recorded_Route.Allocations;
+				unsigned __int32 Recorded_Route_Allocations = Recorded_Route.Allocations;
 
 				using Get_Creature_In_World_Location_Type = float*(__thiscall*)(void* Creature);
 
@@ -747,7 +747,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 				static void* Get_Creature_In_World_Location_Location = Find_Get_Creature_In_World_Location_Location();
 
-				if (Recorded_Route_Elements_Amount == 0)
+				if (Recorded_Route_Allocations == 0)
 				{
 					Recorded_Route.Append((Route_Structure*)Get_Creature_In_World_Location_Type(Get_Creature_In_World_Location_Location)(*(void**)Controlled_Creature_Container));
 				}
@@ -755,7 +755,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 				{
 					float* Creature_Location = Get_Creature_In_World_Location_Type(Get_Creature_In_World_Location_Location)(*(void**)Controlled_Creature_Container);
 
-					float* Previous_Creature_Location = Recorded_Route.Read(Recorded_Route_Elements_Amount - 1)->Location;
+					float* Previous_Creature_Location = Recorded_Route.Read(Recorded_Route_Allocations - 1)->Location;
 
 					if (Creature_Location[0] + Creature_Location[1] + Creature_Location[2] != Previous_Creature_Location[0] + Previous_Creature_Location[1] + Previous_Creature_Location[2])
 					{

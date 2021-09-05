@@ -1,6 +1,6 @@
 #pragma once
 
-void Copy_Bytes(__int8 Modify_Access_Rights, void* Starting_Location, unsigned __int32 Bytes_Amount, unsigned __int8* Bytes)
+void Copy_Bytes(__int8 Modify_Access_Rights, void* Starting_Location, unsigned __int32 Bytes_Amount, void* Bytes)
 {
 	unsigned long __int32 Previous_Access_Rights;
 
@@ -9,19 +9,7 @@ void Copy_Bytes(__int8 Modify_Access_Rights, void* Starting_Location, unsigned _
 		VirtualProtect(Starting_Location, Bytes_Amount, PAGE_EXECUTE_READWRITE, &Previous_Access_Rights);
 	}
 
-	unsigned __int32 Byte_Number = 0;
-
-	Copy_Byte_Label:
-	{
-		if (Bytes_Amount != Byte_Number)
-		{
-			*(unsigned __int8*)((unsigned __int32)Starting_Location + Byte_Number) = Bytes[Byte_Number];
-
-			Byte_Number += 1;
-
-			goto Copy_Byte_Label;
-		}
-	}
+	__builtin_memcpy(Starting_Location, Bytes, Bytes_Amount);
 
 	if (Modify_Access_Rights == 1)
 	{
