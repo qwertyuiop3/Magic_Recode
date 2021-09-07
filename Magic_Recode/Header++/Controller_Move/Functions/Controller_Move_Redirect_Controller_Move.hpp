@@ -37,6 +37,6 @@ void Redirect_Controller_Move(void* Client_Module_Location)
 			0
 		};
 
-		Redirection_Manager::Redirect_Function(Original_Controller_Move_Caller_Location, 0, Byte_Manager::Find_Bytes(sizeof(Controller_Move_Bytes), Client_Module_Location, Controller_Move_Bytes, 1), (void*)Redirected_Controller_Move);
+		Redirection_Manager::Redirect_Function(Original_Controller_Move_Caller_Location, 0, Byte_Manager::Find_Bytes(Client_Module_Location, Controller_Move_Bytes, sizeof(Controller_Move_Bytes)), (void*)Redirected_Controller_Move);
 	}
 }

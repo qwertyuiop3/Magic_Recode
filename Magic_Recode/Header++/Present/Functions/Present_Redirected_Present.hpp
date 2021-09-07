@@ -28,7 +28,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 					120
 				};
 
-				return (float*)(*(unsigned __int32*)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(View_Matrix_Bytes), GetModuleHandleW(L"client.dll"), View_Matrix_Bytes, 0) - 8) + 128);
+				return (float*)(*(unsigned __int32*)((unsigned __int32)Byte_Manager::Find_Bytes(GetModuleHandleW(L"client.dll"), View_Matrix_Bytes, sizeof(View_Matrix_Bytes)) - 12) + 128);
 			};
 
 			static float* View_Matrix_Location = Find_View_Matrix_Location();
@@ -376,7 +376,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 				184
 			};
 
-			return *(wchar_t**)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Map_Name_Bytes), GetModuleHandleW(L"client.dll"), Map_Name_Bytes, 0) + 1);
+			return *(wchar_t**)((unsigned __int32)Byte_Manager::Find_Bytes(GetModuleHandleW(L"client.dll"), Map_Name_Bytes, sizeof(Map_Name_Bytes)) + 7);
 		};
 
 		static wchar_t* Map_Name = Find_Map_Name();
@@ -667,7 +667,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 						116
 					};
 
-					return Byte_Manager::Find_Bytes(sizeof(Previous_Buttons_In_Jump_Check_Bytes), GetModuleHandleW(L"client.dll"), Previous_Buttons_In_Jump_Check_Bytes, 0);
+					return (void*)((unsigned __int64)Byte_Manager::Find_Bytes(GetModuleHandleW(L"client.dll"), Previous_Buttons_In_Jump_Check_Bytes, sizeof(Previous_Buttons_In_Jump_Check_Bytes)) + 2);
 				};
 
 				static void* Previous_Buttons_In_Jump_Check_Location = Find_Previous_Buttons_In_Jump_Check_Location();

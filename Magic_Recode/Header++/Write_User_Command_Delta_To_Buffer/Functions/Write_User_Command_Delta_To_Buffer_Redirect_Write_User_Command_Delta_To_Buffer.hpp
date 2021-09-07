@@ -17,5 +17,5 @@ void Redirect_Write_User_Command_Delta_To_Buffer(void* Client_Module_Location)
 		199
 	};
 
-	Redirection_Manager::Redirect_Function(Original_Write_User_Command_Delta_To_Buffer_Caller_Location, 0, (void*)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Write_user_Command_Delta_To_Buffer_Bytes), Client_Module_Location, Write_user_Command_Delta_To_Buffer_Bytes, 0) - 10), (void*)Redirected_Write_User_Command_Delta_To_Buffer);
+	Redirection_Manager::Redirect_Function(Original_Write_User_Command_Delta_To_Buffer_Caller_Location, 0, (void*)((unsigned __int32)Byte_Manager::Find_Bytes(Client_Module_Location, Write_user_Command_Delta_To_Buffer_Bytes, sizeof(Write_user_Command_Delta_To_Buffer_Bytes)) - 15), (void*)Redirected_Write_User_Command_Delta_To_Buffer);
 }

@@ -10,7 +10,7 @@ Store Lines Into Texture [ ? ]
 
 Accurate Definitions ( Count, Number, Value, Amount ) [ + ]
 
-Byte_Manager [ % ] \
+Byte_Manager [ + ] \
 use own with cpu checks or builtin memory functions to optimize for simd when possible assuming data is aligned \
 less stack modifications
 

@@ -1,18 +1,11 @@
 #pragma once
 
-// Reformat -> void* Find_Bytes(void* Starting_Location, void* Bytes, unsigned __int32 Bytes_Amount)
-
-void* Find_Bytes(unsigned __int32 Bytes_Amount, void* Starting_Location, unsigned __int8* Bytes, __int8 Return_Starting_Location_Of_Found_Bytes)
+void* Find_Bytes(void* Starting_Location, void* Bytes, unsigned __int32 Bytes_Amount)
 {
 	Compare_Bytes_Label:
 	{
 		if (__builtin_memcmp(Starting_Location, Bytes, Bytes_Amount) == 0)
 		{
-			if (Return_Starting_Location_Of_Found_Bytes == 0)
-			{
-				return (void*)((unsigned __int32)Starting_Location + Bytes_Amount);
-			}
-
 			return Starting_Location;
 		}
 

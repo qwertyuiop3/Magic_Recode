@@ -33,6 +33,6 @@ void Redirect_Physics_Simulate(void* Client_Module_Location)
 			116
 		};
 
-		Redirection_Manager::Redirect_Function(Original_Physics_Simulate_Caller_Location, 3, (void*)((unsigned __int32)Byte_Manager::Find_Bytes(sizeof(Physics_Simulate_Bytes), Client_Module_Location, Physics_Simulate_Bytes, 0) - 12), (void*)Redirected_Physics_Simulate);
+		Redirection_Manager::Redirect_Function(Original_Physics_Simulate_Caller_Location, 3, (void*)((unsigned __int32)Byte_Manager::Find_Bytes(Client_Module_Location, Physics_Simulate_Bytes, sizeof(Physics_Simulate_Bytes)) - 22), (void*)Redirected_Physics_Simulate);
 	}
 }
