@@ -13,4 +13,6 @@ void Initialize_Window_Procedure()
 	Route_Recorder_Record_Bound_To = VK_F4;
 
 	Visuals_Recorded_Route_Draw = 0;
+
+	Visuals_Recorded_Route_Vertices.Initialize();
 }

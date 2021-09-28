@@ -6,7 +6,8 @@ Smaller Code -> Template [ + ]
 
 Normalized Device Coordinates [ - ]
 
-Store Lines Into Texture [ ? ]
+Store Lines Into Texture [ % ] \
+in current state (predictively) stores every vertex into texture only when texture is empty significant performance boost is achieved but real time visualization isn't possible anymore (to be restructured after updating post scriptum scheduled due to tiredness of blind coding)
 
 Accurate Definitions ( Count, Number, Value, Amount ) [ + ]
 
