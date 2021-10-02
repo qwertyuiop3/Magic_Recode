@@ -4,11 +4,11 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 {
 	if (Menu_Select::Freeze_Controlled_Creature == 0)
 	{
-		auto Find_Copy_User_Command_In_Create_Move_Return_Location = [&]() -> void*
+		auto Find_Copy_User_Command_In_Create_Move_Return_Location = []() -> void*
 		{
 			if (Menu_Select::Game_Identifier == 0)
 			{
-				return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 1338695);
+				return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 1340913);
 			}
 
 			unsigned __int8 Copy_User_Command_In_Create_Move_Return_Location_Bytes[4] =
@@ -22,18 +22,18 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 				100
 			};
 
-			return (void*)((unsigned __int32)Byte_Manager::Find_Bytes(GetModuleHandleW(L"client.dll"), Copy_User_Command_In_Create_Move_Return_Location_Bytes, sizeof(Copy_User_Command_In_Create_Move_Return_Location_Bytes)) - 13);
+			return (void*)((unsigned __int32)Byte_Manager::Find_Bytes(GetModuleHandleW(L"client.dll"), Copy_User_Command_In_Create_Move_Return_Location_Bytes, sizeof(Copy_User_Command_In_Create_Move_Return_Location_Bytes)) - 7);
 		};
 
 		static void* Copy_User_Command_In_Create_Move_Return_Location = Find_Copy_User_Command_In_Create_Move_Return_Location();
 
 		if (__builtin_return_address(0) == Copy_User_Command_In_Create_Move_Return_Location)
 		{
-			auto Find_Controlled_Creature_Container = [&]() -> void*
+			auto Find_Controlled_Creature_Container = []() -> void*
 			{
 				if (Menu_Select::Game_Identifier == 0)
 				{
-					return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5007112);
+					return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5015784);
 				}
 
 				unsigned __int8 Controlled_Creature_Container_Bytes[6] =
@@ -56,17 +56,17 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 			static void* Controlled_Creature_Container = Find_Controlled_Creature_Container();
 
-			auto Provide_Game_Appropriate_User_Command_Type = [&]<typename Type>(Type* User_Command) -> void
+			auto Provide_Game_Appropriate_User_Command_Type = []<typename Type>(Type* User_Command) -> void
 			{
 				static float Previous_View_Angles_Y = User_Command->View_Angles[1];
 
 				using Set_View_Angles_Type = void(__thiscall*)(void* Engine, float* View_Angles);
 
-				auto Find_Set_View_Angles_Type = [&]() -> void*
+				auto Find_Set_View_Angles_Type = []() -> void*
 				{
 					if (Menu_Select::Game_Identifier == 0)
 					{
-						return (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 676992);
+						return (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 678128);
 					}
 
 					unsigned __int8 Set_View_Angles_Bytes[14] =
@@ -103,11 +103,11 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 					return Byte_Manager::Find_Bytes(GetModuleHandleW(L"engine.dll"), Set_View_Angles_Bytes, sizeof(Set_View_Angles_Bytes));
 				};
 
-				auto Find_Engine = [&]() -> void*
+				auto Find_Engine = []() -> void*
 				{
 					if (Menu_Select::Game_Identifier == 0)
 					{
-						return (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 3916044);
+						return (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 3928612);
 					}
 
 					unsigned __int8 Engine_Bytes[9] =
@@ -131,7 +131,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 						228
 					};
 
-					return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(GetModuleHandleW(L"engine.dll"), Engine_Bytes, sizeof(Engine_Bytes)) - 20);
+					return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(GetModuleHandleW(L"engine.dll"), Engine_Bytes, sizeof(Engine_Bytes)) - 4);
 				};
 
 				static void* Set_View_Angles_Location = Find_Set_View_Angles_Type();
@@ -148,11 +148,11 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 						{
 							if ((User_Command->Buttons_State & 2) == 2)
 							{
-								auto Find_Prediction = [&]() -> void*
+								auto Find_Prediction = []() -> void*
 								{
 									if (Menu_Select::Game_Identifier == 0)
 									{
-										return *(void**)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 4554060);
+										return *(void**)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 4566764);
 									}
 
 									unsigned __int8 Prediction_Bytes[4] =
@@ -173,7 +173,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 								static void* Predict_Location = *(void**)(*(unsigned __int32*)Prediction + 12);
 
-								auto Find_Prediction_Data = [&]() -> void*
+								auto Find_Prediction_Data = []() -> void*
 								{
 									if (Menu_Select::Game_Identifier == 0)
 									{
@@ -194,11 +194,11 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 								static void* Prediction_Data = Find_Prediction_Data();
 
-								auto Find_Delta_Tick_Container = [&]() -> void*
+								auto Find_Delta_Tick_Container = []() -> void*
 								{
 									if (Menu_Select::Game_Identifier == 0)
 									{
-										return (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 4671440);
+										return (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 4684120);
 									}
 
 									return (void*)((unsigned __int32)Prediction_Data + 372);
@@ -208,11 +208,11 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 								__int32 Delta_Tick = *(__int32*)Delta_Tick_Container;
 
-								auto Find_Last_Command_Acknowledged_Container = [&]() -> void*
+								auto Find_Last_Command_Acknowledged_Container = []() -> void*
 								{
 									if (Menu_Select::Game_Identifier == 0)
 									{
-										return (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 4690268);
+										return (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 4702948);
 									}
 
 									return (void*)((unsigned __int32)Prediction_Data + 19764);
@@ -220,11 +220,11 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 								static void* Last_Command_Acknowledged_Container = Find_Last_Command_Acknowledged_Container();
 
-								auto Find_Last_Outgoing_Command_Container = [&]() -> void*
+								auto Find_Last_Outgoing_Command_Container = []() -> void*
 								{
 									if (Menu_Select::Game_Identifier == 0)
 									{
-										return (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 4690260);
+										return (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 4702940);
 									}
 
 									return (void*)((unsigned __int32)Prediction_Data + 19756);
@@ -232,11 +232,11 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 								static void* Last_Outgoing_Command_Container = Find_Last_Outgoing_Command_Container();
 
-								auto Find_Choked_Commands_Container = [&]() -> void*
+								auto Find_Choked_Commands_Container = []() -> void*
 								{
 									if (Menu_Select::Game_Identifier == 0)
 									{
-										return (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 4690264);
+										return (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 4702944);
 									}
 
 									return (void*)((unsigned __int32)Prediction_Data + 19760);
@@ -288,11 +288,11 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 										using Trace_Ray_Type = void(__thiscall*)(void* Engine_Trace, Ray_Structure* Ray, __int32 Mask, Trace_Filter_Structure* Trace_Filter, Trace_Structure* Trace);
 
-										auto Find_Trace_Ray = [&]() -> void*
+										auto Find_Trace_Ray = []() -> void*
 										{
 											if (Menu_Select::Game_Identifier == 0)
 											{
-												return (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 1654560);
+												return (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 1658128);
 											}
 
 											unsigned __int8 Trace_Ray_Bytes[3] =
@@ -304,16 +304,16 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 												168
 											};
 
-											return (void*)((unsigned __int32)Byte_Manager::Find_Bytes(GetModuleHandleW(L"engine.dll"), Trace_Ray_Bytes, sizeof(Trace_Ray_Bytes)) - 31);
+											return (void*)((unsigned __int32)Byte_Manager::Find_Bytes(GetModuleHandleW(L"engine.dll"), Trace_Ray_Bytes, sizeof(Trace_Ray_Bytes)) - 27);
 										};
 
 										static void* Trace_Ray_Location = Find_Trace_Ray();
 
-										auto Find_Engine_Trace = [&]() -> void*
+										auto Find_Engine_Trace = []() -> void*
 										{
 											if (Menu_Select::Game_Identifier == 0)
 											{
-												return *(void**)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5055848);
+												return *(void**)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5064520);
 											}
 
 											unsigned __int8 Engine_Trace_Bytes[5] =
@@ -329,18 +329,18 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 												24
 											};
 
-											return **(void***)((unsigned __int32)Byte_Manager::Find_Bytes(GetModuleHandleW(L"client.dll"), Engine_Trace_Bytes, sizeof(Engine_Trace_Bytes)) - 14);
+											return **(void***)((unsigned __int32)Byte_Manager::Find_Bytes(GetModuleHandleW(L"client.dll"), Engine_Trace_Bytes, sizeof(Engine_Trace_Bytes)) - 6);
 										};
 
 										static void* Engine_Trace = Find_Engine_Trace();
 
 										using Initialize_Ray_Type = void(__thiscall*)(Ray_Structure* Ray, float* Starting_Location, float* Ending_Location);
 
-										auto Find_Initialize_Ray = [&]() -> void*
+										auto Find_Initialize_Ray = []() -> void*
 										{
 											if (Menu_Select::Game_Identifier == 0)
 											{
-												return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 389296);
+												return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 389504);
 											}
 
 											unsigned __int8 Initialize_Ray_Bytes[9] =
@@ -364,7 +364,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 												92
 											};
 
-											return (void*)((unsigned __int32)Byte_Manager::Find_Bytes(GetModuleHandleW(L"client.dll"), Initialize_Ray_Bytes, sizeof(Initialize_Ray_Bytes)) - 23);
+											return (void*)((unsigned __int32)Byte_Manager::Find_Bytes(GetModuleHandleW(L"client.dll"), Initialize_Ray_Bytes, sizeof(Initialize_Ray_Bytes)) - 7);
 										};
 
 										static void* Initialize_Ray_Location = Find_Initialize_Ray();
@@ -373,11 +373,11 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 										using Get_Eye_Position_Type = void(__thiscall*)(void* Creature, float Eye_Position[3]);
 
-										auto Find_Get_Eye_Position = [&]() -> void*
+										auto Find_Get_Eye_Position = []() -> void*
 										{
 											if (Menu_Select::Game_Identifier == 0)
 											{
-												return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 430752);
+												return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 431056);
 											}
 
 											unsigned __int8 Get_Eye_Position_Bytes[4] =
@@ -391,7 +391,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 												240
 											};
 
-											return (void*)((unsigned __int32)Byte_Manager::Find_Bytes(GetModuleHandleW(L"client.dll"), Get_Eye_Position_Bytes, sizeof(Get_Eye_Position_Bytes)) - 11);
+											return (void*)((unsigned __int32)Byte_Manager::Find_Bytes(GetModuleHandleW(L"client.dll"), Get_Eye_Position_Bytes, sizeof(Get_Eye_Position_Bytes)) - 5);
 										};
 
 										static void* Get_Eye_Position_Location = Find_Get_Eye_Position();
@@ -419,11 +419,11 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 										Trace_Filter_Structure Trace_Filter;
 
-										auto Find_Trace_Filter_Table = [&]() -> void*
+										auto Find_Trace_Filter_Table = []() -> void*
 										{
 											if (Menu_Select::Game_Identifier == 0)
 											{
-												return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 3736588);
+												return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 3744812);
 											}
 
 											unsigned __int8 Trace_Filter_Table_Bytes[4] =
@@ -437,7 +437,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 												61
 											};
 
-											return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(GetModuleHandleW(L"client.dll"), Trace_Filter_Table_Bytes, sizeof(Trace_Filter_Table_Bytes)) - 15);
+											return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(GetModuleHandleW(L"client.dll"), Trace_Filter_Table_Bytes, sizeof(Trace_Filter_Table_Bytes)) - 9);
 										};
 
 										static void* Trace_Filter_Table_Location = Find_Trace_Filter_Table();
@@ -494,11 +494,11 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 								{
 									float Strafe_Angle = remainderf(User_Command->View_Angles[1] - atan2f(Velocity[1], Velocity[0]) * 180 / M_PI, 360) * Strafe_Optimizer_Desired_Gain / 100;
 
-									auto Find_Mouse_Sensitivity_Container = [&]() -> void*
+									auto Find_Mouse_Sensitivity_Container = []() -> void*
 									{
 										if (Menu_Select::Game_Identifier == 0)
 										{
-											return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5193604);
+											return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5202284);
 										}
 
 										unsigned __int8 Mouse_Sensitivity_Bytes[8] =
@@ -520,18 +520,18 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 											139
 										};
 
-										return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(GetModuleHandleW(L"client.dll"), Mouse_Sensitivity_Bytes, sizeof(Mouse_Sensitivity_Bytes)) - 40);
+										return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(GetModuleHandleW(L"client.dll"), Mouse_Sensitivity_Bytes, sizeof(Mouse_Sensitivity_Bytes)) - 26);
 									};
 
 									static void* Mouse_Sensitivity_Container = Find_Mouse_Sensitivity_Container();
 
 									float Mouse_Sensitivity;
 
-									auto Find_Mouse_Yaw_Factor_Container = [&]() -> void*
+									auto Find_Mouse_Yaw_Factor_Container = []() -> void*
 									{
 										if (Menu_Select::Game_Identifier == 0)
 										{
-											return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5193388);
+											return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5202068);
 										}
 
 										unsigned __int8 Mouse_Yaw_Factor_Bytes[11] =
@@ -559,7 +559,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 											20
 										};
 
-										return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(GetModuleHandleW(L"client.dll"), Mouse_Yaw_Factor_Bytes, sizeof(Mouse_Yaw_Factor_Bytes)) - 35);
+										return *(void**)((unsigned __int32)Byte_Manager::Find_Bytes(GetModuleHandleW(L"client.dll"), Mouse_Yaw_Factor_Bytes, sizeof(Mouse_Yaw_Factor_Bytes)) - 15);
 									};
 
 									static void* Mouse_Yaw_Factor_Container = Find_Mouse_Yaw_Factor_Container();
@@ -733,11 +733,11 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 				using Get_Creature_In_World_Location_Type = float*(__thiscall*)(void* Creature);
 
-				auto Find_Get_Creature_In_World_Location_Location = [&]() -> void*
+				auto Find_Get_Creature_In_World_Location_Location = []() -> void*
 				{
 					if (Menu_Select::Game_Identifier == 0)
 					{
-						return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 601456);
+						return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 602768);
 					}
 					else
 					{

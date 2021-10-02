@@ -4,7 +4,7 @@ void Redirect_Chat_Print_Formatted(void* Client_Module_Location)
 {
 	if (Menu_Select::Game_Identifier == 0)
 	{
-		Redirection_Manager::Redirect_Function(Original_Chat_Print_Formatted_Caller_Location, 2, (void*)((unsigned __int32)Client_Module_Location + 1217136), (void*)Redirected_Chat_Print_Formatted_Source);
+		Redirection_Manager::Redirect_Function(Original_Chat_Print_Formatted_Caller_Location, 2, (void*)((unsigned __int32)Client_Module_Location + 1219184), (void*)Redirected_Chat_Print_Formatted_Source);
 	}
 	else
 	{
@@ -23,6 +23,6 @@ void Redirect_Chat_Print_Formatted(void* Client_Module_Location)
 			40
 		};
 
-		Redirection_Manager::Redirect_Function(Original_Chat_Print_Formatted_Caller_Location, 2, (void*)((unsigned __int32)Byte_Manager::Find_Bytes(Client_Module_Location, Chat_Print_Formatted_Bytes, sizeof(Chat_Print_Formatted_Bytes)) - 178), (void*)Redirected_Chat_Print_Formatted_Global_Offensive);
+		Redirection_Manager::Redirect_Function(Original_Chat_Print_Formatted_Caller_Location, 2, (void*)((unsigned __int32)Byte_Manager::Find_Bytes(Client_Module_Location, Chat_Print_Formatted_Bytes, sizeof(Chat_Print_Formatted_Bytes)) - 168), (void*)Redirected_Chat_Print_Formatted_Global_Offensive);
 	}
 }
