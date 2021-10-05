@@ -1,6 +1,6 @@
 #include "Includes.hpp"
 
-__int32 __stdcall DllMain(void* This_Module_Location, unsigned __int32 Call_Reason, void* Reserved)
+__declspec(dllexport) __int32 __stdcall DllMain(void* This_Module_Location, unsigned __int32 Call_Reason, void* Reserved)
 {
 	if (Call_Reason == DLL_PROCESS_ATTACH)
 	{
