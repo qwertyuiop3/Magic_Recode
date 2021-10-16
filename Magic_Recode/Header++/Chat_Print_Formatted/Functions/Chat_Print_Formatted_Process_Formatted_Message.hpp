@@ -20,56 +20,43 @@ void Process_Formatted_Message(char* Formatted_Message)
 
 				return 1;
 			}
-			else
+
+			if (strncmp(Formatted_Message, "[ Magic ] B", 11) == 0)
 			{
-				if (strncmp(Formatted_Message, "[ Magic ] B", 11) == 0)
-				{
-					Recorder_User_Comamand_Number_History_Number -= 1;
+				Recorder_User_Comamand_Number_History_Number -= 1;
 
-					return 1;
-				}
-				else
-				{
-					if (strncmp(Formatted_Message, "[ Magic ] C", 11) == 0)
-					{
-						Recorder_User_Comamand_Number_History_Number += 1;
-
-						return 1;
-					}
-					else
-					{
-						if (strncmp(Formatted_Message, "[ Magic ] D", 11) == 0)
-						{
-							Menu_Select::Freeze_Controlled_Creature = 2;
-
-							unsigned __int32 Future_Recorder_User_Comamand_Number = *(unsigned __int32*)Recorder_User_Comamand_Number_History.Read(Recorder_User_Comamand_Number_History_Number);
-
-							if (Menu_Select::User_Commands_Recorder_Record == 1)
-							{
-								Copy_User_Command::Recorded_User_Commands.Reallocate(Future_Recorder_User_Comamand_Number);
-							}
-
-							Copy_User_Command::Recorder_User_Comamand_Number = Future_Recorder_User_Comamand_Number;
-
-							return 1;
-						}
-
-						return 0;
-					}
-				}
+				return 1;
 			}
+
+			if (strncmp(Formatted_Message, "[ Magic ] C", 11) == 0)
+			{
+				Recorder_User_Comamand_Number_History_Number += 1;
+
+				return 1;
+			}
+
+			if (strncmp(Formatted_Message, "[ Magic ] D", 11) == 0)
+			{
+				Menu_Select::Freeze_Controlled_Creature = 2;
+
+				unsigned __int32 Future_Recorder_User_Comamand_Number = *(unsigned __int32*)Recorder_User_Comamand_Number_History.Read(Recorder_User_Comamand_Number_History_Number);
+
+				if (Menu_Select::User_Commands_Recorder_Record == 1)
+				{
+					Copy_User_Command::Recorded_User_Commands.Reallocate(Future_Recorder_User_Comamand_Number);
+				}
+
+				Copy_User_Command::Recorder_User_Comamand_Number = Future_Recorder_User_Comamand_Number;
+
+				return 1;
+			}
+
+			return 0;
 		};
 
-		if (Menu_Select::User_Commands_Recorder_Record == 0)
+		if (Menu_Select::User_Commands_Recorder_Record + Menu_Select::User_Commands_Recorder_Playback == 0)
 		{
-			if (Menu_Select::User_Commands_Recorder_Playback == 0)
-			{
-				Process_Formatted_Message_Return_Value = 0;
-			}
-			else
-			{
-				Process_Formatted_Message_Return_Value = Process_Formatted_Message();
-			}
+			Process_Formatted_Message_Return_Value = 0;
 		}
 		else
 		{
