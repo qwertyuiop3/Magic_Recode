@@ -69,7 +69,7 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 						return (void*)((unsigned __int32)GetModuleHandleW(L"engine.dll") + 678128);
 					}
 
-					unsigned __int8 Set_View_Angles_Bytes[14] =
+					unsigned __int8 Set_View_Angles_Bytes[13] =
 					{
 						85,
 
@@ -87,17 +87,15 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 
 						236,
 
-						60,
+						56,
 
 						86,
 
-						139,
+						87,
 
-						117,
+						141,
 
-						8,
-
-						139
+						125
 					};
 
 					return Byte_Manager::Find_Bytes(GetModuleHandleW(L"engine.dll"), Set_View_Angles_Bytes, sizeof(Set_View_Angles_Bytes));
