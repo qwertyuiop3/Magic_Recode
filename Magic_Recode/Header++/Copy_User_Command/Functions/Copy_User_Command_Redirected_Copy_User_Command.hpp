@@ -378,18 +378,20 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 												return (void*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 431056);
 											}
 
-											unsigned __int8 Get_Eye_Position_Bytes[4] =
+											unsigned __int8 Get_Eye_Position_Bytes[5] =
 											{
-												249,
+												192,
+
+												116,
+
+												36,
 
 												139,
 
-												143,
-
-												240
+												207
 											};
 
-											return (void*)((unsigned __int32)Byte_Manager::Find_Bytes(GetModuleHandleW(L"client.dll"), Get_Eye_Position_Bytes, sizeof(Get_Eye_Position_Bytes)) - 5);
+											return (void*)((unsigned __int32)Byte_Manager::Find_Bytes(GetModuleHandleW(L"client.dll"), Get_Eye_Position_Bytes, sizeof(Get_Eye_Position_Bytes)) - 53);
 										};
 
 										static void* Get_Eye_Position_Location = Find_Get_Eye_Position();
