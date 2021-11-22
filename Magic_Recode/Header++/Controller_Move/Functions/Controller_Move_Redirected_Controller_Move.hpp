@@ -1,6 +1,6 @@
 #pragma once
 
-void __fastcall Redirected_Controller_Move(void* Input, void* Unknown_Parameter_1, void* Unknown_Parameter_2, void* Unknown_Parameter_3)
+void __thiscall Redirected_Controller_Move(void* Input, void* Unknown_Parameter_1, void* Unknown_Parameter_2)
 {
 	static __int8 Previous_Draw_Graphical_User_Interface = Draw_Graphical_User_Interface;
 
@@ -10,9 +10,7 @@ void __fastcall Redirected_Controller_Move(void* Input, void* Unknown_Parameter_
 		{
 			if (Menu_Select::Freeze_Controlled_Creature == 0)
 			{
-				using Controller_Move_Type = void(__thiscall*)(void* Input, void* Unknown_Parameter_1, void* Unknown_Parameter_2);
-
-				Controller_Move_Type((unsigned __int32)Original_Controller_Move_Caller_Location)(Input, Unknown_Parameter_2, Unknown_Parameter_3);
+				(decltype(&Redirected_Controller_Move)(Original_Controller_Move_Caller_Location))(Input, Unknown_Parameter_1, Unknown_Parameter_2);
 			}
 			else
 			{

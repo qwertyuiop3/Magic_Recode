@@ -1,6 +1,6 @@
 #pragma once
 
-void __cdecl Redirected_Menu_Select(void* Data)
+void Redirected_Menu_Select(void* Data)
 {
 	auto Handle_Menu_Select = [&]() -> void
 	{
@@ -102,7 +102,5 @@ void __cdecl Redirected_Menu_Select(void* Data)
 		}
 	}
 
-	using Menu_Select_Type = void(__cdecl*)(void* Data);
-
-	Menu_Select_Type((unsigned __int32)Original_Menu_Select_Caller_Location)(Data);
+	(decltype(&Redirected_Menu_Select)(Original_Menu_Select_Caller_Location))(Data);
 }

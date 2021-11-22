@@ -1,6 +1,6 @@
 #pragma once
 
-void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Unknown_Parameter_2, void* User_Command)
+void __thiscall Redirected_Copy_User_Command(void* Unknown_Parameter, void* User_Command)
 {
 	if (Menu_Select::Freeze_Controlled_Creature == 0)
 	{
@@ -766,7 +766,5 @@ void __fastcall Redirected_Copy_User_Command(void* Unknown_Parameter_1, void* Un
 		}
 	}
 
-	using Copy_User_Command_Type = void(__thiscall*)(void* Unknown_Parameter, void* User_Command);
-
-	Copy_User_Command_Type((unsigned __int32)Original_Copy_User_Command_Caller_Location)(Unknown_Parameter_1, User_Command);
+	(decltype(&Redirected_Copy_User_Command)(Original_Copy_User_Command_Caller_Location))(Unknown_Parameter, User_Command);
 }
