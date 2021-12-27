@@ -10,7 +10,7 @@ __declspec(dllexport) __int32 __stdcall DllMain(void* This_Module_Location, unsi
 		{
 			Menu_Select::Game_Identifier = 1;
 
-			Game_Window_Handle = FindWindowW(nullptr, L"Counter-Strike: Global Offensive");
+			Game_Window_Handle = FindWindowW(nullptr, L"Counter-Strike: Global Offensive - Direct3D 9");
 		}
 
 		Menu_Select::Initialize_Menu_Select();

@@ -38,13 +38,13 @@ void __thiscall Redirected_Copy_User_Command(void* Unknown_Parameter, void* User
 
 				unsigned __int8 Controlled_Creature_Container_Bytes[6] =
 				{
-					52,
+					193,
 
-					83,
+					131,
 
-					86,
+					192,
 
-					87,
+					8,
 
 					139,
 
