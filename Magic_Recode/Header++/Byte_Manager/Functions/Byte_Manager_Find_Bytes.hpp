@@ -9,11 +9,7 @@ void* Find_Bytes(void* Starting_Location, void* Bytes, unsigned __int32 Bytes_Am
 			return Starting_Location;
 		}
 
-		#ifdef Bits_32
-			Starting_Location = (void*)((unsigned __int32)Starting_Location + 1);
-		#else
-			Starting_Location = (void*)((unsigned __int64)Starting_Location + 1);
-		#endif
+		Starting_Location = (void*)((unsigned __int32)Starting_Location + 1);
 
 		goto Compare_Bytes_Label;
 	}
