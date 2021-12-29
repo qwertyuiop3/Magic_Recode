@@ -10,6 +10,10 @@ struct Compressed_User_Command_Structure
 
 	unsigned __int8 Impulse;
 
+	__int32 Weapon_Select;
+
+	__int32 Weapon_Subtype;
+
 	__int16 Mouse_Difference_X;
 
 	__int16 Mouse_Difference_Y;

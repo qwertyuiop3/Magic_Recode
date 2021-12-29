@@ -674,6 +674,10 @@ void __thiscall Redirected_Copy_User_Command(void* Unknown_Parameter, void* User
 
 							User_Command->Impulse = Recorded_User_Command->Impulse;
 
+							User_Command->Weapon_Select = Recorded_User_Command->Weapon_Select;
+
+							User_Command->Weapon_Subtype = Recorded_User_Command->Weapon_Subtype;
+
 							User_Command->Mouse_Difference_X = Recorded_User_Command->Mouse_Difference_X;
 
 							User_Command->Mouse_Difference_Y = Recorded_User_Command->Mouse_Difference_Y;
@@ -707,6 +711,10 @@ void __thiscall Redirected_Copy_User_Command(void* Unknown_Parameter, void* User
 					Recorded_User_Command.Buttons_State = User_Command->Buttons_State;
 
 					Recorded_User_Command.Impulse = User_Command->Impulse;
+					
+					Recorded_User_Command.Weapon_Select = User_Command->Weapon_Select;
+
+					Recorded_User_Command.Weapon_Subtype = User_Command->Weapon_Subtype;
 
 					Recorded_User_Command.Mouse_Difference_X = User_Command->Mouse_Difference_X;
 

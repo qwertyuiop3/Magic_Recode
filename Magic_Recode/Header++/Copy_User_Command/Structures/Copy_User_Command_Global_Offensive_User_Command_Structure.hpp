@@ -14,7 +14,11 @@ struct Global_Offensive_User_Command_Structure
 
 	unsigned __int8 Impulse;
 
-	__int8 Additional_Bytes_3[14];
+	__int32 Weapon_Select;
+
+	__int32 Weapon_Subtype;
+
+	__int8 Additional_Bytes_3[6];
 
 	__int16 Mouse_Difference_X;
 
