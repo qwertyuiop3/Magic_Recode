@@ -450,7 +450,7 @@ void __thiscall Redirected_Copy_User_Command(void* Unknown_Parameter, void* User
 										{
 											if (Ray_Angle < 360)
 											{
-												float View_Angles_Yaw_Direction = remainderf(Ray_Angle, 360) * (M_PI / 180);
+												float View_Angles_Yaw_Direction = remainderf(Ray_Angle, 360) * M_PI / 180;
 
 												Ray_Ending_Location[0] = Ray_Starting_Location[0] + cosf(View_Angles_Yaw_Direction) * Ray_Ending_Location_Maximum_Distance;
 
@@ -711,7 +711,7 @@ void __thiscall Redirected_Copy_User_Command(void* Unknown_Parameter, void* User
 					Recorded_User_Command.Buttons_State = User_Command->Buttons_State;
 
 					Recorded_User_Command.Impulse = User_Command->Impulse;
-					
+
 					Recorded_User_Command.Weapon_Select = User_Command->Weapon_Select;
 
 					Recorded_User_Command.Weapon_Subtype = User_Command->Weapon_Subtype;
