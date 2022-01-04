@@ -39,9 +39,9 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 			Direct_3_Dimensional_Device_9->GetViewport(&Direct_3_Dimensional_Viewport_9);
 
-			float Screen_Width = (float)Direct_3_Dimensional_Viewport_9.Width;
+			float Screen_Width = (float)Direct_3_Dimensional_Viewport_9.Width / 2;
 
-			float Screen_Height = (float)Direct_3_Dimensional_Viewport_9.Height;
+			float Screen_Height = (float)Direct_3_Dimensional_Viewport_9.Height / 2;
 
 			auto In_World_Location_To_On_Screen_Location = [&](float* In_World_Location, float* On_Screen_Location) -> __int8
 			{
@@ -49,9 +49,9 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 				if (W > 0)
 				{
-					On_Screen_Location[0] = 0.5f * ((View_Matrix_Location[0] * In_World_Location[0] + View_Matrix_Location[1] * In_World_Location[1] + View_Matrix_Location[2] * In_World_Location[2] + View_Matrix_Location[3]) / W) * Screen_Width + 0.5f * Screen_Width;
+					On_Screen_Location[0] = Screen_Width * (View_Matrix_Location[0] * In_World_Location[0] + View_Matrix_Location[1] * In_World_Location[1] + View_Matrix_Location[2] * In_World_Location[2] + View_Matrix_Location[3]) / W + Screen_Width;
 
-					On_Screen_Location[1] = -0.5f * ((View_Matrix_Location[4] * In_World_Location[0] + View_Matrix_Location[5] * In_World_Location[1] + View_Matrix_Location[6] * In_World_Location[2] + View_Matrix_Location[7]) / W) * Screen_Height + 0.5f * Screen_Height;
+					On_Screen_Location[1] = -Screen_Height * (View_Matrix_Location[4] * In_World_Location[0] + View_Matrix_Location[5] * In_World_Location[1] + View_Matrix_Location[6] * In_World_Location[2] + View_Matrix_Location[7]) / W + Screen_Height;
 
 					return 1;
 				}
