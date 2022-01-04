@@ -107,7 +107,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 							return D3DCOLOR_ARGB(255, 255, 0, (unsigned __int8)((1 - fabsf(fmodf(Hue / 60, 2) - 1)) * 255));
 						};
 
-						Window_Procedure::Vertex_Structure Vertices[2]
+						Window_Procedure::Vertex_Structure Vertices[2] =
 						{
 							{
 								Recorded_Route_On_Screen_Location_From[0],
