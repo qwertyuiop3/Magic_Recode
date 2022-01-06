@@ -11,7 +11,7 @@ void Redirected_Menu_Select(void* Data)
 				return (char*)((unsigned __int32)GetModuleHandleW(L"client.dll") + 5204504);
 			}
 
-			unsigned __int8 Menu_Name_Bytes[4] =
+			constexpr unsigned __int8 Menu_Name_Bytes[4] =
 			{
 				208,
 
@@ -22,7 +22,7 @@ void Redirected_Menu_Select(void* Data)
 				128
 			};
 
-			return *(char**)((unsigned __int32)Byte_Manager::Find_Bytes(GetModuleHandleW(L"client.dll"), Menu_Name_Bytes, sizeof(Menu_Name_Bytes)) - 8);
+			return *(char**)((unsigned __int32)Byte_Manager::Find_Bytes(GetModuleHandleW(L"client.dll"), (void*)Menu_Name_Bytes, sizeof(Menu_Name_Bytes)) - 8);
 		};
 
 		static char* Menu_Name = Find_Menu_Name();

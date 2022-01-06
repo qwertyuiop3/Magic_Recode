@@ -2,7 +2,7 @@
 
 void Redirect_Menu_Select(void* Client_Module_Location)
 {
-	unsigned __int8 Menu_Select_Bytes[5] =
+	constexpr unsigned __int8 Menu_Select_Bytes[5] =
 	{
 		1,
 
@@ -15,5 +15,5 @@ void Redirect_Menu_Select(void* Client_Module_Location)
 		15
 	};
 
-	Redirection_Manager::Redirect_Function(Original_Menu_Select_Caller_Location, 0, (void*)((unsigned __int32)Byte_Manager::Find_Bytes(Client_Module_Location, Menu_Select_Bytes, sizeof(Menu_Select_Bytes)) - 7), (void*)Redirected_Menu_Select);
+	Redirection_Manager::Redirect_Function(Original_Menu_Select_Caller_Location, 0, (void*)((unsigned __int32)Byte_Manager::Find_Bytes(Client_Module_Location, (void*)Menu_Select_Bytes, sizeof(Menu_Select_Bytes)) - 7), (void*)Redirected_Menu_Select);
 }

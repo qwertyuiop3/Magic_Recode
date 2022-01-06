@@ -8,7 +8,7 @@ void Redirect_Chat_Print_Formatted(void* Client_Module_Location)
 	}
 	else
 	{
-		unsigned __int8 Chat_Print_Formatted_Bytes[6] =
+		constexpr unsigned __int8 Chat_Print_Formatted_Bytes[6] =
 		{
 			195,
 
@@ -23,6 +23,6 @@ void Redirect_Chat_Print_Formatted(void* Client_Module_Location)
 			40
 		};
 
-		Redirection_Manager::Redirect_Function(Original_Chat_Print_Formatted_Caller_Location, 2, (void*)((unsigned __int32)Byte_Manager::Find_Bytes(Client_Module_Location, Chat_Print_Formatted_Bytes, sizeof(Chat_Print_Formatted_Bytes)) - 168), (void*)Redirected_Chat_Print_Formatted_Global_Offensive);
+		Redirection_Manager::Redirect_Function(Original_Chat_Print_Formatted_Caller_Location, 2, (void*)((unsigned __int32)Byte_Manager::Find_Bytes(Client_Module_Location, (void*)Chat_Print_Formatted_Bytes, sizeof(Chat_Print_Formatted_Bytes)) - 168), (void*)Redirected_Chat_Print_Formatted_Global_Offensive);
 	}
 }

@@ -8,7 +8,7 @@ void Redirect_Physics_Simulate(void* Client_Module_Location)
 	}
 	else
 	{
-		unsigned __int8 Physics_Simulate_Bytes[11] =
+		constexpr unsigned __int8 Physics_Simulate_Bytes[11] =
 		{
 			241,
 
@@ -33,6 +33,6 @@ void Redirect_Physics_Simulate(void* Client_Module_Location)
 			116
 		};
 
-		Redirection_Manager::Redirect_Function(Original_Physics_Simulate_Caller_Location, 3, (void*)((unsigned __int32)Byte_Manager::Find_Bytes(Client_Module_Location, Physics_Simulate_Bytes, sizeof(Physics_Simulate_Bytes)) - 2), (void*)Redirected_Physics_Simulate);
+		Redirection_Manager::Redirect_Function(Original_Physics_Simulate_Caller_Location, 3, (void*)((unsigned __int32)Byte_Manager::Find_Bytes(Client_Module_Location, (void*)Physics_Simulate_Bytes, sizeof(Physics_Simulate_Bytes)) - 2), (void*)Redirected_Physics_Simulate);
 	}
 }
