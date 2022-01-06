@@ -156,19 +156,15 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 				Direct_3_Dimensional_Device_9->SetRenderState(D3DRS_SRGBWRITEENABLE, 0);
 
-				unsigned long __int32 Previous_Direct_3_Dimensional_Render_State_Destination_Blend;
-
-				Direct_3_Dimensional_Device_9->GetRenderState(D3DRS_DESTBLEND, &Previous_Direct_3_Dimensional_Render_State_Destination_Blend);
-
-				Direct_3_Dimensional_Device_9->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-
 				Direct_3_Dimensional_Device_9->SetTexture(0, nullptr);
-
-				Direct_3_Dimensional_Device_9->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
 
 				Direct_3_Dimensional_Device_9->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_DIFFUSE);
 
-				Direct_3_Dimensional_Device_9->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_TEXTURE);
+        IDirect3DPixelShader9* Previous_Direct_3_Dimensional_Pixel_Shader_9;
+
+				Direct_3_Dimensional_Device_9->GetPixelShader(&Previous_Direct_3_Dimensional_Pixel_Shader_9);
+
+				Direct_3_Dimensional_Device_9->SetPixelShader(nullptr);
 
 				IDirect3DVertexDeclaration9* Previous_Direct_3_Dimensional_Vertex_Declaration_9;
 
@@ -176,21 +172,13 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 				Direct_3_Dimensional_Device_9->SetFVF(D3DFVF_XYZRHW | D3DFVF_DIFFUSE);
 
-				IDirect3DPixelShader9* Previous_Direct_3_Dimensional_Pixel_Shader_9;
-
-				Direct_3_Dimensional_Device_9->GetPixelShader(&Previous_Direct_3_Dimensional_Pixel_Shader_9);
-
-				Direct_3_Dimensional_Device_9->SetPixelShader(nullptr);
-
 				Direct_3_Dimensional_Device_9->DrawPrimitiveUP(D3DPT_LINELIST, Window_Procedure::Visuals_Recorded_Route_Vertices.Allocations, Window_Procedure::Visuals_Recorded_Route_Vertices.Read(0), sizeof(Window_Procedure::Vertex_Structure));
-
-				Direct_3_Dimensional_Device_9->SetRenderState(D3DRS_DESTBLEND, Previous_Direct_3_Dimensional_Render_State_Destination_Blend);
-
-				Direct_3_Dimensional_Device_9->SetRenderState(D3DRS_SRGBWRITEENABLE, 1);
 
 				Direct_3_Dimensional_Device_9->SetVertexDeclaration(Previous_Direct_3_Dimensional_Vertex_Declaration_9);
 
 				Direct_3_Dimensional_Device_9->SetPixelShader(Previous_Direct_3_Dimensional_Pixel_Shader_9);
+
+				Direct_3_Dimensional_Device_9->SetRenderState(D3DRS_SRGBWRITEENABLE, 1);
 			}
 		}
 	}
