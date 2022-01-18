@@ -10,7 +10,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 		{
 			unsigned __int32 Recorded_Route_Number = Visuals_Recorded_Route_Step_Length;
 
-			auto Find_View_Matrix_Location = []() -> float*
+			auto Find_View_Matrix = []() -> float*
 			{
 				if (Menu_Select::Game_Identifier == 0)
 				{
@@ -33,7 +33,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 				return (float*)(*(unsigned __int32*)((unsigned __int32)Byte_Manager::Find_Bytes(GetModuleHandleW(L"client.dll"), (void*)View_Matrix_Bytes, sizeof(View_Matrix_Bytes)) - 4) + 128);
 			};
 
-			static float* View_Matrix_Location = Find_View_Matrix_Location();
+			static float* View_Matrix = Find_View_Matrix();
 
 			D3DVIEWPORT9 Direct_3_Dimensional_Viewport_9;
 
@@ -45,13 +45,13 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 			auto In_World_Location_To_On_Screen_Location = [&](float* In_World_Location, float* On_Screen_Location) -> __int8
 			{
-				float W = In_World_Location[0] * View_Matrix_Location[12] + View_Matrix_Location[13] * In_World_Location[1] + View_Matrix_Location[14] * In_World_Location[2] + View_Matrix_Location[15];
+				float W = In_World_Location[0] * View_Matrix[12] + View_Matrix[13] * In_World_Location[1] + View_Matrix[14] * In_World_Location[2] + View_Matrix[15];
 
 				if (W > 0)
 				{
-					On_Screen_Location[0] = Screen_Width * (View_Matrix_Location[0] * In_World_Location[0] + View_Matrix_Location[1] * In_World_Location[1] + View_Matrix_Location[2] * In_World_Location[2] + View_Matrix_Location[3]) / W + Screen_Width;
+					On_Screen_Location[0] = Screen_Width * (View_Matrix[0] * In_World_Location[0] + View_Matrix[1] * In_World_Location[1] + View_Matrix[2] * In_World_Location[2] + View_Matrix[3]) / W + Screen_Width;
 
-					On_Screen_Location[1] = -Screen_Height * (View_Matrix_Location[4] * In_World_Location[0] + View_Matrix_Location[5] * In_World_Location[1] + View_Matrix_Location[6] * In_World_Location[2] + View_Matrix_Location[7]) / W + Screen_Height;
+					On_Screen_Location[1] = -Screen_Height * (View_Matrix[4] * In_World_Location[0] + View_Matrix[5] * In_World_Location[1] + View_Matrix[6] * In_World_Location[2] + View_Matrix[7]) / W + Screen_Height;
 
 					return 1;
 				}
@@ -160,7 +160,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 				Direct_3_Dimensional_Device_9->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_DIFFUSE);
 
-        IDirect3DPixelShader9* Previous_Direct_3_Dimensional_Pixel_Shader_9;
+				IDirect3DPixelShader9* Previous_Direct_3_Dimensional_Pixel_Shader_9;
 
 				Direct_3_Dimensional_Device_9->GetPixelShader(&Previous_Direct_3_Dimensional_Pixel_Shader_9);
 
