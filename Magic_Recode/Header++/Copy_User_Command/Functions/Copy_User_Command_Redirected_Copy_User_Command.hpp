@@ -613,8 +613,6 @@ void __thiscall Redirected_Copy_User_Command(void* Unknown_Parameter, void* User
 													Strafe_Angle = -Strafe_Optimizer_Greatest_Possible_Strafe_Angle;
 												}
 
-												Previous_View_Angles_Y = User_Command->View_Angles[1];
-
 												User_Command->View_Angles[1] = __builtin_remainderf(User_Command->View_Angles[1] - Mouse_Yaw_Step * __builtin_roundf(Strafe_Angle / Mouse_Yaw_Step), 360);
 
 												User_Command->Mouse_Difference_X = (__int16)(Mouse_Sensitivity * __builtin_ceilf(__builtin_remainderf(Previous_View_Angles_Y - User_Command->View_Angles[1], 360) / __builtin_sqrtf(Mouse_Yaw_Step)));
@@ -635,8 +633,6 @@ void __thiscall Redirected_Copy_User_Command(void* Unknown_Parameter, void* User
 													{
 														Strafe_Angle = Strafe_Optimizer_Greatest_Possible_Strafe_Angle;
 													}
-
-													Previous_View_Angles_Y = User_Command->View_Angles[1];
 
 													User_Command->View_Angles[1] = __builtin_remainderf(User_Command->View_Angles[1] - Mouse_Yaw_Step * __builtin_roundf(Strafe_Angle / Mouse_Yaw_Step), 360);
 
