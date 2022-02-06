@@ -27,7 +27,7 @@ void Redirected_Menu_Select(void* Data)
 
 		static char* Menu_Name = Find_Menu_Name();
 
-		if (strncmp(Menu_Name, "Magic", 5) == 0)
+		if (__builtin_strncmp(Menu_Name, "Magic", 5) == 0)
 		{
 			char* Menu_Selection = *(char**)((unsigned __int32)Data + 1036);
 

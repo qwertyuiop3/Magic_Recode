@@ -8,7 +8,7 @@ void Redirected_Chat_Print_Formatted_Global_Offensive(void* Chat, void* Unknown_
 
 	char Formatted_Message[4096];
 
-	vsnprintf(Formatted_Message, sizeof(Formatted_Message), Message, Variadic_Parameters);
+	__builtin_vsnprintf(Formatted_Message, sizeof(Formatted_Message), Message, Variadic_Parameters);
 
 	Process_Formatted_Message(Formatted_Message);
 

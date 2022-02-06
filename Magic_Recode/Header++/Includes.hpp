@@ -10,8 +10,6 @@
 
 #include "Controller_Move.hpp"
 
-#include <cmath>
-
 #include "Copy_User_Command.hpp"
 
 #include "Client_Send_Move.hpp"
@@ -19,8 +17,6 @@
 #include "Write_User_Command_Delta_To_Buffer.hpp"
 
 #include "Physics_Simulate.hpp"
-
-#include <cstdio>
 
 #include "Chat_Print_Formatted.hpp"
 

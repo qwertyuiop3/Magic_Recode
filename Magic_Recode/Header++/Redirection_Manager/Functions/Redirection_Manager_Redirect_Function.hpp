@@ -2,7 +2,7 @@
 
 void Redirect_Function(void*& Original_Function_Caller_Location, unsigned __int32 Original_Function_Caller_Offset, void* Original_Function_Location, void* Redirected_Function_Location)
 {
-	Original_Function_Caller_Location = malloc(12 + Original_Function_Caller_Offset);
+	Original_Function_Caller_Location = __builtin_malloc(12 + Original_Function_Caller_Offset);
 
 	*(void**)Original_Function_Caller_Location = *(void**)Original_Function_Location;
 

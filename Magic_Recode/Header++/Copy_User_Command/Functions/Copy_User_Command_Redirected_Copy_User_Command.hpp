@@ -283,7 +283,7 @@ void __thiscall Redirected_Copy_User_Command(void* Unknown_Parameter, void* User
 									Velocity = (float*)(*(unsigned __int32*)Controlled_Creature_Container + 276);
 								}
 
-								if (sqrtf(Velocity[0] * Velocity[0] + Velocity[1] * Velocity[1]) >= Strafe_Optimizer_Required_Speed)
+								if (__builtin_sqrtf(Velocity[0] * Velocity[0] + Velocity[1] * Velocity[1]) >= Strafe_Optimizer_Required_Speed)
 								{
 									if (Strafe_Optimizer_Least_Allowed_Distance_To_Wall == 0)
 									{
@@ -476,17 +476,17 @@ void __thiscall Redirected_Copy_User_Command(void* Unknown_Parameter, void* User
 										{
 											if (Ray_Angle < 360)
 											{
-												float View_Angles_Yaw_Direction = remainderf(Ray_Angle, 360) * M_PI / 180;
+												float View_Angles_Yaw_Direction = __builtin_remainderf(Ray_Angle * 3.14159274101f / 180, 360);
 
-												Ray_Ending_Location[0] = Ray_Starting_Location[0] + cosf(View_Angles_Yaw_Direction) * Ray_Ending_Location_Maximum_Distance;
+												Ray_Ending_Location[0] = Ray_Starting_Location[0] + __builtin_cosf(View_Angles_Yaw_Direction) * Ray_Ending_Location_Maximum_Distance;
 
-												Ray_Ending_Location[1] = Ray_Starting_Location[1] + sinf(View_Angles_Yaw_Direction) * Ray_Ending_Location_Maximum_Distance;
+												Ray_Ending_Location[1] = Ray_Starting_Location[1] + __builtin_sinf(View_Angles_Yaw_Direction) * Ray_Ending_Location_Maximum_Distance;
 
 												Initialize_Ray_Type((unsigned __int32)Initialize_Ray_Location)(&Ray, Ray_Starting_Location, Ray_Ending_Location);
 
 												Trace_Ray_Type((unsigned __int32)Trace_Ray_Location)(Engine_Trace, &Ray, 33570827, &Trace_Filter, &Trace);
 
-												float Distance = sqrtf(powf(Ray_Starting_Location[0] - Trace.Ending_Location[0], 2) + powf(Ray_Starting_Location[1] - Trace.Ending_Location[1], 2));
+												float Distance = __builtin_sqrtf(__builtin_powf(Ray_Starting_Location[0] - Trace.Ending_Location[0], 2) + __builtin_powf(Ray_Starting_Location[1] - Trace.Ending_Location[1], 2));
 
 												if (Distance > Strafe_Optimizer_Least_Allowed_Distance_To_Wall)
 												{
@@ -518,7 +518,7 @@ void __thiscall Redirected_Copy_User_Command(void* Unknown_Parameter, void* User
 
 								if (Optimization_Time == 1)
 								{
-									float Strafe_Angle = remainderf(User_Command->View_Angles[1] - atan2f(Velocity[1], Velocity[0]) * 180 / M_PI, 360) * Strafe_Optimizer_Desired_Gain / 100;
+									float Strafe_Angle = __builtin_remainderf(User_Command->View_Angles[1] - __builtin_atan2f(Velocity[1], Velocity[0]) * 180 / 3.14159274101f, 360) * Strafe_Optimizer_Desired_Gain / 100;
 
 									auto Find_Mouse_Sensitivity_Container = []() -> void*
 									{
@@ -611,7 +611,7 @@ void __thiscall Redirected_Copy_User_Command(void* Unknown_Parameter, void* User
 
 									if (User_Command->Move[1] < 0)
 									{
-										if (remainderf(Previous_View_Angles_Y - User_Command->View_Angles[1], 360) < 0)
+										if (__builtin_remainderf(Previous_View_Angles_Y - User_Command->View_Angles[1], 360) < 0)
 										{
 											if (Strafe_Angle < -Mouse_Yaw_Step)
 											{
@@ -622,9 +622,9 @@ void __thiscall Redirected_Copy_User_Command(void* Unknown_Parameter, void* User
 
 												Previous_View_Angles_Y = User_Command->View_Angles[1];
 
-												User_Command->View_Angles[1] = remainderf(User_Command->View_Angles[1] - Mouse_Yaw_Step * roundf(Strafe_Angle / Mouse_Yaw_Step), 360);
+												User_Command->View_Angles[1] = __builtin_remainderf(User_Command->View_Angles[1] - Mouse_Yaw_Step * __builtin_roundf(Strafe_Angle / Mouse_Yaw_Step), 360);
 
-												User_Command->Mouse_Difference_X = (__int16)(Mouse_Sensitivity * ceilf(remainderf(Previous_View_Angles_Y - User_Command->View_Angles[1], 360) / sqrtf(Mouse_Yaw_Step)));
+												User_Command->Mouse_Difference_X = (__int16)(Mouse_Sensitivity * __builtin_ceilf(__builtin_remainderf(Previous_View_Angles_Y - User_Command->View_Angles[1], 360) / __builtin_sqrtf(Mouse_Yaw_Step)));
 
 												Set_View_Angles_Type((unsigned __int32)Set_View_Angles_Location)(Engine, User_Command->View_Angles);
 											}
@@ -634,7 +634,7 @@ void __thiscall Redirected_Copy_User_Command(void* Unknown_Parameter, void* User
 									{
 										if (User_Command->Move[1] > 0)
 										{
-											if (remainderf(Previous_View_Angles_Y - User_Command->View_Angles[1], 360) > 0)
+											if (__builtin_remainderf(Previous_View_Angles_Y - User_Command->View_Angles[1], 360) > 0)
 											{
 												if (Strafe_Angle > Mouse_Yaw_Step)
 												{
@@ -645,9 +645,9 @@ void __thiscall Redirected_Copy_User_Command(void* Unknown_Parameter, void* User
 
 													Previous_View_Angles_Y = User_Command->View_Angles[1];
 
-													User_Command->View_Angles[1] = remainderf(User_Command->View_Angles[1] - Mouse_Yaw_Step * roundf(Strafe_Angle / Mouse_Yaw_Step), 360);
+													User_Command->View_Angles[1] = __builtin_remainderf(User_Command->View_Angles[1] - Mouse_Yaw_Step * __builtin_roundf(Strafe_Angle / Mouse_Yaw_Step), 360);
 
-													User_Command->Mouse_Difference_X = (__int16)(Mouse_Sensitivity * ceilf(remainderf(Previous_View_Angles_Y - User_Command->View_Angles[1], 360) / sqrtf(Mouse_Yaw_Step)));
+													User_Command->Mouse_Difference_X = (__int16)(Mouse_Sensitivity * __builtin_ceilf(__builtin_remainderf(Previous_View_Angles_Y - User_Command->View_Angles[1], 360) / __builtin_sqrtf(Mouse_Yaw_Step)));
 
 													Set_View_Angles_Type((unsigned __int32)Set_View_Angles_Location)(Engine, User_Command->View_Angles);
 												}

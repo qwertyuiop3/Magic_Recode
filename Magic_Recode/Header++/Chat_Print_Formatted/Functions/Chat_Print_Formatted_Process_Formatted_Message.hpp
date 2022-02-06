@@ -8,7 +8,7 @@ void Process_Formatted_Message(char* Formatted_Message)
 
 		auto Process_Formatted_Message = [&]() -> __int8
 		{
-			if (strncmp(Formatted_Message, "[ Magic ] A", 11) == 0)
+			if (__builtin_strncmp(Formatted_Message, "[ Magic ] A", 11) == 0)
 			{
 				Menu_Select::Freeze_Controlled_Creature = 2;
 
@@ -21,21 +21,21 @@ void Process_Formatted_Message(char* Formatted_Message)
 				return 1;
 			}
 
-			if (strncmp(Formatted_Message, "[ Magic ] B", 11) == 0)
+			if (__builtin_strncmp(Formatted_Message, "[ Magic ] B", 11) == 0)
 			{
 				Recorder_User_Comamand_Number_History_Number -= 1;
 
 				return 1;
 			}
 
-			if (strncmp(Formatted_Message, "[ Magic ] C", 11) == 0)
+			if (__builtin_strncmp(Formatted_Message, "[ Magic ] C", 11) == 0)
 			{
 				Recorder_User_Comamand_Number_History_Number += 1;
 
 				return 1;
 			}
 
-			if (strncmp(Formatted_Message, "[ Magic ] D", 11) == 0)
+			if (__builtin_strncmp(Formatted_Message, "[ Magic ] D", 11) == 0)
 			{
 				Menu_Select::Freeze_Controlled_Creature = 2;
 
@@ -65,7 +65,7 @@ void Process_Formatted_Message(char* Formatted_Message)
 
 		if (Process_Formatted_Message_Return_Value == 0)
 		{
-			if (strncmp(Formatted_Message, "[ Magic ] E", 11) == 0)
+			if (__builtin_strncmp(Formatted_Message, "[ Magic ] E", 11) == 0)
 			{
 				if (Menu_Select::User_Commands_Recorder_Record == 1)
 				{

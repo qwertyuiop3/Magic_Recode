@@ -12,7 +12,7 @@ template <typename Dynamic_Allocator_Type, unsigned __int32 Reserve> struct Dyna
 	{
 		Allocation_Size = sizeof(Dynamic_Allocator_Type) * Reserve;
 
-		Allocator = malloc(Allocation_Size);
+		Allocator = __builtin_malloc(Allocation_Size);
 
 		Allocations = 0;
 	}
@@ -23,7 +23,7 @@ template <typename Dynamic_Allocator_Type, unsigned __int32 Reserve> struct Dyna
 		{
 			Allocation_Size = sizeof(Dynamic_Allocator_Type) * (Allocations + Reserve);
 
-			Allocator = realloc(Allocator, Allocation_Size);
+			Allocator = __builtin_realloc(Allocator, Allocation_Size);
 		}
 
 		__builtin_memcpy((void*)((unsigned __int32)Allocator + sizeof(Dynamic_Allocator_Type) * Allocations), Value, sizeof(Dynamic_Allocator_Type));
@@ -40,18 +40,18 @@ template <typename Dynamic_Allocator_Type, unsigned __int32 Reserve> struct Dyna
 	{
 		Allocation_Size = sizeof(Dynamic_Allocator_Type) * (Reallocations + Reserve);
 
-		Allocator = realloc(Allocator, Allocation_Size);
+		Allocator = __builtin_realloc(Allocator, Allocation_Size);
 
 		Allocations = Reallocations;
 	}
 
 	void Clear()
 	{
-		free(Allocator);
+		__builtin_free(Allocator);
 
 		Allocation_Size = sizeof(Dynamic_Allocator_Type) * Reserve;
 
-		Allocator = malloc(Allocation_Size);
+		Allocator = __builtin_malloc(Allocation_Size);
 
 		Allocations = 0;
 	}

@@ -81,30 +81,30 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 						{
 							if (Hue < 60)
 							{
-								return D3DCOLOR_ARGB(255, 255, (unsigned __int8)((1 - fabsf(fmodf(Hue / 60, 2) - 1)) * 255), 0);
+								return D3DCOLOR_ARGB(255, 255, (unsigned __int8)((1 - __builtin_fabsf(__builtin_fmodf(Hue / 60, 2) - 1)) * 255), 0);
 							}
 
 							if (Hue < 120)
 							{
-								return D3DCOLOR_ARGB(255, (unsigned __int8)((1 - fabsf(fmodf(Hue / 60, 2) - 1)) * 255), 255, 0);
+								return D3DCOLOR_ARGB(255, (unsigned __int8)((1 - __builtin_fabsf(__builtin_fmodf(Hue / 60, 2) - 1)) * 255), 255, 0);
 							}
 
 							if (Hue < 180)
 							{
-								return D3DCOLOR_ARGB(255, 0, 255, (unsigned __int8)((1 - fabsf(fmodf(Hue / 60, 2) - 1)) * 255));
+								return D3DCOLOR_ARGB(255, 0, 255, (unsigned __int8)((1 - __builtin_fabsf(__builtin_fmodf(Hue / 60, 2) - 1)) * 255));
 							}
 
 							if (Hue < 240)
 							{
-								return D3DCOLOR_ARGB(255, 0, (unsigned __int8)((1 - fabsf(fmodf(Hue / 60, 2) - 1)) * 255), 255);
+								return D3DCOLOR_ARGB(255, 0, (unsigned __int8)((1 - __builtin_fabsf(__builtin_fmodf(Hue / 60, 2) - 1)) * 255), 255);
 							}
 
 							if (Hue < 300)
 							{
-								return D3DCOLOR_ARGB(255, (unsigned __int8)((1 - fabsf(fmodf(Hue / 60, 2) - 1)) * 255), 0, 255);
+								return D3DCOLOR_ARGB(255, (unsigned __int8)((1 - __builtin_fabsf(__builtin_fmodf(Hue / 60, 2) - 1)) * 255), 0, 255);
 							}
 
-							return D3DCOLOR_ARGB(255, 255, 0, (unsigned __int8)((1 - fabsf(fmodf(Hue / 60, 2) - 1)) * 255));
+							return D3DCOLOR_ARGB(255, 255, 0, (unsigned __int8)((1 - __builtin_fabsf(__builtin_fmodf(Hue / 60, 2) - 1)) * 255));
 						};
 
 						Window_Procedure::Vertex_Structure Vertices[2] =
@@ -193,8 +193,10 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 		ImGui::Begin("User Commands", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoNavInputs);
 
-		static __int8 Setting_Up_Keybind[3] =
+		static __int8 Setting_Up_Keybind[4] =
 		{
+			0,
+
 			0,
 
 			0,
@@ -212,7 +214,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 				{
 					char Formatted_Button_Name[30];
 
-					sprintf_s(Formatted_Button_Name, "%s Bound To Function %i", Function_Name, Key_Number - VK_F1 - 1);
+					__builtin_sprintf(Formatted_Button_Name, "%s Bound To Function %i", Function_Name, Key_Number - VK_F1 - 1);
 
 					if (ImGui::Button(Formatted_Button_Name) == 1)
 					{
@@ -364,7 +366,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 		unsigned __int32 Map_Name_Length = wcslen(Map_Name) * 2;
 
-		wchar_t* Adjusted_Map_Name = (wchar_t*)malloc(Map_Name_Length + 6);
+		wchar_t* Adjusted_Map_Name = (wchar_t*)__builtin_malloc(Map_Name_Length + 6);
 
 		Byte_Manager::Copy_Bytes(0, Adjusted_Map_Name, Map_Name_Length, (unsigned __int8*)Map_Name);
 
@@ -626,7 +628,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 			ImGui::TreePop();
 		}
 
-		free(Adjusted_Map_Name);
+		__builtin_free(Adjusted_Map_Name);
 
 		if (ImGui::TreeNodeEx("Physics", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoAutoOpenOnLog) == 1)
 		{
