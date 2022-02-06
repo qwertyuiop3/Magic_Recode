@@ -2,6 +2,8 @@
 
 __int8 Strafe_Optimizer_Optimize;
 
+__int8 Strafe_Optimizer_Prevent_Invalid;
+
 float Strafe_Optimizer_Required_Speed;
 
 float Strafe_Optimizer_Least_Allowed_Distance_To_Wall;

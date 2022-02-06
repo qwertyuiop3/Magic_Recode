@@ -260,6 +260,8 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 		{
 			ImGui::Checkbox("Optimize", (bool*)&Copy_User_Command::Strafe_Optimizer_Optimize);
 
+			ImGui::Checkbox("Prevent Invalid", (bool*)&Copy_User_Command::Strafe_Optimizer_Prevent_Invalid);
+
 			if (ImGui::DragScalar("Required Speed", ImGuiDataType_Float, &Copy_User_Command::Strafe_Optimizer_Required_Speed, 1, nullptr, nullptr, "%.0f") == 1)
 			{
 				if (Copy_User_Command::Strafe_Optimizer_Required_Speed < 0)

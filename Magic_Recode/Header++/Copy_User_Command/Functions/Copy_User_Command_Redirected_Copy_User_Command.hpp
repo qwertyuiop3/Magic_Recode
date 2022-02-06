@@ -58,6 +58,8 @@ void __thiscall Redirected_Copy_User_Command(void* Unknown_Parameter, void* User
 
 			auto Provide_Game_Appropriate_User_Command_Type = []<typename Type>(Type* User_Command) -> void
 			{
+				static float Previous_Move_Y = User_Command->Move[1];
+
 				static float Previous_View_Angles_Y = User_Command->View_Angles[1];
 
 				using Set_View_Angles_Type = void(__thiscall*)(void* Engine, float* View_Angles);
@@ -146,6 +148,30 @@ void __thiscall Redirected_Copy_User_Command(void* Unknown_Parameter, void* User
 						{
 							if ((User_Command->Buttons_State & 2) == 2)
 							{
+								if (Strafe_Optimizer_Prevent_Invalid == 1)
+								{
+									if ((User_Command->Buttons_State & 512) == 512)
+									{
+										if ((User_Command->Buttons_State & 1024) == 1024)
+										{
+											User_Command->Move[1] = Previous_Move_Y;
+
+											if (Previous_Move_Y < 0)
+											{
+												User_Command->Buttons_State &= ~1024;
+											}
+											else
+											{
+												User_Command->Buttons_State &= ~512;
+											}
+										}
+									}
+									else
+									{
+										Previous_Move_Y = User_Command->Move[1];
+									}
+								}
+
 								auto Find_Prediction = []() -> void*
 								{
 									if (Menu_Select::Game_Identifier == 0)
@@ -585,7 +611,7 @@ void __thiscall Redirected_Copy_User_Command(void* Unknown_Parameter, void* User
 
 									if (User_Command->Move[1] < 0)
 									{
-										if (Previous_View_Angles_Y - User_Command->View_Angles[1] < 0)
+										if (remainderf(Previous_View_Angles_Y - User_Command->View_Angles[1], 360) < 0)
 										{
 											if (Strafe_Angle < -Mouse_Yaw_Step)
 											{
@@ -608,7 +634,7 @@ void __thiscall Redirected_Copy_User_Command(void* Unknown_Parameter, void* User
 									{
 										if (User_Command->Move[1] > 0)
 										{
-											if (Previous_View_Angles_Y - User_Command->View_Angles[1] > 0)
+											if (remainderf(Previous_View_Angles_Y - User_Command->View_Angles[1], 360) > 0)
 											{
 												if (Strafe_Angle > Mouse_Yaw_Step)
 												{
@@ -643,6 +669,8 @@ void __thiscall Redirected_Copy_User_Command(void* Unknown_Parameter, void* User
 				}
 
 				Previous_View_Angles_Y = User_Command->View_Angles[1];
+
+				Previous_Move_Y = User_Command->Move[1];
 
 				if (Menu_Select::User_Commands_Recorder_Record == 0)
 				{
