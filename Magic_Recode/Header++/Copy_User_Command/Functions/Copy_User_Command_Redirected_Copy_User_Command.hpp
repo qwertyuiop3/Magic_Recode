@@ -150,25 +150,18 @@ void __thiscall Redirected_Copy_User_Command(void* Unknown_Parameter, void* User
 							{
 								if (Strafe_Optimizer_Prevent_Invalid == 1)
 								{
-									if ((User_Command->Buttons_State & 512) == 512)
+									if ((User_Command->Buttons_State & (512 | 1024)) == (512 | 1024))
 									{
-										if ((User_Command->Buttons_State & 1024) == 1024)
-										{
-											User_Command->Move[1] = Previous_Move_Y;
+										User_Command->Move[1] = Previous_Move_Y;
 
-											if (Previous_Move_Y < 0)
-											{
-												User_Command->Buttons_State &= ~1024;
-											}
-											else
-											{
-												User_Command->Buttons_State &= ~512;
-											}
+										if (Previous_Move_Y < 0)
+										{
+											User_Command->Buttons_State &= ~1024;
 										}
-									}
-									else
-									{
-										Previous_Move_Y = User_Command->Move[1];
+										else
+										{
+											User_Command->Buttons_State &= ~512;
+										}
 									}
 								}
 
