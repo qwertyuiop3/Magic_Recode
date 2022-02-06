@@ -154,7 +154,7 @@ void __thiscall Redirected_Copy_User_Command(void* Unknown_Parameter, void* User
 									{
 										User_Command->Move[1] = Previous_Move_Y;
 
-										if (Previous_Move_Y < 0)
+										if (__builtin_signbitf(Previous_Move_Y) == 1)
 										{
 											User_Command->Buttons_State &= ~1024;
 										}
@@ -602,9 +602,9 @@ void __thiscall Redirected_Copy_User_Command(void* Unknown_Parameter, void* User
 										Mouse_Yaw_Step = Mouse_Sensitivity * *(float*)&Raw_Mouse_Yaw_Factor;
 									}
 
-									if (User_Command->Move[1] < 0)
+									if (__builtin_signbitf(User_Command->Move[1]) == 1)
 									{
-										if (__builtin_remainderf(Previous_View_Angles_Y - User_Command->View_Angles[1], 360) < 0)
+										if (__builtin_signbitf(__builtin_remainderf(Previous_View_Angles_Y - User_Command->View_Angles[1], 360)) == 1)
 										{
 											if (Strafe_Angle < -Mouse_Yaw_Step)
 											{

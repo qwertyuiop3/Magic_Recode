@@ -47,13 +47,16 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 			{
 				float W = In_World_Location[0] * View_Matrix[12] + View_Matrix[13] * In_World_Location[1] + View_Matrix[14] * In_World_Location[2] + View_Matrix[15];
 
-				if (W > 0)
+				if (__builtin_signbitf(W) == 0)
 				{
-					On_Screen_Location[0] = Screen_Width * (View_Matrix[0] * In_World_Location[0] + View_Matrix[1] * In_World_Location[1] + View_Matrix[2] * In_World_Location[2] + View_Matrix[3]) / W + Screen_Width;
+					if (__builtin_isfinite(W) == 1)
+					{
+						On_Screen_Location[0] = Screen_Width * (View_Matrix[0] * In_World_Location[0] + View_Matrix[1] * In_World_Location[1] + View_Matrix[2] * In_World_Location[2] + View_Matrix[3]) / W + Screen_Width;
 
-					On_Screen_Location[1] = -Screen_Height * (View_Matrix[4] * In_World_Location[0] + View_Matrix[5] * In_World_Location[1] + View_Matrix[6] * In_World_Location[2] + View_Matrix[7]) / W + Screen_Height;
+						On_Screen_Location[1] = -Screen_Height * (View_Matrix[4] * In_World_Location[0] + View_Matrix[5] * In_World_Location[1] + View_Matrix[6] * In_World_Location[2] + View_Matrix[7]) / W + Screen_Height;
 
-					return 1;
+						return 1;
+					}
 				}
 
 				return 0;
@@ -266,7 +269,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 			if (ImGui::DragScalar("Required Speed", ImGuiDataType_Float, &Copy_User_Command::Strafe_Optimizer_Required_Speed, 1, nullptr, nullptr, "%.0f") == 1)
 			{
-				if (Copy_User_Command::Strafe_Optimizer_Required_Speed < 0)
+				if (__builtin_signbitf(Copy_User_Command::Strafe_Optimizer_Required_Speed) == 1)
 				{
 					Copy_User_Command::Strafe_Optimizer_Required_Speed = 0;
 				}
@@ -274,7 +277,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 			if (ImGui::DragScalar("Least Allowed Distance To Wall", ImGuiDataType_Float, &Copy_User_Command::Strafe_Optimizer_Least_Allowed_Distance_To_Wall, 1, nullptr, nullptr, "%.2f") == 1)
 			{
-				if (Copy_User_Command::Strafe_Optimizer_Least_Allowed_Distance_To_Wall < 0)
+				if (__builtin_signbitf(Copy_User_Command::Strafe_Optimizer_Least_Allowed_Distance_To_Wall) == 1)
 				{
 					Copy_User_Command::Strafe_Optimizer_Least_Allowed_Distance_To_Wall = 0;
 				}
@@ -297,7 +300,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 			if (ImGui::DragScalar("Desired Gain", ImGuiDataType_Float, &Copy_User_Command::Strafe_Optimizer_Desired_Gain, 1, nullptr, nullptr, "%.2f") == 1)
 			{
-				if (Copy_User_Command::Strafe_Optimizer_Desired_Gain < 0)
+				if (__builtin_signbitf(Copy_User_Command::Strafe_Optimizer_Desired_Gain) == 1)
 				{
 					Copy_User_Command::Strafe_Optimizer_Desired_Gain = 0;
 				}
@@ -312,7 +315,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 
 			if (ImGui::DragScalar("Greatest Possible Strafe Angle", ImGuiDataType_Float, &Copy_User_Command::Strafe_Optimizer_Greatest_Possible_Strafe_Angle, 1, nullptr, nullptr, "%.2f") == 1)
 			{
-				if (Copy_User_Command::Strafe_Optimizer_Greatest_Possible_Strafe_Angle < 0)
+				if (__builtin_signbitf(Copy_User_Command::Strafe_Optimizer_Greatest_Possible_Strafe_Angle) == 1)
 				{
 					Copy_User_Command::Strafe_Optimizer_Greatest_Possible_Strafe_Angle = 0;
 				}
