@@ -604,7 +604,7 @@ void __thiscall Redirected_Copy_User_Command(void* Unknown_Parameter, void* User
 
 									if (__builtin_signbitf(User_Command->Move[1]) == 0)
 									{
-										if (__builtin_signbitf(__builtin_remainderf(Previous_View_Angles_Y - User_Command->View_Angles[1], 360)) == 0)
+										if (__builtin_signbitf(__builtin_remainderf(User_Command->View_Angles[1] - Previous_View_Angles_Y, 360)) == 1)
 										{
 											if (Strafe_Angle > Mouse_Yaw_Step)
 											{
