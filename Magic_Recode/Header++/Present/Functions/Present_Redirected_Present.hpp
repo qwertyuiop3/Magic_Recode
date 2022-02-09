@@ -47,7 +47,7 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 			{
 				float W = In_World_Location[0] * View_Matrix[12] + View_Matrix[13] * In_World_Location[1] + View_Matrix[14] * In_World_Location[2] + View_Matrix[15];
 
-				if (__builtin_signbitf(W) == 0)
+				if (__builtin_signbitf(W - FLT_EPSILON) == 0)
 				{
 					if (__builtin_isfinite(W) == 1)
 					{

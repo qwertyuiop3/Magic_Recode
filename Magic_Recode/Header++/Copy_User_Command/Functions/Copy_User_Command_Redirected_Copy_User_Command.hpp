@@ -152,15 +152,18 @@ void __thiscall Redirected_Copy_User_Command(void* Unknown_Parameter, void* User
 								{
 									if ((User_Command->Buttons_State & (512 | 1024)) == (512 | 1024))
 									{
-										User_Command->Move[1] = Previous_Move_Y;
+										if (Previous_Move_Y != 0)
+										{
+											User_Command->Move[1] = Previous_Move_Y;
 
-										if (__builtin_signbitf(Previous_Move_Y) == 0)
-										{
-											User_Command->Buttons_State &= ~512;
-										}
-										else
-										{
-											User_Command->Buttons_State &= ~1024;
+											if (__builtin_signbitf(Previous_Move_Y) == 0)
+											{
+												User_Command->Buttons_State &= ~512;
+											}
+											else
+											{
+												User_Command->Buttons_State &= ~1024;
+											}
 										}
 									}
 								}
