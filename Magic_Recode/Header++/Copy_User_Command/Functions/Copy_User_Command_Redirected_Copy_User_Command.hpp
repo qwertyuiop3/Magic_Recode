@@ -472,7 +472,7 @@ void __thiscall Redirected_Copy_User_Command(void* Unknown_Parameter, void* User
 										{
 											if (Ray_Angle < 360)
 											{
-												float View_Angles_Yaw_Direction = __builtin_remainderf(Ray_Angle * 3.14159274101f / 180, 360);
+												float View_Angles_Yaw_Direction = __builtin_remainderf(Ray_Angle * 3.1415927f / 180, 360);
 
 												Ray_Ending_Location[0] = Ray_Starting_Location[0] + __builtin_cosf(View_Angles_Yaw_Direction) * Ray_Ending_Location_Maximum_Distance;
 
@@ -514,7 +514,7 @@ void __thiscall Redirected_Copy_User_Command(void* Unknown_Parameter, void* User
 
 								if (Optimization_Time == 1)
 								{
-									float Strafe_Angle = __builtin_remainderf(User_Command->View_Angles[1] - __builtin_atan2f(Velocity[1], Velocity[0]) * 180 / 3.14159274101f, 360) * Strafe_Optimizer_Desired_Gain / 100;
+									float Strafe_Angle = __builtin_remainderf(User_Command->View_Angles[1] - __builtin_atan2f(Velocity[1], Velocity[0]) * 180 / 3.1415927f, 360) * Strafe_Optimizer_Desired_Gain / 100;
 
 									auto Find_Mouse_Sensitivity_Container = []() -> void*
 									{
