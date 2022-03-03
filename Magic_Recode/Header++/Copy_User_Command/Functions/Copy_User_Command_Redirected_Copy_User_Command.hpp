@@ -474,9 +474,9 @@ void __thiscall Redirected_Copy_User_Command(void* Unknown_Parameter, void* User
 											{
 												float View_Angles_Yaw_Direction = __builtin_remainderf(Ray_Angle * 3.1415927f / 180, 360);
 
-												Ray_Ending_Location[0] = Ray_Starting_Location[0] + __builtin_cosf(View_Angles_Yaw_Direction) * Ray_Ending_Location_Maximum_Distance;
+												Ray_Ending_Location[0] = Ray_Starting_Location[0] + Ray_Ending_Location_Maximum_Distance * __builtin_cosf(View_Angles_Yaw_Direction);
 
-												Ray_Ending_Location[1] = Ray_Starting_Location[1] + __builtin_sinf(View_Angles_Yaw_Direction) * Ray_Ending_Location_Maximum_Distance;
+												Ray_Ending_Location[1] = Ray_Starting_Location[1] + Ray_Ending_Location_Maximum_Distance * __builtin_sinf(View_Angles_Yaw_Direction);
 
 												Initialize_Ray_Type((unsigned __int32)Initialize_Ray_Location)(&Ray, Ray_Starting_Location, Ray_Ending_Location);
 
