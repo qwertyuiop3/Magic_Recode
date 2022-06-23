@@ -291,9 +291,9 @@ unsigned __int32 __stdcall Redirected_Present(IDirect3DDevice9* Direct_3_Dimensi
 				}
 				else
 				{
-					if (Copy_User_Command::Strafe_Optimizer_Ray_Angle_Step_Offset > 180)
+					if (Copy_User_Command::Strafe_Optimizer_Ray_Angle_Step_Offset > 360)
 					{
-						Copy_User_Command::Strafe_Optimizer_Ray_Angle_Step_Offset = 180;
+						Copy_User_Command::Strafe_Optimizer_Ray_Angle_Step_Offset = 360;
 					}
 				}
 			}

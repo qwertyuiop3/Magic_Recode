@@ -472,7 +472,7 @@ void __thiscall Redirected_Copy_User_Command(void* Unknown_Parameter, void* User
 										{
 											if (Ray_Angle < 360)
 											{
-												float View_Angles_Yaw_Direction = __builtin_remainderf(Ray_Angle * 3.1415927f / 180, 360);
+												float View_Angles_Yaw_Direction = __builtin_remainderf((User_Command->View_Angles[1] + Ray_Angle) * 3.1415927f / 180, 360);
 
 												Ray_Ending_Location[0] = Ray_Starting_Location[0] + Ray_Ending_Location_Maximum_Distance * __builtin_cosf(View_Angles_Yaw_Direction);
 
